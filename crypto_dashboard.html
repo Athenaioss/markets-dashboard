@@ -256,6 +256,8 @@
     color: var(--red);
     display: none;
   }
+  .sentiment-banner { text-align:center; border-radius:14px; padding:24px; margin-bottom:20px; }
+  .sentiment-banner .sig { display:inline-block; min-width:100px; margin:4px 8px; }
 </style>
 </head>
 <body>
@@ -268,6 +270,7 @@
 
 <div class="container">
   <div class="error-banner" id="errorBanner"></div>
+  <div id="sentimentBanner"></div>
 
   <!-- Stat Cards -->
   <div class="stats-grid" id="statsGrid">
@@ -655,6 +658,67 @@ function updateTable(tokens) {
   }
 }
 
+// ── Sentiment Engine ──
+function computeSentiment(tokens) {
+  const n = tokens.length;
+  if (!n) return { direction: 'NEUTRAL', confidence: 0, score: 0, signals: {}, summary: 'No data' };
+  
+  const up = tokens.filter(t => (t.price_change_percentage_24h || 0) > 0).length;
+  const breadth = (up / n) * 100;
+  const avgChange = tokens.reduce((s, t) => s + (t.price_change_percentage_24h || 0), 0) / n;
+  const momentumScore = Math.max(-100, Math.min(100, avgChange * 20));
+  const bullishTrend = tokens.filter(t => (t.momentum_score || 0) > 0).length;
+  const trendScore = (bullishTrend / n) * 100;
+  const avgVol = tokens.reduce((s, t) => s + (t.total_volume || 0), 0) / n;
+  const highVol = tokens.filter(t => (t.total_volume || 0) > avgVol * 1.5).length;
+  const volConviction = highVol / n * 100;
+  
+  const rawScore = (breadth - 50) * 0.35 + momentumScore * 0.30 + (trendScore - 50) * 0.20 + (volConviction - 15) * 0.10;
+  
+  let direction;
+  if (rawScore > 20) direction = 'BULLISH';
+  else if (rawScore > 7) direction = 'SLIGHTLY BULLISH';
+  else if (rawScore >= -7) direction = 'NEUTRAL';
+  else if (rawScore > -20) direction = 'SLIGHTLY BEARISH';
+  else direction = 'BEARISH';
+  
+  const confidence = Math.min(95, Math.max(25, Math.abs(rawScore) * 1.5 + 25));
+  
+  return {
+    direction, confidence: Math.round(confidence), score: rawScore.toFixed(1),
+    signals: {
+      breadth: { value: Math.round(breadth), label: `${up}/${n} tokens up` },
+      avg_change: { value: avgChange.toFixed(2), label: 'Avg change' },
+      trend_alignment: { value: Math.round(trendScore), label: `${bullishTrend}/${n} bullish momentum` },
+      volume_conviction: { value: Math.round(volConviction), label: `${highVol}/${n} elevated vol` }
+    },
+    summary: `${direction} (${Math.round(confidence)}%)`
+  };
+}
+
+function updateSentiment(tokens) {
+  const s = computeSentiment(tokens);
+  const colors = {
+    'BULLISH': ['#22c55e', '#14532d', '🚀'],
+    'SLIGHTLY BULLISH': ['#86efac', '#14532d', '📈'],
+    'NEUTRAL': ['#f59e0b', '#78350f', '⚖️'],
+    'SLIGHTLY BEARISH': ['#fca5a5', '#7f1d1d', '📉'],
+    'BEARISH': ['#ef4444', '#7f1d1d', '🐻']
+  };
+  const [c, bg, e] = colors[s.direction] || ['#94a3b8', '#1e293b', '📊'];
+  
+  document.getElementById('sentimentBanner').innerHTML = `
+    <div class="sentiment-banner" style="background:${bg};border:1px solid ${c}">
+      <div style="font-size:2.5em">${e}</div>
+      <div style="font-size:1.5em;font-weight:700;color:${c}">${s.direction}</div>
+      <div style="font-size:2.2em;font-weight:800;color:${c}">${s.confidence}%</div>
+      <div style="color:var(--muted);font-size:.9em">confidence</div>
+      <div style="margin-top:12px;font-size:.85em">
+        ${Object.values(s.signals).map(v => `<span class="sig"><span style="color:var(--muted)">${v.label}</span><br><strong>${v.value}</strong></span>`).join('')}
+      </div>
+    </div>`;
+}
+
 // ── Charts ──
 function destroyCharts() {
   Object.values(charts).forEach(c => c.destroy());
@@ -815,6 +879,7 @@ async function refresh() {
   const stats = computeStats(tokens);
 
   updateStats(stats);
+  updateSentiment(tokens);
   updateTable(tokens);
   updateGainersLosers(tokens);
   updateAlerts(tokens, stats);

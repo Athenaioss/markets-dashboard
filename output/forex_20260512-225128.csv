@@ -1,0 +1,20 @@
+pair,name,group,price,change_pct,trend,volatility_20d
+EUR/USD,Euro / US Dollar,Major,1.1743,-1.12,NEUTRAL,0.23
+GBP/USD,British Pound / US Dollar,Major,1.3537,-0.64,NEUTRAL,0.27
+USD/JPY,US Dollar / Japanese Yen,Major,157.636,2.85,BEARISH,0.29
+USD/CHF,US Dollar / Swiss Franc,Major,0.7806,1.23,NEUTRAL,0.29
+AUD/USD,Australian Dollar / US Dollar,Major,0.7241,1.63,BULLISH,0.39
+USD/CAD,US Dollar / Canadian Dollar,Major,1.37,0.92,NEUTRAL,0.21
+NZD/USD,New Zealand Dollar / US Dollar,Major,0.5955,-1.55,BULLISH,0.45
+EUR/GBP,Euro / British Pound,Minor,0.8671,-0.53,NEUTRAL,0.11
+EUR/JPY,Euro / Japanese Yen,Minor,185.064,1.67,BEARISH,0.24
+GBP/JPY,British Pound / Japanese Yen,Minor,213.401,2.2,BEARISH,0.25
+EUR/CHF,Euro / Swiss Franc,Minor,0.9163,0.05,NEUTRAL,0.15
+AUD/JPY,Australian Dollar / Japanese Yen,Minor,114.106,4.49,NEUTRAL,0.33
+GBP/CHF,British Pound / Swiss Franc,Minor,1.0567,0.59,NEUTRAL,0.17
+CAD/JPY,Canadian Dollar / Japanese Yen,Minor,115.071,1.92,BEARISH,0.3
+NZD/JPY,NZ Dollar / Japanese Yen,Minor,93.821,1.21,NEUTRAL,0.35
+USD/MXN,US Dollar / Mexican Peso,Exotic,17.22,0.16,BEARISH,0.3
+USD/ZAR,US Dollar / South African Rand,Exotic,16.5071,4.02,NEUTRAL,0.54
+USD/TRY,US Dollar / Turkish Lira,Exotic,45.368,3.97,NEUTRAL,0.08
+USD/BRL,US Dollar / Brazilian Real,Exotic,4.8921,-5.9,BEARISH,0.54

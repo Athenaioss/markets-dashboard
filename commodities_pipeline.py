@@ -72,7 +72,14 @@ def extract_metrics(symbol, data):
         # 5-day and 20-day MA
         ma5 = sum(clean_prices[-5:]) / min(len(clean_prices[-5:]), 5) if clean_prices else 0
         ma20 = sum(clean_prices[-20:]) / min(len(clean_prices[-20:]), 20) if clean_prices else 0
-        trend = "BULLISH" if ma5 > ma20 else "BEARISH" if ma5 < ma20 else "NEUTRAL"
+        # Trend with threshold — NEUTRAL when MAs are within 0.5%
+        diff_pct = abs(ma5 - ma20) / ma20 * 100 if ma20 else 0
+        if diff_pct < 0.5:
+            trend = "NEUTRAL"
+        elif ma5 > ma20:
+            trend = "BULLISH"
+        else:
+            trend = "BEARISH"
         
         # Volatility (20-day)
         if len(clean_prices) >= 20:

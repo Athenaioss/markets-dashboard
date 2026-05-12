@@ -59,13 +59,13 @@ def compute_sentiment(assets: list) -> dict:
     )
 
     # Map to direction
-    if raw_score > 15:
+    if raw_score > 20:
         direction = "BULLISH"
-    elif raw_score > 5:
+    elif raw_score > 7:
         direction = "SLIGHTLY BULLISH"
-    elif raw_score > -5:
+    elif raw_score >= -7:
         direction = "NEUTRAL"
-    elif raw_score > -15:
+    elif raw_score > -20:
         direction = "SLIGHTLY BEARISH"
     else:
         direction = "BEARISH"

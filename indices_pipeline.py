@@ -63,7 +63,14 @@ def extract_metrics(symbol, data):
         
         ma5 = sum(close_prices[-5:]) / min(len(close_prices[-5:]), 5) if close_prices else 0
         ma20 = sum(close_prices[-20:]) / min(len(close_prices[-20:]), 20) if close_prices else 0
-        trend = "BULLISH" if ma5 > ma20 else "BEARISH" if ma5 < ma20 else "NEUTRAL"
+        # Trend with threshold — NEUTRAL when MAs are within 0.5%
+        diff_pct = abs(ma5 - ma20) / ma20 * 100 if ma20 else 0
+        if diff_pct < 0.5:
+            trend = "NEUTRAL"
+        elif ma5 > ma20:
+            trend = "BULLISH"
+        else:
+            trend = "BEARISH"
         
         if len(close_prices) >= 20:
             returns = [(close_prices[i]-close_prices[i-1])/close_prices[i-1]*100 for i in range(-20, 0) if close_prices[i-1] != 0]

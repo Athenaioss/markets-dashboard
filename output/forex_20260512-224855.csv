@@ -1,0 +1,20 @@
+pair,name,group,price,change_pct,trend,volatility_20d
+EUR/USD,Euro / US Dollar,Major,1.1741,-1.14,BULLISH,0.23
+GBP/USD,British Pound / US Dollar,Major,1.3537,-0.64,BULLISH,0.27
+USD/JPY,US Dollar / Japanese Yen,Major,157.645,2.86,BEARISH,0.29
+USD/CHF,US Dollar / Swiss Franc,Major,0.7806,1.23,BEARISH,0.29
+AUD/USD,Australian Dollar / US Dollar,Major,0.7241,1.63,BULLISH,0.39
+USD/CAD,US Dollar / Canadian Dollar,Major,1.37,0.92,BULLISH,0.21
+NZD/USD,New Zealand Dollar / US Dollar,Major,0.5955,-1.55,BULLISH,0.45
+EUR/GBP,Euro / British Pound,Minor,0.8671,-0.53,BEARISH,0.11
+EUR/JPY,Euro / Japanese Yen,Minor,185.061,1.67,BEARISH,0.24
+GBP/JPY,British Pound / Japanese Yen,Minor,213.419,2.21,BEARISH,0.25
+EUR/CHF,Euro / Swiss Franc,Minor,0.9164,0.07,BEARISH,0.15
+AUD/JPY,Australian Dollar / Japanese Yen,Minor,114.114,4.5,BEARISH,0.33
+GBP/CHF,British Pound / Swiss Franc,Minor,1.0566,0.58,BEARISH,0.17
+CAD/JPY,Canadian Dollar / Japanese Yen,Minor,115.065,1.92,BEARISH,0.3
+NZD/JPY,NZ Dollar / Japanese Yen,Minor,93.833,1.22,BEARISH,0.35
+USD/MXN,US Dollar / Mexican Peso,Exotic,17.2259,0.19,BEARISH,0.3
+USD/ZAR,US Dollar / South African Rand,Exotic,16.5091,4.03,BEARISH,0.54
+USD/TRY,US Dollar / Turkish Lira,Exotic,45.3911,4.02,BULLISH,0.08
+USD/BRL,US Dollar / Brazilian Real,Exotic,4.8926,-5.89,BEARISH,0.54
