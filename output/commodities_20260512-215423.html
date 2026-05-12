@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>🛢️ Atlas Nexus — Commodities Dashboard</title>
+<style>
+:root{--bg:#080b16;--card:#0f1420;--border:#1a2040;--accent:#f59e0b;--accent2:#f97316;--green:#22c55e;--red:#ef4444;--text:#e2e8f0;--muted:#64748b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;background-image:radial-gradient(ellipse at 30% 0%,rgba(245,158,11,0.06) 0%,transparent 50%)}
+.header{text-align:center;padding:40px 20px 30px;border-bottom:1px solid var(--border)}
+.header h1{font-size:2.4em;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header p{color:var(--muted);margin-top:8px}
+.container{max-width:1300px;margin:0 auto;padding:20px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;text-align:center}
+.card .value{font-size:2.2em;font-weight:800}
+.card .label{color:var(--muted);margin-top:4px}
+.table-wrapper{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:24px}
+table{width:100%;border-collapse:collapse;font-size:.92em}
+th{background:rgba(15,20,40,.6);padding:14px 16px;text-align:left;font-weight:600;color:var(--accent);font-size:.82em;text-transform:uppercase}
+td{padding:12px 16px;border-bottom:1px solid rgba(26,32,64,.5)}
+tr:hover{background:rgba(245,158,11,.03)}
+.gainers-losers{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.gl-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+.gl-card h3{margin-bottom:14px;color:var(--accent)}
+.gl-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(26,32,64,.4)}
+.price{font-weight:600;font-variant-numeric:tabular-nums}
+.footer{text-align:center;padding:30px;color:var(--muted);border-top:1px solid var(--border)}
+@media(max-width:768px){.gainers-losers{grid-template-columns:1fr}}
+</style></head>
+<body>
+<div class="header">
+<h1>🛢️ Atlas Nexus — Commodities</h1>
+<p>Real-time commodity futures tracking · Gold, Oil, Copper, Grains, Softs | 20260512-215423</p>
+</div>
+<div class="container">
+<div class="stats-grid">
+<div class="card"><div class="value" style="color:var(--accent)">15</div><div class="label">Commodities Tracked</div></div>
+<div class="card"><div class="value" style="color:var(--green)">11</div><div class="label">Up Today</div></div>
+<div class="card"><div class="value" style="color:var(--red)">4</div><div class="label">Down Today</div></div>
+<div class="card"><div class="value" style="color:var(--accent2)">14.8%</div><div class="label">Avg Change</div></div>
+</div>
+<h2 style="color:var(--accent);margin-bottom:12px">📊 Commodity Leaderboard</h2>
+<div class="table-wrapper"><div style="overflow-x:auto">
+<table><thead><tr>
+<th>Commodity</th><th>Category</th><th>Price</th><th>Change</th><th>MA(5)</th><th>MA(20)</th><th>Trend</th><th>Volatility</th><th>Vol Ratio</th>
+</tr></thead><tbody><tr>
+            <td><strong>Gold</strong> <small style="color:var(--muted)">GC=F</small></td>
+            <td>Precious Metals</td>
+            <td class="price">4716.90 oz</td>
+            <td style="color:#ef4444">▼ 4.20%</td>
+            <td>4707.54</td><td>4688.88</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>1.0%</td>
+            <td style="color:#f59e0b">18.5x</td>
+        </tr><tr>
+            <td><strong>Silver</strong> <small style="color:var(--muted)">SI=F</small></td>
+            <td>Precious Metals</td>
+            <td class="price">87.22 oz</td>
+            <td style="color:#22c55e">▲ 15.45%</td>
+            <td>81.92</td><td>77.55</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>2.6%</td>
+            <td style="color:#f59e0b">12.4x</td>
+        </tr><tr>
+            <td><strong>Platinum</strong> <small style="color:var(--muted)">PL=F</small></td>
+            <td>Precious Metals</td>
+            <td class="price">2149.30 oz</td>
+            <td style="color:#22c55e">▲ 6.72%</td>
+            <td>2081.76</td><td>2031.87</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>1.9%</td>
+            <td style="color:#f59e0b">18.9x</td>
+        </tr><tr>
+            <td><strong>Palladium</strong> <small style="color:var(--muted)">PA=F</small></td>
+            <td>Precious Metals</td>
+            <td class="price">1511.50 oz</td>
+            <td style="color:#ef4444">▼ 8.41%</td>
+            <td>1514.34</td><td>1519.16</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>1.8%</td>
+            <td style="color:#f59e0b">19.8x</td>
+        </tr><tr>
+            <td><strong>Crude Oil WTI</strong> <small style="color:var(--muted)">CL=F</small></td>
+            <td>Energy</td>
+            <td class="price">102.40 barrel</td>
+            <td style="color:#22c55e">▲ 62.95%</td>
+            <td>97.16</td><td>96.97</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>3.6%</td>
+            <td style="color:#64748b">0.7x</td>
+        </tr><tr>
+            <td><strong>Brent Crude</strong> <small style="color:var(--muted)">BZ=F</small></td>
+            <td>Energy</td>
+            <td class="price">107.83 barrel</td>
+            <td style="color:#22c55e">▲ 59.70%</td>
+            <td>102.93</td><td>104.48</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>3.8%</td>
+            <td style="color:#64748b">0.6x</td>
+        </tr><tr>
+            <td><strong>Natural Gas</strong> <small style="color:var(--muted)">NG=F</small></td>
+            <td>Energy</td>
+            <td class="price">2.83 MMBtu</td>
+            <td style="color:#ef4444">▼ 11.87%</td>
+            <td>2.80</td><td>2.71</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>2.0%</td>
+            <td style="color:#64748b">1.2x</td>
+        </tr><tr>
+            <td><strong>Copper</strong> <small style="color:var(--muted)">HG=F</small></td>
+            <td>Industrial Metals</td>
+            <td class="price">6.64 lb</td>
+            <td style="color:#22c55e">▲ 15.05%</td>
+            <td>6.31</td><td>6.07</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>1.3%</td>
+            <td style="color:#f59e0b">11.5x</td>
+        </tr><tr>
+            <td><strong>Corn</strong> <small style="color:var(--muted)">ZC=F</small></td>
+            <td>Agriculture</td>
+            <td class="price">478.75 bushel</td>
+            <td style="color:#22c55e">▲ 11.01%</td>
+            <td>460.25</td><td>459.25</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>0.9%</td>
+            <td style="color:#f59e0b">2.6x</td>
+        </tr><tr>
+            <td><strong>Wheat</strong> <small style="color:var(--muted)">ZW=F</small></td>
+            <td>Agriculture</td>
+            <td class="price">679.00 bushel</td>
+            <td style="color:#22c55e">▲ 22.90%</td>
+            <td>623.30</td><td>616.36</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>1.8%</td>
+            <td style="color:#f59e0b">5.6x</td>
+        </tr><tr>
+            <td><strong>Soybeans</strong> <small style="color:var(--muted)">ZS=F</small></td>
+            <td>Agriculture</td>
+            <td class="price">1225.25 bushel</td>
+            <td style="color:#22c55e">▲ 7.74%</td>
+            <td>1195.05</td><td>1180.35</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>0.8%</td>
+            <td style="color:#f59e0b">2.1x</td>
+        </tr><tr>
+            <td><strong>Coffee</strong> <small style="color:var(--muted)">KC=F</small></td>
+            <td>Softs</td>
+            <td class="price">281.25 lb</td>
+            <td style="color:#ef4444">▼ 6.14%</td>
+            <td>292.01</td><td>299.32</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>2.0%</td>
+            <td style="color:#f59e0b">6.7x</td>
+        </tr><tr>
+            <td><strong>Sugar</strong> <small style="color:var(--muted)">SB=F</small></td>
+            <td>Softs</td>
+            <td class="price">14.98 lb</td>
+            <td style="color:#22c55e">▲ 8.95%</td>
+            <td>14.79</td><td>14.26</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>1.6%</td>
+            <td style="color:#64748b">1.4x</td>
+        </tr><tr>
+            <td><strong>Cotton</strong> <small style="color:var(--muted)">CT=F</small></td>
+            <td>Softs</td>
+            <td class="price">87.27 lb</td>
+            <td style="color:#22c55e">▲ 40.10%</td>
+            <td>84.90</td><td>79.75</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>1.4%</td>
+            <td style="color:#f59e0b">3.2x</td>
+        </tr><tr>
+            <td><strong>Live Cattle</strong> <small style="color:var(--muted)">LE=F</small></td>
+            <td>Livestock</td>
+            <td class="price">247.60 lb</td>
+            <td style="color:#22c55e">▲ 2.10%</td>
+            <td>249.88</td><td>250.90</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>0.7%</td>
+            <td style="color:#f59e0b">3.2x</td>
+        </tr></tbody></table>
+</div></div>
+<div class="gainers-losers">
+<div class="gl-card"><h3>🚀 Top Gainers</h3>
+<div class="gl-item"><span><strong>Crude Oil WTI</strong></span><span style="color:var(--green)">▲ 63.0%</span></div><div class="gl-item"><span><strong>Brent Crude</strong></span><span style="color:var(--green)">▲ 59.7%</span></div><div class="gl-item"><span><strong>Cotton</strong></span><span style="color:var(--green)">▲ 40.1%</span></div><div class="gl-item"><span><strong>Wheat</strong></span><span style="color:var(--green)">▲ 22.9%</span></div><div class="gl-item"><span><strong>Silver</strong></span><span style="color:var(--green)">▲ 15.4%</span></div>
+</div>
+<div class="gl-card"><h3>📉 Top Losers</h3>
+<div class="gl-item"><span><strong>Natural Gas</strong></span><span style="color:var(--red)">▼ 11.9%</span></div><div class="gl-item"><span><strong>Palladium</strong></span><span style="color:var(--red)">▼ 8.4%</span></div><div class="gl-item"><span><strong>Coffee</strong></span><span style="color:var(--red)">▼ 6.1%</span></div><div class="gl-item"><span><strong>Gold</strong></span><span style="color:var(--red)">▼ 4.2%</span></div><div class="gl-item"><span><strong>Live Cattle</strong></span><span style="color:var(--red)">▼ 2.1%</span></div>
+</div></div>
+<div class="footer"><p>🛢️ Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260512-215423</p></div>
+</div></body></html>

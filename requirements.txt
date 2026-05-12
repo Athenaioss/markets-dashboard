@@ -1,0 +1,2 @@
+# Birdeye Sprint 4 — Zero extra deps beyond Python stdlib
+# requests is optional (stdlib urllib used by default)

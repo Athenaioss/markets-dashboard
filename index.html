@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>🔮 Atlas Nexus — Markets Dashboard</title>
+<style>
+:root{--bg:#080b16;--card:#0f1420;--border:#1a2040;--text:#e2e8f0;--muted:#64748b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;background-image:radial-gradient(ellipse at 30% 0%,rgba(56,189,248,.06) 0%,transparent 50%),radial-gradient(ellipse at 70% 100%,rgba(245,158,11,.04) 0%,transparent 50%)}
+.container{text-align:center;padding:40px}
+h1{font-size:3em;font-weight:800;background:linear-gradient(135deg,#38bdf8,#818cf8,#f59e0b,#22c55e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+.subtitle{color:var(--muted);margin-bottom:40px;font-size:1.1em}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:30px;text-align:center;text-decoration:none;color:var(--text);transition:all .2s}
+.panel:hover{transform:translateY(-4px)}
+.panel .emoji{font-size:3em;margin-bottom:12px}
+.panel h2{font-size:1.3em;margin-bottom:8px}
+.panel .desc{color:var(--muted);font-size:.9em}
+.crypto:hover{border-color:#38bdf8}.commodities:hover{border-color:#f59e0b}.indices:hover{border-color:#818cf8}.forex:hover{border-color:#22c55e}
+footer{margin-top:40px;color:var(--muted);font-size:.85em}
+footer a{color:#38bdf8;text-decoration:none}
+</style></head>
+<body>
+<div class="container">
+<h1>🔮 Atlas Nexus Markets</h1>
+<p class="subtitle">Multi-asset live dashboards — Crypto, Commodities, Indices & Forex</p>
+<div class="grid">
+<a href="crypto_dashboard.html" class="panel crypto">
+<div class="emoji">🪙</div><h2>Crypto</h2><div class="desc">Bitcoin, Ethereum, Solana & 100+ tokens · CoinGecko live</div></a>
+<a href="commodities_dashboard.html" class="panel commodities">
+<div class="emoji">🛢️</div><h2>Commodities</h2><div class="desc">Gold, Oil, Copper, Wheat, Coffee · 15 assets</div></a>
+<a href="indices_dashboard.html" class="panel indices">
+<div class="emoji">📈</div><h2>Indices</h2><div class="desc">S&P 500, Nasdaq, FTSE, DAX, Nikkei · 16 indices</div></a>
+<a href="forex_dashboard.html" class="panel forex">
+<div class="emoji">💱</div><h2>Forex</h2><div class="desc">EUR/USD, GBP/JPY, USD/CHF · 19 pairs</div></a>
+</div>
+<footer>
+<p>🔮 Built by <strong>Atlas Nexus</strong> · Zero API keys · Open source</p>
+<p><a href="https://github.com/AtlasNexusOps/markets-dashboard">github.com/AtlasNexusOps/markets-dashboard</a></p>
+</footer>
+</div></body></html>

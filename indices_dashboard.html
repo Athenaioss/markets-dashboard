@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>📈 Atlas Nexus — Indices Dashboard</title>
+<style>
+:root{--bg:#080b16;--card:#0f1420;--border:#1a2040;--accent:#38bdf8;--accent2:#818cf8;--green:#22c55e;--red:#ef4444;--text:#e2e8f0;--muted:#64748b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;background-image:radial-gradient(ellipse at 30% 0%,rgba(56,189,248,.06) 0%,transparent 50%)}
+.header{text-align:center;padding:40px 20px 30px;border-bottom:1px solid var(--border)}
+.header h1{font-size:2.4em;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header p{color:var(--muted);margin-top:8px}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;text-align:center}
+.card .value{font-size:2.2em;font-weight:800}
+.card .label{color:var(--muted);margin-top:4px}
+.table-wrapper{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:24px}
+table{width:100%;border-collapse:collapse;font-size:.92em}
+th{background:rgba(15,20,40,.6);padding:14px 16px;text-align:left;font-weight:600;color:var(--accent);font-size:.82em;text-transform:uppercase}
+td{padding:12px 16px;border-bottom:1px solid rgba(26,32,64,.5)}
+tr:hover{background:rgba(56,189,248,.03)}
+.price{font-weight:600;font-variant-numeric:tabular-nums}
+.footer{text-align:center;padding:30px;color:var(--muted);border-top:1px solid var(--border)}
+</style></head>
+<body>
+<div class="header">
+<h1>📈 Atlas Nexus — Global Indices</h1>
+<p>Real-time stock index tracking · S&P 500, Nasdaq, FTSE, DAX, Nikkei & more | 20260512-221101</p>
+</div>
+<div class="container">
+<div class="stats-grid">
+<div class="card"><div class="value" style="color:var(--accent)">16</div><div class="label">Indices Tracked</div></div>
+<div class="card"><div class="value" style="color:var(--green)">7</div><div class="label">Up Today</div></div>
+<div class="card"><div class="value" style="color:var(--red)">9</div><div class="label">Down Today</div></div>
+<div class="card"><div class="value" style="color:var(--accent2)">2.44%</div><div class="label">Avg Change</div></div>
+</div>
+<h2 style="color:var(--accent);margin-bottom:12px">🌍 Index Leaderboard</h2>
+<div class="table-wrapper"><div style="overflow-x:auto">
+<table><thead><tr>
+<th>Index</th><th>Price</th><th>Change</th><th>MA(5)</th><th>MA(20)</th><th>Trend</th><th>Volatility</th>
+</tr></thead><tbody><tr>
+            <td><strong>S&P 500</strong> <small style="color:var(--muted)">US</small></td>
+            <td class="price">7,401</td>
+            <td style="color:#22c55e">▲ 8.32%</td>
+            <td>7,383</td><td>7,202</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.6%</td>
+        </tr><tr>
+            <td><strong>Nasdaq</strong> <small style="color:var(--muted)">US</small></td>
+            <td class="price">26,088</td>
+            <td style="color:#22c55e">▲ 15.45%</td>
+            <td>26,051</td><td>25,003</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.9%</td>
+        </tr><tr>
+            <td><strong>Dow Jones</strong> <small style="color:var(--muted)">US</small></td>
+            <td class="price">49,761</td>
+            <td style="color:#22c55e">▲ 0.62%</td>
+            <td>49,716</td><td>49,313</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.5%</td>
+        </tr><tr>
+            <td><strong>Russell 2000</strong> <small style="color:var(--muted)">US</small></td>
+            <td class="price">2,844</td>
+            <td style="color:#22c55e">▲ 8.74%</td>
+            <td>2,861</td><td>2,798</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.9%</td>
+        </tr><tr>
+            <td><strong>FTSE 100</strong> <small style="color:var(--muted)">UK</small></td>
+            <td class="price">10,265</td>
+            <td style="color:#ef4444">▼ 1.32%</td>
+            <td>10,297</td><td>10,408</td>
+            <td><span style="color:#ef4444">BEARISH</span></td>
+            <td>0.7%</td>
+        </tr><tr>
+            <td><strong>DAX</strong> <small style="color:var(--muted)">Germany</small></td>
+            <td class="price">23,955</td>
+            <td style="color:#ef4444">▼ 3.61%</td>
+            <td>24,445</td><td>24,255</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.9%</td>
+        </tr><tr>
+            <td><strong>CAC 40</strong> <small style="color:var(--muted)">France</small></td>
+            <td class="price">7,980</td>
+            <td style="color:#ef4444">▼ 4.32%</td>
+            <td>8,130</td><td>8,176</td>
+            <td><span style="color:#ef4444">BEARISH</span></td>
+            <td>1.0%</td>
+        </tr><tr>
+            <td><strong>Euro Stoxx 50</strong> <small style="color:var(--muted)">EU</small></td>
+            <td class="price">5,808</td>
+            <td style="color:#ef4444">▼ 3.37%</td>
+            <td>5,923</td><td>5,908</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>1.0%</td>
+        </tr><tr>
+            <td><strong>Nikkei 225</strong> <small style="color:var(--muted)">Japan</small></td>
+            <td class="price">62,743</td>
+            <td style="color:#22c55e">▲ 8.85%</td>
+            <td>61,353</td><td>59,174</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>1.5%</td>
+        </tr><tr>
+            <td><strong>Hang Seng</strong> <small style="color:var(--muted)">HK</small></td>
+            <td class="price">26,348</td>
+            <td style="color:#ef4444">▼ 2.53%</td>
+            <td>26,308</td><td>26,103</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.9%</td>
+        </tr><tr>
+            <td><strong>Shanghai Comp</strong> <small style="color:var(--muted)">China</small></td>
+            <td class="price">4,214</td>
+            <td style="color:#22c55e">▲ 1.95%</td>
+            <td>4,171</td><td>4,084</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.5%</td>
+        </tr><tr>
+            <td><strong>BSE Sensex</strong> <small style="color:var(--muted)">India</small></td>
+            <td class="price">74,559</td>
+            <td style="color:#ef4444">▼ 10.89%</td>
+            <td>77,233</td><td>77,583</td>
+            <td><span style="color:#ef4444">BEARISH</span></td>
+            <td>0.8%</td>
+        </tr><tr>
+            <td><strong>Nifty 50</strong> <small style="color:var(--muted)">India</small></td>
+            <td class="price">23,380</td>
+            <td style="color:#ef4444">▼ 9.41%</td>
+            <td>24,136</td><td>24,157</td>
+            <td><span style="color:#ef4444">BEARISH</span></td>
+            <td>0.8%</td>
+        </tr><tr>
+            <td><strong>KOSPI</strong> <small style="color:var(--muted)">Korea</small></td>
+            <td class="price">7,643</td>
+            <td style="color:#22c55e">▲ 38.41%</td>
+            <td>7,426</td><td>6,590</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>1.8%</td>
+        </tr><tr>
+            <td><strong>ASX 200</strong> <small style="color:var(--muted)">Australia</small></td>
+            <td class="price">8,671</td>
+            <td style="color:#ef4444">▼ 4.12%</td>
+            <td>8,760</td><td>8,812</td>
+            <td><span style="color:#ef4444">BEARISH</span></td>
+            <td>0.5%</td>
+        </tr><tr>
+            <td><strong>Bovespa</strong> <small style="color:var(--muted)">Brazil</small></td>
+            <td class="price">180,623</td>
+            <td style="color:#ef4444">▼ 3.80%</td>
+            <td>183,510</td><td>189,913</td>
+            <td><span style="color:#ef4444">BEARISH</span></td>
+            <td>0.8%</td>
+        </tr></tbody></table></div></div>
+<div class="footer"><p>📈 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260512-221101</p></div>
+</div></body></html>
