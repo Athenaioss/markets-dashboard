@@ -9,9 +9,10 @@ Tracks: EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD,
         USD/CAD, NZD/USD, EUR/GBP, EUR/JPY, GBP/JPY, etc.
 """
 
-import json, csv, urllib.request, os, time
+import json, csv, urllib.request, os, time, statistics
 from datetime import datetime
 from pathlib import Path
+from sentiment import compute_sentiment
 
 OUTPUT_DIR = Path("output")
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -98,6 +99,20 @@ def extract_metrics(symbol, data):
         return None
 
 def export_html(pairs):
+    sentiment = compute_sentiment(pairs)
+    dir_colors = {"BULLISH":("#22c55e","#14532d"),"SLIGHTLY BULLISH":("#86efac","#14532d"),"NEUTRAL":("#f59e0b","#78350f"),"SLIGHTLY BEARISH":("#fca5a5","#7f1d1d"),"BEARISH":("#ef4444","#7f1d1d")}
+    sent_color, sent_bg = dir_colors.get(sentiment["direction"], ("#94a3b8","#1e293b"))
+    emoji = {"BULLISH":"🚀","SLIGHTLY BULLISH":"📈","NEUTRAL":"⚖️","SLIGHTLY BEARISH":"📉","BEARISH":"🐻"}.get(sentiment["direction"],"📊")
+    
+    sent_html = f"""<div class="sentiment-banner" style="background:{sent_bg};border:1px solid {sent_color};border-radius:14px;padding:24px;margin-bottom:20px;text-align:center">
+    <div style="font-size:2.5em;margin-bottom:6px">{emoji}</div>
+    <div style="font-size:1.5em;font-weight:700;color:{sent_color}">{sentiment['direction']}</div>
+    <div style="font-size:2.2em;font-weight:800;color:{sent_color};margin:4px 0">{sentiment['confidence']}%</div>
+    <div style="color:var(--muted);font-size:.9em">confidence</div>
+    <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;font-size:.85em">
+    {''.join(f'<div><span style="color:var(--muted)">{v["label"]}</span><br><strong>{v["value"]}</strong></div>' for v in sentiment['signals'].values())}
+    </div></div>"""
+    
     rows = ""
     for p in pairs:
         color = "#22c55e" if p["change_pct"] > 0 else "#ef4444" if p["change_pct"] < 0 else "#6b7280"
@@ -155,6 +170,7 @@ tr:hover{{background:rgba(34,197,94,.03)}}
 <div class="card"><div class="value" style="color:var(--red)">{down}</div><div class="label">Down Today</div></div>
 <div class="card"><div class="value" style="color:var(--accent2)">{avg}%</div><div class="label">Avg Change</div></div>
 </div>
+{sent_html}
 <h2 style="color:var(--accent);margin-bottom:12px">💱 Currency Pair Leaderboard</h2>
 <div class="table-wrapper"><div style="overflow-x:auto">
 <table><thead><tr>

@@ -10,9 +10,10 @@ Tracks: Gold, Silver, Crude Oil, Natural Gas, Copper, Wheat,
         Corn, Soybeans, Coffee, Sugar, Platinum, Palladium
 """
 
-import json, csv, urllib.request, os, sys, time
+import json, csv, urllib.request, os, sys, time, statistics
 from datetime import datetime
 from pathlib import Path
+from sentiment import compute_sentiment
 
 OUTPUT_DIR = Path("output")
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -143,6 +144,27 @@ def generate_summary(commodities):
     }
 
 def export_html(commodities, summary):
+    sent = summary.get("sentiment", {})
+    dir_colors = {
+        "BULLISH": ("#22c55e", "#14532d"),
+        "SLIGHTLY BULLISH": ("#86efac", "#14532d"),
+        "NEUTRAL": ("#f59e0b", "#78350f"),
+        "SLIGHTLY BEARISH": ("#fca5a5", "#7f1d1d"),
+        "BEARISH": ("#ef4444", "#7f1d1d"),
+    }
+    sent_color, sent_bg = dir_colors.get(sent.get("direction", "NEUTRAL"), ("#94a3b8", "#1e293b"))
+    sent_emoji = {"BULLISH": "🚀", "SLIGHTLY BULLISH": "📈", "NEUTRAL": "⚖️", "SLIGHTLY BEARISH": "📉", "BEARISH": "🐻"}
+    emoji = sent_emoji.get(sent.get("direction", "NEUTRAL"), "📊")
+    
+    sent_html = f"""<div class="sentiment-banner" style="background:{sent_bg};border:1px solid {sent_color};border-radius:14px;padding:24px;margin-bottom:20px;text-align:center">
+    <div style="font-size:2.5em;margin-bottom:6px">{emoji}</div>
+    <div style="font-size:1.5em;font-weight:700;color:{sent_color}">{sent.get('direction','—')}</div>
+    <div style="font-size:2.2em;font-weight:800;color:{sent_color};margin:4px 0">{sent.get('confidence','—')}%</div>
+    <div style="color:var(--muted);font-size:.9em">confidence</div>
+    <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;font-size:.85em">
+        {''.join(f'<div><span style="color:var(--muted)">{v["label"]}</span><br><strong>{v["value"]}</strong></div>' for v in sent.get('signals',{}).values())}
+    </div></div>"""
+    
     rows = ""
     for c in commodities:
         color = "#22c55e" if c["change_pct"] > 0 else "#ef4444" if c["change_pct"] < 0 else "#6b7280"
@@ -202,6 +224,7 @@ tr:hover{{background:rgba(245,158,11,.03)}}
 <div class="card"><div class="value" style="color:var(--red)">{summary['losers']}</div><div class="label">Down Today</div></div>
 <div class="card"><div class="value" style="color:var(--accent2)">{summary['avg_change']}%</div><div class="label">Avg Change</div></div>
 </div>
+{sent_html}
 <h2 style="color:var(--accent);margin-bottom:12px">📊 Commodity Leaderboard</h2>
 <div class="table-wrapper"><div style="overflow-x:auto">
 <table><thead><tr>
@@ -248,8 +271,10 @@ def main():
     for c in all_data:
         c["strength"] = classify_strength(c["change_pct"])
     
-    # Summary
+    # Sentiment
+    sentiment = compute_sentiment(all_data)
     summary = generate_summary(all_data)
+    summary["sentiment"] = sentiment
     
     # Export
     path_json = OUTPUT_DIR / f"commodities_{NOW}.json"
