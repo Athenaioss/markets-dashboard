@@ -144,23 +144,26 @@ def build_setups(assets):
         if bull >= 50 and trend == "BULLISH" and a.get("change_pct", 0) > 0:
             entry = price
             stop = min(a.get("_swing_low", price * 0.95), a.get("_ema20", price)) - atr * 0.5
-            stop = min(stop, entry * 0.93)  # Cap max stop at -7%
+            stop = min(stop, entry * 0.93)
             risk = entry - stop
-            tp1 = entry + risk * 1.5
-            tp2 = entry + risk * 3.0
-            rr = 1.5  # Fixed target RR for TP1
+            # ATR-based targets
+            tp1 = entry + atr * 2
+            tp2 = entry + atr * 4
+            rr = round((tp1 - entry) / risk, 1) if risk > 0 else 0
+            tp1_pct = round((tp1 - entry) / entry * 100, 1)
+            tp2_pct = round((tp2 - entry) / entry * 100, 1)
             
-            if stop < entry and tp1 > entry:
+            if stop < entry and tp1 > entry and rr >= 1.5:
                 setups_long.append(dict(
                     name=name, source=src, direction="LONG",
                     score=bull, entry=round(entry, 2),
                     stop=round(stop, 2), tp1=round(tp1, 2), tp2=round(tp2, 2),
+                    tp1_pct=tp1_pct, tp2_pct=tp2_pct,
                     rr=rr, risk_pct=round(risk/entry*100, 1),
                     atr_pct=round(atr/entry*100, 2),
                     rsi=a.get("_rsi", 50), macd=a.get("_macd_h", 0),
-                    roc5=a.get("_roc5", 0),
-                    motif=f"trend + momentum",
-                    status="TRADEABLE" if rr >= 1.5 else "WATCHLIST"
+                    motif="trend + momentum",
+                    status="TRADEABLE"
                 ))
         
         # ── SHORT setup ──
@@ -169,21 +172,23 @@ def build_setups(assets):
             stop = max(a.get("_swing_high", price * 1.05), a.get("_ema20", price)) + atr * 0.5
             stop = max(stop, entry * 1.07)
             risk = stop - entry
-            tp1 = entry - risk * 1.5
-            tp2 = entry - risk * 3.0
-            rr = 1.5
+            tp1 = entry - atr * 2
+            tp2 = entry - atr * 4
+            rr = round((entry - tp1) / risk, 1) if risk > 0 else 0
+            tp1_pct = round((entry - tp1) / entry * 100, 1)
+            tp2_pct = round((entry - tp2) / entry * 100, 1)
             
-            if stop > entry and tp1 < entry:
+            if stop > entry and tp1 < entry and rr >= 1.5:
                 setups_short.append(dict(
                     name=name, source=src, direction="SHORT",
                     score=bear, entry=round(entry, 2),
                     stop=round(stop, 2), tp1=round(tp1, 2), tp2=round(tp2, 2),
+                    tp1_pct=tp1_pct, tp2_pct=tp2_pct,
                     rr=rr, risk_pct=round(risk/entry*100, 1),
                     atr_pct=round(atr/entry*100, 2),
                     rsi=a.get("_rsi", 50), macd=a.get("_macd_h", 0),
-                    roc5=a.get("_roc5", 0),
-                    motif=f"downtrend + volume",
-                    status="TRADEABLE" if rr >= 1.5 else "WATCHLIST"
+                    motif="downtrend + volume",
+                    status="TRADEABLE"
                 ))
     
     # Sort and take top 7 — NO PADDING
@@ -213,6 +218,8 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
         stop_fmt = f"${stop:,.2f}" if stop > 1 else f"${stop:,.4f}"
         tp1_fmt = f"${tp1:,.2f}" if tp1 > 1 else f"${tp1:,.4f}"
         tp2_fmt = f"${tp2:,.2f}" if tp2 > 1 else f"${tp2:,.4f}"
+        tp1_pct = s.get("tp1_pct", 0)
+        tp2_pct = s.get("tp2_pct", 0)
         
         rows += f"""<div class="signal-row">
 <div>
@@ -222,8 +229,8 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
 <span class="asset-levels">
 <span style="color:#bae6fd">🚪 {price_fmt}</span>
 <span style="color:#ef4444">🛑 {stop_fmt}</span>
-<span style="color:#22c55e">🎯 {tp1_fmt}</span>
-<span style="color:#14F195">🎯🎯 {tp2_fmt}</span>
+<span style="color:#22c55e">🎯 {tp1_fmt} <small>+{tp1_pct}%</small></span>
+<span style="color:#14F195">🎯🎯 {tp2_fmt} <small>+{tp2_pct}%</small></span>
 </span>
 </div>
 <div style="text-align:right">
