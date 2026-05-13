@@ -1,0 +1,120 @@
+{
+  "generated": "20260514-001632",
+  "total": 90,
+  "longs": [
+    {
+      "name": "Corn",
+      "entry": 480.5,
+      "stop": 471.2,
+      "tp": 495.38,
+      "tp_pct": 3.1,
+      "rr": 1.6
+    },
+    {
+      "name": "Nikkei 225",
+      "entry": 63272.11,
+      "stop": 61570.58,
+      "tp": 66164.71,
+      "tp_pct": 4.6,
+      "rr": 1.7
+    },
+    {
+      "name": "Australian Dollar / US Dollar",
+      "entry": 0.7262,
+      "stop": 0.719,
+      "tp": 0.7391,
+      "tp_pct": 1.8,
+      "rr": 1.8
+    },
+    {
+      "name": "ASML",
+      "entry": 1581.58,
+      "stop": 1503.18,
+      "tp": 1714.85,
+      "tp_pct": 8.4,
+      "rr": 1.7
+    },
+    {
+      "name": "Goldman Sachs",
+      "entry": 955.42,
+      "stop": 927.55,
+      "tp": 1002.8,
+      "tp_pct": 5.0,
+      "rr": 1.7
+    },
+    {
+      "name": "Visa",
+      "entry": 320.31,
+      "stop": 310.5,
+      "tp": 336.99,
+      "tp_pct": 5.2,
+      "rr": 1.7
+    },
+    {
+      "name": "Silver",
+      "entry": 88.33,
+      "stop": 84.84,
+      "tp": 93.92,
+      "tp_pct": 6.3,
+      "rr": 1.6
+    }
+  ],
+  "shorts": [
+    {
+      "name": "FTSE 100",
+      "entry": 10325.35,
+      "stop": 10507.93,
+      "tp": 10014.96,
+      "tp_pct": 3.0,
+      "rr": 1.7
+    },
+    {
+      "name": "CAC 40",
+      "entry": 8007.97,
+      "stop": 8385.69,
+      "tp": 7365.84,
+      "tp_pct": 8.0,
+      "rr": 1.7
+    },
+    {
+      "name": "US Dollar / Mexican Peso",
+      "entry": 17.1644,
+      "stop": 17.321,
+      "tp": 16.8826,
+      "tp_pct": 1.6,
+      "rr": 1.8
+    },
+    {
+      "name": "Mastercard",
+      "entry": 490.64,
+      "stop": 516.11,
+      "tp": 447.34,
+      "tp_pct": 8.8,
+      "rr": 1.7
+    },
+    {
+      "name": "Procter & Gamble",
+      "entry": 142.24,
+      "stop": 149.77,
+      "tp": 129.45,
+      "tp_pct": 9.0,
+      "rr": 1.7
+    },
+    {
+      "name": "iShares 20+ Year Tr.",
+      "entry": 84.8,
+      "stop": 86.38,
+      "tp": 82.11,
+      "tp_pct": 3.2,
+      "rr": 1.7
+    },
+    {
+      "name": "BSE Sensex",
+      "entry": 74608.98,
+      "stop": 76244.01,
+      "tp": 71829.43,
+      "tp_pct": 3.7,
+      "rr": 1.7
+    }
+  ]
+}
