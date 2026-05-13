@@ -13,7 +13,7 @@ Tracks: Gold, Silver, Crude Oil, Natural Gas, Copper, Wheat,
 import json, csv, urllib.request, os, sys, time, statistics
 from datetime import datetime
 from pathlib import Path
-from sentiment import compute_sentiment
+from sentiment import compute_sentiment, hawk_eye_html
 
 OUTPUT_DIR = Path("output")
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -189,6 +189,7 @@ def export_html(commodities, summary):
             <td style="color:{vol_color}">{c['vol_ratio']:.1f}x</td>
         </tr>"""
 
+    hawk_html = hawk_eye_html(commodities)
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -234,6 +235,7 @@ tr:hover{{background:rgba(245,158,11,.03)}}
 <div class="card"><div class="value" style="color:var(--accent2)">{summary['avg_change']}%</div><div class="label">Avg Change</div></div>
 </div>
 {sent_html}
+{hawk_html}
 <h2 style="color:var(--accent);margin-bottom:12px">📊 Commodity Leaderboard</h2>
 <div class="table-wrapper"><div style="overflow-x:auto">
 <table><thead><tr>

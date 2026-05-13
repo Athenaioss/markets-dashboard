@@ -13,7 +13,7 @@ Tracks: S&P 500, Nasdaq, Dow Jones, FTSE 100, DAX, CAC 40,
 import json, csv, urllib.request, os, time, statistics
 from datetime import datetime
 from pathlib import Path
-from sentiment import compute_sentiment
+from sentiment import compute_sentiment, hawk_eye_html
 
 OUTPUT_DIR = Path("output")
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -134,6 +134,7 @@ def export_html(indices):
     down = sum(1 for i in indices if i["change_pct"] < 0)
     avg = round(sum(i["change_pct"] for i in indices) / len(indices), 2) if indices else 0
 
+    hawk_html = hawk_eye_html(indices)
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -174,6 +175,7 @@ tr:hover{{background:rgba(56,189,248,.03)}}
 <div class="card"><div class="value" style="color:var(--accent2)">{avg}%</div><div class="label">Avg Change</div></div>
 </div>
 {sent_html}
+{hawk_html}
 <h2 style="color:var(--accent);margin-bottom:12px">🌍 Index Leaderboard</h2>
 <div class="table-wrapper"><div style="overflow-x:auto">
 <table><thead><tr>

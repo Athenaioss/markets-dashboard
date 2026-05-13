@@ -12,7 +12,7 @@ Tracks: EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD,
 import json, csv, urllib.request, os, time, statistics
 from datetime import datetime
 from pathlib import Path
-from sentiment import compute_sentiment
+from sentiment import compute_sentiment, hawk_eye_html
 
 OUTPUT_DIR = Path("output")
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -140,6 +140,7 @@ def export_html(pairs):
     down = sum(1 for p in pairs if p["change_pct"] < 0)
     avg = round(sum(p["change_pct"] for p in pairs) / len(pairs), 2) if pairs else 0
 
+    hawk_html = hawk_eye_html(pairs)
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -180,6 +181,7 @@ tr:hover{{background:rgba(34,197,94,.03)}}
 <div class="card"><div class="value" style="color:var(--accent2)">{avg}%</div><div class="label">Avg Change</div></div>
 </div>
 {sent_html}
+{hawk_html}
 <h2 style="color:var(--accent);margin-bottom:12px">💱 Currency Pair Leaderboard</h2>
 <div class="table-wrapper"><div style="overflow-x:auto">
 <table><thead><tr>

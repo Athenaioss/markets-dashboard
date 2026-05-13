@@ -13,7 +13,7 @@ Tracks: 24 ETFs across Equity, Sector, Bond, International,
 import json, csv, urllib.request, os, time, statistics
 from datetime import datetime
 from pathlib import Path
-from sentiment import compute_sentiment
+from sentiment import compute_sentiment, hawk_eye_html
 
 OUTPUT_DIR = Path("output")
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -158,11 +158,12 @@ def export_html(etfs):
         cat_avg = round(cat_data["total_change"]/cat_data["count"], 2)
         cat_cards += f"""<div class="card" style="border-left:3px solid {c}"><div class="value" style="color:{c}">{cat_avg:+.1f}%</div><div class="label">{cat_name} ({cat_data['up']}/{cat_data['count']})</div></div>"""
 
+    hawk_html = hawk_eye_html(etfs)
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>🧺 Atlas Nexus — ETF Dashboard</title>
+<title>💰 Atlas Nexus — ETF Dashboard</title>
 <style>
 :root{{--bg:#080b16;--card:#0f1420;--border:#1a2040;--accent:#38bdf8;--accent2:#818cf8;--green:#22c55e;--red:#ef4444;--text:#e2e8f0;--muted:#64748b}}
 *{{margin:0;padding:0;box-sizing:border-box}}
@@ -187,7 +188,7 @@ tr:hover{{background:rgba(56,189,248,.03)}}
 </style></head>
 <body>
 <div class="header">
-<div class="title-emoji">🧺</div>
+<div class="title-emoji">💰</div>
 <h1>Atlas Nexus — ETF Tracker</h1>
 <p>24 ETFs across 6 categories · Equity, Sectors, Bonds, International, Commodities & Thematic | {NOW}</p>
 </div>
@@ -199,6 +200,7 @@ tr:hover{{background:rgba(56,189,248,.03)}}
 <div class="card"><div class="value" style="color:var(--accent2)">{avg}%</div><div class="label">Avg Change</div></div>
 </div>
 {sent_html}
+{hawk_html}
 <h2 style="color:var(--accent);margin-bottom:12px">📦 Category Breakdown</h2>
 <div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">{cat_cards}</div>
 <h2 style="color:var(--accent);margin:24px 0 12px">📋 ETF Leaderboard</h2>
@@ -207,7 +209,7 @@ tr:hover{{background:rgba(56,189,248,.03)}}
 <th>ETF</th><th>Category</th><th>Price</th><th>Change</th><th>Trend</th><th>Volatility</th><th>52W Range</th>
 </tr></thead><tbody>{rows}</tbody></table></div></div>
 <div class="footer">
-<p>🧺 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: {NOW}</p>
+<p>💰 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: {NOW}</p>
 <p style="margin-top:4px"><a href="index.html">← Back to Dashboard</a></p>
 </div>
 </div></body></html>"""
@@ -223,7 +225,7 @@ tr:hover{{background:rgba(56,189,248,.03)}}
 
 def main():
     print("╔══════════════════════════════════════════════╗")
-    print("║  🧺 Atlas Nexus — ETF Pipeline              ║")
+    print("║  💰 Atlas Nexus — ETF Pipeline              ║")
     print("╚══════════════════════════════════════════════╝\n")
 
     all_data = []

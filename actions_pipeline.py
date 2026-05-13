@@ -13,7 +13,7 @@ Tracks: 30 major stocks across Technology, Finance, Healthcare,
 import json, csv, urllib.request, os, time, statistics
 from datetime import datetime
 from pathlib import Path
-from sentiment import compute_sentiment
+from sentiment import compute_sentiment, hawk_eye_html
 
 OUTPUT_DIR = Path("output")
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -164,6 +164,7 @@ def export_html(actions):
         sec_avg = round(sec_data["total_change"]/sec_data["count"], 2)
         sector_cards += f"""<div class="card" style="border-left:3px solid {c}"><div class="value" style="color:{c}">{sec_avg:+.1f}%</div><div class="label">{sec_name} ({sec_data['up']}/{sec_data['count']})</div></div>"""
 
+    hawk_html = hawk_eye_html(actions)
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -205,6 +206,7 @@ tr:hover{{background:rgba(34,197,94,.03)}}
 <div class="card"><div class="value" style="color:var(--accent2)">{avg}%</div><div class="label">Avg Change</div></div>
 </div>
 {sent_html}
+{hawk_html}
 <h2 style="color:var(--accent);margin-bottom:12px">🏭 Sector Breakdown</h2>
 <div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">{sector_cards}</div>
 <h2 style="color:var(--accent);margin:24px 0 12px">📋 Stock Leaderboard</h2>

@@ -1,7 +1,57 @@
 """
-Sentiment engine — composite market regime detection
-Used by all Atlas Nexus pipelines (crypto, commodities, indices, forex)
+Sentiment engine — composite market regime detection + Hawk Eye picks
+Used by all Atlas Nexus pipelines (crypto, commodities, indices, forex, actions, etf)
 """
+
+def hawk_eye_html(assets: list, top_n: int = 3) -> str:
+    """
+    Generate Hawk Eye HTML block showing top confidence bullish & bearish picks.
+    Score = |change_pct| + trend bonus (BULLISH: +2, BEARISH: +2, NEUTRAL: 0)
+    """
+    if len(assets) < 2:
+        return ""
+    
+    def pick_score(a):
+        ch = abs(a.get("change_pct", 0))
+        trend = a.get("trend", "NEUTRAL")
+        bonus = 2 if trend in ("BULLISH", "BEARISH") else 0
+        return ch + bonus
+    
+    bullish = sorted(
+        [a for a in assets if a.get("change_pct", 0) > 0],
+        key=lambda a: a.get("change_pct", 0), reverse=True
+    )[:top_n]
+    
+    bearish = sorted(
+        [a for a in assets if a.get("change_pct", 0) < 0],
+        key=lambda a: a.get("change_pct", 0)
+    )[:top_n]
+    
+    def pick_card(p, color, arrow):
+        return (
+            f'<div style="display:flex;align-items:center;justify-content:space-between;'
+            f'padding:8px 0;border-bottom:1px solid rgba(26,32,64,.3)">'
+            f'<strong>{p["name"]}</strong>'
+            f'<span style="color:{color};font-weight:600">{arrow} {abs(p["change_pct"]):.1f}%</span>'
+            f'</div>'
+        )
+    
+    bull_cards = "".join(pick_card(p, "#22c55e", "▲") for p in bullish) if bullish else '<div style="color:var(--muted);padding:8px 0">No bullish picks</div>'
+    bear_cards = "".join(pick_card(p, "#ef4444", "▼") for p in bearish) if bearish else '<div style="color:var(--muted);padding:8px 0">No bearish picks</div>'
+    
+    return f"""<div style="background:rgba(56,189,248,.02);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:20px">
+<h3 style="margin:0 0 14px 0;font-size:1.1em">🦅 Hawk Eye <span style="color:var(--muted);font-weight:400;font-size:.85em">— Top confidence picks</span></h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+<div>
+<h4 style="margin:0 0 10px 0;color:#22c55e">🔥 Bullish</h4>
+{bull_cards}
+</div>
+<div>
+<h4 style="margin:0 0 10px 0;color:#ef4444">🧊 Bearish</h4>
+{bear_cards}
+</div>
+</div>
+</div>"""
 
 def compute_sentiment(assets: list) -> dict:
     """
