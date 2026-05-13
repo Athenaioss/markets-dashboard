@@ -325,9 +325,24 @@ def main():
             a[k] = v
         a["category"] = classify(scoring)
     
-    # Top 7 Bullish / Bearish
-    bullish = sorted(all_assets, key=lambda a: a["score"], reverse=True)[:7]
-    bearish = sorted(all_assets, key=lambda a: a["score"])[:7]
+    # Top 7 Bullish (confirmed uptrend) / Bearish (confirmed downtrend)
+    bullish = sorted(
+        [a for a in all_assets if a.get("change_pct", 0) > 0 and a.get("trend", "") != "BEARISH"],
+        key=lambda a: a["score"], reverse=True
+    )[:7]
+    bearish = sorted(
+        [a for a in all_assets if a.get("change_pct", 0) < 0 and a.get("trend", "") != "BULLISH"],
+        key=lambda a: a["score"]
+    )[:7]
+    
+    # Pad if needed
+    if len(bullish) < 7:
+        extras = sorted([a for a in all_assets if a not in bullish], key=lambda a: a["score"], reverse=True)
+        bullish.extend(extras[:7 - len(bullish)])
+    if len(bearish) < 7:
+        used = set(id(a) for a in bullish + bearish)
+        extras = sorted([a for a in all_assets if id(a) not in used], key=lambda a: a["score"])
+        bearish.extend(extras[:7 - len(bearish)])
     
     print(f"  🚀 Bullish: {len(bullish)}")
     print(f"  🐻 Bearish: {len(bearish)}")
@@ -347,21 +362,31 @@ def main():
             breakdown = f"T{t} M{m} RS{rs} V{v} R{r}"
             ch = a.get("change_pct", 0) or a.get("price_change_24h", 0) or 0
             
-            # Price, target & stop loss
+            # Price, target & stop loss — flipped for bearish
             price = a.get("price", 0)
-            target = a.get("week_high_52", 0)
-            stop = a.get("week_low_52", 0)
-            if price and target and stop:
-                pct_to_target = round((target - price) / price * 100, 1) if price else 0
-                pct_to_stop = round((price - stop) / price * 100, 1) if price else 0
-                price_line = f"${price:,.2f}" if price > 1 else f"${price:,.4f}"
-                target_line = f"→ ${target:,.2f}"
-                stop_line = f"🛑 ${stop:,.2f}"
-                if pct_to_target > 0:
-                    target_line += f" <span style=\"color:#22c55e;font-size:.78em\">+{pct_to_target}%</span>"
-                if pct_to_stop > 0:
-                    stop_line += f" <span style=\"color:#ef4444;font-size:.78em\">−{pct_to_stop}%</span>"
-                pricetag = f'<span class="asset-pricetag">{price_line} <span style="color:var(--muted)">{target_line} | {stop_line}</span></span>'
+            high = a.get("week_high_52", 0)
+            low = a.get("week_low_52", 0)
+            if price and high and low:
+                pct_up = round((high - price) / price * 100, 1) if price else 0
+                pct_down = round((price - low) / price * 100, 1) if price else 0
+                price_fmt = f"${price:,.2f}" if price > 1 else f"${price:,.4f}"
+                
+                if "Bullish" in title:
+                    target_fmt = f"→ ${high:,.2f}"
+                    stop_fmt = f"🛑 ${low:,.2f}"
+                    if pct_up > 0:
+                        target_fmt += f" <span style=\"color:#22c55e;font-size:.78em\">+{pct_up}%</span>"
+                    if pct_down > 0:
+                        stop_fmt += f" <span style=\"color:#ef4444;font-size:.78em\">−{pct_down}%</span>"
+                else:  # Bearish — target is the downside
+                    target_fmt = f"→ ${low:,.2f}"
+                    stop_fmt = f"🛑 ${high:,.2f}"
+                    if pct_down > 0:
+                        target_fmt += f" <span style=\"color:#ef4444;font-size:.78em\">−{pct_down}%</span>"
+                    if pct_up > 0:
+                        stop_fmt += f" <span style=\"color:#22c55e;font-size:.78em\">+{pct_up}%</span>"
+                
+                pricetag = f'<span class="asset-pricetag">{price_fmt} <span style="color:var(--muted)">{target_fmt} | {stop_fmt}</span></span>'
             else:
                 pricetag = ""
             
