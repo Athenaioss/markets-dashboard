@@ -69,9 +69,10 @@ def main():
 *{{margin:0;padding:0;box-sizing:border-box}}
 body{{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center}}
 .container{{text-align:center;padding:40px}}
+.title-emoji{{font-size:3.5em;margin-bottom:0;line-height:1}}
 h1{{font-size:3em;font-weight:800;background:linear-gradient(135deg,#38bdf8,#818cf8,#f59e0b,#22c55e,#4ade80,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}}
 .subtitle{{color:var(--muted);margin-bottom:40px;font-size:1.1em}}
-.grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1200px;margin:0 auto}}
+.grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1140px;margin:0 auto}}
 .panel{{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:30px;text-align:center;text-decoration:none;color:var(--text);transition:all .2s}}
 .panel:hover{{transform:translateY(-4px);border-color:var(--accent)}}
 .panel .emoji{{font-size:3em;margin-bottom:12px}}
@@ -84,11 +85,14 @@ h1{{font-size:3em;font-weight:800;background:linear-gradient(135deg,#38bdf8,#818
 .panel-5:hover{{border-color:#4ade80}}
 .panel-6:hover{{border-color:#ec4899}}
 .footer{{margin-top:40px;color:var(--muted);font-size:.85em}}
+@media(max-width:800px){{.grid{{grid-template-columns:repeat(2,1fr)}}}}
+@media(max-width:500px){{.grid{{grid-template-columns:1fr}}}}
 </style></head>
 <body>
 <div class="container">
-<h1>🔮 Atlas Nexus Markets</h1>
-<p class="subtitle">Multi-asset intelligence pipeline · Real-time data · Automated analytics</p>
+<div class="title-emoji">🔮</div>
+<h1>Atlas Nexus Markets</h1>
+<p class="subtitle">Multi-asset intelligence pipeline · Yahoo Finance & TradingView · Automated analytics</p>
 <div class="grid">
 <a href="../enhanced_dashboard.html" class="panel panel-1">
 <div class="emoji">🪙</div><h2>Crypto</h2>
@@ -109,7 +113,7 @@ h1{{font-size:3em;font-weight:800;background:linear-gradient(135deg,#38bdf8,#818
 <div class="emoji">🧺</div><h2>ETF</h2>
 <div class="desc">SPY, QQQ, GLD, ARKK · 24 ETFs</div></a>
 </div>
-<div class="footer"><p>🔮 Built by <strong>Atlas Nexus</strong> · Multi-source pipeline · Updated daily</p>
+<div class="footer"><p>🔮 Built by <strong>Atlas Nexus</strong> · Yahoo Finance & TradingView · Updated daily</p>
 <p style="margin-top:4px"><a href="https://github.com/AtlasNexusOps/birdeye-sprint4" style="color:#38bdf8">github.com/AtlasNexusOps/birdeye-sprint4</a></p>
 </div></div></body></html>"""
     
