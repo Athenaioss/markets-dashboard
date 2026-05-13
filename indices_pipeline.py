@@ -54,6 +54,7 @@ def extract_metrics(symbol, data):
         meta = chart["meta"]
         quotes = chart.get("indicators", {}).get("quote", [{}])[0]
         close_prices = [p for p in quotes.get("close", []) if p is not None]
+        open_prices = [o for o in quotes.get("open", []) if o is not None]
         volumes = [v for v in quotes.get("volume", []) if v is not None]
         
         current = meta.get("regularMarketPrice", meta.get("previousClose", 0))
@@ -82,6 +83,16 @@ def extract_metrics(symbol, data):
         current_vol = volumes[-1] if volumes else 0
         vol_ratio = current_vol / avg_vol if avg_vol else 1
         
+        # Candle body ratio (vertical candle detection)
+        today_open = open_prices[-1] if open_prices else current
+        candle_body = abs(current - today_open)
+        candle_range = meta.get("regularMarketDayHigh", current) - meta.get("regularMarketDayLow", current)
+        candle_ratio = round(candle_body / candle_range, 2) if candle_range > 0 else 0
+        
+        # Distance to 52W high (resistance proximity)
+        wh = meta.get("fiftyTwoWeekHigh", 0)
+        dist_to_52w_high = round((wh - current) / wh * 100, 1) if wh > 0 else 0
+        
         return {
             "symbol": symbol, "name": INDICES[symbol]["name"],
             "region": INDICES[symbol]["region"], "currency": INDICES[symbol]["currency"],
@@ -93,6 +104,7 @@ def extract_metrics(symbol, data):
             "week_low_52": round(meta.get("fiftyTwoWeekLow", 0), 2),
             "volume": current_vol, "avg_volume_20d": round(avg_vol),
             "vol_ratio": round(vol_ratio, 2),
+            "candle_ratio": candle_ratio, "dist_to_52w_high": dist_to_52w_high,
             "ma5": round(ma5, 2), "ma20": round(ma20, 2),
             "trend": trend, "volatility_20d": round(volatility, 2),
             "timestamp": NOW

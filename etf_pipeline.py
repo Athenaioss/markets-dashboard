@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 ╔══════════════════════════════════════════════════════════════╗
-║  ATLAS NEXUS — ETF PIPELINE                                ║
+║  ATLAS NEXUS - ETF PIPELINE                                ║
 ║  ETF analytics + dashboard                                 ║
 ║  Sources: Yahoo Finance v8 API                             ║
 ╚══════════════════════════════════════════════════════════════╝
@@ -62,6 +62,7 @@ def extract_metrics(symbol, data):
         meta = chart["meta"]
         quotes = chart.get("indicators", {}).get("quote", [{}])[0]
         close_prices = [p for p in quotes.get("close", []) if p is not None]
+        open_prices = [o for o in quotes.get("open", []) if o is not None]
         volumes = [v for v in quotes.get("volume", []) if v is not None]
 
         current = meta.get("regularMarketPrice", meta.get("previousClose", 0))
@@ -88,7 +89,17 @@ def extract_metrics(symbol, data):
         avg_vol = sum(volumes[-20:]) / min(len(volumes[-20:]), 20) if volumes else 0
         current_vol = volumes[-1] if volumes else 0
         vol_ratio = current_vol / avg_vol if avg_vol else 1
-
+        
+        # Candle body ratio (vertical candle detection)
+        today_open = open_prices[-1] if open_prices else current
+        candle_body = abs(current - today_open)
+        candle_range = meta.get("regularMarketDayHigh", current) - meta.get("regularMarketDayLow", current)
+        candle_ratio = round(candle_body / candle_range, 2) if candle_range > 0 else 0
+        
+        # Distance to 52W high (resistance proximity)
+        wh = meta.get("fiftyTwoWeekHigh", 0)
+        dist_to_52w_high = round((wh - current) / wh * 100, 1) if wh > 0 else 0
+        
         return {
             "symbol": symbol, "name": ETFS[symbol]["name"],
             "category": ETFS[symbol]["category"], "currency": ETFS[symbol]["currency"],
@@ -100,6 +111,7 @@ def extract_metrics(symbol, data):
             "week_low_52": round(meta.get("fiftyTwoWeekLow", 0), 2),
             "volume": current_vol, "avg_volume_20d": round(avg_vol),
             "vol_ratio": round(vol_ratio, 2),
+            "candle_ratio": candle_ratio, "dist_to_52w_high": dist_to_52w_high,
             "ma5": round(ma5, 2), "ma20": round(ma20, 2),
             "trend": trend, "volatility_20d": round(volatility, 2),
             "timestamp": NOW
@@ -127,7 +139,7 @@ def export_html(etfs):
     rows = ""
     for e in sorted(etfs, key=lambda x: x.get("category","") + x.get("name","")):
         color = "#22c55e" if e["change_pct"] > 0 else "#ef4444" if e["change_pct"] < 0 else "#6b7280"
-        arrow = "▲" if e["change_pct"] > 0 else "▼" if e["change_pct"] < 0 else "—"
+        arrow = "▲" if e["change_pct"] > 0 else "▼" if e["change_pct"] < 0 else "-"
         category_tag = f"""<span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">{e['category']}</span>"""
         rows += f"""<tr>
             <td><strong>{e['name']}</strong> <small style="color:var(--muted)">{e['symbol']}</small></td>
@@ -163,7 +175,7 @@ def export_html(etfs):
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>💰 Atlas Nexus — ETF Dashboard</title>
+<title>💰 Atlas Nexus - ETF Dashboard</title>
 <style>
 :root{{--bg:#080b16;--card:#0f1420;--border:#1a2040;--accent:#38bdf8;--accent2:#818cf8;--green:#22c55e;--red:#ef4444;--text:#e2e8f0;--muted:#64748b}}
 *{{margin:0;padding:0;box-sizing:border-box}}
@@ -189,7 +201,7 @@ tr:hover{{background:rgba(56,189,248,.03)}}
 <body>
 <div class="header">
 <div class="title-emoji">💰</div>
-<h1>Atlas Nexus — ETF Tracker</h1>
+<h1>Atlas Nexus - ETF Tracker</h1>
 <p>24 ETFs across 6 categories · Equity, Sectors, Bonds, International, Commodities & Thematic | {NOW}</p>
 </div>
 <div class="container">
@@ -225,7 +237,7 @@ tr:hover{{background:rgba(56,189,248,.03)}}
 
 def main():
     print("╔══════════════════════════════════════════════╗")
-    print("║  💰 Atlas Nexus — ETF Pipeline              ║")
+    print("║  💰 Atlas Nexus - ETF Pipeline              ║")
     print("╚══════════════════════════════════════════════╝\n")
 
     all_data = []

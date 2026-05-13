@@ -59,6 +59,7 @@ def extract_metrics(symbol, data):
         meta = chart["meta"]
         quotes = chart.get("indicators", {}).get("quote", [{}])[0]
         close_prices = [p for p in quotes.get("close", []) if p is not None]
+        open_prices = [o for o in quotes.get("open", []) if o is not None]
         
         current = meta.get("regularMarketPrice", 0)
         prev_close = meta.get("previousClose", meta.get("chartPreviousClose", current))
@@ -85,6 +86,16 @@ def extract_metrics(symbol, data):
         
         info = FOREX_PAIRS[symbol]
         
+        # Candle body ratio (vertical candle detection)
+        today_open = open_prices[-1] if open_prices else current
+        candle_body = abs(current - today_open)
+        candle_range = meta.get("regularMarketDayHigh", current) - meta.get("regularMarketDayLow", current)
+        candle_ratio = round(candle_body / candle_range, 2) if candle_range > 0 else 0
+        
+        # Distance to 52W high (resistance proximity)
+        wh = meta.get("fiftyTwoWeekHigh", 0)
+        dist_to_52w_high = round((wh - current) / wh * 100, 1) if wh > 0 else 0
+        
         return {
             "symbol": symbol, "pair": f"{info['base']}/{info['quote']}",
             "name": info["name"], "base": info["base"], "quote": info["quote"],
@@ -99,6 +110,7 @@ def extract_metrics(symbol, data):
             "week_low_52": round(meta.get("fiftyTwoWeekLow", 0), 5),
             "ma5": round(ma5, 5), "ma20": round(ma20, 5),
             "trend": trend, "volatility_20d": round(volatility, 2),
+            "candle_ratio": candle_ratio, "dist_to_52w_high": dist_to_52w_high,
             "timestamp": NOW
         }
     except Exception as e:

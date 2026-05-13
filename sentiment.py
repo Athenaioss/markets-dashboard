@@ -3,69 +3,82 @@ Sentiment engine — composite market regime detection + Hawk Eye picks
 Used by all Atlas Nexus pipelines (crypto, commodities, indices, forex, actions, etf)
 """
 
-def hawk_eye_html(assets: list, top_n: int = 3) -> str:
+def momentum_scanner_html(assets: list, top_n: int = 3) -> str:
     """
-    🦅 Hawk Eye — Gem detection engine
-    Finds hidden gems using a composite score inspired by crypto gem hunting:
-      Gem Score = Trend + Momentum + Conviction − Volatility Penalty
+    ⚡ Momentum Scanner — Scoring multi-signaux
     
-    Signals:
-      - Trend: BULLISH +4, NEUTRAL 0, BEARISH -4
-      - Momentum: change_pct (daily %)
-      - Conviction: vol_ratio > 2x → +3pts, > 1.5x → +2, > 1x → +1
-      - Stability penalty: vol_20d > 3% → −1 per extra %
-    
-    Bullish gems: high positive gem_score (strong uptrend with conviction)
-    Bearish alerts: high negative gem_score (confirmed downtrend with volume)
+    Critères (faisables avec données Yahoo Finance daily) :
+      | Critère                          | Poids |
+      |----------------------------------|-------|
+      | Tendance MA5/MA20 BULLISH/BEARISH |  ±4   |
+      | Volume relatif > 1.5×            |  +2   |
+      | Distance au 52W high > 5%        |  +2   |
+      | Distance au 52W high < 2%        |  −3   |
+      | Bougie verticale (ratio > 0.8)   |  −2   |
+      | Volatilité > 3%                  |  −1/％ |
     """
     if len(assets) < 2:
         return ""
     
-    def gem_score(a):
+    def scan_score(a):
         ch = a.get("change_pct", 0)
         trend = a.get("trend", "NEUTRAL")
         trend_bonus = {"BULLISH": 4, "NEUTRAL": 0, "BEARISH": -4}.get(trend, 0)
         
+        # Volume conviction
         vr = a.get("vol_ratio", 1.0)
-        if vr > 2.0: conv_bonus = 3
-        elif vr > 1.5: conv_bonus = 2
-        elif vr > 1.0: conv_bonus = 1
-        else: conv_bonus = 0
+        vol_bonus = 2 if vr > 1.5 else 0
         
+        # Distance to 52W high (resistance gauge)
+        dist = a.get("dist_to_52w_high", 10)
+        if dist > 5:
+            dist_bonus = 2   # Room to run
+        elif dist < 2:
+            dist_bonus = -3  # Near resistance
+        else:
+            dist_bonus = 0
+        
+        # Vertical candle penalty (exhausted moves)
+        cr = a.get("candle_ratio", 0.5)
+        candle_penalty = -2 if cr > 0.8 else 0
+        
+        # Volatility penalty
         vol = a.get("volatility_20d", 0)
-        stability_penalty = max(0, (vol - 3.0)) * 1.0 if vol > 3 else 0
+        vol_penalty = -max(0, (vol - 3.0)) * 1.0 if vol > 3 else 0
         
-        score = ch + trend_bonus + conv_bonus - stability_penalty
+        score = ch + trend_bonus + vol_bonus + dist_bonus + candle_penalty + vol_penalty
         return round(score, 2)
     
-    # Bullish gems: top positive gem_score
     bullish = sorted(
         [a for a in assets if a.get("change_pct", 0) > 0 and a.get("trend", "") != "BEARISH"],
-        key=lambda a: gem_score(a), reverse=True
+        key=lambda a: scan_score(a), reverse=True
     )[:top_n]
     
-    # Bearish alerts: most negative gem_score
     bearish = sorted(
         [a for a in assets if a.get("change_pct", 0) < 0 and a.get("trend", "") != "BULLISH"],
-        key=lambda a: gem_score(a)
+        key=lambda a: scan_score(a)
     )[:top_n]
     
     def pick_card(p, color, arrow):
-        score = gem_score(p)
-        signals = []
+        score = scan_score(p)
+        tags = []
         if p.get("vol_ratio", 0) > 1.5:
-            signals.append("📊")
+            tags.append("📊vol")
+        if p.get("candle_ratio", 0) > 0.8:
+            tags.append("🕯️")
+        if p.get("dist_to_52w_high", 10) < 2:
+            tags.append("⚠️rés.")
         if p.get("volatility_20d", 0) < 2:
-            signals.append("💎")  # low vol = stable gem
-        sig_str = " ".join(signals)
+            tags.append("💎stable")
+        tag_str = " ".join(tags)
         return (
             f'<div style="display:flex;align-items:center;justify-content:space-between;'
             f'padding:8px 0;border-bottom:1px solid rgba(26,32,64,.3)">'
             f'<div><strong>{p["name"]}</strong>'
-            f'<span style="color:var(--muted);font-size:.82em;margin-left:4px">{sig_str}</span></div>'
+            f'<span style="color:var(--muted);font-size:.78em;margin-left:4px">{tag_str}</span></div>'
             f'<div style="text-align:right">'
             f'<span style="color:{color};font-weight:600">{arrow} {abs(p["change_pct"]):.1f}%</span>'
-            f'<span style="color:var(--muted);font-size:.78em;margin-left:6px">★{score:.1f}</span>'
+            f'<span style="color:var(--muted);font-size:.78em;margin-left:6px">⚡{score:.1f}</span>'
             f'</div></div>'
         )
     
@@ -73,20 +86,24 @@ def hawk_eye_html(assets: list, top_n: int = 3) -> str:
     bear_cards = "".join(pick_card(p, "#ef4444", "▼") for p in bearish) if bearish else '<div style="color:var(--muted);padding:8px 0">En attente de signaux</div>'
     
     return f"""<div style="background:rgba(56,189,248,.02);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:20px">
-<h3 style="margin:0 0 14px 0;font-size:1.1em">🦅 Hawk Eye <span style="color:var(--muted);font-weight:400;font-size:.85em">— Gem detection · Trend + Volume + Volatility</span></h3>
+<h3 style="margin:0 0 14px 0;font-size:1.1em">⚡ Momentum Scanner <span style="color:var(--muted);font-weight:400;font-size:.85em">— Trend · Volume · Résistance · Bougie</span></h3>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
 <div>
-<h4 style="margin:0 0 10px 0;color:#22c55e">💎 Bullish Gems</h4>
-<div style="color:var(--muted);font-size:.75em;margin-bottom:6px">Score = momentum + trend + conviction − volatility</div>
+<h4 style="margin:0 0 10px 0;color:#22c55e" title="Score = Δ% + trend ± volume ± résistance − volatilité">▲ Bullish Signals</h4>
 {bull_cards}
 </div>
 <div>
-<h4 style="margin:0 0 10px 0;color:#ef4444">🧊 Bearish Alerts</h4>
-<div style="color:var(--muted);font-size:.75em;margin-bottom:6px">Confirmed downtrend with volume conviction</div>
+<h4 style="margin:0 0 10px 0;color:#ef4444" title="Score = Δ% + trend ± volume ± résistance − volatilité">▼ Bearish Signals</h4>
 {bear_cards}
 </div>
 </div>
+<div style="margin-top:12px;font-size:.72em;color:var(--muted);border-top:1px solid rgba(26,32,64,.3);padding-top:10px;display:flex;flex-wrap:wrap;gap:10px">
+<span>📊vol = volume &gt; 1.5×</span><span>🕯️ = bougie verticale</span><span>⚠️rés. = proche 52W high</span><span>💎stable = vol &lt; 2%</span>
+</div>
 </div>"""
+
+# Backward compat alias
+hawk_eye_html = momentum_scanner_html
 
 def compute_sentiment(assets: list) -> dict:
     """
