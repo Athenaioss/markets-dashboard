@@ -58,26 +58,13 @@ def main():
     for name, status in results.items():
         print(f"  {status} {name}")
     
-    # ── ⚡ Momentum Scanner: inject live data into index.html ──
+    # ── ⚡ Market Pulse Scanner: inject live data into index.html ──
     print(f"\n{'='*50}")
-    print("  ⚡ Momentum Scanner Live Wiring")
+    print("  ⚡ Market Pulse Scanner Live Wiring")
     print(f"{'='*50}")
     try:
-        from scanner_generator import main as gen_scanner
-        scanner_html = gen_scanner()
-        # Inject into root index.html
-        import re
-        index_path = Path("index.html")
-        html = index_path.read_text()
-        pattern = r'(<section id="scanner" class="scanner">).*?(</section>)'
-        if re.search(pattern, html, re.DOTALL):
-            inner = re.search(r'<div class="scanner-head">.*</div>\s*</section>', scanner_html, re.DOTALL)
-            if inner:
-                html = re.sub(pattern, inner.group(0), html, count=1, flags=re.DOTALL)
-                index_path.write_text(html)
-                print("  ✅ Scanner live data injected into index.html")
-        else:
-            print("  ⚠️ Scanner section not found in index.html")
+        from scanner_inject import inject
+        inject("index.html")
     except Exception as e:
         print(f"  ⚠️ Scanner injection failed: {e}")
     

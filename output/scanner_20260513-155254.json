@@ -1,0 +1,157 @@
+{
+  "generated": "20260513-155254",
+  "total_assets": 104,
+  "hot": [
+    {
+      "name": "Silver",
+      "symbol": "SI=F",
+      "score": 82,
+      "source": "commodities",
+      "breakdown": "T17M15RS20V15R15"
+    },
+    {
+      "name": "Copper",
+      "symbol": "HG=F",
+      "score": 75,
+      "source": "commodities",
+      "breakdown": "T17M13RS20V15R10"
+    },
+    {
+      "name": "Wheat",
+      "symbol": "ZW=F",
+      "score": 74,
+      "source": "commodities",
+      "breakdown": "T17M15RS15V15R12"
+    },
+    {
+      "name": "Shanghai Comp",
+      "symbol": "000001.SS",
+      "score": 68,
+      "source": "indices",
+      "breakdown": "T17M14RS15V15R7"
+    },
+    {
+      "name": "Platinum",
+      "symbol": "PL=F",
+      "score": 67,
+      "source": "commodities",
+      "breakdown": "T17M10RS10V15R15"
+    },
+    {
+      "name": "KOSPI",
+      "symbol": "^KS11",
+      "score": 65,
+      "source": "indices",
+      "breakdown": "T17M16RS20V0R12"
+    },
+    {
+      "name": "US Oil Fund",
+      "symbol": "USO",
+      "score": 65,
+      "source": "etf",
+      "breakdown": "T17M15RS20V0R13"
+    }
+  ],
+  "watch": [
+    {
+      "name": "Technology Select",
+      "symbol": "XLK",
+      "score": 64,
+      "source": "etf",
+      "breakdown": "T17M15RS20V0R12"
+    },
+    {
+      "name": "Novo Nordisk",
+      "symbol": "NVO",
+      "score": 63,
+      "source": "actions",
+      "breakdown": "T17M13RS20V0R13"
+    },
+    {
+      "name": "Nasdaq",
+      "symbol": "^IXIC",
+      "score": 62,
+      "source": "indices",
+      "breakdown": "T17M11RS15V7R12"
+    },
+    {
+      "name": "S&P 500",
+      "symbol": "^GSPC",
+      "score": 61,
+      "source": "indices",
+      "breakdown": "T17M12RS15V7R10"
+    },
+    {
+      "name": "Russell 2000",
+      "symbol": "^RUT",
+      "score": 59,
+      "source": "indices",
+      "breakdown": "T17M13RS10V7R12"
+    },
+    {
+      "name": "US Dollar / Swiss Franc",
+      "symbol": "USDCHF=X",
+      "score": 58,
+      "source": "forex",
+      "breakdown": "T17M16RS10V0R15"
+    },
+    {
+      "name": "Caterpillar",
+      "symbol": "CAT",
+      "score": 57,
+      "source": "actions",
+      "breakdown": "T17M13RS15V0R12"
+    }
+  ],
+  "risk": [
+    {
+      "name": "iShares Core US Agg",
+      "symbol": "AGG",
+      "score": 13,
+      "source": "etf",
+      "breakdown": "T0M5RS2V0R6"
+    },
+    {
+      "name": "British Pound / Japanese Yen",
+      "symbol": "GBPJPY=X",
+      "score": 15,
+      "source": "forex",
+      "breakdown": "T0M3RS2V0R10"
+    },
+    {
+      "name": "Bank of America",
+      "symbol": "BAC",
+      "score": 15,
+      "source": "actions",
+      "breakdown": "T0M3RS2V0R10"
+    },
+    {
+      "name": "McDonald's",
+      "symbol": "MCD",
+      "score": 16,
+      "source": "actions",
+      "breakdown": "T0M5RS2V0R9"
+    },
+    {
+      "name": "iShares Inv. Grade",
+      "symbol": "LQD",
+      "score": 16,
+      "source": "etf",
+      "breakdown": "T0M5RS2V0R9"
+    },
+    {
+      "name": "Meta",
+      "symbol": "META",
+      "score": 17,
+      "source": "actions",
+      "breakdown": "T0M3RS2V0R12"
+    },
+    {
+      "name": "BSE Sensex",
+      "symbol": "^BSESN",
+      "score": 18,
+      "source": "indices",
+      "breakdown": "T0M1RS2V0R15"
+    }
+  ]
+}

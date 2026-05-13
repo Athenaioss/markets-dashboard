@@ -23,7 +23,7 @@ h1{font-size:3em;font-weight:800;background:linear-gradient(135deg,#38bdf8,#818c
 .ticker-wrap{max-width:1140px;margin:0 auto 20px;padding:0 8px}
 .tradingview-widget-container{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
 .ticker-wrap .tradingview-widget-container{height:46px}
-/* ── Momentum Scanner ── */
+/* ── Market Pulse Scanner ── */
 .scanner{margin:26px 0 22px;padding:22px 24px;border:1px solid rgba(56,189,248,.28);border-radius:22px;background:linear-gradient(135deg,rgba(56,189,248,.10),rgba(129,140,248,.06) 45%,rgba(245,158,11,.06));box-shadow:0 22px 70px rgba(0,0,0,.25);position:relative;overflow:hidden;text-align:left}
 .scanner-head{position:relative;display:flex;justify-content:space-between;gap:18px;align-items:flex-start;flex-wrap:wrap}
 .scanner-head h2{font-size:1.4em;color:#e0f2fe}
@@ -68,9 +68,9 @@ footer a{color:#38bdf8;text-decoration:none}
 <div class="eyebrow"><span class="live-dot"></span> Live multi-asset intelligence</div>
 <div class="title-emoji">🔮</div>
 <h1>Atlas Nexus Markets</h1>
-<p class="hero-sub">A clean command center for crypto, stocks, ETFs, indices, forex and commodities — live market widgets, generated dashboards, and a momentum layer designed to surface actionable signals.</p>
+<p class="hero-sub">A clean command center for crypto, stocks, ETFs, indices, forex and commodities — live market widgets, generated dashboards, and a technical layer designed to surface actionable signals.</p>
 <div class="hero-cta">
-<a href="#scanner" class="btn btn-primary">⚡ Momentum Scanner</a>
+<a href="#scanner" class="btn btn-primary">⚡ Market Pulse Scanner</a>
 <a href="https://github.com/AtlasNexusOps/markets-dashboard" class="btn btn-ghost">GitHub →</a>
 </div>
 <div class="ticker-wrap">
@@ -98,16 +98,18 @@ footer a{color:#38bdf8;text-decoration:none}
 </div>
 </div>
 
-<!-- ⚡ Momentum Scanner -->
+<!-- ⚡ Market Pulse Scanner -->
+<section id="scanner" class="scanner">
 <div class="scanner-head">
 <div>
-<h2>⚡ Momentum Scanner</h2>
-<p>Un radar transversal pour repérer les actifs qui accélèrent vraiment : tendance propre, volume confirmé, distance aux résistances et volatilité maîtrisée.</p>
+<h2>⚡ Market Pulse Scanner</h2>
+<p>Technical ranking from Yahoo Finance OHLCV — not TradingView data.<br>Score = Trend (25) + Momentum (25) + Relative Strength (20) + Volume (15) + Risk (15)</p>
 <div class="formula">
-<span class="chip">Trend strength</span>
-<span class="chip">± Volume confirmation</span>
-<span class="chip">± Resistance context</span>
-<span class="chip">− Volatility noise</span>
+<span class="chip">Trend 25%</span>
+<span class="chip">+ Momentum 25%</span>
+<span class="chip">+ Rel. Strength 20%</span>
+<span class="chip">+ Volume 15%</span>
+<span class="chip">+ Risk Cleanliness 15%</span>
 </div>
 </div>
 <div class="scanner-score">
@@ -118,78 +120,120 @@ footer a{color:#38bdf8;text-decoration:none}
 
 <div class="scanner-board">
 <div class="signal-card"><h3>🔥 Top Momentum</h3><div class="signal-row">
-<div><span class="asset-name">Silver</span><span class="asset-meta">trend strong · volume confirmed</span></div>
-<span class="score-pill score-hot">100</span>
+<div><span class="asset-name">Silver</span>
+<span class="asset-meta">commodities</span>
+<span class="asset-breakdown">T17 M15 RS20 V15 R15</span></div>
+<span class="score-pill score-hot">82</span>
 </div><div class="signal-row">
-<div><span class="asset-name">Crude Oil WTI</span><span class="asset-meta">trend strong · vol 4%</span></div>
-<span class="score-pill score-hot">100</span>
+<div><span class="asset-name">Copper</span>
+<span class="asset-meta">commodities</span>
+<span class="asset-breakdown">T17 M14 RS20 V15 R10</span></div>
+<span class="score-pill score-hot">76</span>
 </div><div class="signal-row">
-<div><span class="asset-name">Brent Crude</span><span class="asset-meta">vol 4%</span></div>
-<span class="score-pill score-hot">100</span>
+<div><span class="asset-name">Wheat</span>
+<span class="asset-meta">commodities</span>
+<span class="asset-breakdown">T17 M15 RS15 V15 R12</span></div>
+<span class="score-pill score-hot">74</span>
 </div><div class="signal-row">
-<div><span class="asset-name">Copper</span><span class="asset-meta">trend strong · volume confirmed · near resistance</span></div>
-<span class="score-pill score-hot">100</span>
+<div><span class="asset-name">Shanghai Comp</span>
+<span class="asset-meta">indices</span>
+<span class="asset-breakdown">T17 M14 RS15 V15 R9</span></div>
+<span class="score-pill score-hot">70</span>
 </div><div class="signal-row">
-<div><span class="asset-name">Wheat</span><span class="asset-meta">trend strong · volume confirmed · near resistance</span></div>
-<span class="score-pill score-hot">100</span>
+<div><span class="asset-name">Platinum</span>
+<span class="asset-meta">commodities</span>
+<span class="asset-breakdown">T17 M11 RS10 V15 R15</span></div>
+<span class="score-pill score-hot">68</span>
 </div><div class="signal-row">
-<div><span class="asset-name">Cotton</span><span class="asset-meta">trend strong · vertical candle</span></div>
-<span class="score-pill score-hot">100</span>
+<div><span class="asset-name">iShares Silver</span>
+<span class="asset-meta">etf</span>
+<span class="asset-breakdown">T17 M16 RS20 V0 R15</span></div>
+<span class="score-pill score-hot">68</span>
 </div><div class="signal-row">
-<div><span class="asset-name">Nasdaq</span><span class="asset-meta">trend strong · near resistance</span></div>
-<span class="score-pill score-hot">100</span>
+<div><span class="asset-name">KOSPI</span>
+<span class="asset-meta">indices</span>
+<span class="asset-breakdown">T17 M16 RS20 V0 R12</span></div>
+<span class="score-pill score-hot">65</span>
 </div></div>
 <div class="signal-card"><h3>⚡ Breakout Watch</h3><div class="signal-row">
-<div><span class="asset-name">Goldman Sachs</span><span class="asset-meta">trend strong</span></div>
-<span class="score-pill score-watch">73</span>
-</div><div class="signal-row">
-<div><span class="asset-name">SPDR S&P 500</span><span class="asset-meta">trend strong · vertical candle · near resistance</span></div>
-<span class="score-pill score-watch">72</span>
-</div><div class="signal-row">
-<div><span class="asset-name">iShares Russell 2000</span><span class="asset-meta">trend strong · vertical candle · near resistance</span></div>
-<span class="score-pill score-watch">69</span>
-</div><div class="signal-row">
-<div><span class="asset-name">Hang Seng</span><span class="asset-meta">trend strong</span></div>
-<span class="score-pill score-watch">66</span>
-</div><div class="signal-row">
-<div><span class="asset-name">US Dollar / South African Rand</span><span class="asset-meta">forex asset</span></div>
-<span class="score-pill score-watch">66</span>
-</div><div class="signal-row">
-<div><span class="asset-name">Shanghai Comp</span><span class="asset-meta">trend strong · volume confirmed · vertical candle · near resistance</span></div>
+<div><span class="asset-name">Tesla</span>
+<span class="asset-meta">actions</span>
+<span class="asset-breakdown">T17 M13 RS20 V0 R15</span></div>
 <span class="score-pill score-watch">65</span>
 </div><div class="signal-row">
-<div><span class="asset-name">US Dollar / Turkish Lira</span><span class="asset-meta">trend strong · near resistance</span></div>
-<span class="score-pill score-watch">65</span>
+<div><span class="asset-name">Technology Select</span>
+<span class="asset-meta">etf</span>
+<span class="asset-breakdown">T17 M11 RS20 V0 R12</span></div>
+<span class="score-pill score-watch">60</span>
+</div><div class="signal-row">
+<div><span class="asset-name">Caterpillar</span>
+<span class="asset-meta">RSI 67</span>
+<span class="asset-breakdown">T17 M13 RS15 V0 R14</span></div>
+<span class="score-pill score-watch">59</span>
+</div><div class="signal-row">
+<div><span class="asset-name">S&P 500</span>
+<span class="asset-meta">RSI 70</span>
+<span class="asset-breakdown">T17 M16 RS15 V0 R10</span></div>
+<span class="score-pill score-watch">58</span>
+</div><div class="signal-row">
+<div><span class="asset-name">US Dollar / Swiss Franc</span>
+<span class="asset-meta">RSI 55</span>
+<span class="asset-breakdown">T17 M16 RS10 V0 R15</span></div>
+<span class="score-pill score-watch">58</span>
+</div><div class="signal-row">
+<div><span class="asset-name">Johnson & Johnson</span>
+<span class="asset-meta">RSI 67</span>
+<span class="asset-breakdown">T17 M16 RS10 V0 R15</span></div>
+<span class="score-pill score-watch">58</span>
+</div><div class="signal-row">
+<div><span class="asset-name">iShares MSCI EM</span>
+<span class="asset-meta">RSI 66</span>
+<span class="asset-breakdown">T17 M12 RS15 V0 R14</span></div>
+<span class="score-pill score-watch">58</span>
 </div></div>
 <div class="signal-card"><h3>🛡️ Risk Flags</h3><div class="signal-row">
-<div><span class="asset-name">McDonald's</span><span class="asset-meta">vertical candle</span></div>
-<span class="score-pill score-risk">0</span>
+<div><span class="asset-name">Nike</span>
+<span class="asset-meta">actions</span>
+<span class="asset-breakdown">T0 M1 RS2 V0 R9</span></div>
+<span class="score-pill score-risk">12</span>
 </div><div class="signal-row">
-<div><span class="asset-name">Nike</span><span class="asset-meta">actions asset</span></div>
-<span class="score-pill score-risk">0</span>
+<div><span class="asset-name">Bovespa</span>
+<span class="asset-meta">indices</span>
+<span class="asset-breakdown">T0 M2 RS2 V0 R9</span></div>
+<span class="score-pill score-risk">13</span>
 </div><div class="signal-row">
-<div><span class="asset-name">Hermès</span><span class="asset-meta">actions asset</span></div>
-<span class="score-pill score-risk">0</span>
+<div><span class="asset-name">Live Cattle</span>
+<span class="asset-meta">commodities</span>
+<span class="asset-breakdown">T0 M2 RS2 V0 R13</span></div>
+<span class="score-pill score-risk">17</span>
 </div><div class="signal-row">
-<div><span class="asset-name">LVMH</span><span class="asset-meta">actions asset</span></div>
-<span class="score-pill score-risk">5</span>
+<div><span class="asset-name">LVMH</span>
+<span class="asset-meta">actions</span>
+<span class="asset-breakdown">T0 M2 RS2 V0 R13</span></div>
+<span class="score-pill score-risk">17</span>
 </div><div class="signal-row">
-<div><span class="asset-name">Procter & Gamble</span><span class="asset-meta">vertical candle</span></div>
-<span class="score-pill score-risk">6</span>
+<div><span class="asset-name">Consumer Disc.</span>
+<span class="asset-meta">etf</span>
+<span class="asset-breakdown">T0 M2 RS2 V0 R13</span></div>
+<span class="score-pill score-risk">17</span>
 </div><div class="signal-row">
-<div><span class="asset-name">Health Care Select</span><span class="asset-meta">vertical candle</span></div>
-<span class="score-pill score-risk">14</span>
+<div><span class="asset-name">BSE Sensex</span>
+<span class="asset-meta">indices</span>
+<span class="asset-breakdown">T0 M1 RS2 V0 R15</span></div>
+<span class="score-pill score-risk">18</span>
 </div><div class="signal-row">
-<div><span class="asset-name">BSE Sensex</span><span class="asset-meta">indices asset</span></div>
-<span class="score-pill score-risk">15</span>
+<div><span class="asset-name">US Dollar / Mexican Peso</span>
+<span class="asset-meta">forex</span>
+<span class="asset-breakdown">T0 M3 RS2 V0 R13</span></div>
+<span class="score-pill score-risk">18</span>
 </div></div>
 </div>
 
 <div class="legend">
-<span>🔥 75+ strong momentum</span>
-<span>⚡ 60–74 watchlist</span>
-<span>🛡️ &lt;50 noisy / risky</span>
-<span class="demo-tag">Live data · 20260513-153207</span>
+<span>🔥 score ≥ 70 · trend ≥ 18 · momentum ≥ 16 · risk ≥ 8</span>
+<span>⚡ score 55–74 · near 20d high · improving</span>
+<span>🛡️ score &lt;45 · or high ATR/drawdown · or RSI &gt;78</span>
+<span class="demo-tag">Live data · Yahoo Finance · 20260513-155551</span>
 </div>
 </section>
 
