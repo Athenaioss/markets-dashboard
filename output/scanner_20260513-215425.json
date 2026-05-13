@@ -1,0 +1,120 @@
+{
+  "generated": "20260513-215425",
+  "total": 89,
+  "longs": [
+    {
+      "name": "Corn",
+      "entry": 480.5,
+      "stop": 464.32,
+      "tp": 504.77,
+      "tp_pct": 5.1,
+      "rr": 1.5
+    },
+    {
+      "name": "Nikkei 225",
+      "entry": 63272.11,
+      "stop": 60436.23,
+      "tp": 67525.93,
+      "tp_pct": 6.7,
+      "rr": 1.5
+    },
+    {
+      "name": "Australian Dollar / US Dollar",
+      "entry": 0.73,
+      "stop": 0.71,
+      "tp": 0.74,
+      "tp_pct": 2.5,
+      "rr": 1.5
+    },
+    {
+      "name": "ASML",
+      "entry": 1580.01,
+      "stop": 1454.58,
+      "tp": 1768.16,
+      "tp_pct": 11.9,
+      "rr": 1.5
+    },
+    {
+      "name": "Goldman Sachs",
+      "entry": 955.13,
+      "stop": 910.54,
+      "tp": 1022.02,
+      "tp_pct": 7.0,
+      "rr": 1.5
+    },
+    {
+      "name": "Visa",
+      "entry": 321.71,
+      "stop": 306.02,
+      "tp": 345.25,
+      "tp_pct": 7.3,
+      "rr": 1.5
+    },
+    {
+      "name": "Silver",
+      "entry": 88.42,
+      "stop": 82.11,
+      "tp": 97.9,
+      "tp_pct": 10.7,
+      "rr": 1.5
+    }
+  ],
+  "shorts": [
+    {
+      "name": "FTSE 100",
+      "entry": 10325.35,
+      "stop": 10588.44,
+      "tp": 9930.71,
+      "tp_pct": 3.8,
+      "rr": 1.5
+    },
+    {
+      "name": "CAC 40",
+      "entry": 8007.97,
+      "stop": 8253.11,
+      "tp": 7640.26,
+      "tp_pct": 4.6,
+      "rr": 1.5
+    },
+    {
+      "name": "Procter & Gamble",
+      "entry": 142.11,
+      "stop": 148.58,
+      "tp": 132.4,
+      "tp_pct": 6.8,
+      "rr": 1.5
+    },
+    {
+      "name": "LVMH",
+      "entry": 452.3,
+      "stop": 478.79,
+      "tp": 412.57,
+      "tp_pct": 8.8,
+      "rr": 1.5
+    },
+    {
+      "name": "iShares 20+ Year Tr.",
+      "entry": 84.78,
+      "stop": 86.01,
+      "tp": 82.93,
+      "tp_pct": 2.2,
+      "rr": 1.5
+    },
+    {
+      "name": "BSE Sensex",
+      "entry": 74608.98,
+      "stop": 77334.03,
+      "tp": 70521.41,
+      "tp_pct": 5.5,
+      "rr": 1.5
+    },
+    {
+      "name": "Bovespa",
+      "entry": 177159.98,
+      "stop": 182492.22,
+      "tp": 169161.62,
+      "tp_pct": 4.5,
+      "rr": 1.5
+    }
+  ]
+}

@@ -146,21 +146,20 @@ def build_setups(assets):
             # Tight ATR-based stop
             stop = entry - atr * 2
             risk = entry - stop
-            tp1 = entry + atr * 2
-            tp2 = entry + atr * 4
-            rr = round((tp1 - entry) / risk, 1) if risk > 0 else 0
-            tp1_pct = round((tp1 - entry) / entry * 100, 1)
-            tp2_pct = round((tp2 - entry) / entry * 100, 1)
+            # TP = entry ± ATR×3 (single coherent target)
+            tp = entry + atr * 3
+            rr = round((tp - entry) / risk, 1) if risk > 0 else 0
+            tp_pct = round((tp - entry) / entry * 100, 1)
             
-            if stop < entry and tp1 > entry and rr >= 1.0:
+            if stop < entry and tp > entry and rr >= 1.0:
                 setups_long.append(dict(
                     name=name, source=src, direction="LONG",
                     score=bull, entry=round(entry, 2),
-                    stop=round(stop, 2), tp1=round(tp1, 2), tp2=round(tp2, 2),
-                    tp1_pct=tp1_pct, tp2_pct=tp2_pct,
+                    stop=round(stop, 2), tp=round(tp, 2),
+                    tp_pct=tp_pct,
                     rr=rr, risk_pct=round(risk/entry*100, 1),
                     atr_pct=round(atr/entry*100, 2),
-                    rsi=a.get("_rsi", 50), macd=a.get("_macd_h", 0),
+                    rsi=a.get("_rsi", 50),
                     motif="trend + momentum",
                     status="TRADEABLE"
                 ))
@@ -170,21 +169,19 @@ def build_setups(assets):
             entry = price
             stop = entry + atr * 2
             risk = stop - entry
-            tp1 = entry - atr * 2
-            tp2 = entry - atr * 4
-            rr = round((entry - tp1) / risk, 1) if risk > 0 else 0
-            tp1_pct = round((entry - tp1) / entry * 100, 1)
-            tp2_pct = round((entry - tp2) / entry * 100, 1)
+            tp = entry - atr * 3
+            rr = round((entry - tp) / risk, 1) if risk > 0 else 0
+            tp_pct = round((entry - tp) / entry * 100, 1)
             
-            if stop > entry and tp1 < entry and rr >= 1.0:
+            if stop > entry and tp < entry and rr >= 1.0:
                 setups_short.append(dict(
                     name=name, source=src, direction="SHORT",
                     score=bear, entry=round(entry, 2),
-                    stop=round(stop, 2), tp1=round(tp1, 2), tp2=round(tp2, 2),
-                    tp1_pct=tp1_pct, tp2_pct=tp2_pct,
+                    stop=round(stop, 2), tp=round(tp, 2),
+                    tp_pct=tp_pct,
                     rr=rr, risk_pct=round(risk/entry*100, 1),
                     atr_pct=round(atr/entry*100, 2),
-                    rsi=a.get("_rsi", 50), macd=a.get("_macd_h", 0),
+                    rsi=a.get("_rsi", 50),
                     motif="downtrend + volume",
                     status="TRADEABLE"
                 ))
@@ -205,7 +202,7 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
     rows = ""
     for s in setups:
         score = s["score"]
-        entry = s["entry"]; stop = s["stop"]; tp1 = s["tp1"]; tp2 = s["tp2"]
+        entry = s["entry"]; stop = s["stop"]; tp = s["tp"]
         rr = s["rr"]; risk_pct = s["risk_pct"]; status = s["status"]
         motif = s.get("motif", "")
         
@@ -214,10 +211,9 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
         
         price_fmt = f"${entry:,.2f}" if entry > 1 else f"${entry:,.4f}"
         stop_fmt = f"${stop:,.2f}" if stop > 1 else f"${stop:,.4f}"
-        tp1_fmt = f"${tp1:,.2f}" if tp1 > 1 else f"${tp1:,.4f}"
-        tp2_fmt = f"${tp2:,.2f}" if tp2 > 1 else f"${tp2:,.4f}"
-        tp1_pct = s.get("tp1_pct", 0)
-        tp2_pct = s.get("tp2_pct", 0)
+        tp = s.get("tp", 0)
+        tp_fmt = f"${tp:,.2f}" if tp > 1 else f"${tp:,.4f}"
+        tp_pct = s.get("tp_pct", 0)
         
         rows += f"""<div class="signal-row">
 <div>
@@ -227,8 +223,7 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
 <span class="asset-levels">
 <span style="color:#bae6fd">🚪 {price_fmt}</span>
 <span style="color:#ef4444">🛑 {stop_fmt}</span>
-<span style="color:#22c55e">🎯 {tp1_fmt} <small>+{tp1_pct}%</small></span>
-<span style="color:#14F195">🎯🎯 {tp2_fmt} <small>+{tp2_pct}%</small></span>
+<span style="color:#22c55e">🎯 {tp_fmt} <small>{is_bullish and '+' or '-'}{tp_pct}%</small></span>
 </span>
 </div>
 <div style="text-align:right">
@@ -284,8 +279,8 @@ def main():
 <div class="formula">
 <span class="chip">Entry = current</span>
 <span class="chip">SL = swing ± ATR</span>
-<span class="chip">TP1 = 1.5R</span>
-<span class="chip">TP2 = 3R</span>
+<span class="chip">TP = ATR×3</span>
+<span class="chip"></span>
 <span class="chip">RR ≥ 1.0</span>
 </div>
 </div>
@@ -314,8 +309,8 @@ def main():
     # Report
     report = {
         "generated": NOW, "total": len(assets_clean),
-        "longs": [{"name": s["name"], "entry": s["entry"], "stop": s["stop"], "tp1": s["tp1"], "tp2": s["tp2"], "rr": s["rr"]} for s in setups_long],
-        "shorts": [{"name": s["name"], "entry": s["entry"], "stop": s["stop"], "tp1": s["tp1"], "tp2": s["tp2"], "rr": s["rr"]} for s in setups_short],
+        "longs": [{"name": s["name"], "entry": s["entry"], "stop": s["stop"], "tp": s["tp"], "tp_pct": s["tp_pct"], "rr": s["rr"]} for s in setups_long],
+        "shorts": [{"name": s["name"], "entry": s["entry"], "stop": s["stop"], "tp": s["tp"], "tp_pct": s["tp_pct"], "rr": s["rr"]} for s in setups_short],
     }
     (OUTPUT_DIR / f"scanner_{NOW}.json").write_text(json.dumps(report, indent=2))
     
