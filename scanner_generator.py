@@ -347,6 +347,19 @@ def main():
             breakdown = f"T{t} M{m} RS{rs} V{v} R{r}"
             ch = a.get("change_pct", 0) or a.get("price_change_24h", 0) or 0
             
+            # Price & target
+            price = a.get("price", 0)
+            target = a.get("week_high_52", 0)
+            if price and target:
+                pct_to_target = round((target - price) / price * 100, 1) if price else 0
+                price_line = f"${price:,.2f}" if price > 1 else f"${price:,.4f}"
+                target_line = f"→ ${target:,.2f}"
+                if pct_to_target > 0:
+                    target_line += f" <span style=\"color:#22c55e;font-size:.78em\">+{pct_to_target}%</span>"
+                pricetag = f'<span class="asset-pricetag">{price_line} <span style="color:var(--muted)">{target_line}</span></span>'
+            else:
+                pricetag = ""
+            
             meta_parts = []
             atr = a.get("atr_pct", 2)
             if atr > 6: meta_parts.append(f"ATR {atr:.0f}%")
@@ -356,7 +369,8 @@ def main():
             rows += f"""<div class="signal-row">
 <div><span class="asset-name">{name}</span>
 <span class="asset-meta">{meta}</span>
-<span class="asset-breakdown">{breakdown}</span></div>
+<span class="asset-breakdown">{breakdown}</span>
+{pricetag}</div>
 <span class="score-pill {score_class}">{score}</span>
 </div>"""
         
