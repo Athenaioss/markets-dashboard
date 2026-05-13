@@ -121,7 +121,7 @@ def export_html(indices):
     emoji = {"BULLISH":"🚀","SLIGHTLY BULLISH":"📈","NEUTRAL":"⚖️","SLIGHTLY BEARISH":"📉","BEARISH":"🐻"}.get(sentiment["direction"],"📊")
     
     sent_html = f"""<div class="sentiment-banner" style="background:{sent_bg};border:1px solid {sent_color};border-radius:14px;padding:24px;margin-bottom:20px;text-align:center">
-    <div style="font-size:2.5em;margin-bottom:6px">{emoji}</div>
+    <div style="font-size:1.8em;margin-bottom:6px">{emoji}</div>
     <div style="font-size:1.5em;font-weight:700;color:{sent_color}">{sentiment['direction']}</div>
     <div style="font-size:2.2em;font-weight:800;color:{sent_color};margin:4px 0">{sentiment['confidence']}%</div>
     <div style="color:var(--muted);font-size:.9em">confidence</div>
@@ -163,7 +163,7 @@ body{{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--b
 .container{{max-width:1200px;margin:0 auto;padding:20px}}
 .stats-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}}
 .card{{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;text-align:center}}
-.card .value{{font-size:2.2em;font-weight:800}}
+.card .value{{font-size:1.5em;font-weight:800}}
 .card .label{{color:var(--muted);margin-top:4px}}
 .table-wrapper{{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:24px}}
 table{{width:100%;border-collapse:collapse;font-size:.92em}}
