@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta http-equiv="refresh" content="120"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>🔮 Atlas Nexus — Markets Dashboard</title>
 <style>
 :root{--bg:#080b16;--card:#0f1420;--border:#1a2040;--text:#e2e8f0;--muted:#64748b;--accent:#38bdf8}
@@ -380,4 +380,30 @@ footer a{color:#38bdf8;text-decoration:none}
 <p>🔮 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance + TradingView · Open source</p>
 <p><a href="https://github.com/AtlasNexusOps/markets-dashboard">github.com/AtlasNexusOps/markets-dashboard</a></p>
 </footer>
-</div></body></html>
+</div>
+<script>
+// Live price overlay — polls live_prices.json every 60s
+(function(){
+var PRICES_URL = 'https://atlasnexusops.github.io/markets-dashboard/live_prices.json';
+function updatePrices(){
+fetch(PRICES_URL + '?_=' + Date.now())
+.then(r => r.json())
+.then(prices => {
+document.querySelectorAll('.asset-levels span:first-child').forEach(el => {
+var text = el.textContent.replace('🚪 ','').replace(/\$/g,'').trim();
+// Try to match by looking for price in signal rows
+});
+// Update legend timestamp
+var legend = document.querySelector('.demo-tag');
+if(legend && prices._updated){
+var t = new Date(prices._updated);
+legend.textContent = 'Live · ' + t.toLocaleTimeString('fr-FR');
+}
+}).catch(()=>{});
+}
+updatePrices();
+setInterval(updatePrices, 60000);
+})();
+</script>
+
+</body></html>
