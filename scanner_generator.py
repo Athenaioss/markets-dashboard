@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 ⚡ Market Pulse Scanner v3 — Tradeable Setups
-ATR-based targets/stops · Separate bull/bear scores · RR ≥ 1.5 · No padding
+ATR-based targets/stops · Separate bull/bear scores · RR ≥ 1.0 · No padding
 Data: Yahoo Finance OHLCV daily
 """
 
@@ -143,17 +143,16 @@ def build_setups(assets):
         # ── LONG setup ──
         if bull >= 50 and trend == "BULLISH" and a.get("change_pct", 0) > 0:
             entry = price
-            stop = min(a.get("_swing_low", price * 0.95), a.get("_ema20", price)) - atr * 0.5
-            stop = min(stop, entry * 0.93)
+            # Tight ATR-based stop
+            stop = entry - atr * 2
             risk = entry - stop
-            # ATR-based targets
             tp1 = entry + atr * 2
             tp2 = entry + atr * 4
             rr = round((tp1 - entry) / risk, 1) if risk > 0 else 0
             tp1_pct = round((tp1 - entry) / entry * 100, 1)
             tp2_pct = round((tp2 - entry) / entry * 100, 1)
             
-            if stop < entry and tp1 > entry and rr >= 1.5:
+            if stop < entry and tp1 > entry and rr >= 1.0:
                 setups_long.append(dict(
                     name=name, source=src, direction="LONG",
                     score=bull, entry=round(entry, 2),
@@ -169,8 +168,7 @@ def build_setups(assets):
         # ── SHORT setup ──
         if bear >= 50 and trend == "BEARISH" and a.get("change_pct", 0) < 0:
             entry = price
-            stop = max(a.get("_swing_high", price * 1.05), a.get("_ema20", price)) + atr * 0.5
-            stop = max(stop, entry * 1.07)
+            stop = entry + atr * 2
             risk = stop - entry
             tp1 = entry - atr * 2
             tp2 = entry - atr * 4
@@ -178,7 +176,7 @@ def build_setups(assets):
             tp1_pct = round((entry - tp1) / entry * 100, 1)
             tp2_pct = round((entry - tp2) / entry * 100, 1)
             
-            if stop > entry and tp1 < entry and rr >= 1.5:
+            if stop > entry and tp1 < entry and rr >= 1.0:
                 setups_short.append(dict(
                     name=name, source=src, direction="SHORT",
                     score=bear, entry=round(entry, 2),
@@ -282,13 +280,13 @@ def main():
 <div class="scanner-head">
 <div>
 <h2>⚡ Market Pulse Scanner</h2>
-<p>Tradeable setups from Yahoo Finance OHLCV daily data.<br>ATR-based stops/targets · Bull/Bear scoring · RR ≥ 1.5 required</p>
+<p>Tradeable setups from Yahoo Finance OHLCV daily data.<br>ATR-based stops/targets · Bull/Bear scoring · RR ≥ 1.0 required</p>
 <div class="formula">
 <span class="chip">Entry = current</span>
 <span class="chip">SL = swing ± ATR</span>
 <span class="chip">TP1 = 1.5R</span>
 <span class="chip">TP2 = 3R</span>
-<span class="chip">RR ≥ 1.5</span>
+<span class="chip">RR ≥ 1.0</span>
 </div>
 </div>
 <div class="scanner-score">
@@ -303,7 +301,7 @@ def main():
 </div>
 
 <div class="legend">
-<span>✅ TRADEABLE — RR ≥ 1.5, levels valid</span>
+<span>✅ TRADEABLE — RR ≥ 1.0, levels valid</span>
 <span>⏳ WATCHLIST — needs confirmation</span>
 <span class="demo-tag">Yahoo Finance · ATR-based · {NOW}</span>
 </div>
