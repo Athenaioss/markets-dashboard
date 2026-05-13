@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>🧺 Atlas Nexus — ETF Dashboard</title>
+<style>
+:root{--bg:#080b16;--card:#0f1420;--border:#1a2040;--accent:#38bdf8;--accent2:#818cf8;--green:#22c55e;--red:#ef4444;--text:#e2e8f0;--muted:#64748b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;background-image:radial-gradient(ellipse at 30% 0%,rgba(56,189,248,.06) 0%,transparent 50%)}
+.header{text-align:center;padding:40px 20px 30px;border-bottom:1px solid var(--border)}
+.header h1{font-size:2.4em;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2),#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header p{color:var(--muted);margin-top:8px}
+.container{max-width:1300px;margin:0 auto;padding:20px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;text-align:center}
+.card .value{font-size:2em;font-weight:800}
+.card .label{color:var(--muted);margin-top:4px}
+.table-wrapper{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:24px}
+table{width:100%;border-collapse:collapse;font-size:.92em}
+th{background:rgba(15,20,40,.6);padding:14px 16px;text-align:left;font-weight:600;color:var(--accent);font-size:.82em;text-transform:uppercase}
+td{padding:12px 16px;border-bottom:1px solid rgba(26,32,64,.5)}
+tr:hover{background:rgba(56,189,248,.03)}
+.price{font-weight:600;font-variant-numeric:tabular-nums}
+.footer{text-align:center;padding:30px;color:var(--muted);border-top:1px solid var(--border)}
+.footer a{color:#38bdf8;text-decoration:none}
+</style></head>
+<body>
+<div class="header">
+<h1>🧺 Atlas Nexus — ETF Tracker</h1>
+<p>24 ETFs across 6 categories · Equity, Sectors, Bonds, International, Commodities & Thematic | 20260513-102438</p>
+</div>
+<div class="container">
+<div class="stats-grid">
+<div class="card"><div class="value" style="color:var(--accent)">24</div><div class="label">ETFs Tracked</div></div>
+<div class="card"><div class="value" style="color:var(--green)">15</div><div class="label">Up Today</div></div>
+<div class="card"><div class="value" style="color:var(--red)">9</div><div class="label">Down Today</div></div>
+<div class="card"><div class="value" style="color:var(--accent2)">8.02%</div><div class="label">Avg Change</div></div>
+</div>
+<div class="sentiment-banner" style="background:#14532d;border:1px solid #22c55e;border-radius:14px;padding:24px;margin-bottom:20px;text-align:center">
+    <div style="font-size:2.5em;margin-bottom:6px">🚀</div>
+    <div style="font-size:1.5em;font-weight:700;color:#22c55e">BULLISH</div>
+    <div style="font-size:2.2em;font-weight:800;color:#22c55e;margin:4px 0">40%</div>
+    <div style="color:var(--muted);font-size:.9em">confidence</div>
+    <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;font-size:.85em">
+    <div><span style="color:var(--muted)">15/24 assets up</span><br><strong>62</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>8.02</strong></div><div><span style="color:var(--muted)">16/24 bullish MA</span><br><strong>67</strong></div><div><span style="color:var(--muted)">1/24 elevated vol</span><br><strong>4</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>1.0</strong></div>
+    </div></div>
+<h2 style="color:var(--accent);margin-bottom:12px">📦 Category Breakdown</h2>
+<div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"><div class="card" style="border-left:3px solid #f59e0b"><div class="value" style="color:#f59e0b">-2.5%</div><div class="label">Bonds (0/5)</div></div><div class="card" style="border-left:3px solid #ef4444"><div class="value" style="color:#ef4444">+33.6%</div><div class="label">Commodity (2/3)</div></div><div class="card" style="border-left:3px solid #a78bfa"><div class="value" style="color:#a78bfa">+3.1%</div><div class="label">International (2/3)</div></div><div class="card" style="border-left:3px solid #22c55e"><div class="value" style="color:#22c55e">+4.8%</div><div class="label">Sector (4/6)</div></div><div class="card" style="border-left:3px solid #ec4899"><div class="value" style="color:#ec4899">+14.3%</div><div class="label">Thematic (1/1)</div></div><div class="card" style="border-left:3px solid #38bdf8"><div class="value" style="color:#38bdf8">+8.7%</div><div class="label">US Equity (6/6)</div></div></div>
+<h2 style="color:var(--accent);margin:24px 0 12px">📋 ETF Leaderboard</h2>
+<div class="table-wrapper"><div style="overflow-x:auto">
+<table><thead><tr>
+<th>ETF</th><th>Category</th><th>Price</th><th>Change</th><th>Trend</th><th>Volatility</th><th>52W Range</th>
+</tr></thead><tbody><tr>
+            <td><strong>Vanguard Total Bond</strong> <small style="color:var(--muted)">BND</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Bonds</span></td>
+            <td class="price">$73.15</td>
+            <td style="color:#ef4444">▼ 2.02%</td>
+            <td><span style="color:#94a3b8">NEUTRAL</span></td>
+            <td>0.2%</td>
+            <td><small style="color:var(--muted)">$75.23 / $71.76</small></td>
+        </tr><tr>
+            <td><strong>iShares 20+ Year Tr.</strong> <small style="color:var(--muted)">TLT</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Bonds</span></td>
+            <td class="price">$84.99</td>
+            <td style="color:#ef4444">▼ 4.75%</td>
+            <td><span style="color:#ef4444">BEARISH</span></td>
+            <td>0.5%</td>
+            <td><small style="color:var(--muted)">$92.19 / $83.30</small></td>
+        </tr><tr>
+            <td><strong>iShares Core US Agg</strong> <small style="color:var(--muted)">AGG</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Bonds</span></td>
+            <td class="price">$98.63</td>
+            <td style="color:#ef4444">▼ 2.03%</td>
+            <td><span style="color:#94a3b8">NEUTRAL</span></td>
+            <td>0.2%</td>
+            <td><small style="color:var(--muted)">$101.46 / $96.66</small></td>
+        </tr><tr>
+            <td><strong>iShares High Yield</strong> <small style="color:var(--muted)">HYG</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Bonds</span></td>
+            <td class="price">$79.87</td>
+            <td style="color:#ef4444">▼ 1.14%</td>
+            <td><span style="color:#94a3b8">NEUTRAL</span></td>
+            <td>0.2%</td>
+            <td><small style="color:var(--muted)">$81.36 / $78.57</small></td>
+        </tr><tr>
+            <td><strong>iShares Inv. Grade</strong> <small style="color:var(--muted)">LQD</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Bonds</span></td>
+            <td class="price">$108.56</td>
+            <td style="color:#ef4444">▼ 2.39%</td>
+            <td><span style="color:#94a3b8">NEUTRAL</span></td>
+            <td>0.3%</td>
+            <td><small style="color:var(--muted)">$112.93 / $105.39</small></td>
+        </tr><tr>
+            <td><strong>SPDR Gold</strong> <small style="color:var(--muted)">GLD</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Commodity</span></td>
+            <td class="price">$432.93</td>
+            <td style="color:#ef4444">▼ 4.09%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>1.1%</td>
+            <td><small style="color:var(--muted)">$509.70 / $291.78</small></td>
+        </tr><tr>
+            <td><strong>US Oil Fund</strong> <small style="color:var(--muted)">USO</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Commodity</span></td>
+            <td class="price">$144.30</td>
+            <td style="color:#22c55e">▲ 88.92%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>3.5%</td>
+            <td><small style="color:var(--muted)">$151.63 / $65.96</small></td>
+        </tr><tr>
+            <td><strong>iShares Silver</strong> <small style="color:var(--muted)">SLV</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Commodity</span></td>
+            <td class="price">$78.55</td>
+            <td style="color:#22c55e">▲ 15.98%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>2.5%</td>
+            <td><small style="color:var(--muted)">$109.83 / $29.10</small></td>
+        </tr><tr>
+            <td><strong>Vanguard FTSE Dev.</strong> <small style="color:var(--muted)">VEA</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">International</span></td>
+            <td class="price">$69.97</td>
+            <td style="color:#22c55e">▲ 2.15%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>1.1%</td>
+            <td><small style="color:var(--muted)">$71.12 / $53.76</small></td>
+        </tr><tr>
+            <td><strong>iShares MSCI EAFE</strong> <small style="color:var(--muted)">EFA</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">International</span></td>
+            <td class="price">$103.14</td>
+            <td style="color:#ef4444">▼ 0.97%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>1.0%</td>
+            <td><small style="color:var(--muted)">$105.94 / $85.68</small></td>
+        </tr><tr>
+            <td><strong>iShares MSCI EM</strong> <small style="color:var(--muted)">EEM</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">International</span></td>
+            <td class="price">$65.82</td>
+            <td style="color:#22c55e">▲ 8.15%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>1.3%</td>
+            <td><small style="color:var(--muted)">$68.15 / $45.23</small></td>
+        </tr><tr>
+            <td><strong>Consumer Disc.</strong> <small style="color:var(--muted)">XLY</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Sector</span></td>
+            <td class="price">$118.29</td>
+            <td style="color:#22c55e">▲ 1.86%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.8%</td>
+            <td><small style="color:var(--muted)">$125.01 / $103.86</small></td>
+        </tr><tr>
+            <td><strong>Energy Select</strong> <small style="color:var(--muted)">XLE</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Sector</span></td>
+            <td class="price">$57.57</td>
+            <td style="color:#22c55e">▲ 6.65%</td>
+            <td><span style="color:#ef4444">BEARISH</span></td>
+            <td>1.3%</td>
+            <td><small style="color:var(--muted)">$63.46 / $40.36</small></td>
+        </tr><tr>
+            <td><strong>Financial Select</strong> <small style="color:var(--muted)">XLF</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Sector</span></td>
+            <td class="price">$51.58</td>
+            <td style="color:#ef4444">▼ 0.21%</td>
+            <td><span style="color:#ef4444">BEARISH</span></td>
+            <td>0.5%</td>
+            <td><small style="color:var(--muted)">$56.52 / $47.67</small></td>
+        </tr><tr>
+            <td><strong>Health Care Select</strong> <small style="color:var(--muted)">XLV</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Sector</span></td>
+            <td class="price">$145.85</td>
+            <td style="color:#ef4444">▼ 6.51%</td>
+            <td><span style="color:#ef4444">BEARISH</span></td>
+            <td>0.8%</td>
+            <td><small style="color:var(--muted)">$160.59 / $127.35</small></td>
+        </tr><tr>
+            <td><strong>Industrial Select</strong> <small style="color:var(--muted)">XLI</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Sector</span></td>
+            <td class="price">$174.35</td>
+            <td style="color:#22c55e">▲ 0.93%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>1.1%</td>
+            <td><small style="color:var(--muted)">$179.31 / $139.63</small></td>
+        </tr><tr>
+            <td><strong>Technology Select</strong> <small style="color:var(--muted)">XLK</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Sector</span></td>
+            <td class="price">$175.20</td>
+            <td style="color:#22c55e">▲ 25.85%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>1.3%</td>
+            <td><small style="color:var(--muted)">$178.30 / $112.55</small></td>
+        </tr><tr>
+            <td><strong>ARK Innovation</strong> <small style="color:var(--muted)">ARKK</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Thematic</span></td>
+            <td class="price">$78.21</td>
+            <td style="color:#22c55e">▲ 14.26%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>1.9%</td>
+            <td><small style="color:var(--muted)">$92.65 / $55.02</small></td>
+        </tr><tr>
+            <td><strong>Invesco QQQ</strong> <small style="color:var(--muted)">QQQ</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">US Equity</span></td>
+            <td class="price">$707.24</td>
+            <td style="color:#22c55e">▲ 17.75%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.9%</td>
+            <td><small style="color:var(--muted)">$714.59 / $505.58</small></td>
+        </tr><tr>
+            <td><strong>SPDR Dow Jones</strong> <small style="color:var(--muted)">DIA</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">US Equity</span></td>
+            <td class="price">$497.89</td>
+            <td style="color:#22c55e">▲ 0.65%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.5%</td>
+            <td><small style="color:var(--muted)">$505.30 / $413.83</small></td>
+        </tr><tr>
+            <td><strong>SPDR S&P 500</strong> <small style="color:var(--muted)">SPY</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">US Equity</span></td>
+            <td class="price">$738.18</td>
+            <td style="color:#22c55e">▲ 8.35%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.6%</td>
+            <td><small style="color:var(--muted)">$740.79 / $575.60</small></td>
+        </tr><tr>
+            <td><strong>Vanguard S&P 500</strong> <small style="color:var(--muted)">VOO</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">US Equity</span></td>
+            <td class="price">$678.67</td>
+            <td style="color:#22c55e">▲ 8.33%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.6%</td>
+            <td><small style="color:var(--muted)">$681.06 / $529.11</small></td>
+        </tr><tr>
+            <td><strong>Vanguard Total Market</strong> <small style="color:var(--muted)">VTI</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">US Equity</span></td>
+            <td class="price">$362.79</td>
+            <td style="color:#22c55e">▲ 7.97%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.6%</td>
+            <td><small style="color:var(--muted)">$364.48 / $283.00</small></td>
+        </tr><tr>
+            <td><strong>iShares Russell 2000</strong> <small style="color:var(--muted)">IWM</small></td>
+            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">US Equity</span></td>
+            <td class="price">$282.57</td>
+            <td style="color:#22c55e">▲ 8.87%</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.9%</td>
+            <td><small style="color:var(--muted)">$287.58 / $199.65</small></td>
+        </tr></tbody></table></div></div>
+<div class="footer">
+<p>🧺 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260513-102438</p>
+<p style="margin-top:4px"><a href="index.html">← Back to Dashboard</a></p>
+</div>
+</div></body></html>

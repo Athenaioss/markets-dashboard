@@ -2,7 +2,7 @@
 """
 ╔══════════════════════════════════════════════════════════════╗
 ║  ATLAS NEXUS — MARKETS MASTER PIPELINE                     ║
-║  Runs all 4 pipelines: Crypto + Commodities + Indices + FX ║
+║  Runs all 6 pipelines: Crypto + Commodities + Indices + FX + Stocks + ETF ║
 ╚══════════════════════════════════════════════════════════════╝
 """
 
@@ -15,6 +15,8 @@ PIPELINES = [
     ("commodities_pipeline.py", "Commodities"),
     ("indices_pipeline.py", "Indices"),
     ("forex_pipeline.py", "Forex"),
+    ("actions_pipeline.py", "Stocks"),
+    ("etf_pipeline.py", "ETF"),
 ]
 
 OUTPUT_DIR = Path("output")
@@ -22,7 +24,7 @@ OUTPUT_DIR = Path("output")
 def main():
     print("╔══════════════════════════════════════════════╗")
     print("║  🔮 ATLAS NEXUS — MARKETS PIPELINE           ║")
-    print("║  Crypto · Commodities · Indices · Forex      ║")
+    print("║  Crypto · Commodities · Indices · Forex · Stocks · ETF  ║")
     print("╚══════════════════════════════════════════════╝\n")
     
     print(f"⏰ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -67,9 +69,9 @@ def main():
 *{{margin:0;padding:0;box-sizing:border-box}}
 body{{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center}}
 .container{{text-align:center;padding:40px}}
-h1{{font-size:3em;font-weight:800;background:linear-gradient(135deg,#38bdf8,#818cf8,#f59e0b,#22c55e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}}
+h1{{font-size:3em;font-weight:800;background:linear-gradient(135deg,#38bdf8,#818cf8,#f59e0b,#22c55e,#4ade80,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}}
 .subtitle{{color:var(--muted);margin-bottom:40px;font-size:1.1em}}
-.grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1000px;margin:0 auto}}
+.grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1200px;margin:0 auto}}
 .panel{{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:30px;text-align:center;text-decoration:none;color:var(--text);transition:all .2s}}
 .panel:hover{{transform:translateY(-4px);border-color:var(--accent)}}
 .panel .emoji{{font-size:3em;margin-bottom:12px}}
@@ -79,6 +81,8 @@ h1{{font-size:3em;font-weight:800;background:linear-gradient(135deg,#38bdf8,#818
 .panel-2:hover{{border-color:#f59e0b}}
 .panel-3:hover{{border-color:#818cf8}}
 .panel-4:hover{{border-color:#22c55e}}
+.panel-5:hover{{border-color:#4ade80}}
+.panel-6:hover{{border-color:#ec4899}}
 .footer{{margin-top:40px;color:var(--muted);font-size:.85em}}
 </style></head>
 <body>
@@ -98,6 +102,12 @@ h1{{font-size:3em;font-weight:800;background:linear-gradient(135deg,#38bdf8,#818
 <a href="forex_dashboard.html" class="panel panel-4">
 <div class="emoji">💱</div><h2>Forex</h2>
 <div class="desc">Majors, Minors & Exotic currency pairs</div></a>
+<a href="actions_dashboard.html" class="panel panel-5">
+<div class="emoji">📊</div><h2>Actions</h2>
+<div class="desc">AAPL, LVMH, NVDA, TSLA · 30 stocks</div></a>
+<a href="etf_dashboard.html" class="panel panel-6">
+<div class="emoji">🧺</div><h2>ETF</h2>
+<div class="desc">SPY, QQQ, GLD, ARKK · 24 ETFs</div></a>
 </div>
 <div class="footer"><p>🔮 Built by <strong>Atlas Nexus</strong> · Multi-source pipeline · Updated daily</p>
 <p style="margin-top:4px"><a href="https://github.com/AtlasNexusOps/birdeye-sprint4" style="color:#38bdf8">github.com/AtlasNexusOps/birdeye-sprint4</a></p>
