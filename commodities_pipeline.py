@@ -58,10 +58,14 @@ def extract_metrics(symbol, data):
         timestamps = chart.get("timestamp", [])
         close_prices = quotes.get("close", [])
         open_prices = quotes.get("open", [])
+        high_prices_raw = quotes.get("high", [])
+        low_prices_raw = quotes.get("low", [])
         
         # Filter None values
         clean_prices = [p for p in close_prices if p is not None]
         clean_opens = [o for o in open_prices if o is not None]
+        clean_highs = [h for h in high_prices_raw if h is not None]
+        clean_lows = [l for l in low_prices_raw if l is not None]
         clean_volumes = [v for v in quotes.get("volume", []) if v is not None]
         
         current = meta.get("regularMarketPrice", 0)
@@ -132,7 +136,8 @@ def extract_metrics(symbol, data):
             "ma20": round(ma20, 4),
             "trend": trend,
             "volatility_20d": volatility,
-            "timestamp": NOW
+            "timestamp": NOW,
+            "_close_prices": clean_prices, "_high_prices": clean_highs, "_low_prices": clean_lows
         }
     except (KeyError, IndexError, TypeError) as e:
         print(f"  ⚠️ Parse error {symbol}: {e}")

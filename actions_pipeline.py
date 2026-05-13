@@ -68,6 +68,9 @@ def extract_metrics(symbol, data):
         meta = chart["meta"]
         quotes = chart.get("indicators", {}).get("quote", [{}])[0]
         close_prices = [p for p in quotes.get("close", []) if p is not None]
+        close_raw = [p for p in quotes.get("close", []) if p is not None]
+        high_raw = [h for h in quotes.get("high", []) if h is not None]
+        low_raw = [l for l in quotes.get("low", []) if l is not None]
         open_prices = [o for o in quotes.get("open", []) if o is not None]
         volumes = [v for v in quotes.get("volume", []) if v is not None]
 
@@ -121,7 +124,8 @@ def extract_metrics(symbol, data):
             "candle_ratio": candle_ratio, "dist_to_52w_high": dist_to_52w_high,
             "ma5": round(ma5, 2), "ma20": round(ma20, 2),
             "trend": trend, "volatility_20d": round(volatility, 2),
-            "timestamp": NOW
+            "timestamp": NOW,
+            "_close_prices": close_raw, "_high_prices": high_raw, "_low_prices": low_raw
         }
     except Exception as e:
         print(f"  ⚠️ Parse {symbol}: {e}")
