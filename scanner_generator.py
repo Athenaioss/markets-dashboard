@@ -124,8 +124,78 @@ def compute_scores(all_assets):
         a["_roc5"] = roc5
         a["_roc20"] = roc20
 
+def source_profile(source, symbol=""):
+    """Asset-class aware risk model for entry/SL/TP display.
+
+    The scanner mixes FX pairs, CFDs/commodities, indices, equities, ETFs and crypto.
+    A single ATR multiplier plus 2-decimal rounding creates nonsensical FX levels
+    (e.g. AUD/USD 0.7257 rendered as 0.7300). Profiles keep precision and risk
+    bands aligned with the asset context.
+    """
+    symbol = (symbol or "").upper()
+    if source == "forex":
+        return {"decimals": 2 if "JPY" in symbol else 4, "stop_atr": 1.15, "target_rr": 1.8, "min_risk_pct": 0.25, "max_risk_pct": 1.20}
+    if source == "crypto":
+        return {"decimals": 2, "stop_atr": 1.8, "target_rr": 1.8, "min_risk_pct": 2.00, "max_risk_pct": 12.0}
+    if source in ("actions", "etf"):
+        return {"decimals": 2, "stop_atr": 1.25, "target_rr": 1.7, "min_risk_pct": 0.80, "max_risk_pct": 6.00}
+    if source == "indices":
+        return {"decimals": 2, "stop_atr": 1.20, "target_rr": 1.7, "min_risk_pct": 0.60, "max_risk_pct": 5.00}
+    if source == "commodities":
+        return {"decimals": 2, "stop_atr": 1.15, "target_rr": 1.6, "min_risk_pct": 0.70, "max_risk_pct": 5.00}
+    return {"decimals": 2, "stop_atr": 1.30, "target_rr": 1.7, "min_risk_pct": 0.80, "max_risk_pct": 6.00}
+
+def rounded_price(value, profile):
+    return round(value, profile["decimals"])
+
+def contextual_levels(a, direction):
+    """Return context-aware entry, stop, target, RR and risk %."""
+    entry = a.get("price", 0)
+    atr = a.get("_atr", 0.01)
+    src = a.get("source", "")
+    profile = source_profile(src, a.get("symbol", ""))
+    if not entry or not atr:
+        return None
+
+    atr_risk = atr * profile["stop_atr"]
+    min_risk = entry * profile["min_risk_pct"] / 100
+    max_risk = entry * profile["max_risk_pct"] / 100
+    risk = min(max(atr_risk, min_risk), max_risk)
+
+    # Respect nearby market structure when it is plausible, without letting
+    # stale candles create absurdly wide stops for volatile/mixed instruments.
+    if direction == "LONG":
+        structure_stop = a.get("_swing_low", entry) - atr * 0.15
+        structure_risk = entry - structure_stop
+        if min_risk <= structure_risk <= max_risk:
+            risk = max(risk, structure_risk)
+        stop = entry - risk
+        tp = entry + risk * profile["target_rr"]
+        rr = round((tp - entry) / risk, 1) if risk > 0 else 0
+        tp_pct = round((tp - entry) / entry * 100, 1)
+    else:
+        structure_stop = a.get("_swing_high", entry) + atr * 0.15
+        structure_risk = structure_stop - entry
+        if min_risk <= structure_risk <= max_risk:
+            risk = max(risk, structure_risk)
+        stop = entry + risk
+        tp = entry - risk * profile["target_rr"]
+        rr = round((entry - tp) / risk, 1) if risk > 0 else 0
+        tp_pct = round((entry - tp) / entry * 100, 1)
+
+    return {
+        "entry": rounded_price(entry, profile),
+        "stop": rounded_price(stop, profile),
+        "tp": rounded_price(tp, profile),
+        "rr": rr,
+        "risk_pct": round(risk / entry * 100, 2),
+        "tp_pct": tp_pct,
+        "atr_pct": round(atr / entry * 100, 2),
+        "precision": profile["decimals"],
+    }
+
 def build_setups(assets):
-    """Build tradeable setups with ATR-based stops/targets"""
+    """Build tradeable setups with asset-contextual stops/targets"""
     setups_long = []
     setups_short = []
     
@@ -142,47 +212,25 @@ def build_setups(assets):
         
         # ── LONG setup ──
         if bull >= 50 and trend == "BULLISH" and a.get("change_pct", 0) > 0:
-            entry = price
-            # Tight ATR-based stop
-            stop = entry - atr * 2
-            risk = entry - stop
-            # TP = entry ± ATR×3 (single coherent target)
-            tp = entry + atr * 3
-            rr = round((tp - entry) / risk, 1) if risk > 0 else 0
-            tp_pct = round((tp - entry) / entry * 100, 1)
-            
-            if stop < entry and tp > entry and rr >= 1.0:
+            levels = contextual_levels(a, "LONG")
+            if levels and levels["stop"] < levels["entry"] and levels["tp"] > levels["entry"] and levels["rr"] >= 1.0:
                 setups_long.append(dict(
-                    name=name, source=src, direction="LONG",
-                    score=bull, entry=round(entry, 2),
-                    stop=round(stop, 2), tp=round(tp, 2),
-                    tp_pct=tp_pct,
-                    rr=rr, risk_pct=round(risk/entry*100, 1),
-                    atr_pct=round(atr/entry*100, 2),
+                    name=name, source=src, direction="LONG", symbol=a.get("symbol", ""),
+                    score=bull, **levels,
                     rsi=a.get("_rsi", 50),
-                    motif="trend + momentum",
+                    motif="trend + contextual risk",
                     status="TRADEABLE"
                 ))
         
         # ── SHORT setup ──
         if bear >= 50 and trend == "BEARISH" and a.get("change_pct", 0) < 0:
-            entry = price
-            stop = entry + atr * 2
-            risk = stop - entry
-            tp = entry - atr * 3
-            rr = round((entry - tp) / risk, 1) if risk > 0 else 0
-            tp_pct = round((entry - tp) / entry * 100, 1)
-            
-            if stop > entry and tp < entry and rr >= 1.0:
+            levels = contextual_levels(a, "SHORT")
+            if levels and levels["stop"] > levels["entry"] and levels["tp"] < levels["entry"] and levels["rr"] >= 1.0:
                 setups_short.append(dict(
-                    name=name, source=src, direction="SHORT",
-                    score=bear, entry=round(entry, 2),
-                    stop=round(stop, 2), tp=round(tp, 2),
-                    tp_pct=tp_pct,
-                    rr=rr, risk_pct=round(risk/entry*100, 1),
-                    atr_pct=round(atr/entry*100, 2),
+                    name=name, source=src, direction="SHORT", symbol=a.get("symbol", ""),
+                    score=bear, **levels,
                     rsi=a.get("_rsi", 50),
-                    motif="downtrend + volume",
+                    motif="downtrend + contextual risk",
                     status="TRADEABLE"
                 ))
     
@@ -213,10 +261,11 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
         badge_color = "#22c55e" if status == "TRADEABLE" else "#f59e0b"
         badge_text = "✅ TRADEABLE" if status == "TRADEABLE" else "⏳ WATCHLIST"
         
-        price_fmt = f"${entry:,.2f}" if entry > 1 else f"${entry:,.4f}"
-        stop_fmt = f"${stop:,.2f}" if stop > 1 else f"${stop:,.4f}"
+        precision = int(s.get("precision", 2 if entry > 1 else 4))
+        price_fmt = f"${entry:,.{precision}f}"
+        stop_fmt = f"${stop:,.{precision}f}"
         tp = s.get("tp", 0)
-        tp_fmt = f"${tp:,.2f}" if tp > 1 else f"${tp:,.4f}"
+        tp_fmt = f"${tp:,.{precision}f}"
         tp_pct = s.get("tp_pct", 0)
         
         rows += f"""<div class="signal-row" data-market="{market}">
@@ -283,8 +332,8 @@ def main():
 <p>Tradeable setups from Yahoo Finance OHLCV daily data.<br>ATR-based stops/targets · Bull/Bear scoring · RR ≥ 1.0 required</p>
 <div class="formula">
 <span class="chip">Entry = current</span>
-<span class="chip">SL = swing ± ATR</span>
-<span class="chip">TP = ATR×3</span>
+<span class="chip">SL = contextual ATR + structure</span>
+<span class="chip">TP = class-aware RR</span>
 <span class="chip"></span>
 <span class="chip">RR ≥ 1.0</span>
 </div>
