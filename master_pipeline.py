@@ -138,7 +138,7 @@ h1{{font-size:3em;font-weight:800;background:linear-gradient(135deg,#38bdf8,#818
 <div class="emoji">📊</div><h2>Actions</h2>
 <div class="desc">AAPL, LVMH, NVDA, TSLA · 30 stocks</div></a>
 <a href="etf_dashboard.html" class="panel panel-6">
-<div class="emoji">🧺</div><h2>ETF</h2>
+<div class="emoji">💰</div><h2>ETF</h2>
 <div class="desc">SPY, QQQ, GLD, ARKK · 24 ETFs</div></a>
 </div>
 <div class="footer"><p>🔮 Built by <strong>Atlas Nexus</strong> · Yahoo Finance + TradingView · Updated daily</p>
