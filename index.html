@@ -334,8 +334,8 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
       return {state:'closed', label:'CLOSED · weekend'};
     }
     if (market === 'commodities') {
-      if (isForexOpen(now)) return {state:'open', label:'OPEN · futures'};
-      return {state:'closed', label:'CLOSED · futures'};
+      if (isForexOpen(now)) return {state:'soon', label:'EXTENDED · CFD'};
+      return {state:'closed', label:'CLOSED · CFD'};
     }
     return {state:'closed', label:'CLOSED'};
   };
