@@ -325,23 +325,37 @@ def main():
             a[k] = v
         a["category"] = classify(scoring)
     
+    # Filter out obvious data artifacts (splits, dividends, bad data)
+    def is_playable(a):
+        ch = a.get("change_pct", 0)
+        if abs(ch) > 20:
+            return False  # Anomaly — likely split/dividend artifact
+        if abs(ch) < 0.2:
+            return False  # Flat — no signal
+        return True
+    
+    assets_clean = [a for a in all_assets if is_playable(a)]
+    skipped = len(all_assets) - len(assets_clean)
+    if skipped:
+        print(f"  ⚠️ Filtered {skipped} outliers/anomalies")
+    
     # Top 7 Bullish (confirmed uptrend) / Bearish (confirmed downtrend)
     bullish = sorted(
-        [a for a in all_assets if a.get("change_pct", 0) > 0 and a.get("trend", "") != "BEARISH"],
+        [a for a in assets_clean if a.get("change_pct", 0) > 0 and a.get("trend", "") != "BEARISH"],
         key=lambda a: a["score"], reverse=True
     )[:7]
     bearish = sorted(
-        [a for a in all_assets if a.get("change_pct", 0) < 0 and a.get("trend", "") != "BULLISH"],
+        [a for a in assets_clean if a.get("change_pct", 0) < 0 and a.get("trend", "") != "BULLISH"],
         key=lambda a: a["score"]
     )[:7]
     
     # Pad if needed
     if len(bullish) < 7:
-        extras = sorted([a for a in all_assets if a not in bullish], key=lambda a: a["score"], reverse=True)
+        extras = sorted([a for a in assets_clean if a not in bullish], key=lambda a: a["score"], reverse=True)
         bullish.extend(extras[:7 - len(bullish)])
     if len(bearish) < 7:
         used = set(id(a) for a in bullish + bearish)
-        extras = sorted([a for a in all_assets if id(a) not in used], key=lambda a: a["score"])
+        extras = sorted([a for a in assets_clean if id(a) not in used], key=lambda a: a["score"])
         bearish.extend(extras[:7 - len(bearish)])
     
     print(f"  🚀 Bullish: {len(bullish)}")
