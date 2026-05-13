@@ -33,7 +33,7 @@ h1{font-size:3em;font-weight:800;background:linear-gradient(135deg,#38bdf8,#818c
 .scanner-score{min-width:160px;text-align:center;padding:16px 20px;border-radius:18px;background:rgba(7,10,20,.52);border:1px solid rgba(226,232,240,.09)}
 .scanner-score .num{font-size:2.1em;font-weight:900;color:#38bdf8}
 .scanner-score .label{color:#8b9bb4;font-size:.8em;margin-top:2px}
-.scanner-board{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.scanner-board{position:relative;display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
 .signal-card{background:rgba(7,10,20,.58);border:1px solid rgba(226,232,240,.10);border-radius:18px;padding:16px 18px}
 .signal-card h3{font-size:.95em;margin-bottom:12px;color:#e0f2fe}
 .signal-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(226,232,240,.07)}
@@ -118,8 +118,8 @@ footer a{color:#38bdf8;text-decoration:none}
 </div>
 </div>
 
-<div class="scanner-board">
-<div class="signal-card"><h3>🔥 Top Momentum</h3><div class="signal-row">
+<div class="scanner-board" style="grid-template-columns:repeat(2,1fr)">
+<div class="signal-card"><h3>🚀 Strong Bullish</h3><div class="signal-row">
 <div><span class="asset-name">Silver</span>
 <span class="asset-meta">commodities</span>
 <span class="asset-breakdown">T17 M15 RS20 V15 R15</span></div>
@@ -155,43 +155,7 @@ footer a{color:#38bdf8;text-decoration:none}
 <span class="asset-breakdown">T17 M16 RS20 V0 R12</span></div>
 <span class="score-pill score-hot">65</span>
 </div></div>
-<div class="signal-card"><h3>⚡ Breakout Watch</h3><div class="signal-row">
-<div><span class="asset-name">Tesla</span>
-<span class="asset-meta">actions</span>
-<span class="asset-breakdown">T17 M13 RS20 V0 R15</span></div>
-<span class="score-pill score-watch">65</span>
-</div><div class="signal-row">
-<div><span class="asset-name">Technology Select</span>
-<span class="asset-meta">etf</span>
-<span class="asset-breakdown">T17 M11 RS20 V0 R12</span></div>
-<span class="score-pill score-watch">60</span>
-</div><div class="signal-row">
-<div><span class="asset-name">Caterpillar</span>
-<span class="asset-meta">RSI 67</span>
-<span class="asset-breakdown">T17 M13 RS15 V0 R14</span></div>
-<span class="score-pill score-watch">59</span>
-</div><div class="signal-row">
-<div><span class="asset-name">S&P 500</span>
-<span class="asset-meta">RSI 70</span>
-<span class="asset-breakdown">T17 M16 RS15 V0 R10</span></div>
-<span class="score-pill score-watch">58</span>
-</div><div class="signal-row">
-<div><span class="asset-name">US Dollar / Swiss Franc</span>
-<span class="asset-meta">RSI 55</span>
-<span class="asset-breakdown">T17 M16 RS10 V0 R15</span></div>
-<span class="score-pill score-watch">58</span>
-</div><div class="signal-row">
-<div><span class="asset-name">Johnson & Johnson</span>
-<span class="asset-meta">RSI 67</span>
-<span class="asset-breakdown">T17 M16 RS10 V0 R15</span></div>
-<span class="score-pill score-watch">58</span>
-</div><div class="signal-row">
-<div><span class="asset-name">iShares MSCI EM</span>
-<span class="asset-meta">RSI 66</span>
-<span class="asset-breakdown">T17 M12 RS15 V0 R14</span></div>
-<span class="score-pill score-watch">58</span>
-</div></div>
-<div class="signal-card"><h3>🛡️ Risk Flags</h3><div class="signal-row">
+<div class="signal-card"><h3>🐻 Strong Bearish</h3><div class="signal-row">
 <div><span class="asset-name">Nike</span>
 <span class="asset-meta">actions</span>
 <span class="asset-breakdown">T0 M1 RS2 V0 R9</span></div>
@@ -230,10 +194,9 @@ footer a{color:#38bdf8;text-decoration:none}
 </div>
 
 <div class="legend">
-<span>🔥 score ≥ 70 · trend ≥ 18 · momentum ≥ 16 · risk ≥ 8</span>
-<span>⚡ score 55–74 · near 20d high · improving</span>
-<span>🛡️ score &lt;45 · or high ATR/drawdown · or RSI &gt;78</span>
-<span class="demo-tag">Live data · Yahoo Finance · 20260513-155551</span>
+<span>🚀 highest composite scores</span>
+<span>🐻 lowest composite scores</span>
+<span class="demo-tag">Live data · Yahoo Finance · 20260513-210957</span>
 </div>
 </section>
 

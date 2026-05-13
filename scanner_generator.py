@@ -325,25 +325,12 @@ def main():
             a[k] = v
         a["category"] = classify(scoring)
     
-    # Top 7 per category
-    hot   = sorted([a for a in all_assets if a["category"] == "hot"], key=lambda a: a["score"], reverse=True)[:7]
-    watch = sorted([a for a in all_assets if a["category"] == "watch"], key=lambda a: a["score"], reverse=True)[:7]
-    risk  = sorted([a for a in all_assets if a["category"] == "risk"], key=lambda a: a["score"])[:7]
+    # Top 7 Bullish / Bearish
+    bullish = sorted(all_assets, key=lambda a: a["score"], reverse=True)[:7]
+    bearish = sorted(all_assets, key=lambda a: a["score"])[:7]
     
-    # If not enough in category, pad with nearest
-    if len(hot) < 7:
-        candidates = sorted([a for a in all_assets if a not in hot], key=lambda a: a["score"], reverse=True)
-        hot.extend(candidates[:7 - len(hot)])
-    if len(watch) < 7:
-        candidates = sorted([a for a in all_assets if a not in hot and a not in watch], key=lambda a: a["score"], reverse=True)
-        watch.extend(candidates[:7 - len(watch)])
-    if len(risk) < 7:
-        candidates = sorted([a for a in all_assets if a not in hot and a not in watch and a not in risk], key=lambda a: a["score"])
-        risk.extend(candidates[:7 - len(risk)])
-    
-    print(f"  🔥 Top Momentum: {len(hot)}")
-    print(f"  ⚡ Breakout Watch: {len(watch)}")
-    print(f"  🛡️ Risk Flags: {len(risk)}")
+    print(f"  🚀 Bullish: {len(bullish)}")
+    print(f"  🐻 Bearish: {len(bearish)}")
     
     # ── Generate HTML ──
     def signal_card(title, emoji, items, score_class):
@@ -357,16 +344,13 @@ def main():
             t = a.get("trend", 0); m = a.get("momentum", 0)
             rs = a.get("rel_strength", 0); v = a.get("volume", 0)
             r = a.get("risk", 0)
-            
-            # Sub-score breakdown
             breakdown = f"T{t} M{m} RS{rs} V{v} R{r}"
+            ch = a.get("change_pct", 0) or a.get("price_change_24h", 0) or 0
             
-            # Meta
             meta_parts = []
             atr = a.get("atr_pct", 2)
             if atr > 6: meta_parts.append(f"ATR {atr:.0f}%")
             if a.get("drawdown_20d", 0) > 10: meta_parts.append(f"DD {a['drawdown_20d']:.0f}%")
-            if 50 <= a.get("rsi", 50) <= 70: meta_parts.append(f"RSI {a['rsi']}")
             meta = " · ".join(meta_parts) if meta_parts else a.get("source", "")
             
             rows += f"""<div class="signal-row">
@@ -378,9 +362,8 @@ def main():
         
         return f"""<div class="signal-card"><h3>{emoji} {title}</h3>{rows}</div>"""
     
-    hot_card   = signal_card("Top Momentum", "🔥", hot, "score-hot")
-    watch_card = signal_card("Breakout Watch", "⚡", watch, "score-watch")
-    risk_card  = signal_card("Risk Flags", "🛡️", risk, "score-risk")
+    bull_card = signal_card("Strong Bullish", "🚀", bullish, "score-hot")
+    bear_card = signal_card("Strong Bearish", "🐻", bearish, "score-risk")
     
     scanner_html = f"""<!-- ⚡ Market Pulse Scanner v2 — Live Data {NOW} -->
 <section id="scanner" class="scanner">
@@ -402,16 +385,14 @@ def main():
 </div>
 </div>
 
-<div class="scanner-board">
-{hot_card}
-{watch_card}
-{risk_card}
+<div class="scanner-board" style="grid-template-columns:repeat(2,1fr)">
+{bull_card}
+{bear_card}
 </div>
 
 <div class="legend">
-<span>🔥 score ≥ 70 · trend ≥ 18 · momentum ≥ 16 · risk ≥ 8</span>
-<span>⚡ score 55–74 · near 20d high · improving</span>
-<span>🛡️ score &lt;45 · or high ATR/drawdown · or RSI &gt;78</span>
+<span>🚀 highest composite scores</span>
+<span>🐻 lowest composite scores</span>
 <span class="demo-tag">Live data · Yahoo Finance · {NOW}</span>
 </div>
 </section>"""
@@ -423,9 +404,8 @@ def main():
     report = {
         "generated": NOW,
         "total_assets": len(all_assets),
-        "hot": [{"name": a.get("name"), "symbol": a.get("symbol"), "score": a["score"], "source": a.get("source"), "breakdown": f"T{a['trend']}M{a['momentum']}RS{a['rel_strength']}V{a['volume']}R{a['risk']}"} for a in hot],
-        "watch": [{"name": a.get("name"), "symbol": a.get("symbol"), "score": a["score"], "source": a.get("source"), "breakdown": f"T{a['trend']}M{a['momentum']}RS{a['rel_strength']}V{a['volume']}R{a['risk']}"} for a in watch],
-        "risk": [{"name": a.get("name"), "symbol": a.get("symbol"), "score": a["score"], "source": a.get("source"), "breakdown": f"T{a['trend']}M{a['momentum']}RS{a['rel_strength']}V{a['volume']}R{a['risk']}"} for a in risk],
+        "bullish": [{"name": a.get("name"), "symbol": a.get("symbol"), "score": a["score"], "source": a.get("source"), "breakdown": f"T{a['trend']}M{a['momentum']}RS{a['rel_strength']}V{a['volume']}R{a['risk']}"} for a in bullish],
+        "bearish": [{"name": a.get("name"), "symbol": a.get("symbol"), "score": a["score"], "source": a.get("source"), "breakdown": f"T{a['trend']}M{a['momentum']}RS{a['rel_strength']}V{a['volume']}R{a['risk']}"} for a in bearish],
     }
     json_path = OUTPUT_DIR / f"scanner_{NOW}.json"
     json_path.write_text(json.dumps(report, indent=2))
