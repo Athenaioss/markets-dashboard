@@ -5,49 +5,84 @@ Used by all Atlas Nexus pipelines (crypto, commodities, indices, forex, actions,
 
 def hawk_eye_html(assets: list, top_n: int = 3) -> str:
     """
-    Generate Hawk Eye HTML block showing top confidence bullish & bearish picks.
-    Score = |change_pct| + trend bonus (BULLISH: +2, BEARISH: +2, NEUTRAL: 0)
+    🦅 Hawk Eye — Gem detection engine
+    Finds hidden gems using a composite score inspired by crypto gem hunting:
+      Gem Score = Trend + Momentum + Conviction − Volatility Penalty
+    
+    Signals:
+      - Trend: BULLISH +4, NEUTRAL 0, BEARISH -4
+      - Momentum: change_pct (daily %)
+      - Conviction: vol_ratio > 2x → +3pts, > 1.5x → +2, > 1x → +1
+      - Stability penalty: vol_20d > 3% → −1 per extra %
+    
+    Bullish gems: high positive gem_score (strong uptrend with conviction)
+    Bearish alerts: high negative gem_score (confirmed downtrend with volume)
     """
     if len(assets) < 2:
         return ""
     
-    def pick_score(a):
-        ch = abs(a.get("change_pct", 0))
+    def gem_score(a):
+        ch = a.get("change_pct", 0)
         trend = a.get("trend", "NEUTRAL")
-        bonus = 2 if trend in ("BULLISH", "BEARISH") else 0
-        return ch + bonus
+        trend_bonus = {"BULLISH": 4, "NEUTRAL": 0, "BEARISH": -4}.get(trend, 0)
+        
+        vr = a.get("vol_ratio", 1.0)
+        if vr > 2.0: conv_bonus = 3
+        elif vr > 1.5: conv_bonus = 2
+        elif vr > 1.0: conv_bonus = 1
+        else: conv_bonus = 0
+        
+        vol = a.get("volatility_20d", 0)
+        stability_penalty = max(0, (vol - 3.0)) * 1.0 if vol > 3 else 0
+        
+        score = ch + trend_bonus + conv_bonus - stability_penalty
+        return round(score, 2)
     
+    # Bullish gems: top positive gem_score
     bullish = sorted(
-        [a for a in assets if a.get("change_pct", 0) > 0],
-        key=lambda a: a.get("change_pct", 0), reverse=True
+        [a for a in assets if a.get("change_pct", 0) > 0 and a.get("trend", "") != "BEARISH"],
+        key=lambda a: gem_score(a), reverse=True
     )[:top_n]
     
+    # Bearish alerts: most negative gem_score
     bearish = sorted(
-        [a for a in assets if a.get("change_pct", 0) < 0],
-        key=lambda a: a.get("change_pct", 0)
+        [a for a in assets if a.get("change_pct", 0) < 0 and a.get("trend", "") != "BULLISH"],
+        key=lambda a: gem_score(a)
     )[:top_n]
     
     def pick_card(p, color, arrow):
+        score = gem_score(p)
+        signals = []
+        if p.get("vol_ratio", 0) > 1.5:
+            signals.append("📊")
+        if p.get("volatility_20d", 0) < 2:
+            signals.append("💎")  # low vol = stable gem
+        sig_str = " ".join(signals)
         return (
             f'<div style="display:flex;align-items:center;justify-content:space-between;'
             f'padding:8px 0;border-bottom:1px solid rgba(26,32,64,.3)">'
-            f'<strong>{p["name"]}</strong>'
+            f'<div><strong>{p["name"]}</strong>'
+            f'<span style="color:var(--muted);font-size:.82em;margin-left:4px">{sig_str}</span></div>'
+            f'<div style="text-align:right">'
             f'<span style="color:{color};font-weight:600">{arrow} {abs(p["change_pct"]):.1f}%</span>'
-            f'</div>'
+            f'<span style="color:var(--muted);font-size:.78em;margin-left:6px">★{score:.1f}</span>'
+            f'</div></div>'
         )
     
-    bull_cards = "".join(pick_card(p, "#22c55e", "▲") for p in bullish) if bullish else '<div style="color:var(--muted);padding:8px 0">No bullish picks</div>'
-    bear_cards = "".join(pick_card(p, "#ef4444", "▼") for p in bearish) if bearish else '<div style="color:var(--muted);padding:8px 0">No bearish picks</div>'
+    bull_cards = "".join(pick_card(p, "#22c55e", "▲") for p in bullish) if bullish else '<div style="color:var(--muted);padding:8px 0">En attente de signaux</div>'
+    bear_cards = "".join(pick_card(p, "#ef4444", "▼") for p in bearish) if bearish else '<div style="color:var(--muted);padding:8px 0">En attente de signaux</div>'
     
     return f"""<div style="background:rgba(56,189,248,.02);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:20px">
-<h3 style="margin:0 0 14px 0;font-size:1.1em">🦅 Hawk Eye <span style="color:var(--muted);font-weight:400;font-size:.85em">— Top confidence picks</span></h3>
+<h3 style="margin:0 0 14px 0;font-size:1.1em">🦅 Hawk Eye <span style="color:var(--muted);font-weight:400;font-size:.85em">— Gem detection · Trend + Volume + Volatility</span></h3>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
 <div>
-<h4 style="margin:0 0 10px 0;color:#22c55e">🔥 Bullish</h4>
+<h4 style="margin:0 0 10px 0;color:#22c55e">💎 Bullish Gems</h4>
+<div style="color:var(--muted);font-size:.75em;margin-bottom:6px">Score = momentum + trend + conviction − volatility</div>
 {bull_cards}
 </div>
 <div>
-<h4 style="margin:0 0 10px 0;color:#ef4444">🧊 Bearish</h4>
+<h4 style="margin:0 0 10px 0;color:#ef4444">🧊 Bearish Alerts</h4>
+<div style="color:var(--muted);font-size:.75em;margin-bottom:6px">Confirmed downtrend with volume conviction</div>
 {bear_cards}
 </div>
 </div>
