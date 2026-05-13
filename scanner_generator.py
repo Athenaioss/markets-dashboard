@@ -195,6 +195,9 @@ def build_setups(assets):
 
 # ── HTML Generation ──
 
+def market_for_source(source):
+    return {"actions": "stocks"}.get(source, source)
+
 def setup_card(title, emoji, setups, color_class, is_bullish=True):
     if not setups:
         return f"""<div class="signal-card"><h3>{emoji} {title}</h3><div class="no-signal">No valid {title.lower()} setup</div></div>"""
@@ -205,6 +208,7 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
         entry = s["entry"]; stop = s["stop"]; tp = s["tp"]
         rr = s["rr"]; risk_pct = s["risk_pct"]; status = s["status"]
         motif = s.get("motif", "")
+        market = market_for_source(s.get("source", ""))
         
         badge_color = "#22c55e" if status == "TRADEABLE" else "#f59e0b"
         badge_text = "✅ TRADEABLE" if status == "TRADEABLE" else "⏳ WATCHLIST"
@@ -215,7 +219,7 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
         tp_fmt = f"${tp:,.2f}" if tp > 1 else f"${tp:,.4f}"
         tp_pct = s.get("tp_pct", 0)
         
-        rows += f"""<div class="signal-row">
+        rows += f"""<div class="signal-row" data-market="{market}">
 <div>
 <span class="asset-name">{s['name']}</span>
 <span class="asset-tag">{s.get('direction','')}</span>
@@ -230,6 +234,7 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
 <span class="score-pill {color_class}">{score}</span>
 <div style="font-size:.72em;color:var(--muted);margin-top:3px">RR {rr}:1 · −{risk_pct}%</div>
 <div style="font-size:.7em;color:{badge_color};margin-top:2px">{badge_text}</div>
+<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>
 </div>"""
     
