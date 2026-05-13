@@ -168,6 +168,7 @@ def export_html(etfs):
 *{{margin:0;padding:0;box-sizing:border-box}}
 body{{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;background-image:radial-gradient(ellipse at 30% 0%,rgba(56,189,248,.06) 0%,transparent 50%)}}
 .header{{text-align:center;padding:40px 20px 30px;border-bottom:1px solid var(--border)}}
+.title-emoji{{font-size:2.8em;margin-bottom:0;line-height:1}}
 .header h1{{font-size:2.4em;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2),#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}}
 .header p{{color:var(--muted);margin-top:8px}}
 .container{{max-width:1300px;margin:0 auto;padding:20px}}
@@ -186,7 +187,8 @@ tr:hover{{background:rgba(56,189,248,.03)}}
 </style></head>
 <body>
 <div class="header">
-<h1>🧺 Atlas Nexus — ETF Tracker</h1>
+<div class="title-emoji">🧺</div>
+<h1>Atlas Nexus — ETF Tracker</h1>
 <p>24 ETFs across 6 categories · Equity, Sectors, Bonds, International, Commodities & Thematic | {NOW}</p>
 </div>
 <div class="container">

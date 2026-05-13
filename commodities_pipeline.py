@@ -199,6 +199,7 @@ def export_html(commodities, summary):
 *{{margin:0;padding:0;box-sizing:border-box}}
 body{{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;background-image:radial-gradient(ellipse at 30% 0%,rgba(245,158,11,0.06) 0%,transparent 50%)}}
 .header{{text-align:center;padding:40px 20px 30px;border-bottom:1px solid var(--border)}}
+.title-emoji{{font-size:2.8em;margin-bottom:0;line-height:1}}
 .header h1{{font-size:2.4em;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}}
 .header p{{color:var(--muted);margin-top:8px}}
 .container{{max-width:1300px;margin:0 auto;padding:20px}}
@@ -221,7 +222,8 @@ tr:hover{{background:rgba(245,158,11,.03)}}
 </style></head>
 <body>
 <div class="header">
-<h1>🛢️ Atlas Nexus — Commodities</h1>
+<div class="title-emoji">🛢️</div>
+<h1>Atlas Nexus — Commodities</h1>
 <p>Real-time commodity futures tracking · Gold, Oil, Copper, Grains, Softs | {NOW}</p>
 </div>
 <div class="container">
@@ -251,6 +253,11 @@ tr:hover{{background:rgba(245,158,11,.03)}}
     path = OUTPUT_DIR / f"commodities_{NOW}.html"
     path.write_text(html)
     print(f"✅ HTML: {path} ({os.path.getsize(path)} bytes)")
+
+    # Also write live copy at repo root for GH Pages
+    live_path = Path("commodities_dashboard.html")
+    live_path.write_text(html)
+    print(f"✅ Live: {live_path} ({os.path.getsize(live_path)} bytes)")
     return html
 
 def main():
