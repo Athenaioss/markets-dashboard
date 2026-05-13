@@ -220,10 +220,10 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
 <span class="asset-tag">{s.get('direction','')}</span>
 <span class="asset-meta">{s.get('source','')} · {motif}</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">Entry {price_fmt}</span>
-<span style="color:#ef4444">SL {stop_fmt}</span>
-<span style="color:#22c55e">TP1 {tp1_fmt}</span>
-<span style="color:#14F195">TP2 {tp2_fmt}</span>
+<span style="color:#bae6fd">🚪 {price_fmt}</span>
+<span style="color:#ef4444">🛑 {stop_fmt}</span>
+<span style="color:#22c55e">🎯 {tp1_fmt}</span>
+<span style="color:#14F195">🎯🎯 {tp2_fmt}</span>
 </span>
 </div>
 <div style="text-align:right">
