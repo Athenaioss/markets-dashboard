@@ -365,7 +365,6 @@ def main():
 
 <div class="legend">
 <span>✅ TRADEABLE — RR ≥ 1.0, levels valid</span>
-<span>⏳ WATCHLIST — needs confirmation</span>
 <span class="demo-tag">Updated {UPDATED_AT_LABEL}</span>
 <span class="demo-tag">Yahoo Finance · ATR-based · {NOW}</span>
 </div>
