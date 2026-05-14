@@ -1,0 +1,31 @@
+name,symbol,sector,country,currency,price,change_pct,trend,volatility_20d,vol_ratio
+Apple,AAPL,Technology,US,USD,298.87,16.85,BULLISH,1.33,0.93
+Microsoft,MSFT,Technology,US,USD,405.21,0.97,BEARISH,1.4,0.79
+Alphabet,GOOGL,Technology,US,USD,402.62,31.7,BULLISH,1.66,0.98
+Amazon,AMZN,Technology,US,USD,270.13,35.89,BULLISH,1.08,0.81
+Meta,META,Technology,US,USD,616.63,-3.62,BEARISH,1.55,0.91
+NVIDIA,NVDA,Technology,US,USD,225.83,23.53,BULLISH,1.9,0.95
+Tesla,TSLA,Technology,US,USD,445.27,6.67,BULLISH,1.95,1.03
+ASML,ASML,Technology,NL,EUR,1581.58,12.44,BULLISH,2.77,0.96
+Broadcom,AVGO,Technology,US,USD,416.79,28.18,BULLISH,1.83,0.83
+JPMorgan Chase,JPM,Finance,US,USD,300.25,-0.76,BEARISH,1.08,0.96
+Bank of America,BAC,Finance,US,USD,49.84,-5.16,BEARISH,1.09,0.73
+Goldman Sachs,GS,Finance,US,USD,955.42,5.55,BULLISH,1.25,1.23
+Visa,V,Finance,US,USD,320.31,1.98,BULLISH,1.18,0.75
+Mastercard,MA,Finance,US,USD,490.64,-5.35,BEARISH,1.24,0.87
+Johnson & Johnson,JNJ,Healthcare,US,USD,230.42,-5.35,BEARISH,1.06,0.7
+UnitedHealth,UNH,Healthcare,US,USD,401.16,36.83,BULLISH,1.53,0.97
+Eli Lilly,LLY,Healthcare,US,USD,1015.75,-2.33,BULLISH,2.15,0.8
+Novo Nordisk,NVO,Healthcare,DK,DKK,47.08,-5.02,BULLISH,1.56,0.55
+Walmart,WMT,Consumer,US,USD,131.47,-1.81,NEUTRAL,1.0,0.82
+Coca-Cola,KO,Consumer,US,USD,80.26,2.01,BULLISH,0.83,0.85
+Procter & Gamble,PG,Consumer,US,USD,142.24,-11.14,BEARISH,1.2,0.75
+McDonald's,MCD,Consumer,US,USD,275.7,-15.84,BEARISH,1.04,0.86
+Nike,NKE,Consumer,US,USD,42.34,-32.93,BEARISH,0.99,0.97
+Caterpillar,CAT,Industrial,US,USD,902.3,16.55,BULLISH,1.91,0.77
+Boeing,BA,Industrial,US,USD,240.6,-0.97,BULLISH,1.7,1.09
+GE Aerospace,GE,Industrial,US,USD,294.71,-6.56,BULLISH,2.17,0.43
+Exxon Mobil,XOM,Energy,US,USD,151.57,2.1,BEARISH,1.43,0.52
+Shell,SHEL,Energy,UK,GBP,84.93,7.82,BEARISH,1.32,0.74
+LVMH,MC.PA,Luxury,FR,EUR,452.3,-12.04,BEARISH,1.5,1.02
+Hermès,RMS.PA,Luxury,FR,EUR,1582.5,-26.29,BEARISH,2.3,0.93
