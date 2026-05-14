@@ -1,0 +1,117 @@
+{
+  "run_id": "20260515-014630",
+  "generated": "20260515-014630",
+  "scoring": "Hawkeye V4 \u2014 market pressure radar /100",
+  "total": 104,
+  "distribution": {
+    "extreme": 0,
+    "strong": 0,
+    "active": 24,
+    "watch": 62,
+    "weak": 18,
+    "degraded": 0
+  },
+  "bullish_pressure": [
+    {
+      "name": "Corn",
+      "score": 74,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$467.75/USD/bushel"
+    },
+    {
+      "name": "Silver",
+      "score": 67,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$83.81/USD/oz"
+    },
+    {
+      "name": "Soybeans",
+      "score": 66,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$1,193.50/USD/bushel"
+    },
+    {
+      "name": "AUDJPY",
+      "score": 65,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "114.36"
+    },
+    {
+      "name": "iShares Silver",
+      "score": 65,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$75.51"
+    },
+    {
+      "name": "Walmart",
+      "score": 64,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$132.46"
+    },
+    {
+      "name": "Crude Oil WTI",
+      "score": 62,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$101.97/USD/barrel"
+    }
+  ],
+  "bearish_pressure": [
+    {
+      "name": "Palladium",
+      "score": 68,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$1,449.50/USD/oz"
+    },
+    {
+      "name": "CAC 40",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "8,007.97 pts"
+    },
+    {
+      "name": "LVMH",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac452.30"
+    },
+    {
+      "name": "Herm\u00e8s",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac1,582.50"
+    },
+    {
+      "name": "ASX 200",
+      "score": 66,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "8,630.40 pts"
+    },
+    {
+      "name": "iShares 20+ Year Tr.",
+      "score": 66,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$84.92"
+    },
+    {
+      "name": "Procter & Gamble",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$142.71"
+    }
+  ],
+  "degraded": []
+}
