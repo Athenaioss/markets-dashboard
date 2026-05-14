@@ -83,7 +83,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header">
 <div class="title-emoji">💰</div>
 <h1>Atlas Nexus - ETF Tracker</h1>
-<p>24 ETFs across 6 categories · Equity, Sectors, Bonds, International, Commodities & Thematic | 20260514-061623</p>
+<p>24 ETFs across 6 categories · Equity, Sectors, Bonds, International, Commodities & Thematic | 20260514-075351</p>
 </div>
 <div class="container">
 <div class="stats-grid">
@@ -101,13 +101,15 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     <div><span style="color:var(--muted)">14/24 assets up</span><br><strong>58</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>7.58</strong></div><div><span style="color:var(--muted)">16/24 bullish MA</span><br><strong>67</strong></div><div><span style="color:var(--muted)">1/24 elevated vol</span><br><strong>4</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>1.0</strong></div>
     </div></div>
 
-<section class="momentum-scanner-v2 scanner hawkeye-scanner" aria-label="Hawkeye">
+<section class="momentum-scanner-v2 scanner hawkeye-scanner" aria-label="Hawkeye v2">
   <style>
     .hawkeye-scanner{margin:0 0 24px;padding:24px;border:1px solid rgba(56,189,248,.20);border-radius:28px;position:relative;overflow:hidden;text-align:left;background:linear-gradient(135deg,rgba(16,22,34,.92),rgba(18,14,33,.86) 48%,rgba(29,22,10,.76));box-shadow:0 22px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}
     .hawkeye-scanner:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,rgba(56,189,248,.18),transparent 35%),radial-gradient(circle at 92% 14%,rgba(245,158,11,.12),transparent 28%);pointer-events:none}
     .hawkeye-scanner>*{position:relative}
     .scanner-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
     .scanner-head h2{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}
+    .scanner-head .tier-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:.74em;color:var(--muted)}
+    .scanner-head .tier-legend span{padding:3px 8px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04)}
     .scanner-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
     .signal-card{border:1px solid var(--atlas-border,var(--border));border-radius:22px;padding:14px;background:rgba(7,9,20,.38);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
     .signal-card h3{margin:0 0 12px;color:var(--atlas-text,var(--text));font-size:.98rem;font-weight:950;letter-spacing:-.025em}
@@ -119,217 +121,201 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     .asset-levels{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}
     .asset-levels span{padding:4px 7px;border-radius:999px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.16)}
     .score-pill{display:inline-flex;align-items:center;justify-content:center;min-width:48px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent}
-    .score-hot{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}.score-risk{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}
-    .hawk-conviction{height:4px;max-width:220px;border-radius:999px;background:rgba(148,163,184,.16);overflow:hidden;margin-top:9px}
-    .hawk-conviction span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#38bdf8,#22c55e,#f59e0b);box-shadow:0 0 18px rgba(56,189,248,.35)}
+    .score-hot{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}
+    .score-risk{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}
+    .score-warm{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}
+    .score-muted{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}
     .momentum-radar-title{margin:14px 0 0!important;color:var(--atlas-muted,var(--muted))!important;font-size:.82rem!important;grid-column:1/-1}
     .momentum-radar{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
     .momentum-empty{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}
     @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}.momentum-radar{grid-template-columns:1fr}}
     @media(max-width:520px){.hawkeye-scanner{padding:16px;border-radius:22px}.signal-row{display:block}.signal-row>div:last-child{text-align:left!important;margin-top:10px}}
   </style>
-  <div class="scanner-head"><div><h2>🦅 Hawkeye</h2></div></div>
+  <div class="scanner-head">
+    <div><h2>🦅 Hawkeye v2</h2></div>
+    <div class="tier-legend">
+      <span>🦅 Strong 80+</span><span>👁️ Watch 65-79</span><span>🟊 6 strong · 10 watch</span>
+    </div>
+  </div>
   <div class="scanner-board hawk-board">
-    <div class="signal-card"><h3>🚀 Bullish momentum (4)</h3><div class="signal-row hawk-row" data-market="commodity">
+    <div class="signal-card"><h3>🚀 Bullish setups (4)</h3><div class="signal-row hawk-row" data-market="commodity">
 <div>
 <span class="asset-name">US Oil Fund</span>
 <span class="asset-tag">USO</span>
-<span class="asset-meta">Commodity · Trend: MA bull · Vol: hot</span>
+<span class="asset-meta">Commodity · Trend: MA bull · ext 0.8A</span>
 <span class="asset-levels">
 <span style="color:#22c55e">▲ 86.4%</span>
-<span style="color:#bae6fd">Trend Bullish</span>
-<span style="color:#fbbf24">Vol 0.3×</span>
-<span style="color:#a7f3d0">52W 6%</span>
+<span style="color:#bae6fd">RSI 56</span>
+<span style="color:#a7f3d0">ROC5 +6.0%</span>
 </span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">+90.9</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">mid</div>
-</div>
-</div><div class="signal-row hawk-row" data-market="sector">
-<div>
-<span class="asset-name">Technology Select</span>
-<span class="asset-tag">XLK</span>
-<span class="asset-meta">Sector · Trend: MA bull · 52W: résistance</span>
-<span class="asset-levels">
-<span style="color:#22c55e">▲ 26.7%</span>
-<span style="color:#bae6fd">Trend Bullish</span>
-<span style="color:#fbbf24">Vol 0.9×</span>
-<span style="color:#a7f3d0">52W 1%</span>
-</span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">+27.9</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">resistance</div>
-</div>
-</div><div class="signal-row hawk-row" data-market="us equity">
-<div>
-<span class="asset-name">Invesco QQQ</span>
-<span class="asset-tag">QQQ</span>
-<span class="asset-meta">US Equity · Trend: MA bull · 52W: résistance · Vol: stable</span>
-<span class="asset-levels">
-<span style="color:#22c55e">▲ 18.7%</span>
-<span style="color:#bae6fd">Trend Bullish</span>
-<span style="color:#fbbf24">Vol 1.0×</span>
-<span style="color:#a7f3d0">52W 0%</span>
-</span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">+20.7</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">resistance</div>
-</div>
-</div><div class="signal-row hawk-row" data-market="commodity">
-<div>
-<span class="asset-name">iShares Silver</span>
-<span class="asset-tag">SLV</span>
-<span class="asset-meta">Commodity · Trend: MA bull · 52W: room</span>
-<span class="asset-levels">
-<span style="color:#22c55e">▲ 13.8%</span>
-<span style="color:#bae6fd">Trend Bullish</span>
-<span style="color:#fbbf24">Vol 1.3×</span>
-<span style="color:#a7f3d0">52W 28%</span>
-</span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">+20.2</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">room</div>
-</div>
-</div></div>
-    <div class="signal-card"><h3>🐻 Bearish pressure (4)</h3><div class="signal-row hawk-row" data-market="bonds">
-<div>
-<span class="asset-name">iShares 20+ Year Tr.</span>
-<span class="asset-tag">TLT</span>
-<span class="asset-meta">Bonds · Trend: MA bear · Vol: stable</span>
-<span class="asset-levels">
-<span style="color:#ef4444">▼ -5.5%</span>
-<span style="color:#bae6fd">Trend Bearish</span>
-<span style="color:#fbbf24">Vol 1.2×</span>
-<span style="color:#a7f3d0">52W 8%</span>
-</span>
-<div class="hawk-conviction"><span style="width:64%"></span></div>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-risk">-7.7</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 64%</div>
-<div style="font-size:.7em;color:#ef4444;margin-top:2px">mid</div>
-</div>
-</div><div class="signal-row hawk-row" data-market="sector">
-<div>
-<span class="asset-name">Health Care Select</span>
-<span class="asset-tag">XLV</span>
-<span class="asset-meta">Sector · Volume: 1.7× · 52W: room · Vol: stable</span>
-<span class="asset-levels">
-<span style="color:#ef4444">▼ -7.0%</span>
-<span style="color:#bae6fd">Trend Neutral</span>
-<span style="color:#fbbf24">Vol 1.7×</span>
-<span style="color:#a7f3d0">52W 9%</span>
-</span>
-<div class="hawk-conviction"><span style="width:33%"></span></div>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-risk">-3.2</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 33%</div>
-<div style="font-size:.7em;color:#ef4444;margin-top:2px">room</div>
-</div>
-</div><div class="signal-row hawk-row" data-market="sector">
-<div>
-<span class="asset-name">Financial Select</span>
-<span class="asset-tag">XLF</span>
-<span class="asset-meta">Sector · Trend: MA bear · 52W: room · Vol: stable</span>
-<span class="asset-levels">
-<span style="color:#ef4444">▼ -1.3%</span>
-<span style="color:#bae6fd">Trend Bearish</span>
-<span style="color:#fbbf24">Vol 1.0×</span>
-<span style="color:#a7f3d0">52W 10%</span>
-</span>
-<div class="hawk-conviction"><span style="width:17%"></span></div>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-risk">-2.1</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 17%</div>
-<div style="font-size:.7em;color:#ef4444;margin-top:2px">room</div>
-</div>
-</div><div class="signal-row hawk-row" data-market="bonds">
-<div>
-<span class="asset-name">iShares Core US Agg</span>
-<span class="asset-tag">AGG</span>
-<span class="asset-meta">Bonds · Vol: stable</span>
-<span class="asset-levels">
-<span style="color:#ef4444">▼ -2.3%</span>
-<span style="color:#bae6fd">Trend Neutral</span>
-<span style="color:#fbbf24">Vol 0.7×</span>
-<span style="color:#a7f3d0">52W 3%</span>
-</span>
-<div class="hawk-conviction"><span style="width:17%"></span></div>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-risk">-1.9</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 17%</div>
-<div style="font-size:.7em;color:#ef4444;margin-top:2px">near high</div>
-</div>
-</div></div>
-    <h4 class="momentum-radar-title">◇ Cross-market radar</h4>
-    <div class="momentum-radar"><div class="signal-row hawk-row" data-market="thematic">
-<div>
-<span class="asset-name">ARK Innovation</span>
-<span class="asset-tag">ARKK</span>
-<span class="asset-meta">Thematic · Trend: MA bull · 52W: room</span>
-<span class="asset-levels">
-<span style="color:#22c55e">▲ 11.1%</span>
-<span style="color:#bae6fd">Trend Bullish</span>
-<span style="color:#fbbf24">Vol 0.9×</span>
-<span style="color:#a7f3d0">52W 16%</span>
-</span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">+17.5</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">room</div>
+<span class="score-pill score-hot">90</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
 </div><div class="signal-row hawk-row" data-market="us equity">
 <div>
 <span class="asset-name">iShares Russell 2000</span>
 <span class="asset-tag">IWM</span>
-<span class="asset-meta">US Equity · Trend: MA bull · 52W: résistance · Vol: stable</span>
+<span class="asset-meta">US Equity · Trend: MA bull · ext 1.2A</span>
 <span class="asset-levels">
 <span style="color:#22c55e">▲ 7.5%</span>
-<span style="color:#bae6fd">Trend Bullish</span>
-<span style="color:#fbbf24">Vol 0.8×</span>
-<span style="color:#a7f3d0">52W 2%</span>
+<span style="color:#bae6fd">RSI 60</span>
+<span style="color:#a7f3d0">ROC5 -1.4%</span>
 </span>
-<div class="hawk-conviction"><span style="width:98%"></span></div>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">+11.9</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 98%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">near high</div>
+<span class="score-pill score-warm">78</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">WATCHLIST</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️</div>
 </div>
-</div><div class="signal-row hawk-row" data-market="international">
+</div><div class="signal-row hawk-row" data-market="us equity">
 <div>
-<span class="asset-name">iShares MSCI EM</span>
-<span class="asset-tag">EEM</span>
-<span class="asset-meta">International · Trend: MA bull · 52W: résistance</span>
+<span class="asset-name">SPDR Dow Jones</span>
+<span class="asset-tag">DIA</span>
+<span class="asset-meta">US Equity · Trend: MA bull · ext 1.1A</span>
 <span class="asset-levels">
-<span style="color:#22c55e">▲ 10.0%</span>
-<span style="color:#bae6fd">Trend Bullish</span>
-<span style="color:#fbbf24">Vol 1.0×</span>
-<span style="color:#a7f3d0">52W 1%</span>
+<span style="color:#22c55e">▲ 0.4%</span>
+<span style="color:#bae6fd">RSI 56</span>
+<span style="color:#a7f3d0">ROC5 -0.4%</span>
 </span>
-<div class="hawk-conviction"><span style="width:96%"></span></div>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">+11.2</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 96%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">resistance</div>
+<span class="score-pill score-warm">78</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">WATCHLIST</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="sector">
+<div>
+<span class="asset-name">Consumer Disc.</span>
+<span class="asset-tag">XLY</span>
+<span class="asset-meta">Sector · Trend: MA bull · ext 0.5A</span>
+<span class="asset-levels">
+<span style="color:#22c55e">▲ 2.2%</span>
+<span style="color:#bae6fd">RSI 55</span>
+<span style="color:#a7f3d0">ROC5 -1.0%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">78</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">WATCHLIST</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️</div>
+</div>
+</div></div>
+    <div class="signal-card"><h3>🐻 Bearish setups (4)</h3><div class="signal-row hawk-row" data-market="bonds">
+<div>
+<span class="asset-name">Vanguard Total Bond</span>
+<span class="asset-tag">BND</span>
+<span class="asset-meta">Bonds · Trend: MA bear · ext 1.2A</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -2.3%</span>
+<span style="color:#bae6fd">RSI 38</span>
+<span style="color:#a7f3d0">ROC5 -0.5%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="bonds">
+<div>
+<span class="asset-name">iShares 20+ Year Tr.</span>
+<span class="asset-tag">TLT</span>
+<span class="asset-meta">Bonds · Trend: MA bear · ext 1.7A</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -5.5%</span>
+<span style="color:#bae6fd">RSI 34</span>
+<span style="color:#a7f3d0">ROC5 -1.5%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">96</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="bonds">
+<div>
+<span class="asset-name">iShares Core US Agg</span>
+<span class="asset-tag">AGG</span>
+<span class="asset-meta">Bonds · Trend: MA bear · ext 1.3A</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -2.3%</span>
+<span style="color:#bae6fd">RSI 37</span>
+<span style="color:#a7f3d0">ROC5 -0.5%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">90</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="bonds">
+<div>
+<span class="asset-name">iShares Inv. Grade</span>
+<span class="asset-tag">LQD</span>
+<span class="asset-meta">Bonds · Trend: MA bear · ext 0.8A</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -2.7%</span>
+<span style="color:#bae6fd">RSI 40</span>
+<span style="color:#a7f3d0">ROC5 -0.5%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">90</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
+</div>
+</div></div>
+    <h4 class="momentum-radar-title">◇ Cross-market radar</h4>
+    <div class="momentum-radar"><div class="signal-row hawk-row" data-market="bonds">
+<div>
+<span class="asset-name">iShares High Yield</span>
+<span class="asset-tag">HYG</span>
+<span class="asset-meta">Bonds · Trend: MA bear · ext 0.6A</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -1.2%</span>
+<span style="color:#bae6fd">RSI 41</span>
+<span style="color:#a7f3d0">ROC5 -0.3%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">80</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="thematic">
+<div>
+<span class="asset-name">ARK Innovation</span>
+<span class="asset-tag">ARKK</span>
+<span class="asset-meta">Thematic · Trend: MA bull · ext 0.5A</span>
+<span class="asset-levels">
+<span style="color:#22c55e">▲ 11.1%</span>
+<span style="color:#bae6fd">RSI 54</span>
+<span style="color:#a7f3d0">ROC5 -1.9%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">78</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">WATCHLIST</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="sector">
+<div>
+<span class="asset-name">Financial Select</span>
+<span class="asset-tag">XLF</span>
+<span class="asset-meta">Sector · Trend: MA bear · ext 0.7A</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -1.3%</span>
+<span style="color:#bae6fd">RSI 39</span>
+<span style="color:#a7f3d0">ROC5 -1.6%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">74</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">WATCHLIST</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️</div>
 </div>
 </div></div>
   </div>
@@ -534,7 +520,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td><small style="color:var(--muted)">$287.58 / $199.65</small></td>
         </tr></tbody></table></div></div>
 <div class="footer">
-<p>💰 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-061623</p>
+<p>💰 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-075351</p>
 <p style="margin-top:4px"><a href="index.html">← Back to Dashboard</a></p>
 </div>
 </div></body></html>

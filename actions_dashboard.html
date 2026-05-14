@@ -83,7 +83,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header">
 <div class="title-emoji">📊</div>
 <h1>Atlas Nexus - Global Stocks</h1>
-<p>30 major stocks across 7 sectors · Technology, Finance, Healthcare, Consumer, Industrial, Energy, Luxury | 20260514-061607</p>
+<p>30 major stocks across 7 sectors · Technology, Finance, Healthcare, Consumer, Industrial, Energy, Luxury | 20260514-075309</p>
 </div>
 <div class="container">
 <div class="stats-grid">
@@ -101,13 +101,15 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     <div><span style="color:var(--muted)">15/30 assets up</span><br><strong>50</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>3.13</strong></div><div><span style="color:var(--muted)">16/30 bullish MA</span><br><strong>53</strong></div><div><span style="color:var(--muted)">0/30 elevated vol</span><br><strong>0</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>1.5</strong></div>
     </div></div>
 
-<section class="momentum-scanner-v2 scanner hawkeye-scanner" aria-label="Hawkeye">
+<section class="momentum-scanner-v2 scanner hawkeye-scanner" aria-label="Hawkeye v2">
   <style>
     .hawkeye-scanner{margin:0 0 24px;padding:24px;border:1px solid rgba(56,189,248,.20);border-radius:28px;position:relative;overflow:hidden;text-align:left;background:linear-gradient(135deg,rgba(16,22,34,.92),rgba(18,14,33,.86) 48%,rgba(29,22,10,.76));box-shadow:0 22px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}
     .hawkeye-scanner:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,rgba(56,189,248,.18),transparent 35%),radial-gradient(circle at 92% 14%,rgba(245,158,11,.12),transparent 28%);pointer-events:none}
     .hawkeye-scanner>*{position:relative}
     .scanner-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
     .scanner-head h2{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}
+    .scanner-head .tier-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:.74em;color:var(--muted)}
+    .scanner-head .tier-legend span{padding:3px 8px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04)}
     .scanner-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
     .signal-card{border:1px solid var(--atlas-border,var(--border));border-radius:22px;padding:14px;background:rgba(7,9,20,.38);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
     .signal-card h3{margin:0 0 12px;color:var(--atlas-text,var(--text));font-size:.98rem;font-weight:950;letter-spacing:-.025em}
@@ -119,217 +121,201 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     .asset-levels{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}
     .asset-levels span{padding:4px 7px;border-radius:999px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.16)}
     .score-pill{display:inline-flex;align-items:center;justify-content:center;min-width:48px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent}
-    .score-hot{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}.score-risk{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}
-    .hawk-conviction{height:4px;max-width:220px;border-radius:999px;background:rgba(148,163,184,.16);overflow:hidden;margin-top:9px}
-    .hawk-conviction span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#38bdf8,#22c55e,#f59e0b);box-shadow:0 0 18px rgba(56,189,248,.35)}
+    .score-hot{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}
+    .score-risk{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}
+    .score-warm{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}
+    .score-muted{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}
     .momentum-radar-title{margin:14px 0 0!important;color:var(--atlas-muted,var(--muted))!important;font-size:.82rem!important;grid-column:1/-1}
     .momentum-radar{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
     .momentum-empty{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}
     @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}.momentum-radar{grid-template-columns:1fr}}
     @media(max-width:520px){.hawkeye-scanner{padding:16px;border-radius:22px}.signal-row{display:block}.signal-row>div:last-child{text-align:left!important;margin-top:10px}}
   </style>
-  <div class="scanner-head"><div><h2>🦅 Hawkeye</h2></div></div>
+  <div class="scanner-head">
+    <div><h2>🦅 Hawkeye v2</h2></div>
+    <div class="tier-legend">
+      <span>🦅 Strong 80+</span><span>👁️ Watch 65-79</span><span>🟊 11 strong · 9 watch</span>
+    </div>
+  </div>
   <div class="scanner-board hawk-board">
-    <div class="signal-card"><h3>🚀 Bullish momentum (4)</h3><div class="signal-row hawk-row" data-market="technology">
+    <div class="signal-card"><h3>🚀 Bullish setups (4)</h3><div class="signal-row hawk-row" data-market="finance">
 <div>
-<span class="asset-name">Amazon</span>
-<span class="asset-tag">AMZN</span>
-<span class="asset-meta">Technology · Trend: MA bull · Vol: stable</span>
+<span class="asset-name">Goldman Sachs</span>
+<span class="asset-tag">GS</span>
+<span class="asset-meta">Finance · Trend: MA bull · ext 1.4A</span>
 <span class="asset-levels">
-<span style="color:#22c55e">▲ 35.9%</span>
-<span style="color:#bae6fd">Trend Bullish</span>
-<span style="color:#fbbf24">Vol 0.8×</span>
-<span style="color:#a7f3d0">52W 3%</span>
+<span style="color:#22c55e">▲ 5.5%</span>
+<span style="color:#bae6fd">RSI 57</span>
+<span style="color:#a7f3d0">ROC5 +1.9%</span>
 </span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">+39.5</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">near high</div>
+<span class="score-pill score-hot">95</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
-</div><div class="signal-row hawk-row" data-market="healthcare">
+</div><div class="signal-row hawk-row" data-market="industrial">
 <div>
-<span class="asset-name">UnitedHealth</span>
-<span class="asset-tag">UNH</span>
-<span class="asset-meta">Healthcare · Trend: MA bull · 52W: résistance</span>
+<span class="asset-name">Boeing</span>
+<span class="asset-tag">BA</span>
+<span class="asset-meta">Industrial · Trend: MA bull · ext 1.8A</span>
 <span class="asset-levels">
-<span style="color:#22c55e">▲ 36.8%</span>
-<span style="color:#bae6fd">Trend Bullish</span>
-<span style="color:#fbbf24">Vol 1.0×</span>
-<span style="color:#a7f3d0">52W 1%</span>
+<span style="color:#ef4444">▼ -1.0%</span>
+<span style="color:#bae6fd">RSI 57</span>
+<span style="color:#a7f3d0">ROC5 +4.6%</span>
 </span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">+38.0</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">resistance</div>
+<span class="score-pill score-hot">91</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
-</div><div class="signal-row hawk-row" data-market="technology">
+</div><div class="signal-row hawk-row" data-market="finance">
 <div>
-<span class="asset-name">Broadcom</span>
-<span class="asset-tag">AVGO</span>
-<span class="asset-meta">Technology · Trend: MA bull</span>
+<span class="asset-name">Visa</span>
+<span class="asset-tag">V</span>
+<span class="asset-meta">Finance · Trend: MA bull · ext 0.2A</span>
 <span class="asset-levels">
-<span style="color:#22c55e">▲ 28.2%</span>
-<span style="color:#bae6fd">Trend Bullish</span>
-<span style="color:#fbbf24">Vol 0.9×</span>
-<span style="color:#a7f3d0">52W 5%</span>
+<span style="color:#22c55e">▲ 2.0%</span>
+<span style="color:#bae6fd">RSI 59</span>
+<span style="color:#a7f3d0">ROC5 +0.5%</span>
 </span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">+33.2</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">mid</div>
-</div>
-</div><div class="signal-row hawk-row" data-market="technology">
-<div>
-<span class="asset-name">Alphabet</span>
-<span class="asset-tag">GOOGL</span>
-<span class="asset-meta">Technology · Trend: MA bull · 52W: résistance · Candle: vertical</span>
-<span class="asset-levels">
-<span style="color:#22c55e">▲ 31.7%</span>
-<span style="color:#bae6fd">Trend Bullish</span>
-<span style="color:#fbbf24">Vol 1.0×</span>
-<span style="color:#a7f3d0">52W 0%</span>
-</span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">+30.9</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">resistance</div>
-</div>
-</div></div>
-    <div class="signal-card"><h3>🐻 Bearish pressure (4)</h3><div class="signal-row hawk-row" data-market="consumer">
-<div>
-<span class="asset-name">Nike</span>
-<span class="asset-tag">NKE</span>
-<span class="asset-meta">Consumer · Trend: MA bear · 52W: room · Vol: stable</span>
-<span class="asset-levels">
-<span style="color:#ef4444">▼ -32.9%</span>
-<span style="color:#bae6fd">Trend Bearish</span>
-<span style="color:#fbbf24">Vol 1.1×</span>
-<span style="color:#a7f3d0">52W 47%</span>
-</span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-risk">-33.7</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#ef4444;margin-top:2px">room</div>
-</div>
-</div><div class="signal-row hawk-row" data-market="luxury">
-<div>
-<span class="asset-name">Hermès</span>
-<span class="asset-tag">RMS.PA</span>
-<span class="asset-meta">Luxury · Trend: MA bear · 52W: room</span>
-<span class="asset-levels">
-<span style="color:#ef4444">▼ -26.3%</span>
-<span style="color:#bae6fd">Trend Bearish</span>
-<span style="color:#fbbf24">Vol 0.9×</span>
-<span style="color:#a7f3d0">52W 39%</span>
-</span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-risk">-27.9</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#ef4444;margin-top:2px">room</div>
+<span class="score-pill score-hot">85</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
 </div><div class="signal-row hawk-row" data-market="consumer">
 <div>
-<span class="asset-name">McDonald&#x27;s</span>
-<span class="asset-tag">MCD</span>
-<span class="asset-meta">Consumer · Trend: MA bear · 52W: room · Vol: stable</span>
+<span class="asset-name">Walmart</span>
+<span class="asset-tag">WMT</span>
+<span class="asset-meta">Consumer · Trend: MA bull · ext 0.8A</span>
 <span class="asset-levels">
-<span style="color:#ef4444">▼ -15.8%</span>
-<span style="color:#bae6fd">Trend Bearish</span>
-<span style="color:#fbbf24">Vol 0.9×</span>
-<span style="color:#a7f3d0">52W 19%</span>
+<span style="color:#ef4444">▼ -1.8%</span>
+<span style="color:#bae6fd">RSI 48</span>
+<span style="color:#a7f3d0">ROC5 +1.1%</span>
 </span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-risk">-16.6</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#ef4444;margin-top:2px">room</div>
+<span class="score-pill score-hot">83</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
+</div>
+</div></div>
+    <div class="signal-card"><h3>🐻 Bearish setups (4)</h3><div class="signal-row hawk-row" data-market="finance">
+<div>
+<span class="asset-name">Mastercard</span>
+<span class="asset-tag">MA</span>
+<span class="asset-meta">Finance · Trend: MA bear · ext 0.8A</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -5.3%</span>
+<span style="color:#bae6fd">RSI 44</span>
+<span style="color:#a7f3d0">ROC5 -0.3%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">90</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="consumer">
+<div>
+<span class="asset-name">Procter &amp; Gamble</span>
+<span class="asset-tag">PG</span>
+<span class="asset-meta">Consumer · Trend: MA bear · ext 1.0A</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -11.1%</span>
+<span style="color:#bae6fd">RSI 42</span>
+<span style="color:#a7f3d0">ROC5 -3.8%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">90</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
 </div><div class="signal-row hawk-row" data-market="luxury">
 <div>
 <span class="asset-name">LVMH</span>
 <span class="asset-tag">MC.PA</span>
-<span class="asset-meta">Luxury · Trend: MA bear · 52W: room</span>
+<span class="asset-meta">Luxury · Trend: MA bear · ext 1.0A</span>
 <span class="asset-levels">
 <span style="color:#ef4444">▼ -12.0%</span>
-<span style="color:#bae6fd">Trend Bearish</span>
-<span style="color:#fbbf24">Vol 1.0×</span>
-<span style="color:#a7f3d0">52W 31%</span>
+<span style="color:#bae6fd">RSI 39</span>
+<span style="color:#a7f3d0">ROC5 -4.6%</span>
 </span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-risk">-13.6</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#ef4444;margin-top:2px">room</div>
+<span class="score-pill score-hot">90</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="luxury">
+<div>
+<span class="asset-name">Hermès</span>
+<span class="asset-tag">RMS.PA</span>
+<span class="asset-meta">Luxury · Trend: MA bear · ext 1.2A</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -26.3%</span>
+<span style="color:#bae6fd">RSI 42</span>
+<span style="color:#a7f3d0">ROC5 -5.3%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">90</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
 </div></div>
     <h4 class="momentum-radar-title">◇ Cross-market radar</h4>
-    <div class="momentum-radar"><div class="signal-row hawk-row" data-market="technology">
+    <div class="momentum-radar"><div class="signal-row hawk-row" data-market="energy">
 <div>
-<span class="asset-name">Apple</span>
-<span class="asset-tag">AAPL</span>
-<span class="asset-meta">Technology · Trend: MA bull · 52W: résistance</span>
+<span class="asset-name">Shell</span>
+<span class="asset-tag">SHEL</span>
+<span class="asset-meta">Energy · Trend: MA bear · ext 1.5A</span>
 <span class="asset-levels">
-<span style="color:#22c55e">▲ 16.9%</span>
-<span style="color:#bae6fd">Trend Bullish</span>
-<span style="color:#fbbf24">Vol 1.1×</span>
-<span style="color:#a7f3d0">52W 1%</span>
+<span style="color:#22c55e">▲ 7.8%</span>
+<span style="color:#bae6fd">RSI 37</span>
+<span style="color:#a7f3d0">ROC5 -2.6%</span>
 </span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">+17.2</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">resistance</div>
+<span class="score-pill score-hot">85</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
 </div><div class="signal-row hawk-row" data-market="technology">
 <div>
-<span class="asset-name">NVIDIA</span>
-<span class="asset-tag">NVDA</span>
-<span class="asset-meta">Technology · Trend: MA bull · 52W: résistance</span>
+<span class="asset-name">ASML</span>
+<span class="asset-tag">ASML</span>
+<span class="asset-meta">Technology · Trend: MA bull · ext 1.6A</span>
 <span class="asset-levels">
-<span style="color:#22c55e">▲ 23.5%</span>
-<span style="color:#bae6fd">Trend Bullish</span>
-<span style="color:#fbbf24">Vol 1.0×</span>
-<span style="color:#a7f3d0">52W 1%</span>
+<span style="color:#22c55e">▲ 12.4%</span>
+<span style="color:#bae6fd">RSI 63</span>
+<span style="color:#a7f3d0">ROC5 +2.4%</span>
 </span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">+24.7</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">resistance</div>
+<span class="score-pill score-hot">81</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
-</div><div class="signal-row hawk-row" data-market="technology">
+</div><div class="signal-row hawk-row" data-market="finance">
 <div>
-<span class="asset-name">Tesla</span>
-<span class="asset-tag">TSLA</span>
-<span class="asset-meta">Technology · Trend: MA bull · 52W: room</span>
+<span class="asset-name">JPMorgan Chase</span>
+<span class="asset-tag">JPM</span>
+<span class="asset-meta">Finance · Trend: MA bear · ext 1.0A</span>
 <span class="asset-levels">
-<span style="color:#22c55e">▲ 6.7%</span>
-<span style="color:#bae6fd">Trend Bullish</span>
-<span style="color:#fbbf24">Vol 1.1×</span>
-<span style="color:#a7f3d0">52W 11%</span>
+<span style="color:#ef4444">▼ -0.8%</span>
+<span style="color:#bae6fd">RSI 39</span>
+<span style="color:#a7f3d0">ROC5 -4.7%</span>
 </span>
-<div class="hawk-conviction"><span style="width:100%"></span></div>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">+13.1</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">room</div>
+<span class="score-pill score-hot">80</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
 </div></div>
   </div>
@@ -582,7 +568,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td style="color:var(--muted)">453.40 / 430.21</td>
         </tr></tbody></table></div></div>
 <div class="footer">
-<p>📊 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-061607</p>
+<p>📊 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-075309</p>
 <p style="margin-top:4px"><a href="index.html">← Back to Dashboard</a></p>
 </div>
 </div></body></html>

@@ -1,236 +1,326 @@
 """
-Sentiment engine — composite market regime detection + premium momentum scanner.
+🦅 Hawkeye v2 Sentiment Engine — True /100 Directional Scoring
 Used by all Atlas Nexus pipelines (crypto, commodities, indices, forex, actions, etf).
+
+Trend 30 · Momentum 25 · RSI 15 · Volume 15 · Structure 15
+Chase penalty: extension > 2 ATR → -10
+Tiers: 80-100 Strong · 65-79 Watchlist · <65 Ignored
 """
 
 from __future__ import annotations
 
 from html import escape
-import statistics
+import statistics, math
 
+
+# ═══════════════════════════════════════════════════════════════
+# Technical Indicators (same as scanner_generator.py)
+# ═══════════════════════════════════════════════════════════════
+
+def _ema(data, period):
+    if len(data) < period: return data[-1] if data else 0
+    k = 2 / (period + 1)
+    val = sum(data[:period]) / period
+    for x in data[period:]: val = x * k + val * (1 - k)
+    return val
+
+def _rsi(prices, period=14):
+    if len(prices) < period + 1: return 50
+    gains, losses = [], []
+    for i in range(-period, 0):
+        ch = prices[i] - prices[i-1]
+        gains.append(max(ch, 0)); losses.append(max(-ch, 0))
+    avg_gain = sum(gains)/period; avg_loss = sum(losses)/period
+    if avg_loss == 0: return 100
+    return round(100 - 100/(1 + avg_gain/avg_loss))
+
+def _roc(prices, period):
+    if len(prices) < period + 1: return 0
+    old = prices[-period-1]
+    return (prices[-1] - old) / old * 100 if old else 0
+
+def _macd_hist(prices):
+    if len(prices) < 26: return 0
+    e12 = _ema(prices, 12); e26 = _ema(prices, 26)
+    return round((e12 - e26) / e26 * 100, 2) if e26 else 0
+
+def _atr_val(highs, lows, closes, period=14):
+    if len(highs) < period + 1: return 0.01
+    trs = []
+    for i in range(-period, 0):
+        h, l = highs[i], lows[i]
+        pc = closes[i-1] if i > -len(closes) else closes[i]
+        trs.append(max(h - l, abs(h - pc), abs(l - pc)))
+    return sum(trs) / period
+
+def _ema20_slope(cp):
+    """EMA20 slope: (current - 5 bars ago) as % of 5-bars-ago value"""
+    if len(cp) < 25: return 0
+    ema_now = _ema(cp, 20)
+    ema_prev = _ema(cp[:-5], 20)
+    if ema_prev == 0: return 0
+    return round((ema_now - ema_prev) / ema_prev * 100, 2)
+
+def _prev_roc5(cp):
+    """ROC5 computed 1 bar before current"""
+    if len(cp) < 7: return 0
+    return _roc(cp[:-1], 5)
+
+
+# ═══════════════════════════════════════════════════════════════
+# Helpers
+# ═══════════════════════════════════════════════════════════════
 
 def _num(value, default=0.0) -> float:
     try:
-        if value is None:
-            return default
+        if value is None: return default
         return float(value)
     except (TypeError, ValueError):
         return default
 
-
 def _asset_name(a: dict) -> str:
     return str(a.get("name") or a.get("symbol") or a.get("base") or "Asset")
 
-
 def _asset_symbol(a: dict) -> str:
     sym = a.get("symbol")
-    if sym:
-        return str(sym)
-    if a.get("base") and a.get("quote"):
-        return f"{a['base']}{a['quote']}"
+    if sym: return str(sym)
+    if a.get("base") and a.get("quote"): return f"{a['base']}{a['quote']}"
     return _asset_name(a)
-
 
 def _asset_group(a: dict) -> str:
     for key in ("sector", "category", "region", "group", "mcap_tier", "source"):
-        if a.get(key):
-            return str(a[key])
+        if a.get(key): return str(a[key])
     return "Market"
 
-
 def _change_pct(a: dict) -> float:
-    if "change_pct" in a:
-        return _num(a.get("change_pct"))
-    if "change_24h" in a:
-        return _num(a.get("change_24h"))
+    if "change_pct" in a: return _num(a.get("change_pct"))
+    if "change_24h" in a: return _num(a.get("change_24h"))
     return _num(a.get("change"))
 
 
-def _trend(a: dict) -> str:
-    raw = str(a.get("trend") or "NEUTRAL").upper()
-    if raw in {"STRONG_UP", "UP"}:
-        return "BULLISH"
-    if raw in {"STRONG_DOWN", "DOWN"}:
-        return "BEARISH"
-    if raw in {"FLAT", "SIDEWAYS"}:
-        return "NEUTRAL"
-    return raw
+# ═══════════════════════════════════════════════════════════════
+# 🦅 Hawkeye v2 — True /100 Scoring
+# ═══════════════════════════════════════════════════════════════
 
+def _hawkeye_score(a: dict) -> dict:
+    """
+    Compute Hawkeye v2 directional score (0-100) for a single asset.
+    Returns bull_score, bear_score, and metadata for display.
+    """
+    cp = a.get("_close_prices", [])
+    hp = a.get("_high_prices", [])
+    lp = a.get("_low_prices", [])
 
-def _volatility(a: dict) -> float:
-    if "volatility_20d" in a:
-        return _num(a.get("volatility_20d"))
-    raw = str(a.get("volatility") or "").upper()
-    return {"LOW": 1.0, "MEDIUM": 2.2, "HIGH": 4.2}.get(raw, _num(a.get("volatility")))
+    if not cp or len(cp) < 10:
+        # Fallback: minimal score from summary fields
+        trend = str(a.get("trend", "NEUTRAL")).upper()
+        ch = _change_pct(a)
+        bull = 65 if trend == "BULLISH" else 50 if ch > 0 else 30
+        bear = 65 if trend == "BEARISH" else 50 if ch < 0 else 30
+        return {
+            "bull_score": bull, "bear_score": bear,
+            "rsi": 50, "roc5": ch, "ema20_ext": 0,
+            "tier_bull": "WATCHLIST", "tier_bear": "WATCHLIST",
+            "tags": [("Trend", trend.title())],
+        }
 
+    if not hp: hp = [a.get("price", 1)] * 20
+    if not lp: lp = [a.get("price", 1)] * 20
 
-def _vol_ratio(a: dict) -> float:
-    if "vol_ratio" in a:
-        return _num(a.get("vol_ratio"), 1.0)
-    if "volume_mcap_ratio" in a:
-        # Crypto liquidity proxy: 10% of market cap traded is already meaningful.
-        return max(0.0, min(4.0, _num(a.get("volume_mcap_ratio")) * 10))
-    return 1.0
+    price = cp[-1] if cp else a.get("price", 1)
+    ema20 = _ema(cp, 20)
+    ema50 = _ema(cp, min(50, len(cp)))
+    rsi14 = _rsi(cp, 14)
+    macd_h = _macd_hist(cp)
+    roc5 = _roc(cp, 5)
+    roc20 = _roc(cp, 20)
+    atr = _atr_val(hp, lp, cp, 14)
+    slope = _ema20_slope(cp)
+    p_roc5 = _prev_roc5(cp)
+    vol_ratio = _num(a.get("vol_ratio"), 0)
+    has_volume = bool(vol_ratio and vol_ratio > 0)
+    candle_ratio = a.get("candle_ratio")
+    extension_atr = abs(price - ema20) / atr if atr > 0 else 0
 
-
-def _dist_to_high(a: dict) -> float:
-    return _num(a.get("dist_to_52w_high"), 10.0)
-
-
-def _candle_ratio(a: dict) -> float:
-    return _num(a.get("candle_ratio"), 0.45)
-
-
-def _score_asset(a: dict) -> dict:
-    ch = _change_pct(a)
-    trend = _trend(a)
-    trend_bonus = {"BULLISH": 4.0, "NEUTRAL": 0.0, "BEARISH": -4.0}.get(trend, 0.0)
-
-    vr = _vol_ratio(a)
-    vol_bonus = 2.5 if vr >= 2.0 else 1.3 if vr >= 1.5 else 0.0
-
-    dist = _dist_to_high(a)
-    if dist > 8:
-        room_bonus = 2.4
-        resistance_label = "room"
-    elif dist > 3:
-        room_bonus = 1.0
-        resistance_label = "mid"
-    elif dist < 1.5:
-        room_bonus = -2.8
-        resistance_label = "resistance"
+    # ═══ BULL SCORE ═══
+    bull = 0
+    # Trend (30)
+    if price > ema20:   bull += 10
+    if ema20 > ema50:   bull += 10
+    if slope > 0:       bull += 10
+    # Momentum (25)
+    if roc5 > 0:        bull += 7
+    if roc20 > 0:       bull += 7
+    if macd_h > 0:      bull += 6
+    if roc5 > p_roc5:   bull += 5
+    # RSI (15)
+    if 52 <= rsi14 <= 66:        bull += 15
+    elif (45 <= rsi14 < 52) or (66 < rsi14 <= 72): bull += 8
+    # Volume (15)
+    if has_volume:
+        if 1.1 <= vol_ratio <= 2.5:   bull += 10
+        elif vol_ratio > 2.5:         bull += 5
+        if candle_ratio is not None and candle_ratio < 0.75: bull += 5
+        elif candle_ratio is None:    bull += 3
     else:
-        room_bonus = -0.4
-        resistance_label = "near high"
+        bull += 7
+    # Structure (15)
+    if atr > 0 and len(cp) >= 20: bull += 8
+    if extension_atr <= 1.5:      bull += 7
+    elif extension_atr <= 2.0:    bull += 3
+    if extension_atr > 2.0:       bull -= 10
+    bull = max(0, min(100, bull))
 
-    candle = _candle_ratio(a)
-    candle_penalty = -2.0 if candle > 0.82 else -0.8 if candle > 0.68 else 0.0
+    # ═══ BEAR SCORE ═══
+    bear = 0
+    if price < ema20:   bear += 10
+    if ema20 < ema50:   bear += 10
+    if slope < 0:       bear += 10
+    if roc5 < 0:        bear += 7
+    if roc20 < 0:       bear += 7
+    if macd_h < 0:      bear += 6
+    if roc5 < p_roc5:   bear += 5
+    if 34 <= rsi14 <= 48:        bear += 15
+    elif (28 <= rsi14 < 34) or (48 < rsi14 <= 55): bear += 8
+    if has_volume:
+        if 1.1 <= vol_ratio <= 2.5:   bear += 10
+        elif vol_ratio > 2.5:         bear += 5
+        if candle_ratio is not None and candle_ratio < 0.75: bear += 5
+        elif candle_ratio is None:    bear += 3
+    else:
+        bear += 7
+    if atr > 0 and len(cp) >= 20: bear += 8
+    if extension_atr <= 1.5:      bear += 7
+    elif extension_atr <= 2.0:    bear += 3
+    if extension_atr > 2.0:       bear -= 10
+    bear = max(0, min(100, bear))
 
-    vol = _volatility(a)
-    vol_penalty = -max(0.0, vol - 3.0) * 0.9
-    stability_bonus = 0.8 if vol and vol < 1.2 else 0.0
+    # Tiers
+    def _tier(s):
+        if s >= 80: return "STRONG"
+        if s >= 65: return "WATCHLIST"
+        return "IGNORE"
 
-    score = ch + trend_bonus + vol_bonus + room_bonus + candle_penalty + vol_penalty + stability_bonus
-    score = round(score, 2)
-    conviction = min(100, max(0, round(abs(score) * 7.5 + min(abs(ch), 20) * 1.2)))
-
+    # Tags for display
     tags = []
-    if trend == "BULLISH":
-        tags.append(("Trend", "MA bull"))
-    elif trend == "BEARISH":
-        tags.append(("Trend", "MA bear"))
-    if vr >= 1.5:
-        tags.append(("Volume", f"{vr:.1f}×"))
-    if dist < 2:
-        tags.append(("52W", "résistance"))
-    elif dist > 8:
-        tags.append(("52W", "room"))
-    if candle > 0.8:
-        tags.append(("Candle", "vertical"))
-    if vol and vol < 1.2:
-        tags.append(("Vol", "stable"))
-    elif vol > 3:
-        tags.append(("Vol", "hot"))
+    if price > ema20:   tags.append(("Trend", "MA bull"))
+    elif price < ema20: tags.append(("Trend", "MA bear"))
+    if has_volume:
+        if vol_ratio >= 1.5: tags.append(("Vol", f"{vol_ratio:.1f}×"))
+    else:
+        tags.append(("Vol", "fx"))
+    if extension_atr > 2.0: tags.append(("Ext", "chase"))
+    if rsi14 > 70:     tags.append(("RSI", "overbought"))
+    elif rsi14 < 30:   tags.append(("RSI", "oversold"))
 
     return {
-        "score": score,
-        "conviction": conviction,
-        "change": ch,
-        "trend": trend,
-        "vol_ratio": vr,
-        "volatility": vol,
-        "dist": dist,
-        "resistance_label": resistance_label,
-        "candle": candle,
-        "tags": tags[:4],
+        "bull_score": bull,
+        "bear_score": bear,
+        "rsi": rsi14,
+        "roc5": roc5,
+        "ema20_ext": round(extension_atr, 1),
+        "tier_bull": _tier(bull),
+        "tier_bear": _tier(bear),
+        "tags": tags[:3],
     }
 
 
-def _fmt_score(score: float) -> str:
-    return f"{score:+.1f}"
+def _tier_badge(tier: str) -> tuple:
+    if tier == "STRONG":    return ("🦅", "#22c55e", "score-hot")
+    if tier == "WATCHLIST": return ("👁️", "#f59e0b", "score-warm")
+    return ("", "#64748b", "score-muted")
 
 
-def _tag_html(tags: list[tuple[str, str]]) -> str:
-    if not tags:
-        return '<span class="momentum-tag muted">Clean read</span>'
-    return "".join(f'<span class="momentum-tag"><b>{escape(k)}</b> {escape(v)}</span>' for k, v in tags)
-
+# ═══════════════════════════════════════════════════════════════
+# HTML Cards
+# ═══════════════════════════════════════════════════════════════
 
 def _pick_card(asset: dict, side: str) -> str:
-    m = _score_asset(asset)
+    m = _hawkeye_score(asset)
     bullish = side == "bull"
-    color_class = "score-hot" if bullish else "score-risk"
-    arrow = "▲" if bullish else "▼"
-    change_color = "#22c55e" if m["change"] >= 0 else "#ef4444"
+    score = m["bull_score"] if bullish else m["bear_score"]
+    tier = m["tier_bull"] if bullish else m["tier_bear"]
+    emoji, badge_color, score_class = _tier_badge(tier)
+
+    ch = _change_pct(asset)
+    arrow = "▲" if ch >= 0 else "▼"
+    change_color = "#22c55e" if ch >= 0 else "#ef4444"
     title = escape(_asset_name(asset))
     symbol = escape(_asset_symbol(asset))
     group = escape(_asset_group(asset))
-    score = _fmt_score(m["score"])
-    tag_text = " · ".join(f"{k}: {v}" for k, v in m["tags"][:3]) or "clean read"
-    width = max(8, min(100, m["conviction"]))
+
+    tag_text = " · ".join(f"{k}: {v}" for k, v in m["tags"]) or "clean read"
+    ext_label = f"ext {m['ema20_ext']}A" if m["ema20_ext"] > 0 else ""
+
     return f"""<div class="signal-row hawk-row" data-market="{group.lower()}">
 <div>
 <span class="asset-name">{title}</span>
 <span class="asset-tag">{symbol}</span>
-<span class="asset-meta">{group} · {tag_text}</span>
+<span class="asset-meta">{group} · {tag_text}{' · ' + ext_label if ext_label else ''}</span>
 <span class="asset-levels">
-<span style="color:{change_color}">{arrow} {m['change']:.1f}%</span>
-<span style="color:#bae6fd">Trend {escape(m['trend'].title())}</span>
-<span style="color:#fbbf24">Vol {m['vol_ratio']:.1f}×</span>
-<span style="color:#a7f3d0">52W {m['dist']:.0f}%</span>
+<span style="color:{change_color}">{arrow} {ch:.1f}%</span>
+<span style="color:#bae6fd">RSI {m['rsi']}</span>
+<span style="color:#a7f3d0">ROC5 {m['roc5']:+.1f}%</span>
 </span>
-<div class="hawk-conviction"><span style="width:{width}%"></span></div>
 </div>
 <div style="text-align:right">
-<span class="score-pill {color_class}">{score}</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction {m['conviction']}%</div>
-<div style="font-size:.7em;color:{change_color};margin-top:2px">{escape(m['resistance_label'])}</div>
+<span class="score-pill {score_class}">{score}</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">{tier}</div>
+<div style="font-size:.7em;color:{badge_color};margin-top:2px">{emoji}</div>
 </div>
 </div>"""
 
 
+# ═══════════════════════════════════════════════════════════════
+# Public API — momentum_scanner_html / hawk_eye_html
+# ═══════════════════════════════════════════════════════════════
+
 def momentum_scanner_html(assets: list, top_n: int = 4) -> str:
-    """Premium multi-signal scanner for every category page."""
+    """Hawkeye v2 scanner for every category dashboard page."""
     if len(assets) < 2:
         return ""
 
-    scored = [(a, _score_asset(a)) for a in assets]
-    bullish_pool = [(a, m) for a, m in scored if m["score"] > 0]
-    bearish_pool = [(a, m) for a, m in scored if m["score"] < 0]
-    bullish = [a for a, _ in sorted(bullish_pool, key=lambda x: x[1]["score"], reverse=True)[:top_n]]
-    bearish = [a for a, _ in sorted(bearish_pool, key=lambda x: x[1]["score"])[:top_n]]
+    scored = [(a, _hawkeye_score(a)) for a in assets]
 
-    # Neutral radar: strongest setups that are not already in the directional columns.
+    # Bullish: top by bull_score
+    bullish_pool = [(a, m) for a, m in scored if m["bull_score"] >= 65]
+    bearish_pool = [(a, m) for a, m in scored if m["bear_score"] >= 65]
+
+    bullish = [a for a, _ in sorted(bullish_pool, key=lambda x: x[1]["bull_score"], reverse=True)[:top_n]]
+    bearish = [a for a, _ in sorted(bearish_pool, key=lambda x: x[1]["bear_score"], reverse=True)[:top_n]]
+
+    # Radar: remaining top-scoring (either direction)
     used = {id(a) for a in bullish + bearish}
-    radar = [a for a, m in sorted(scored, key=lambda x: x[1]["conviction"], reverse=True) if id(a) not in used][:3]
+    radar_pool = [(a, m) for a, m in scored if id(a) not in used]
+    radar = [a for a, _ in sorted(radar_pool,
+               key=lambda x: max(x[1]["bull_score"], x[1]["bear_score"]), reverse=True)[:3]]
 
     n = len(assets)
-    up = sum(1 for a in assets if _change_pct(a) > 0)
-    avg_score = sum(m["score"] for _, m in scored) / n
-    avg_vol = sum(_volatility(a) for a in assets) / n
-    high_volume = sum(1 for a in assets if _vol_ratio(a) >= 1.5)
-    near_resistance = sum(1 for a in assets if _dist_to_high(a) < 2)
-    leader = max(scored, key=lambda x: x[1]["score"])
-    pressure = min(scored, key=lambda x: x[1]["score"])
-
-    regime = "Risk-on" if avg_score > 5 else "Risk-off" if avg_score < -5 else "Mixed"
-    regime_cls = "bull" if avg_score > 5 else "bear" if avg_score < -5 else "neutral"
+    strong_bull = sum(1 for _, m in scored if m["bull_score"] >= 80)
+    strong_bear = sum(1 for _, m in scored if m["bear_score"] >= 80)
+    watch_bull = sum(1 for _, m in scored if 65 <= m["bull_score"] < 80)
+    watch_bear = sum(1 for _, m in scored if 65 <= m["bear_score"] < 80)
 
     def empty(text: str) -> str:
         return f'<div class="momentum-empty">{escape(text)}</div>'
 
-    bull_html = "".join(_pick_card(a, "bull") for a in bullish) or empty("No clean bullish momentum signal")
-    bear_html = "".join(_pick_card(a, "bear") for a in bearish) or empty("No clean bearish pressure signal")
-    radar_html = "".join(_pick_card(a, "bull" if _score_asset(a)["score"] >= 0 else "bear") for a in radar) or empty("Radar is clean")
+    bull_html = "".join(_pick_card(a, "bull") for a in bullish) or empty("No Strong or Watchlist bullish signal")
+    bear_html = "".join(_pick_card(a, "bear") for a in bearish) or empty("No Strong or Watchlist bearish signal")
+    radar_html = "".join(
+        _pick_card(a, "bull" if _hawkeye_score(a)["bull_score"] >= _hawkeye_score(a)["bear_score"] else "bear")
+        for a in radar
+    ) or empty("Radar is clean")
 
     return f"""
-<section class="momentum-scanner-v2 scanner hawkeye-scanner" aria-label="Hawkeye">
+<section class="momentum-scanner-v2 scanner hawkeye-scanner" aria-label="Hawkeye v2">
   <style>
     .hawkeye-scanner{{margin:0 0 24px;padding:24px;border:1px solid rgba(56,189,248,.20);border-radius:28px;position:relative;overflow:hidden;text-align:left;background:linear-gradient(135deg,rgba(16,22,34,.92),rgba(18,14,33,.86) 48%,rgba(29,22,10,.76));box-shadow:0 22px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}}
     .hawkeye-scanner:before{{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,rgba(56,189,248,.18),transparent 35%),radial-gradient(circle at 92% 14%,rgba(245,158,11,.12),transparent 28%);pointer-events:none}}
     .hawkeye-scanner>*{{position:relative}}
     .scanner-head{{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}}
     .scanner-head h2{{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}}
+    .scanner-head .tier-legend{{display:flex;gap:10px;flex-wrap:wrap;font-size:.74em;color:var(--muted)}}
+    .scanner-head .tier-legend span{{padding:3px 8px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04)}}
     .scanner-board{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
     .signal-card{{border:1px solid var(--atlas-border,var(--border));border-radius:22px;padding:14px;background:rgba(7,9,20,.38);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}}
     .signal-card h3{{margin:0 0 12px;color:var(--atlas-text,var(--text));font-size:.98rem;font-weight:950;letter-spacing:-.025em}}
@@ -242,19 +332,25 @@ def momentum_scanner_html(assets: list, top_n: int = 4) -> str:
     .asset-levels{{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}}
     .asset-levels span{{padding:4px 7px;border-radius:999px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.16)}}
     .score-pill{{display:inline-flex;align-items:center;justify-content:center;min-width:48px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent}}
-    .score-hot{{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}}.score-risk{{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}}
-    .hawk-conviction{{height:4px;max-width:220px;border-radius:999px;background:rgba(148,163,184,.16);overflow:hidden;margin-top:9px}}
-    .hawk-conviction span{{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#38bdf8,#22c55e,#f59e0b);box-shadow:0 0 18px rgba(56,189,248,.35)}}
+    .score-hot{{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}}
+    .score-risk{{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}}
+    .score-warm{{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}}
+    .score-muted{{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}}
     .momentum-radar-title{{margin:14px 0 0!important;color:var(--atlas-muted,var(--muted))!important;font-size:.82rem!important;grid-column:1/-1}}
     .momentum-radar{{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}}
     .momentum-empty{{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}}
     @media(max-width:860px){{.scanner-head{{display:block}}.scanner-board{{grid-template-columns:1fr}}.momentum-radar{{grid-template-columns:1fr}}}}
     @media(max-width:520px){{.hawkeye-scanner{{padding:16px;border-radius:22px}}.signal-row{{display:block}}.signal-row>div:last-child{{text-align:left!important;margin-top:10px}}}}
   </style>
-  <div class="scanner-head"><div><h2>🦅 Hawkeye</h2></div></div>
+  <div class="scanner-head">
+    <div><h2>🦅 Hawkeye v2</h2></div>
+    <div class="tier-legend">
+      <span>🦅 Strong 80+</span><span>👁️ Watch 65-79</span><span>🟊 {strong_bull+strong_bear} strong · {watch_bull+watch_bear} watch</span>
+    </div>
+  </div>
   <div class="scanner-board hawk-board">
-    <div class="signal-card"><h3>🚀 Bullish momentum ({len(bullish)})</h3>{bull_html}</div>
-    <div class="signal-card"><h3>🐻 Bearish pressure ({len(bearish)})</h3>{bear_html}</div>
+    <div class="signal-card"><h3>🚀 Bullish setups ({len(bullish)})</h3>{bull_html}</div>
+    <div class="signal-card"><h3>🐻 Bearish setups ({len(bearish)})</h3>{bear_html}</div>
     <h4 class="momentum-radar-title">◇ Cross-market radar</h4>
     <div class="momentum-radar">{radar_html}</div>
   </div>
@@ -265,17 +361,12 @@ def momentum_scanner_html(assets: list, top_n: int = 4) -> str:
 hawk_eye_html = momentum_scanner_html
 
 
-def compute_sentiment(assets: list) -> dict:
-    """
-    Compute composite market sentiment from multiple signals.
+# ═══════════════════════════════════════════════════════════════
+# Composite Market Sentiment (unchanged logic, enriched with Hawkeye)
+# ═══════════════════════════════════════════════════════════════
 
-    Signals:
-      1. Breadth: % of assets moving up
-      2. Momentum: average change magnitude
-      3. Trend alignment: % with bullish MA crossover
-      4. Volume conviction: % with elevated volume (>1.5x avg)
-      5. Volatility regime: elevated or suppressed vol
-    """
+def compute_sentiment(assets: list) -> dict:
+    """Composite market sentiment from multi-signal analysis."""
     n = len(assets)
     if n == 0:
         return {"direction": "NEUTRAL", "confidence": 0, "score": 0, "signals": {}, "summary": "No data"}
@@ -286,19 +377,16 @@ def compute_sentiment(assets: list) -> dict:
     avg_change = sum(_change_pct(a) for a in assets) / n
     momentum_score = max(-100, min(100, avg_change * 20))
 
-    bullish_trend = sum(1 for a in assets if _trend(a) == "BULLISH")
+    bullish_trend = sum(1 for a in assets if str(a.get("trend", "")).upper() == "BULLISH")
     trend_score = (bullish_trend / n) * 100
 
-    high_vol = sum(1 for a in assets if _vol_ratio(a) > 1.5)
+    high_vol = sum(1 for a in assets if _num(a.get("vol_ratio"), 1.0) > 1.5)
     vol_conviction = (high_vol / n) * 100
 
-    avg_volatility = sum(_volatility(a) for a in assets) / n
-    if avg_volatility > 3:
-        volatility_signal = -20
-    elif avg_volatility < 1:
-        volatility_signal = 10
-    else:
-        volatility_signal = 0
+    avg_volatility = sum(_num(a.get("volatility_20d")) for a in assets) / n
+    if avg_volatility > 3:       volatility_signal = -20
+    elif avg_volatility < 1:     volatility_signal = 10
+    else:                        volatility_signal = 0
 
     raw_score = (
         (breadth - 50) * 0.35 +
@@ -308,16 +396,11 @@ def compute_sentiment(assets: list) -> dict:
         volatility_signal * 0.05
     )
 
-    if raw_score > 20:
-        direction = "BULLISH"
-    elif raw_score > 7:
-        direction = "SLIGHTLY BULLISH"
-    elif raw_score >= -7:
-        direction = "NEUTRAL"
-    elif raw_score > -20:
-        direction = "SLIGHTLY BEARISH"
-    else:
-        direction = "BEARISH"
+    if raw_score > 20:          direction = "BULLISH"
+    elif raw_score > 7:         direction = "SLIGHTLY BULLISH"
+    elif raw_score >= -7:       direction = "NEUTRAL"
+    elif raw_score > -20:       direction = "SLIGHTLY BEARISH"
+    else:                       direction = "BEARISH"
 
     signals_list = [breadth, momentum_score + 50, trend_score, vol_conviction]
     sig_std = statistics.stdev(signals_list) if len(signals_list) > 1 else 0
