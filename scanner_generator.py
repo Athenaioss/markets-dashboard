@@ -74,11 +74,7 @@ def row_html(a: dict) -> str:
 <span class="asset-tag">{escape(direction)}</span>
 <span class="asset-meta">{escape(a.get('source',''))} · {escape(a['regime'])} · {escape(a['signal_family'])}{warning}</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">Reference price {escape(a['price_label'])}</span>
-<span style="color:#c4b5fd">nROC5 {a['nroc5']:+.2f}</span>
-<span style="color:#fbbf24">RSI {a['rsi']}</span>
-<span style="color:#fca5a5">Ext {ext:.1f} ATR</span>
-<span style="color:#93c5fd">{participation}</span>
+<span style="color:#bae6fd">🎟️ {escape(a['price_label'])}</span>
 {rel}
 </span>
 </div>
@@ -86,7 +82,6 @@ def row_html(a: dict) -> str:
 <span class="score-pill {score_class(a['score'])}">{a['score']}/100</span>
 <div style="font-size:.72em;color:var(--muted);margin-top:3px">Net {a['net_pressure']:+d} · {escape(a['symbol'])}</div>
 <div style="font-size:.7em;color:{a['color']};margin-top:2px">{escape(a['label'])}</div>
-<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
 </div>
 </div>"""
 
@@ -172,7 +167,7 @@ def main(run_id: str | None = None):
 <div class="scanner-head">
 <div>
 <h2>🦅 Hawkeye V4 — Market Pressure Radar</h2>
-<p class="scanner-sub">Radar multi-actifs de pression, régime, momentum et extension. Inspection manuelle requise sur xStation / TradingView.</p>
+<p class="scanner-sub">Radar multi-actifs de pression, régime et momentum.</p>
 </div>
 <div class="scanner-score"><div class="num">{len(analyses)}</div><div class="label">assets scanned</div></div>
 </div>
@@ -183,9 +178,7 @@ def main(run_id: str | None = None):
 </div>
 <div class="legend">
 <span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90-100 Extreme pressure</span>
-<span class="demo-tag">Reference prices · manual inspection only</span>
 <span class="demo-tag">Updated {UPDATED_AT_LABEL}</span>
-<span class="demo-tag">run_id {escape(run_id)}</span>
 </div>
 </section>"""
 

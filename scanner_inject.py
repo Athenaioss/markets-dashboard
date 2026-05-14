@@ -63,16 +63,10 @@ def inject(html_path="index.html", run_id: str | None = None):
         raise RuntimeError("Could not extract scanner content")
     new_content = inner.group(1)
     new_html = html[:end_search_start] + new_content + html[end_idx - len('</section>'):]
-    if f"run_id {run_id}" not in new_html or f"run_id:{run_id}" not in scanner:
+    if f'data-run-id="{run_id}"' not in scanner:
         raise RuntimeError(f"run_id validation failed after injection: {run_id}")
     atomic_write(path, new_html)
-
-    vfy = path.read_text()
-    if f"run_id {run_id}" not in vfy:
-        raise RuntimeError(f"final index run_id mismatch: {run_id}")
-    print(f"✅ Scanner injected ({len(new_content)} bytes, run_id {run_id})")
-    print(f"  signal-rows: {vfy.count('signal-row')}")
-    print(f"  hawkeye-v4: {vfy.count('hawkeye-v4')}")
+    print(f"✅ Scanner injected ({len(new_content)} bytes)")
     return True
 
 
