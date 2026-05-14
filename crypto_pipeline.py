@@ -31,6 +31,7 @@ from pathlib import Path
 from typing import Any
 import urllib.request
 import urllib.error
+from dashboard_theme import enhance_dashboard_html
 
 # ════════════════════════════════════════════════════════════
 # CONFIGURATION
@@ -447,9 +448,14 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
 </body>
 </html>"""
     
+    html = enhance_dashboard_html(html, "crypto")
+    
     with open(path, 'w') as f:
         f.write(html)
+    live_path = Path("crypto_dashboard.html")
+    live_path.write_text(html)
     print(f"✅ HTML Dashboard: {path} ({os.path.getsize(path)} bytes)")
+    print(f"✅ Live: {live_path} ({os.path.getsize(live_path)} bytes)")
 
 # ════════════════════════════════════════════════════════════
 # MAIN PIPELINE

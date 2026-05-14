@@ -14,6 +14,7 @@ import json, csv, urllib.request, os, sys, time, statistics
 from datetime import datetime
 from pathlib import Path
 from sentiment import compute_sentiment, hawk_eye_html
+from dashboard_theme import enhance_dashboard_html
 
 OUTPUT_DIR = Path("output")
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -269,6 +270,8 @@ tr:hover{{background:rgba(245,158,11,.03)}}
 </div></div>
 <div class="footer"><p>🛢️ Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: {NOW}</p></div>
 </div></body></html>"""
+
+    html = enhance_dashboard_html(html, "commodities")
 
     path = OUTPUT_DIR / f"commodities_{NOW}.html"
     path.write_text(html)

@@ -14,6 +14,7 @@ import json, csv, urllib.request, os, time, statistics
 from datetime import datetime
 from pathlib import Path
 from sentiment import compute_sentiment, hawk_eye_html
+from dashboard_theme import enhance_dashboard_html
 
 OUTPUT_DIR = Path("output")
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -235,6 +236,8 @@ tr:hover{{background:rgba(34,197,94,.03)}}
 <p style="margin-top:4px"><a href="index.html">← Back to Dashboard</a></p>
 </div>
 </div></body></html>"""
+
+    html = enhance_dashboard_html(html, "stocks")
 
     path = OUTPUT_DIR / f"actions_{NOW}.html"
     path.write_text(html)
