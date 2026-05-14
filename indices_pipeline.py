@@ -13,7 +13,7 @@ Tracks: S&P 500, Nasdaq, Dow Jones, FTSE 100, DAX, CAC 40,
 import json, csv, urllib.request, os, time, statistics
 from datetime import datetime
 from pathlib import Path
-from sentiment import compute_sentiment, hawk_eye_html
+from sentiment import compute_sentiment, hawk_eye_html, tools_section_html
 from dashboard_theme import enhance_dashboard_html
 
 OUTPUT_DIR = Path("output")
@@ -97,6 +97,11 @@ def extract_metrics(symbol, data):
         wh = meta.get("fiftyTwoWeekHigh", 0)
         dist_to_52w_high = round((wh - current) / wh * 100, 1) if wh > 0 else 0
         
+        # Correct change_pct to actual daily close (prev_close from Yahoo may be stale)
+        if len(close_prices) >= 2 and close_prices[-2] != 0:
+            change = close_prices[-1] - close_prices[-2]
+            change_pct = change / close_prices[-2] * 100
+        
         return {
             "symbol": symbol, "name": INDICES[symbol]["name"],
             "region": INDICES[symbol]["region"], "currency": INDICES[symbol]["currency"],
@@ -152,6 +157,7 @@ def export_html(indices):
     avg = round(sum(i["change_pct"] for i in indices) / len(indices), 2) if indices else 0
 
     hawk_html = hawk_eye_html(indices)
+    tools_html = tools_section_html()
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -198,6 +204,7 @@ tr:hover{{background:rgba(56,189,248,.03)}}
 <table><thead><tr>
 <th>Index</th><th>Price</th><th>Change</th><th>MA(5)</th><th>MA(20)</th><th>Trend</th><th>Volatility</th>
 </tr></thead><tbody>{rows}</tbody></table></div></div>
+{tools_html}
 <div class="footer"><p>📈 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: {NOW}</p></div>
 </div></body></html>"""
 

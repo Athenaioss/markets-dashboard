@@ -13,7 +13,7 @@ Tracks: Gold, Silver, Crude Oil, Natural Gas, Copper, Wheat,
 import json, csv, urllib.request, os, sys, time, statistics
 from datetime import datetime
 from pathlib import Path
-from sentiment import compute_sentiment, hawk_eye_html
+from sentiment import compute_sentiment, hawk_eye_html, tools_section_html
 from dashboard_theme import enhance_dashboard_html
 
 OUTPUT_DIR = Path("output")
@@ -116,6 +116,11 @@ def extract_metrics(symbol, data):
         # Distance to 52W high (resistance proximity)
         wh = meta.get("fiftyTwoWeekHigh", 0)
         dist_to_52w_high = round((wh - current) / wh * 100, 1) if wh > 0 else 0
+        
+        # Correct change_pct to actual daily close (prev_close from Yahoo may be stale)
+        if len(close_prices) >= 2 and close_prices[-2] != 0:
+            change = close_prices[-1] - close_prices[-2]
+            change_pct = change / close_prices[-2] * 100
         
         # Indicative trading spread. Yahoo chart API does not expose live bid/ask for these futures,
         # so we show the minimum 1-tick spread in quoted units and as % of price.
@@ -223,6 +228,7 @@ def export_html(commodities, summary):
         </tr>"""
 
     hawk_html = hawk_eye_html(commodities)
+    tools_html = tools_section_html()
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -284,6 +290,7 @@ tr:hover{{background:rgba(245,158,11,.03)}}
 <div class="gl-card"><h3>📉 Top Losers</h3>
 {''.join(f'<div class="gl-item"><span><strong>{l["name"]}</strong></span><span style="color:var(--red)">▼ {abs(l["change_pct"]):.1f}%</span></div>' for l in sorted(commodities,key=lambda x:x['change_pct'])[:5])}
 </div></div>
+{tools_html}
 <div class="footer"><p>🛢️ Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: {NOW}</p></div>
 </div></body></html>"""
 

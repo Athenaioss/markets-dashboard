@@ -13,7 +13,7 @@ Tracks: 24 ETFs across Equity, Sector, Bond, International,
 import json, csv, urllib.request, os, time, statistics
 from datetime import datetime
 from pathlib import Path
-from sentiment import compute_sentiment, hawk_eye_html
+from sentiment import compute_sentiment, hawk_eye_html, tools_section_html
 from dashboard_theme import enhance_dashboard_html
 
 OUTPUT_DIR = Path("output")
@@ -104,6 +104,11 @@ def extract_metrics(symbol, data):
         wh = meta.get("fiftyTwoWeekHigh", 0)
         dist_to_52w_high = round((wh - current) / wh * 100, 1) if wh > 0 else 0
         
+        # Correct change_pct to actual daily close (prev_close from Yahoo may be stale)
+        if len(close_prices) >= 2 and close_prices[-2] != 0:
+            change = close_prices[-1] - close_prices[-2]
+            change_pct = change / close_prices[-2] * 100
+        
         return {
             "symbol": symbol, "name": ETFS[symbol]["name"],
             "category": ETFS[symbol]["category"], "currency": ETFS[symbol]["currency"],
@@ -176,6 +181,7 @@ def export_html(etfs):
         cat_cards += f"""<div class="card" style="border-left:3px solid {c}"><div class="value" style="color:{c}">{cat_avg:+.1f}%</div><div class="label">{cat_name} ({cat_data['up']}/{cat_data['count']})</div></div>"""
 
     hawk_html = hawk_eye_html(etfs)
+    tools_html = tools_section_html()
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -225,6 +231,7 @@ tr:hover{{background:rgba(56,189,248,.03)}}
 <table><thead><tr>
 <th>ETF</th><th>Category</th><th>Price</th><th>Change</th><th>Trend</th><th>Volatility</th><th>52W Range</th>
 </tr></thead><tbody>{rows}</tbody></table></div></div>
+{tools_html}
 <div class="footer">
 <p>💰 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: {NOW}</p>
 <p style="margin-top:4px"><a href="index.html">← Back to Dashboard</a></p>

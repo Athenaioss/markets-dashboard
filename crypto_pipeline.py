@@ -32,7 +32,7 @@ from typing import Any
 import urllib.request
 import urllib.error
 from dashboard_theme import enhance_dashboard_html
-from sentiment import momentum_scanner_html
+from sentiment import momentum_scanner_html, tools_section_html
 
 # ════════════════════════════════════════════════════════════
 # CONFIGURATION
@@ -352,6 +352,7 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
         </tr>"""
     
     momentum_html = momentum_scanner_html(tokens)
+    tools_html = tools_section_html()
     
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -444,6 +445,8 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
     <table><tr><th>Token</th><th>Volume</th><th>Mcap</th><th>Ratio</th></tr>
     {''.join(f'<tr><td><strong>{uv["symbol"]}</strong></td><td>${uv.get("volume_24h",0) or 0:,.0f}</td><td>${(uv.get("market_cap",0) or 0)/1e6:.1f}M</td><td>{uv.get("volume_mcap_ratio",0):.2%}</td></tr>' for uv in summary.get('unusual_volume_tokens',[])[:5])}
     </table>''' if summary.get('unusual_volume_tokens') else ''}
+    
+{tools_html}
     
 </body>
 </html>"""
