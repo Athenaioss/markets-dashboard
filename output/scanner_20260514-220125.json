@@ -1,0 +1,110 @@
+{
+  "run_id": "20260514-220125",
+  "generated": "20260514-220125",
+  "scoring": "Hawkeye V4 \u2014 market pressure radar /100",
+  "total": 104,
+  "distribution": {
+    "extreme": 0,
+    "strong": 0,
+    "active": 20,
+    "watch": 65,
+    "weak": 19,
+    "degraded": 0
+  },
+  "bullish_pressure": [
+    {
+      "name": "Corn",
+      "score": 74,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$467.75/USD/bushel"
+    },
+    {
+      "name": "Soybeans",
+      "score": 66,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$1,193.50/USD/bushel"
+    },
+    {
+      "name": "iShares Silver",
+      "score": 65,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$75.49"
+    },
+    {
+      "name": "Silver",
+      "score": 63,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$84.12/USD/oz"
+    },
+    {
+      "name": "Crude Oil WTI",
+      "score": 62,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$101.81/USD/barrel"
+    },
+    {
+      "name": "Wheat",
+      "score": 62,
+      "regime": "uptrend",
+      "family": "breakout pressure",
+      "reference_price": "$658.25/USD/bushel"
+    },
+    {
+      "name": "Sugar",
+      "score": 62,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$15.00/USD/lb"
+    }
+  ],
+  "bearish_pressure": [
+    {
+      "name": "LVMH",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac460.85"
+    },
+    {
+      "name": "ASX 200",
+      "score": 66,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "8,630.40 pts"
+    },
+    {
+      "name": "iShares 20+ Year Tr.",
+      "score": 66,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$84.92"
+    },
+    {
+      "name": "Palladium",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$1,458.00/USD/oz"
+    },
+    {
+      "name": "Herm\u00e8s",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac1,593.50"
+    },
+    {
+      "name": "Vanguard Total Bond",
+      "score": 60,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$73.16"
+    }
+  ],
+  "degraded": []
+}
