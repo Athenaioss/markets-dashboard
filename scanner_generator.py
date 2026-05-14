@@ -99,17 +99,15 @@ def card_html(title: str, emoji: str, rows: list[dict], empty: str) -> str:
     return f'<div class="signal-card"><h3>{emoji} {escape(title)} ({len(rows)})</h3>{body}</div>'
 
 
-def build_pressure_lists(analyses: list[dict]) -> tuple[list[dict], list[dict], list[dict], list[dict]]:
+def build_pressure_lists(analyses: list[dict]) -> tuple[list[dict], list[dict], list[dict]]:
     usable = [a for a in analyses if a["score"] >= 40 and a["tier"] != "DEGRADED"]
     bullish = [a for a in usable if a["direction"] == "bullish" and a["score"] >= 60]
     bearish = [a for a in usable if a["direction"] == "bearish" and a["score"] >= 60]
-    mixed = [a for a in usable if a["direction"] == "mixed" or a["regime"] in {"mixed", "compression", "range", "shock"}]
     degraded = [a for a in analyses if a["tier"] == "DEGRADED"]
     bullish.sort(key=lambda x: x["score"], reverse=True)
     bearish.sort(key=lambda x: x["score"], reverse=True)
-    mixed.sort(key=lambda x: x["score"], reverse=True)
     degraded.sort(key=lambda x: x["name"])
-    return bullish[:7], bearish[:7], mixed[:5], degraded[:5]
+    return bullish[:7], bearish[:7], degraded[:5]
 
 
 def degraded_card(rows: list[dict]) -> str:
@@ -156,7 +154,7 @@ def main(run_id: str | None = None):
         print(f"  ⚠️ Filtered {skipped} artifacts")
 
     analyses = analyze_assets(assets_clean)
-    bullish, bearish, mixed, degraded = build_pressure_lists(analyses)
+    bullish, bearish, degraded = build_pressure_lists(analyses)
     dist = {
         "extreme": sum(1 for a in analyses if a["score"] >= 90),
         "strong": sum(1 for a in analyses if 75 <= a["score"] < 90),
@@ -167,7 +165,6 @@ def main(run_id: str | None = None):
     }
     print(f"  📈 Bullish pressure: {len(bullish)}")
     print(f"  📉 Bearish pressure: {len(bearish)}")
-    print(f"  ⚪ Mixed/watch: {len(mixed)}")
     print(f"  ⚡ Extreme count: {dist['extreme']}")
 
     scanner_html = f"""<!-- 🦅 Hawkeye V4 — run_id:{escape(run_id)} — {NOW} -->
@@ -182,7 +179,6 @@ def main(run_id: str | None = None):
 <div class="scanner-board" style="grid-template-columns:repeat(2,1fr)">
 {card_html('Bullish pressure', '📈', bullish, 'No active bullish pressure')}
 {card_html('Bearish pressure', '📉', bearish, 'No active bearish pressure')}
-{card_html('Mixed / manual watch', '⚪', mixed, 'No mixed pressure watch')}
 {degraded_card(degraded)}
 </div>
 <div class="legend">
@@ -204,7 +200,6 @@ def main(run_id: str | None = None):
         "distribution": dist,
         "bullish_pressure": [{"name": a["name"], "score": a["score"], "regime": a["regime"], "family": a["signal_family"], "reference_price": a["price_label"]} for a in bullish],
         "bearish_pressure": [{"name": a["name"], "score": a["score"], "regime": a["regime"], "family": a["signal_family"], "reference_price": a["price_label"]} for a in bearish],
-        "manual_watch": [{"name": a["name"], "score": a["score"], "regime": a["regime"], "family": a["signal_family"], "net": a["net_pressure"]} for a in mixed],
         "degraded": [{"name": a["name"], "issues": a["data_quality"].get("issues", [])} for a in degraded],
     }
     atomic_write(json_path, json.dumps(report, indent=2))

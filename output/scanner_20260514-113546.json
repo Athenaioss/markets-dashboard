@@ -1,6 +1,6 @@
 {
-  "run_id": "20260514-112737",
-  "generated": "20260514-112737",
+  "run_id": "20260514-113546",
+  "generated": "20260514-113546",
   "scoring": "Hawkeye V4 \u2014 market pressure radar /100",
   "total": 103,
   "distribution": {
@@ -111,43 +111,6 @@
       "regime": "downtrend",
       "family": "bearish continuation",
       "reference_price": "$490.64"
-    }
-  ],
-  "manual_watch": [
-    {
-      "name": "USDCHF",
-      "score": 58,
-      "regime": "mixed",
-      "family": "mixed / no edge",
-      "net": -42
-    },
-    {
-      "name": "EURGBP",
-      "score": 58,
-      "regime": "compression",
-      "family": "compression watch",
-      "net": -42
-    },
-    {
-      "name": "NZDJPY",
-      "score": 57,
-      "regime": "mixed",
-      "family": "mixed / no edge",
-      "net": 37
-    },
-    {
-      "name": "USDZAR",
-      "score": 56,
-      "regime": "mixed",
-      "family": "mixed / no edge",
-      "net": -28
-    },
-    {
-      "name": "iShares High Yield",
-      "score": 56,
-      "regime": "mixed",
-      "family": "mixed / no edge",
-      "net": -28
     }
   ],
   "degraded": []
