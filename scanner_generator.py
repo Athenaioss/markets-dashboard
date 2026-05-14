@@ -289,8 +289,8 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
 <span class="asset-meta">{s.get('source','')} · {motif}</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🚪 {price_fmt}</span>
-<span style="color:#ef4444">🛑 {stop_fmt}</span>
 <span style="color:#22c55e">🎯 {tp_fmt} <small>{is_bullish and '+' or '-'}{tp_pct}%</small></span>
+<span style="color:#ef4444">🛑 {stop_fmt}</span>
 </span>
 </div>
 <div style="text-align:right">
@@ -346,9 +346,8 @@ def main():
 <p>Tradeable setups from Yahoo Finance OHLCV daily data.<br>ATR-based stops/targets · Bull/Bear scoring · RR ≥ 1.0 required</p>
 <div class="formula">
 <span class="chip">Entry = current</span>
-<span class="chip">SL = contextual ATR + structure</span>
 <span class="chip">TP = class-aware reward/risk</span>
-<span class="chip"></span>
+<span class="chip">SL = contextual ATR + structure</span>
 <span class="chip">reward/risk ≥ 1.0</span>
 </div>
 </div>

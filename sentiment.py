@@ -159,32 +159,34 @@ def _tag_html(tags: list[tuple[str, str]]) -> str:
 def _pick_card(asset: dict, side: str) -> str:
     m = _score_asset(asset)
     bullish = side == "bull"
-    accent = "var(--atlas-green,var(--green,#22c55e))" if bullish else "var(--atlas-red,var(--red,#ef4444))"
+    color_class = "score-hot" if bullish else "score-risk"
     arrow = "▲" if bullish else "▼"
-    signed = abs(m["change"])
+    change_color = "#22c55e" if m["change"] >= 0 else "#ef4444"
     title = escape(_asset_name(asset))
     symbol = escape(_asset_symbol(asset))
     group = escape(_asset_group(asset))
     score = _fmt_score(m["score"])
+    tag_text = " · ".join(f"{k}: {v}" for k, v in m["tags"][:3]) or "clean read"
     width = max(8, min(100, m["conviction"]))
-    return f"""
-    <article class="momentum-pick {'bull' if bullish else 'bear'}">
-      <div class="momentum-pick-top">
-        <div>
-          <div class="momentum-name">{title}</div>
-          <div class="momentum-meta">{symbol} · {group}</div>
-        </div>
-        <div class="momentum-score" style="color:{accent}">{score}</div>
-      </div>
-      <div class="momentum-tags">{_tag_html(m['tags'])}</div>
-      <div class="momentum-bar"><span style="width:{width}%;background:{accent}"></span></div>
-      <div class="momentum-metrics">
-        <span><b>{arrow} {signed:.1f}%</b><em>change</em></span>
-        <span><b>{escape(m['trend'].title())}</b><em>trend</em></span>
-        <span><b>{m['vol_ratio']:.1f}×</b><em>volume</em></span>
-        <span><b>{m['dist']:.0f}%</b><em>52W room</em></span>
-      </div>
-    </article>"""
+    return f"""<div class="signal-row hawk-row" data-market="{group.lower()}">
+<div>
+<span class="asset-name">{title}</span>
+<span class="asset-tag">{symbol}</span>
+<span class="asset-meta">{group} · {tag_text}</span>
+<span class="asset-levels">
+<span style="color:{change_color}">{arrow} {m['change']:.1f}%</span>
+<span style="color:#bae6fd">Trend {escape(m['trend'].title())}</span>
+<span style="color:#fbbf24">Vol {m['vol_ratio']:.1f}×</span>
+<span style="color:#a7f3d0">52W {m['dist']:.0f}%</span>
+</span>
+<div class="hawk-conviction"><span style="width:{width}%"></span></div>
+</div>
+<div style="text-align:right">
+<span class="score-pill {color_class}">{score}</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction {m['conviction']}%</div>
+<div style="font-size:.7em;color:{change_color};margin-top:2px">{escape(m['resistance_label'])}</div>
+</div>
+</div>"""
 
 
 def momentum_scanner_html(assets: list, top_n: int = 4) -> str:
@@ -222,32 +224,37 @@ def momentum_scanner_html(assets: list, top_n: int = 4) -> str:
     radar_html = "".join(_pick_card(a, "bull" if _score_asset(a)["score"] >= 0 else "bear") for a in radar) or empty("Radar is clean")
 
     return f"""
-<section class="momentum-scanner-v2" aria-label="Hawkeye">
+<section class="momentum-scanner-v2 scanner hawkeye-scanner" aria-label="Hawkeye">
   <style>
-    .momentum-scanner-v2{{margin:0 0 24px;padding:22px;border:1px solid var(--atlas-border,var(--border));border-radius:26px;background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.03));box-shadow:0 22px 70px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06)}}
-    .momentum-head{{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}}
-    .momentum-kicker{{color:var(--atlas-accent,var(--accent));font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;font-weight:900;margin-bottom:5px}}
-    .momentum-title{{font-size:1.35rem;font-weight:950;letter-spacing:-.055em;color:var(--atlas-text,var(--text))}}
-    .momentum-grid{{display:grid;grid-template-columns:1fr 1fr;gap:14px}}.momentum-col{{display:flex;flex-direction:column;gap:10px}}.momentum-col h4{{margin:0 0 2px;font-size:.88rem;font-weight:950;letter-spacing:-.025em;color:var(--atlas-text,var(--text))}}
-    .momentum-pick{{border:1px solid var(--atlas-border,var(--border));border-radius:20px;padding:13px;background:rgba(7,9,20,.36);box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}}
-    .momentum-pick.bull{{border-left:3px solid var(--atlas-green,var(--green))}}.momentum-pick.bear{{border-left:3px solid var(--atlas-red,var(--red))}}
-    .momentum-pick-top{{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}}.momentum-name{{font-weight:900;color:var(--atlas-text,var(--text));line-height:1.2}}.momentum-meta{{color:var(--atlas-muted,var(--muted));font-size:.76rem;margin-top:3px}}.momentum-score{{font-weight:950;font-size:1.15rem;letter-spacing:-.04em}}
-    .momentum-tags{{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}}.momentum-tag{{border:1px solid var(--atlas-border,var(--border));border-radius:999px;padding:4px 7px;color:var(--atlas-muted,var(--muted));font-size:.68rem;background:rgba(255,255,255,.035)}}.momentum-tag b{{color:var(--atlas-text,var(--text))}}.momentum-tag.muted{{opacity:.7}}
-    .momentum-bar{{height:5px;border-radius:99px;background:rgba(148,163,184,.16);overflow:hidden;margin:8px 0 10px}}.momentum-bar span{{display:block;height:100%;border-radius:99px;box-shadow:0 0 18px currentColor}}
-    .momentum-metrics{{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}}.momentum-metrics span{{min-width:0}}.momentum-metrics b{{display:block;color:var(--atlas-text,var(--text));font-size:.74rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}.momentum-metrics em{{display:block;color:var(--atlas-faint,var(--muted));font-size:.64rem;font-style:normal;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}}
-    .momentum-radar{{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:2px}}.momentum-radar-title{{grid-column:1/-1;margin:6px 0 0!important;color:var(--atlas-muted,var(--muted))!important;font-size:.82rem!important}}
+    .hawkeye-scanner{{margin:0 0 24px;padding:24px;border:1px solid rgba(56,189,248,.20);border-radius:28px;position:relative;overflow:hidden;text-align:left;background:linear-gradient(135deg,rgba(16,22,34,.92),rgba(18,14,33,.86) 48%,rgba(29,22,10,.76));box-shadow:0 22px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}}
+    .hawkeye-scanner:before{{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,rgba(56,189,248,.18),transparent 35%),radial-gradient(circle at 92% 14%,rgba(245,158,11,.12),transparent 28%);pointer-events:none}}
+    .hawkeye-scanner>*{{position:relative}}
+    .scanner-head{{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}}
+    .scanner-head h2{{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}}
+    .scanner-board{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
+    .signal-card{{border:1px solid var(--atlas-border,var(--border));border-radius:22px;padding:14px;background:rgba(7,9,20,.38);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}}
+    .signal-card h3{{margin:0 0 12px;color:var(--atlas-text,var(--text));font-size:.98rem;font-weight:950;letter-spacing:-.025em}}
+    .signal-row{{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px;border:1px solid rgba(148,163,184,.16);border-radius:16px;background:rgba(255,255,255,.035);margin-top:9px}}
+    .signal-row:first-of-type{{margin-top:0}}
+    .asset-name{{display:inline;font-weight:900;color:var(--atlas-text,var(--text));line-height:1.15;margin-right:6px}}
+    .asset-tag{{display:inline-flex;vertical-align:middle;padding:2px 7px;border-radius:999px;background:rgba(56,189,248,.10);border:1px solid rgba(56,189,248,.22);color:#bae6fd;font-size:.66rem;font-weight:900;text-transform:uppercase}}
+    .asset-meta{{display:block;color:var(--atlas-muted,var(--muted));font-size:.74rem;margin-top:4px;line-height:1.35}}
+    .asset-levels{{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}}
+    .asset-levels span{{padding:4px 7px;border-radius:999px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.16)}}
+    .score-pill{{display:inline-flex;align-items:center;justify-content:center;min-width:48px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent}}
+    .score-hot{{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}}.score-risk{{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}}
+    .hawk-conviction{{height:4px;max-width:220px;border-radius:999px;background:rgba(148,163,184,.16);overflow:hidden;margin-top:9px}}
+    .hawk-conviction span{{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#38bdf8,#22c55e,#f59e0b);box-shadow:0 0 18px rgba(56,189,248,.35)}}
+    .momentum-radar-title{{margin:14px 0 0!important;color:var(--atlas-muted,var(--muted))!important;font-size:.82rem!important;grid-column:1/-1}}
+    .momentum-radar{{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}}
     .momentum-empty{{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}}
-    @media(max-width:860px){{.momentum-head{{flex-direction:column}}.momentum-grid{{grid-template-columns:1fr}}.momentum-radar{{grid-template-columns:1fr}}}}
-    @media(max-width:480px){{.momentum-scanner-v2{{padding:16px;border-radius:22px}}.momentum-metrics{{grid-template-columns:repeat(2,1fr)}}}}
+    @media(max-width:860px){{.scanner-head{{display:block}}.scanner-board{{grid-template-columns:1fr}}.momentum-radar{{grid-template-columns:1fr}}}}
+    @media(max-width:520px){{.hawkeye-scanner{{padding:16px;border-radius:22px}}.signal-row{{display:block}}.signal-row>div:last-child{{text-align:left!important;margin-top:10px}}}}
   </style>
-  <div class="momentum-head">
-    <div>
-      <div class="momentum-kicker">🦅 Hawkeye</div>
-    </div>
-  </div>
-  <div class="momentum-grid">
-    <div class="momentum-col"><h4>▲ Bullish momentum</h4>{bull_html}</div>
-    <div class="momentum-col"><h4>▼ Bearish pressure</h4>{bear_html}</div>
+  <div class="scanner-head"><div><h2>🦅 Hawkeye</h2></div></div>
+  <div class="scanner-board hawk-board">
+    <div class="signal-card"><h3>🚀 Bullish momentum ({len(bullish)})</h3>{bull_html}</div>
+    <div class="signal-card"><h3>🐻 Bearish pressure ({len(bearish)})</h3>{bear_html}</div>
     <h4 class="momentum-radar-title">◇ Cross-market radar</h4>
     <div class="momentum-radar">{radar_html}</div>
   </div>

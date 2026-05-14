@@ -87,14 +87,14 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header">
 <div class="title-emoji">🛢️</div>
 <h1>Atlas Nexus — Commodities</h1>
-<p>Real-time commodity futures tracking · Gold, Oil, Copper, Grains, Softs | 20260514-054534</p>
+<p>Real-time commodity futures tracking · Gold, Oil, Copper, Grains, Softs | 20260514-060854</p>
 </div>
 <div class="container">
 <div class="stats-grid">
 <div class="card"><div class="value" style="color:var(--accent)">15</div><div class="label">Commodities Tracked</div></div>
 <div class="card"><div class="value" style="color:var(--green)">11</div><div class="label">Up Today</div></div>
 <div class="card"><div class="value" style="color:var(--red)">4</div><div class="label">Down Today</div></div>
-<div class="card"><div class="value" style="color:var(--accent2)">14.26%</div><div class="label">Avg Change</div></div>
+<div class="card"><div class="value" style="color:var(--accent2)">14.14%</div><div class="label">Avg Change</div></div>
 <div class="card"><div class="value" style="color:var(--accent)">0.021%</div><div class="label">Avg Indic. Spread</div></div>
 </div>
 <div class="sentiment-banner" style="background:#14532d;border:1px solid #22c55e;border-radius:14px;padding:24px;margin-bottom:20px;text-align:center">
@@ -103,207 +103,240 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     <div style="font-size:2.2em;font-weight:800;color:#22c55e;margin:4px 0">40%</div>
     <div style="color:var(--muted);font-size:.9em">confidence</div>
     <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;font-size:.85em">
-        <div><span style="color:var(--muted)">11/15 assets up</span><br><strong>73</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>14.26</strong></div><div><span style="color:var(--muted)">11/15 bullish MA</span><br><strong>73</strong></div><div><span style="color:var(--muted)">7/15 elevated vol</span><br><strong>47</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>1.8</strong></div>
+        <div><span style="color:var(--muted)">11/15 assets up</span><br><strong>73</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>14.14</strong></div><div><span style="color:var(--muted)">9/15 bullish MA</span><br><strong>60</strong></div><div><span style="color:var(--muted)">2/15 elevated vol</span><br><strong>13</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>1.8</strong></div>
     </div></div>
 
-<section class="momentum-scanner-v2" aria-label="Hawkeye">
+<section class="momentum-scanner-v2 scanner hawkeye-scanner" aria-label="Hawkeye">
   <style>
-    .momentum-scanner-v2{margin:0 0 24px;padding:22px;border:1px solid var(--atlas-border,var(--border));border-radius:26px;background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.03));box-shadow:0 22px 70px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06)}
-    .momentum-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
-    .momentum-kicker{color:var(--atlas-accent,var(--accent));font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;font-weight:900;margin-bottom:5px}
-    .momentum-title{font-size:1.35rem;font-weight:950;letter-spacing:-.055em;color:var(--atlas-text,var(--text))}
-    .momentum-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.momentum-col{display:flex;flex-direction:column;gap:10px}.momentum-col h4{margin:0 0 2px;font-size:.88rem;font-weight:950;letter-spacing:-.025em;color:var(--atlas-text,var(--text))}
-    .momentum-pick{border:1px solid var(--atlas-border,var(--border));border-radius:20px;padding:13px;background:rgba(7,9,20,.36);box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
-    .momentum-pick.bull{border-left:3px solid var(--atlas-green,var(--green))}.momentum-pick.bear{border-left:3px solid var(--atlas-red,var(--red))}
-    .momentum-pick-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.momentum-name{font-weight:900;color:var(--atlas-text,var(--text));line-height:1.2}.momentum-meta{color:var(--atlas-muted,var(--muted));font-size:.76rem;margin-top:3px}.momentum-score{font-weight:950;font-size:1.15rem;letter-spacing:-.04em}
-    .momentum-tags{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.momentum-tag{border:1px solid var(--atlas-border,var(--border));border-radius:999px;padding:4px 7px;color:var(--atlas-muted,var(--muted));font-size:.68rem;background:rgba(255,255,255,.035)}.momentum-tag b{color:var(--atlas-text,var(--text))}.momentum-tag.muted{opacity:.7}
-    .momentum-bar{height:5px;border-radius:99px;background:rgba(148,163,184,.16);overflow:hidden;margin:8px 0 10px}.momentum-bar span{display:block;height:100%;border-radius:99px;box-shadow:0 0 18px currentColor}
-    .momentum-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.momentum-metrics span{min-width:0}.momentum-metrics b{display:block;color:var(--atlas-text,var(--text));font-size:.74rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.momentum-metrics em{display:block;color:var(--atlas-faint,var(--muted));font-size:.64rem;font-style:normal;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
-    .momentum-radar{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:2px}.momentum-radar-title{grid-column:1/-1;margin:6px 0 0!important;color:var(--atlas-muted,var(--muted))!important;font-size:.82rem!important}
+    .hawkeye-scanner{margin:0 0 24px;padding:24px;border:1px solid rgba(56,189,248,.20);border-radius:28px;position:relative;overflow:hidden;text-align:left;background:linear-gradient(135deg,rgba(16,22,34,.92),rgba(18,14,33,.86) 48%,rgba(29,22,10,.76));box-shadow:0 22px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}
+    .hawkeye-scanner:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,rgba(56,189,248,.18),transparent 35%),radial-gradient(circle at 92% 14%,rgba(245,158,11,.12),transparent 28%);pointer-events:none}
+    .hawkeye-scanner>*{position:relative}
+    .scanner-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
+    .scanner-head h2{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}
+    .scanner-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .signal-card{border:1px solid var(--atlas-border,var(--border));border-radius:22px;padding:14px;background:rgba(7,9,20,.38);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+    .signal-card h3{margin:0 0 12px;color:var(--atlas-text,var(--text));font-size:.98rem;font-weight:950;letter-spacing:-.025em}
+    .signal-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px;border:1px solid rgba(148,163,184,.16);border-radius:16px;background:rgba(255,255,255,.035);margin-top:9px}
+    .signal-row:first-of-type{margin-top:0}
+    .asset-name{display:inline;font-weight:900;color:var(--atlas-text,var(--text));line-height:1.15;margin-right:6px}
+    .asset-tag{display:inline-flex;vertical-align:middle;padding:2px 7px;border-radius:999px;background:rgba(56,189,248,.10);border:1px solid rgba(56,189,248,.22);color:#bae6fd;font-size:.66rem;font-weight:900;text-transform:uppercase}
+    .asset-meta{display:block;color:var(--atlas-muted,var(--muted));font-size:.74rem;margin-top:4px;line-height:1.35}
+    .asset-levels{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}
+    .asset-levels span{padding:4px 7px;border-radius:999px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.16)}
+    .score-pill{display:inline-flex;align-items:center;justify-content:center;min-width:48px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent}
+    .score-hot{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}.score-risk{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}
+    .hawk-conviction{height:4px;max-width:220px;border-radius:999px;background:rgba(148,163,184,.16);overflow:hidden;margin-top:9px}
+    .hawk-conviction span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#38bdf8,#22c55e,#f59e0b);box-shadow:0 0 18px rgba(56,189,248,.35)}
+    .momentum-radar-title{margin:14px 0 0!important;color:var(--atlas-muted,var(--muted))!important;font-size:.82rem!important;grid-column:1/-1}
+    .momentum-radar{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
     .momentum-empty{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}
-    @media(max-width:860px){.momentum-head{flex-direction:column}.momentum-grid{grid-template-columns:1fr}.momentum-radar{grid-template-columns:1fr}}
-    @media(max-width:480px){.momentum-scanner-v2{padding:16px;border-radius:22px}.momentum-metrics{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}.momentum-radar{grid-template-columns:1fr}}
+    @media(max-width:520px){.hawkeye-scanner{padding:16px;border-radius:22px}.signal-row{display:block}.signal-row>div:last-child{text-align:left!important;margin-top:10px}}
   </style>
-  <div class="momentum-head">
-    <div>
-      <div class="momentum-kicker">🦅 Hawkeye</div>
-    </div>
-  </div>
-  <div class="momentum-grid">
-    <div class="momentum-col"><h4>▲ Bullish momentum</h4>
-    <article class="momentum-pick bull">
-      <div class="momentum-pick-top">
-        <div>
-          <div class="momentum-name">Crude Oil WTI</div>
-          <div class="momentum-meta">CL=F · Energy</div>
-        </div>
-        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+67.3</div>
-      </div>
-      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>52W</b> room</span><span class="momentum-tag"><b>Vol</b> hot</span></div>
-      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
-      <div class="momentum-metrics">
-        <span><b>▲ 61.3%</b><em>change</em></span>
-        <span><b>Bullish</b><em>trend</em></span>
-        <span><b>0.0×</b><em>volume</em></span>
-        <span><b>15%</b><em>52W room</em></span>
-      </div>
-    </article>
-    <article class="momentum-pick bull">
-      <div class="momentum-pick-top">
-        <div>
-          <div class="momentum-name">Brent Crude</div>
-          <div class="momentum-meta">BZ=F · Energy</div>
-        </div>
-        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+58.3</div>
-      </div>
-      <div class="momentum-tags"><span class="momentum-tag"><b>52W</b> room</span><span class="momentum-tag"><b>Vol</b> hot</span></div>
-      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
-      <div class="momentum-metrics">
-        <span><b>▲ 56.5%</b><em>change</em></span>
-        <span><b>Neutral</b><em>trend</em></span>
-        <span><b>0.0×</b><em>volume</em></span>
-        <span><b>16%</b><em>52W room</em></span>
-      </div>
-    </article>
-    <article class="momentum-pick bull">
-      <div class="momentum-pick-top">
-        <div>
-          <div class="momentum-name">Cotton</div>
-          <div class="momentum-meta">CT=F · Softs</div>
-        </div>
-        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+43.3</div>
-      </div>
-      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>Volume</b> 2.1×</span><span class="momentum-tag"><b>52W</b> résistance</span><span class="momentum-tag"><b>Candle</b> vertical</span></div>
-      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
-      <div class="momentum-metrics">
-        <span><b>▲ 41.6%</b><em>change</em></span>
-        <span><b>Bullish</b><em>trend</em></span>
-        <span><b>2.1×</b><em>volume</em></span>
-        <span><b>1%</b><em>52W room</em></span>
-      </div>
-    </article>
-    <article class="momentum-pick bull">
-      <div class="momentum-pick-top">
-        <div>
-          <div class="momentum-name">Wheat</div>
-          <div class="momentum-meta">ZW=F · Agriculture</div>
-        </div>
-        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+24.1</div>
-      </div>
-      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>52W</b> résistance</span><span class="momentum-tag"><b>Candle</b> vertical</span></div>
-      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
-      <div class="momentum-metrics">
-        <span><b>▲ 24.9%</b><em>change</em></span>
-        <span><b>Bullish</b><em>trend</em></span>
-        <span><b>0.5×</b><em>volume</em></span>
-        <span><b>0%</b><em>52W room</em></span>
-      </div>
-    </article></div>
-    <div class="momentum-col"><h4>▼ Bearish pressure</h4>
-    <article class="momentum-pick bear">
-      <div class="momentum-pick-top">
-        <div>
-          <div class="momentum-name">Coffee</div>
-          <div class="momentum-meta">KC=F · Softs</div>
-        </div>
-        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-8.8</div>
-      </div>
-      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bear</span><span class="momentum-tag"><b>52W</b> room</span></div>
-      <div class="momentum-bar"><span style="width:74%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
-      <div class="momentum-metrics">
-        <span><b>▼ 6.5%</b><em>change</em></span>
-        <span><b>Bearish</b><em>trend</em></span>
-        <span><b>0.0×</b><em>volume</em></span>
-        <span><b>36%</b><em>52W room</em></span>
-      </div>
-    </article>
-    <article class="momentum-pick bear">
-      <div class="momentum-pick-top">
-        <div>
-          <div class="momentum-name">Palladium</div>
-          <div class="momentum-meta">PA=F · Precious Metals</div>
-        </div>
-        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-5.8</div>
-      </div>
-      <div class="momentum-tags"><span class="momentum-tag"><b>Volume</b> 18.0×</span><span class="momentum-tag"><b>52W</b> room</span></div>
-      <div class="momentum-bar"><span style="width:57%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
-      <div class="momentum-metrics">
-        <span><b>▼ 10.8%</b><em>change</em></span>
-        <span><b>Neutral</b><em>trend</em></span>
-        <span><b>18.0×</b><em>volume</em></span>
-        <span><b>30%</b><em>52W room</em></span>
-      </div>
-    </article>
-    <article class="momentum-pick bear">
-      <div class="momentum-pick-top">
-        <div>
-          <div class="momentum-name">Natural Gas</div>
-          <div class="momentum-meta">NG=F · Energy</div>
-        </div>
-        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-5.3</div>
-      </div>
-      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>52W</b> room</span></div>
-      <div class="momentum-bar"><span style="width:54%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
-      <div class="momentum-metrics">
-        <span><b>▼ 11.7%</b><em>change</em></span>
-        <span><b>Bullish</b><em>trend</em></span>
-        <span><b>0.0×</b><em>volume</em></span>
-        <span><b>63%</b><em>52W room</em></span>
-      </div>
-    </article></div>
+  <div class="scanner-head"><div><h2>🦅 Hawkeye</h2></div></div>
+  <div class="scanner-board hawk-board">
+    <div class="signal-card"><h3>🚀 Bullish momentum (4)</h3><div class="signal-row hawk-row" data-market="energy">
+<div>
+<span class="asset-name">Crude Oil WTI</span>
+<span class="asset-tag">CL=F</span>
+<span class="asset-meta">Energy · Trend: MA bull · 52W: room · Vol: hot</span>
+<span class="asset-levels">
+<span style="color:#22c55e">▲ 61.1%</span>
+<span style="color:#bae6fd">Trend Bullish</span>
+<span style="color:#fbbf24">Vol 0.8×</span>
+<span style="color:#a7f3d0">52W 15%</span>
+</span>
+<div class="hawk-conviction"><span style="width:100%"></span></div>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">+66.2</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">room</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="energy">
+<div>
+<span class="asset-name">Brent Crude</span>
+<span class="asset-tag">BZ=F</span>
+<span class="asset-meta">Energy · Trend: MA bear · 52W: room · Candle: vertical</span>
+<span class="asset-levels">
+<span style="color:#22c55e">▲ 56.3%</span>
+<span style="color:#bae6fd">Trend Bearish</span>
+<span style="color:#fbbf24">Vol 0.7×</span>
+<span style="color:#a7f3d0">52W 16%</span>
+</span>
+<div class="hawk-conviction"><span style="width:100%"></span></div>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">+51.9</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">room</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="softs">
+<div>
+<span class="asset-name">Cotton</span>
+<span class="asset-tag">CT=F</span>
+<span class="asset-meta">Softs · Trend: MA bull · Volume: 3.6× · 52W: résistance</span>
+<span class="asset-levels">
+<span style="color:#22c55e">▲ 41.6%</span>
+<span style="color:#bae6fd">Trend Bullish</span>
+<span style="color:#fbbf24">Vol 3.6×</span>
+<span style="color:#a7f3d0">52W 1%</span>
+</span>
+<div class="hawk-conviction"><span style="width:100%"></span></div>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">+44.5</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">resistance</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="agriculture">
+<div>
+<span class="asset-name">Wheat</span>
+<span class="asset-tag">ZW=F</span>
+<span class="asset-meta">Agriculture · Trend: MA bull · 52W: résistance · Candle: vertical</span>
+<span class="asset-levels">
+<span style="color:#22c55e">▲ 24.7%</span>
+<span style="color:#bae6fd">Trend Bullish</span>
+<span style="color:#fbbf24">Vol 0.0×</span>
+<span style="color:#a7f3d0">52W 0%</span>
+</span>
+<div class="hawk-conviction"><span style="width:100%"></span></div>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">+23.9</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">resistance</div>
+</div>
+</div></div>
+    <div class="signal-card"><h3>🐻 Bearish pressure (4)</h3><div class="signal-row hawk-row" data-market="precious metals">
+<div>
+<span class="asset-name">Palladium</span>
+<span class="asset-tag">PA=F</span>
+<span class="asset-meta">Precious Metals · Trend: MA bear · 52W: room · Candle: vertical</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -10.9%</span>
+<span style="color:#bae6fd">Trend Bearish</span>
+<span style="color:#fbbf24">Vol 0.0×</span>
+<span style="color:#a7f3d0">52W 30%</span>
+</span>
+<div class="hawk-conviction"><span style="width:100%"></span></div>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-risk">-14.5</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
+<div style="font-size:.7em;color:#ef4444;margin-top:2px">room</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="softs">
+<div>
+<span class="asset-name">Coffee</span>
+<span class="asset-tag">KC=F</span>
+<span class="asset-meta">Softs · Trend: MA bear · 52W: room · Candle: vertical</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -6.5%</span>
+<span style="color:#bae6fd">Trend Bearish</span>
+<span style="color:#fbbf24">Vol 0.0×</span>
+<span style="color:#a7f3d0">52W 36%</span>
+</span>
+<div class="hawk-conviction"><span style="width:83%"></span></div>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-risk">-10.1</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 83%</div>
+<div style="font-size:.7em;color:#ef4444;margin-top:2px">room</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="energy">
+<div>
+<span class="asset-name">Natural Gas</span>
+<span class="asset-tag">NG=F</span>
+<span class="asset-meta">Energy · Trend: MA bull · 52W: room · Candle: vertical</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -11.7%</span>
+<span style="color:#bae6fd">Trend Bullish</span>
+<span style="color:#fbbf24">Vol 1.2×</span>
+<span style="color:#a7f3d0">52W 63%</span>
+</span>
+<div class="hawk-conviction"><span style="width:68%"></span></div>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-risk">-7.3</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 68%</div>
+<div style="font-size:.7em;color:#ef4444;margin-top:2px">room</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="precious metals">
+<div>
+<span class="asset-name">Gold</span>
+<span class="asset-tag">GC=F</span>
+<span class="asset-meta">Precious Metals · 52W: room · Candle: vertical · Vol: stable</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -6.8%</span>
+<span style="color:#bae6fd">Trend Neutral</span>
+<span style="color:#fbbf24">Vol 0.2×</span>
+<span style="color:#a7f3d0">52W 16%</span>
+</span>
+<div class="hawk-conviction"><span style="width:50%"></span></div>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-risk">-5.6</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 50%</div>
+<div style="font-size:.7em;color:#ef4444;margin-top:2px">room</div>
+</div>
+</div></div>
     <h4 class="momentum-radar-title">◇ Cross-market radar</h4>
-    <div class="momentum-radar">
-    <article class="momentum-pick bull">
-      <div class="momentum-pick-top">
-        <div>
-          <div class="momentum-name">Silver</div>
-          <div class="momentum-meta">SI=F · Precious Metals</div>
-        </div>
-        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+21.2</div>
-      </div>
-      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>Volume</b> 4.0×</span><span class="momentum-tag"><b>52W</b> room</span></div>
-      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
-      <div class="momentum-metrics">
-        <span><b>▲ 12.3%</b><em>change</em></span>
-        <span><b>Bullish</b><em>trend</em></span>
-        <span><b>4.0×</b><em>volume</em></span>
-        <span><b>28%</b><em>52W room</em></span>
-      </div>
-    </article>
-    <article class="momentum-pick bull">
-      <div class="momentum-pick-top">
-        <div>
-          <div class="momentum-name">Platinum</div>
-          <div class="momentum-meta">PL=F · Precious Metals</div>
-        </div>
-        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+12.7</div>
-      </div>
-      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>Volume</b> 13.7×</span><span class="momentum-tag"><b>52W</b> room</span></div>
-      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
-      <div class="momentum-metrics">
-        <span><b>▲ 3.8%</b><em>change</em></span>
-        <span><b>Bullish</b><em>trend</em></span>
-        <span><b>13.7×</b><em>volume</em></span>
-        <span><b>25%</b><em>52W room</em></span>
-      </div>
-    </article>
-    <article class="momentum-pick bull">
-      <div class="momentum-pick-top">
-        <div>
-          <div class="momentum-name">Copper</div>
-          <div class="momentum-meta">HG=F · Industrial Metals</div>
-        </div>
-        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+17.1</div>
-      </div>
-      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>Volume</b> 2.8×</span><span class="momentum-tag"><b>52W</b> résistance</span></div>
-      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
-      <div class="momentum-metrics">
-        <span><b>▲ 13.4%</b><em>change</em></span>
-        <span><b>Bullish</b><em>trend</em></span>
-        <span><b>2.8×</b><em>volume</em></span>
-        <span><b>1%</b><em>52W room</em></span>
-      </div>
-    </article></div>
+    <div class="momentum-radar"><div class="signal-row hawk-row" data-market="precious metals">
+<div>
+<span class="asset-name">Silver</span>
+<span class="asset-tag">SI=F</span>
+<span class="asset-meta">Precious Metals · Trend: MA bull · 52W: room</span>
+<span class="asset-levels">
+<span style="color:#22c55e">▲ 11.8%</span>
+<span style="color:#bae6fd">Trend Bullish</span>
+<span style="color:#fbbf24">Vol 0.2×</span>
+<span style="color:#a7f3d0">52W 28%</span>
+</span>
+<div class="hawk-conviction"><span style="width:100%"></span></div>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">+18.2</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">room</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="industrial metals">
+<div>
+<span class="asset-name">Copper</span>
+<span class="asset-tag">HG=F</span>
+<span class="asset-meta">Industrial Metals · Trend: MA bull · 52W: résistance</span>
+<span class="asset-levels">
+<span style="color:#22c55e">▲ 13.3%</span>
+<span style="color:#bae6fd">Trend Bullish</span>
+<span style="color:#fbbf24">Vol 0.3×</span>
+<span style="color:#a7f3d0">52W 1%</span>
+</span>
+<div class="hawk-conviction"><span style="width:100%"></span></div>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">+14.5</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">resistance</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="softs">
+<div>
+<span class="asset-name">Sugar</span>
+<span class="asset-tag">SB=F</span>
+<span class="asset-meta">Softs · Trend: MA bull · 52W: room · Candle: vertical</span>
+<span class="asset-levels">
+<span style="color:#22c55e">▲ 11.7%</span>
+<span style="color:#bae6fd">Trend Bullish</span>
+<span style="color:#fbbf24">Vol 1.3×</span>
+<span style="color:#a7f3d0">52W 15%</span>
+</span>
+<div class="hawk-conviction"><span style="width:100%"></span></div>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">+16.1</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">conviction 100%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">room</div>
+</div>
+</div></div>
   </div>
 </section>
 <h2 style="color:var(--accent);margin-bottom:12px">📊 Commodity Leaderboard</h2>
@@ -314,122 +347,122 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 </tr></thead><tbody><tr>
             <td><strong>Gold</strong> <small style="color:var(--muted)">GC=F</small></td>
             <td>Precious Metals</td>
-            <td class="price">4690.30 oz</td>
-            <td style="color:#ef4444">▼ 6.60%</td>
+            <td class="price">4680.80 oz</td>
+            <td style="color:#ef4444">▼ 6.79%</td>
             <td><strong>0.1 (0.002%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>4700.94</td><td>4677.05</td>
-            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>4702.84</td><td>4681.80</td>
+            <td><span style="color:#94a3b8;font-weight:600">NEUTRAL</span></td>
             <td>1.0%</td>
-            <td style="color:#f59e0b">11.0x</td>
+            <td style="color:#64748b">0.2x</td>
         </tr><tr>
             <td><strong>Silver</strong> <small style="color:var(--muted)">SI=F</small></td>
             <td>Precious Metals</td>
-            <td class="price">87.40 oz</td>
-            <td style="color:#22c55e">▲ 12.27%</td>
+            <td class="price">87.03 oz</td>
+            <td style="color:#22c55e">▲ 11.78%</td>
             <td><strong>0.005 (0.006%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>85.46</td><td>78.35</td>
+            <td>83.92</td><td>77.91</td>
             <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
             <td>2.8%</td>
-            <td style="color:#f59e0b">4.0x</td>
+            <td style="color:#64748b">0.2x</td>
         </tr><tr>
             <td><strong>Platinum</strong> <small style="color:var(--muted)">PL=F</small></td>
             <td>Precious Metals</td>
-            <td class="price">2150.70 oz</td>
-            <td style="color:#22c55e">▲ 3.84%</td>
+            <td class="price">2148.00 oz</td>
+            <td style="color:#22c55e">▲ 3.71%</td>
             <td><strong>0.1 (0.005%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>2122.10</td><td>2036.44</td>
+            <td>2101.58</td><td>2033.62</td>
             <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
             <td>2.0%</td>
-            <td style="color:#f59e0b">13.7x</td>
+            <td style="color:#64748b">0.0x</td>
         </tr><tr>
             <td><strong>Palladium</strong> <small style="color:var(--muted)">PA=F</small></td>
             <td>Precious Metals</td>
-            <td class="price">1515.00 oz</td>
-            <td style="color:#ef4444">▼ 10.75%</td>
+            <td class="price">1513.00 oz</td>
+            <td style="color:#ef4444">▼ 10.87%</td>
             <td><strong>0.5 (0.033%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>1505.62</td><td>1512.74</td>
-            <td><span style="color:#94a3b8;font-weight:600">NEUTRAL</span></td>
+            <td>1506.18</td><td>1515.52</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
             <td>2.0%</td>
-            <td style="color:#f59e0b">18.0x</td>
+            <td style="color:#64748b">0.0x</td>
         </tr><tr>
             <td><strong>Crude Oil WTI</strong> <small style="color:var(--muted)">CL=F</small></td>
             <td>Energy</td>
-            <td class="price">101.44 barrel</td>
-            <td style="color:#22c55e">▲ 61.30%</td>
+            <td class="price">101.35 barrel</td>
+            <td style="color:#22c55e">▲ 61.15%</td>
             <td><strong>0.01 (0.010%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>99.63</td><td>97.78</td>
+            <td>98.30</td><td>97.45</td>
             <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
-            <td>3.4%</td>
-            <td style="color:#64748b">0.0x</td>
+            <td>3.6%</td>
+            <td style="color:#64748b">0.8x</td>
         </tr><tr>
             <td><strong>Brent Crude</strong> <small style="color:var(--muted)">BZ=F</small></td>
             <td>Energy</td>
-            <td class="price">106.04 barrel</td>
-            <td style="color:#22c55e">▲ 56.52%</td>
+            <td class="price">105.87 barrel</td>
+            <td style="color:#22c55e">▲ 56.27%</td>
             <td><strong>0.01 (0.009%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>104.99</td><td>105.35</td>
-            <td><span style="color:#94a3b8;font-weight:600">NEUTRAL</span></td>
-            <td>3.7%</td>
-            <td style="color:#64748b">0.0x</td>
+            <td>103.79</td><td>105.01</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>3.9%</td>
+            <td style="color:#64748b">0.7x</td>
         </tr><tr>
             <td><strong>Natural Gas</strong> <small style="color:var(--muted)">NG=F</small></td>
             <td>Energy</td>
-            <td class="price">2.86 MMBtu</td>
-            <td style="color:#ef4444">▼ 11.69%</td>
+            <td class="price">2.87 MMBtu</td>
+            <td style="color:#ef4444">▼ 11.66%</td>
             <td><strong>0.001 (0.035%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>2.85</td><td>2.73</td>
+            <td>2.83</td><td>2.72</td>
             <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
-            <td>1.9%</td>
-            <td style="color:#64748b">0.0x</td>
+            <td>2.0%</td>
+            <td style="color:#64748b">1.2x</td>
         </tr><tr>
             <td><strong>Copper</strong> <small style="color:var(--muted)">HG=F</small></td>
             <td>Industrial Metals</td>
             <td class="price">6.57 lb</td>
-            <td style="color:#22c55e">▲ 13.43%</td>
+            <td style="color:#22c55e">▲ 13.34%</td>
             <td><strong>0.0005 (0.008%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>6.47</td><td>6.12</td>
+            <td>6.38</td><td>6.09</td>
             <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
             <td>1.3%</td>
-            <td style="color:#f59e0b">2.8x</td>
+            <td style="color:#64748b">0.3x</td>
         </tr><tr>
             <td><strong>Corn</strong> <small style="color:var(--muted)">ZC=F</small></td>
             <td>Agriculture</td>
-            <td class="price">482.25 bushel</td>
-            <td style="color:#22c55e">▲ 11.70%</td>
+            <td class="price">482.00 bushel</td>
+            <td style="color:#22c55e">▲ 11.64%</td>
             <td><strong>0.25 (0.052%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>466.60</td><td>461.12</td>
-            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
-            <td>0.9%</td>
-            <td style="color:#64748b">0.1x</td>
+            <td>460.70</td><td>459.44</td>
+            <td><span style="color:#94a3b8;font-weight:600">NEUTRAL</span></td>
+            <td>0.7%</td>
+            <td style="color:#64748b">0.0x</td>
         </tr><tr>
             <td><strong>Wheat</strong> <small style="color:var(--muted)">ZW=F</small></td>
             <td>Agriculture</td>
-            <td class="price">685.50 bushel</td>
-            <td style="color:#22c55e">▲ 24.92%</td>
-            <td><strong>0.25 (0.036%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>649.05</td><td>623.58</td>
+            <td class="price">684.25 bushel</td>
+            <td style="color:#22c55e">▲ 24.69%</td>
+            <td><strong>0.25 (0.037%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>632.30</td><td>619.23</td>
             <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
-            <td>1.8%</td>
-            <td style="color:#64748b">0.5x</td>
+            <td>1.7%</td>
+            <td style="color:#64748b">0.0x</td>
         </tr><tr>
             <td><strong>Soybeans</strong> <small style="color:var(--muted)">ZS=F</small></td>
             <td>Agriculture</td>
             <td class="price">1224.25 bushel</td>
             <td style="color:#22c55e">▲ 8.05%</td>
             <td><strong>0.25 (0.020%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>1209.40</td><td>1185.20</td>
+            <td>1199.95</td><td>1182.17</td>
             <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
             <td>0.7%</td>
-            <td style="color:#64748b">0.2x</td>
+            <td style="color:#64748b">0.0x</td>
         </tr><tr>
             <td><strong>Coffee</strong> <small style="color:var(--muted)">KC=F</small></td>
             <td>Softs</td>
             <td class="price">280.70 lb</td>
             <td style="color:#ef4444">▼ 6.45%</td>
             <td><strong>0.05 (0.018%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>290.97</td><td>298.82</td>
+            <td>294.08</td><td>299.60</td>
             <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
-            <td>1.9%</td>
+            <td>1.7%</td>
             <td style="color:#64748b">0.0x</td>
         </tr><tr>
             <td><strong>Sugar</strong> <small style="color:var(--muted)">SB=F</small></td>
@@ -440,35 +473,35 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td>14.91</td><td>14.36</td>
             <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
             <td>1.6%</td>
-            <td style="color:#64748b">0.0x</td>
+            <td style="color:#64748b">1.3x</td>
         </tr><tr>
             <td><strong>Cotton</strong> <small style="color:var(--muted)">CT=F</small></td>
             <td>Softs</td>
             <td class="price">87.97 lb</td>
             <td style="color:#22c55e">▲ 41.64%</td>
             <td><strong>0.01 (0.011%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>85.96</td><td>80.34</td>
+            <td>85.73</td><td>80.29</td>
             <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
             <td>1.5%</td>
-            <td style="color:#f59e0b">2.1x</td>
+            <td style="color:#f59e0b">3.6x</td>
         </tr><tr>
             <td><strong>Live Cattle</strong> <small style="color:var(--muted)">LE=F</small></td>
             <td>Livestock</td>
             <td class="price">252.72 lb</td>
             <td style="color:#22c55e">▲ 3.97%</td>
             <td><strong>0.025 (0.010%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>249.75</td><td>250.91</td>
+            <td>249.77</td><td>250.91</td>
             <td><span style="color:#94a3b8;font-weight:600">NEUTRAL</span></td>
             <td>0.8%</td>
-            <td style="color:#f59e0b">2.6x</td>
+            <td style="color:#f59e0b">2.8x</td>
         </tr></tbody></table>
 </div></div>
 <div class="gainers-losers">
 <div class="gl-card"><h3>🚀 Top Gainers</h3>
-<div class="gl-item"><span><strong>Crude Oil WTI</strong></span><span style="color:var(--green)">▲ 61.3%</span></div><div class="gl-item"><span><strong>Brent Crude</strong></span><span style="color:var(--green)">▲ 56.5%</span></div><div class="gl-item"><span><strong>Cotton</strong></span><span style="color:var(--green)">▲ 41.6%</span></div><div class="gl-item"><span><strong>Wheat</strong></span><span style="color:var(--green)">▲ 24.9%</span></div><div class="gl-item"><span><strong>Copper</strong></span><span style="color:var(--green)">▲ 13.4%</span></div>
+<div class="gl-item"><span><strong>Crude Oil WTI</strong></span><span style="color:var(--green)">▲ 61.1%</span></div><div class="gl-item"><span><strong>Brent Crude</strong></span><span style="color:var(--green)">▲ 56.3%</span></div><div class="gl-item"><span><strong>Cotton</strong></span><span style="color:var(--green)">▲ 41.6%</span></div><div class="gl-item"><span><strong>Wheat</strong></span><span style="color:var(--green)">▲ 24.7%</span></div><div class="gl-item"><span><strong>Copper</strong></span><span style="color:var(--green)">▲ 13.3%</span></div>
 </div>
 <div class="gl-card"><h3>📉 Top Losers</h3>
-<div class="gl-item"><span><strong>Natural Gas</strong></span><span style="color:var(--red)">▼ 11.7%</span></div><div class="gl-item"><span><strong>Palladium</strong></span><span style="color:var(--red)">▼ 10.8%</span></div><div class="gl-item"><span><strong>Gold</strong></span><span style="color:var(--red)">▼ 6.6%</span></div><div class="gl-item"><span><strong>Coffee</strong></span><span style="color:var(--red)">▼ 6.5%</span></div><div class="gl-item"><span><strong>Platinum</strong></span><span style="color:var(--red)">▼ 3.8%</span></div>
+<div class="gl-item"><span><strong>Natural Gas</strong></span><span style="color:var(--red)">▼ 11.7%</span></div><div class="gl-item"><span><strong>Palladium</strong></span><span style="color:var(--red)">▼ 10.9%</span></div><div class="gl-item"><span><strong>Gold</strong></span><span style="color:var(--red)">▼ 6.8%</span></div><div class="gl-item"><span><strong>Coffee</strong></span><span style="color:var(--red)">▼ 6.5%</span></div><div class="gl-item"><span><strong>Platinum</strong></span><span style="color:var(--red)">▼ 3.7%</span></div>
 </div></div>
-<div class="footer"><p>🛢️ Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-054534</p></div>
+<div class="footer"><p>🛢️ Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-060854</p></div>
 </div></body></html>
