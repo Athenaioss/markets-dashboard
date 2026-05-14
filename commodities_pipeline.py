@@ -22,21 +22,22 @@ NOW = datetime.now().strftime("%Y%m%d-%H%M%S")
 
 # ── Commodity symbols ──
 COMMODITIES = {
-    "GC=F":  {"name": "Gold",          "category": "Precious Metals", "unit": "USD/oz"},
-    "SI=F":  {"name": "Silver",        "category": "Precious Metals", "unit": "USD/oz"},
-    "PL=F":  {"name": "Platinum",      "category": "Precious Metals", "unit": "USD/oz"},
-    "PA=F":  {"name": "Palladium",     "category": "Precious Metals", "unit": "USD/oz"},
-    "CL=F":  {"name": "Crude Oil WTI", "category": "Energy",          "unit": "USD/barrel"},
-    "BZ=F":  {"name": "Brent Crude",   "category": "Energy",          "unit": "USD/barrel"},
-    "NG=F":  {"name": "Natural Gas",   "category": "Energy",          "unit": "USD/MMBtu"},
-    "HG=F":  {"name": "Copper",        "category": "Industrial Metals","unit": "USD/lb"},
-    "ZC=F":  {"name": "Corn",          "category": "Agriculture",     "unit": "USD/bushel"},
-    "ZW=F":  {"name": "Wheat",         "category": "Agriculture",     "unit": "USD/bushel"},
-    "ZS=F":  {"name": "Soybeans",      "category": "Agriculture",     "unit": "USD/bushel"},
-    "KC=F":  {"name": "Coffee",        "category": "Softs",           "unit": "USD/lb"},
-    "SB=F":  {"name": "Sugar",         "category": "Softs",           "unit": "USD/lb"},
-    "CT=F":  {"name": "Cotton",        "category": "Softs",           "unit": "USD/lb"},
-    "LE=F":  {"name": "Live Cattle",   "category": "Livestock",       "unit": "USD/lb"},
+    # tick_size = indicative minimum futures spread in quoted units when live bid/ask is unavailable.
+    "GC=F":  {"name": "Gold",          "category": "Precious Metals", "unit": "USD/oz",     "tick_size": 0.10},
+    "SI=F":  {"name": "Silver",        "category": "Precious Metals", "unit": "USD/oz",     "tick_size": 0.005},
+    "PL=F":  {"name": "Platinum",      "category": "Precious Metals", "unit": "USD/oz",     "tick_size": 0.10},
+    "PA=F":  {"name": "Palladium",     "category": "Precious Metals", "unit": "USD/oz",     "tick_size": 0.50},
+    "CL=F":  {"name": "Crude Oil WTI", "category": "Energy",          "unit": "USD/barrel", "tick_size": 0.01},
+    "BZ=F":  {"name": "Brent Crude",   "category": "Energy",          "unit": "USD/barrel", "tick_size": 0.01},
+    "NG=F":  {"name": "Natural Gas",   "category": "Energy",          "unit": "USD/MMBtu",  "tick_size": 0.001},
+    "HG=F":  {"name": "Copper",        "category": "Industrial Metals","unit": "USD/lb",     "tick_size": 0.0005},
+    "ZC=F":  {"name": "Corn",          "category": "Agriculture",     "unit": "USD/bushel", "tick_size": 0.25},
+    "ZW=F":  {"name": "Wheat",         "category": "Agriculture",     "unit": "USD/bushel", "tick_size": 0.25},
+    "ZS=F":  {"name": "Soybeans",      "category": "Agriculture",     "unit": "USD/bushel", "tick_size": 0.25},
+    "KC=F":  {"name": "Coffee",        "category": "Softs",           "unit": "USD/lb",     "tick_size": 0.05},
+    "SB=F":  {"name": "Sugar",         "category": "Softs",           "unit": "USD/lb",     "tick_size": 0.01},
+    "CT=F":  {"name": "Cotton",        "category": "Softs",           "unit": "USD/lb",     "tick_size": 0.01},
+    "LE=F":  {"name": "Live Cattle",   "category": "Livestock",       "unit": "USD/lb",     "tick_size": 0.025},
 }
 
 def fetch_yahoo(symbol, range_="3mo", interval="1d"):
@@ -116,11 +117,21 @@ def extract_metrics(symbol, data):
         wh = meta.get("fiftyTwoWeekHigh", 0)
         dist_to_52w_high = round((wh - current) / wh * 100, 1) if wh > 0 else 0
         
+        # Indicative trading spread. Yahoo chart API does not expose live bid/ask for these futures,
+        # so we show the minimum 1-tick spread in quoted units and as % of price.
+        tick_size = COMMODITIES.get(symbol, {}).get("tick_size", 0)
+        spread = tick_size if tick_size and current else 0
+        spread_pct = (spread / current * 100) if current and spread else 0
+        
         return {
             "symbol": symbol,
             "name": COMMODITIES.get(symbol, {}).get("name", symbol),
             "category": COMMODITIES.get(symbol, {}).get("category", ""),
             "unit": COMMODITIES.get(symbol, {}).get("unit", ""),
+            "tick_size": round(tick_size, 6),
+            "spread": round(spread, 6),
+            "spread_pct": round(spread_pct, 4),
+            "spread_label": f"{spread:g} ({spread_pct:.3f}%)" if spread else "—",
             "price": round(current, 4),
             "change": round(change, 4),
             "change_pct": round(change_pct, 2),
@@ -156,11 +167,13 @@ def generate_summary(commodities):
     losers = [c for c in commodities if c["change_pct"] < 0]
     unusual = [c for c in commodities if c["vol_ratio"] > 2]
     
+    avg_spread_pct = round(sum(c.get("spread_pct", 0) for c in commodities) / len(commodities), 4) if commodities else 0
     return {
         "total": len(commodities),
         "gainers": len(gainers),
         "losers": len(losers),
         "avg_change": round(sum(c["change_pct"] for c in commodities) / len(commodities), 2) if commodities else 0,
+        "avg_spread_pct": avg_spread_pct,
         "total_value": round(sum(c["price"] for c in commodities), 2),
         "top_gainer": max(commodities, key=lambda x: x["change_pct"]) if commodities else None,
         "top_loser": min(commodities, key=lambda x: x["change_pct"]) if commodities else None,
@@ -202,6 +215,7 @@ def export_html(commodities, summary):
             <td>{c['category']}</td>
             <td class="price">{c['price']:.2f} {c['unit'].split('/')[-1] if '/' in c['unit'] else ''}</td>
             <td style="color:{color}">{arrow} {abs(c['change_pct']):.2f}%</td>
+            <td><strong>{c.get('spread_label','—')}</strong><br><small style="color:var(--muted)">indic. min</small></td>
             <td>{c['ma5']:.2f}</td><td>{c['ma20']:.2f}</td>
             <td><span style="color:{'#22c55e' if c['trend']=='BULLISH' else '#ef4444' if c['trend']=='BEARISH' else '#94a3b8'};font-weight:600">{c['trend']}</span></td>
             <td>{c['volatility_20d']:.1f}%</td>
@@ -252,13 +266,15 @@ tr:hover{{background:rgba(245,158,11,.03)}}
 <div class="card"><div class="value" style="color:var(--green)">{summary['gainers']}</div><div class="label">Up Today</div></div>
 <div class="card"><div class="value" style="color:var(--red)">{summary['losers']}</div><div class="label">Down Today</div></div>
 <div class="card"><div class="value" style="color:var(--accent2)">{summary['avg_change']}%</div><div class="label">Avg Change</div></div>
+<div class="card"><div class="value" style="color:var(--accent)">{summary.get('avg_spread_pct',0):.3f}%</div><div class="label">Avg Indic. Spread</div></div>
 </div>
 {sent_html}
 {hawk_html}
 <h2 style="color:var(--accent);margin-bottom:12px">📊 Commodity Leaderboard</h2>
+<p style="color:var(--muted);font-size:.86em;margin:-4px 0 12px">Spread = minimum indicative futures spread based on 1 tick; live bid/ask is not exposed by the Yahoo chart feed.</p>
 <div class="table-wrapper"><div style="overflow-x:auto">
 <table><thead><tr>
-<th>Commodity</th><th>Category</th><th>Price</th><th>Change</th><th>MA(5)</th><th>MA(20)</th><th>Trend</th><th>Volatility</th><th>Vol Ratio</th>
+<th>Commodity</th><th>Category</th><th>Price</th><th>Change</th><th>Spread</th><th>MA(5)</th><th>MA(20)</th><th>Trend</th><th>Volatility</th><th>Vol Ratio</th>
 </tr></thead><tbody>{rows}</tbody></table>
 </div></div>
 <div class="gainers-losers">
@@ -320,7 +336,7 @@ def main():
     
     path_csv = OUTPUT_DIR / f"commodities_{NOW}.csv"
     with open(path_csv, 'w', newline='') as f:
-        fields = ["name","symbol","category","price","change_pct","trend","volatility_20d","vol_ratio"]
+        fields = ["name","symbol","category","price","change_pct","spread","spread_pct","spread_label","trend","volatility_20d","vol_ratio"]
         writer = csv.DictWriter(f, fieldnames=fields, extrasaction='ignore')
         writer.writeheader()
         writer.writerows(all_data)
