@@ -52,10 +52,7 @@ body{
   font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;
   min-height:100vh;
   color:var(--atlas-text)!important;
-  background:
-    radial-gradient(circle at 14% -10%, color-mix(in srgb,var(--atlas-accent) 22%, transparent), transparent 34%),
-    radial-gradient(circle at 90% 6%, color-mix(in srgb,var(--atlas-accent2) 18%, transparent), transparent 30%),
-    linear-gradient(180deg,#070914 0%,#0a0f1d 48%,#070914 100%)!important;
+  background:#070914!important;
   padding:0!important;
 }
 body:before{
@@ -72,7 +69,7 @@ body:before{
 .header{
   max-width:1240px;margin:22px auto 22px!important;padding:34px min(34px,5vw)!important;text-align:left!important;
   border:1px solid var(--atlas-border)!important;border-radius:30px!important;overflow:hidden;position:relative;
-  background:rgba(15,20,32,.74)!important;
+  background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.035)),radial-gradient(circle at 88% 5%,color-mix(in srgb,var(--atlas-accent) 28%,transparent),transparent 36%)!important;
   box-shadow:0 30px 90px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.08);
 }
 .header:before{content:"";position:absolute;inset:auto -70px -120px auto;width:320px;height:320px;border-radius:999px;background:var(--atlas-accent);opacity:.13;filter:blur(12px)}
@@ -82,6 +79,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 @media(max-width:760px){.atlas-nav{align-items:flex-start;flex-direction:column;padding:12px 14px}.atlas-links{width:100%;overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;padding-bottom:3px}.atlas-links a{flex:0 0 auto}.header{width:min(100% - 22px,1240px)!important;margin:14px auto 18px!important;border-radius:24px!important}.container{width:min(100% - 22px,1240px)!important}.atlas-scroll-hint{display:block}.table-wrapper,div[style*="overflow-x"]{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}table{min-width:760px!important}.card,.stat-card{padding:17px!important}.section{grid-template-columns:1fr!important}.header h1{font-size:clamp(2rem,12vw,3.3rem)!important}}
 
 </style>
+<style>body:before{display:none!important}</style>
 </head>
 <body>
 <nav class="atlas-nav" aria-label="Atlas Nexus dashboard navigation"><a class="atlas-brand" href="index.html"><span>🔮</span><span>Atlas Nexus</span></a><div class="atlas-links"><a href="index.html">Home</a><a class="active" href="crypto_dashboard.html">Crypto</a><a href="commodities_dashboard.html">Commodities</a><a href="indices_dashboard.html">Indices</a><a href="forex_dashboard.html">Forex</a><a href="actions_dashboard.html">Stocks</a><a href="etf_dashboard.html">ETF</a></div></nav>
@@ -91,7 +89,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     
     <div class="cards">
         <div class="card">
-            <div class="value" style="color:#38bdf8">107</div>
+            <div class="value" style="color:#38bdf8">106</div>
             <div class="label">Tokens Analyzed</div>
         </div>
         <div class="card">
@@ -99,11 +97,11 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <div class="label">Tokens Up (24h)</div>
         </div>
         <div class="card">
-            <div class="value" style="color:#ef4444">54</div>
+            <div class="value" style="color:#ef4444">56</div>
             <div class="label">Tokens Down (24h)</div>
         </div>
         <div class="card">
-            <div class="value" style="color:#f59e0b">-1.92%</div>
+            <div class="value" style="color:#f59e0b">-1.86%</div>
             <div class="label">Avg 24h Change</div>
         </div>
     </div>
@@ -173,7 +171,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">85</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.8:1 −5.37%</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.8:1 −5.38%</div>
 <div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
 </div>
 </div><div class="signal-row hawk-row">
@@ -215,14 +213,14 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-tag">SHORT</span>
 <span class="asset-meta">crypto · STRONG</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $396.21</span>
-<span style="color:#ef4444">🛑 $418.27</span>
-<span style="color:#22c55e">🎯 $356.50</span>
+<span style="color:#bae6fd">🎟️ $397.99</span>
+<span style="color:#ef4444">🛑 $420.05</span>
+<span style="color:#22c55e">🎯 $358.28</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">92</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.8:1 −5.57%</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.8:1 −5.54%</div>
 <div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
 </div>
 </div><div class="signal-row hawk-row">
@@ -295,7 +293,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span style="color:var(--muted);font-size:.78em;margin-left:6px">CC</span>
 </div>
 <div style="font-size:.82em;text-align:right">
-<div style="color:#22c55e;font-weight:700">▲ 2.5%</div>
+<div style="color:#22c55e;font-weight:700">▲ 3.0%</div>
 <div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">RSI 79 overbought</span></div>
 </div>
 </div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
@@ -322,7 +320,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span style="color:var(--muted);font-size:.78em;margin-left:6px">WLFI</span>
 </div>
 <div style="font-size:.82em;text-align:right">
-<div style="color:#22c55e;font-weight:700">▲ 0.6%</div>
+<div style="color:#22c55e;font-weight:700">▲ 0.4%</div>
 <div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">RSI 85 overbought</span></div>
 </div>
 </div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
@@ -349,9 +347,9 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
         <tr>
             <td><strong>BTC</strong> <small>Bitcoin</small></td>
             <td>coingecko</td>
-            <td>$79780.0000</td>
-            <td>$1597308.1M</td>
-            <td style="color:#ef4444">▼ -1.38%</td>
+            <td>$79856.0000</td>
+            <td>$1599622.9M</td>
+            <td style="color:#ef4444">▼ -1.33%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">LARGE_CAP</span></td>
             <td>-1.6</td>
@@ -359,9 +357,9 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
         <tr>
             <td><strong>ETH</strong> <small>Ethereum</small></td>
             <td>coingecko</td>
-            <td>$2266.2000</td>
-            <td>$273493.5M</td>
-            <td style="color:#ef4444">▼ -1.38%</td>
+            <td>$2268.6300</td>
+            <td>$273837.6M</td>
+            <td style="color:#ef4444">▼ -1.36%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">LARGE_CAP</span></td>
             <td>-2.0</td>
@@ -370,8 +368,8 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td><strong>USDT</strong> <small>Tether</small></td>
             <td>coingecko</td>
             <td>$0.9995</td>
-            <td>$189755.8M</td>
-            <td style="color:#ef4444">▼ -0.02%</td>
+            <td>$189758.6M</td>
+            <td style="color:#ef4444">▼ -0.01%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">LARGE_CAP</span></td>
             <td>-0.0</td>
@@ -379,9 +377,9 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
         <tr>
             <td><strong>BNB</strong> <small>BNB</small></td>
             <td>coingecko</td>
-            <td>$670.6000</td>
-            <td>$90355.9M</td>
-            <td style="color:#ef4444">▼ -0.99%</td>
+            <td>$671.0300</td>
+            <td>$90457.6M</td>
+            <td style="color:#ef4444">▼ -1.07%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">LARGE_CAP</span></td>
             <td>0.8</td>
@@ -390,18 +388,18 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td><strong>XRP</strong> <small>XRP</small></td>
             <td>coingecko</td>
             <td>$1.4300</td>
-            <td>$88568.3M</td>
-            <td style="color:#ef4444">▼ -1.79%</td>
+            <td>$88594.8M</td>
+            <td style="color:#ef4444">▼ -1.91%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">LARGE_CAP</span></td>
-            <td>-0.4</td>
+            <td>-0.5</td>
         </tr>
         <tr>
             <td><strong>USDC</strong> <small>USDC</small></td>
             <td>coingecko</td>
             <td>$0.9997</td>
-            <td>$76734.2M</td>
-            <td style="color:#22c55e">▲ 0.11%</td>
+            <td>$76734.1M</td>
+            <td style="color:#22c55e">▲ 0.08%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">LARGE_CAP</span></td>
             <td>0.1</td>
@@ -409,8 +407,8 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
         <tr>
             <td><strong>SOL</strong> <small>Solana</small></td>
             <td>coingecko</td>
-            <td>$90.8000</td>
-            <td>$52504.8M</td>
+            <td>$90.8900</td>
+            <td>$52533.2M</td>
             <td style="color:#ef4444">▼ -4.42%</td>
             <td><span class="badge badge-medium">MEDIUM</span></td>
             <td><span class="badge badge-tier">LARGE_CAP</span></td>
@@ -419,12 +417,12 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
         <tr>
             <td><strong>TRX</strong> <small>TRON</small></td>
             <td>coingecko</td>
-            <td>$0.3508</td>
-            <td>$33254.6M</td>
-            <td style="color:#22c55e">▲ 0.33%</td>
+            <td>$0.3509</td>
+            <td>$33265.0M</td>
+            <td style="color:#22c55e">▲ 0.36%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">LARGE_CAP</span></td>
-            <td>0.8</td>
+            <td>0.9</td>
         </tr>
         <tr>
             <td><strong>FIGR_HELOC</strong> <small>Figure Heloc</small></td>
@@ -439,29 +437,29 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
         <tr>
             <td><strong>DOGE</strong> <small>Dogecoin</small></td>
             <td>coingecko</td>
-            <td>$0.1145</td>
-            <td>$17705.8M</td>
-            <td style="color:#22c55e">▲ 2.13%</td>
+            <td>$0.1144</td>
+            <td>$17650.1M</td>
+            <td style="color:#22c55e">▲ 2.01%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">LARGE_CAP</span></td>
-            <td>2.5</td>
+            <td>2.4</td>
         </tr>
         <tr>
             <td><strong>WBT</strong> <small>WhiteBIT Coin</small></td>
             <td>coingecko</td>
-            <td>$58.6800</td>
-            <td>$12492.4M</td>
-            <td style="color:#ef4444">▼ -1.23%</td>
+            <td>$58.7600</td>
+            <td>$12507.2M</td>
+            <td style="color:#ef4444">▼ -1.10%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">LARGE_CAP</span></td>
-            <td>-1.1</td>
+            <td>-1.0</td>
         </tr>
         <tr>
             <td><strong>USDS</strong> <small>USDS</small></td>
             <td>coingecko</td>
-            <td>$0.9996</td>
-            <td>$10986.1M</td>
-            <td style="color:#ef4444">▼ -0.01%</td>
+            <td>$0.9997</td>
+            <td>$10984.2M</td>
+            <td style="color:#ef4444">▼ -0.00%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">LARGE_CAP</span></td>
             <td>-0.0</td>
@@ -469,28 +467,28 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
         <tr>
             <td><strong>ADA</strong> <small>Cardano</small></td>
             <td>coingecko</td>
-            <td>$0.2649</td>
-            <td>$9800.0M</td>
-            <td style="color:#ef4444">▼ -2.84%</td>
+            <td>$0.2653</td>
+            <td>$9811.4M</td>
+            <td style="color:#ef4444">▼ -2.78%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-2.1</td>
+            <td>-2.0</td>
         </tr>
         <tr>
             <td><strong>HYPE</strong> <small>Hyperliquid</small></td>
             <td>coingecko</td>
-            <td>$38.9700</td>
-            <td>$9295.1M</td>
-            <td style="color:#ef4444">▼ -2.87%</td>
+            <td>$39.0200</td>
+            <td>$9298.6M</td>
+            <td style="color:#ef4444">▼ -2.81%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-5.6</td>
+            <td>-5.5</td>
         </tr>
         <tr>
             <td><strong>LEO</strong> <small>LEO Token</small></td>
             <td>coingecko</td>
             <td>$10.0600</td>
-            <td>$9262.7M</td>
+            <td>$9262.6M</td>
             <td style="color:#22c55e">▲ 0.69%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
@@ -499,9 +497,9 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
         <tr>
             <td><strong>ZEC</strong> <small>Zcash</small></td>
             <td>coingecko</td>
-            <td>$527.4200</td>
-            <td>$8802.1M</td>
-            <td style="color:#ef4444">▼ -3.86%</td>
+            <td>$527.5600</td>
+            <td>$8804.2M</td>
+            <td style="color:#ef4444">▼ -3.81%</td>
             <td><span class="badge badge-medium">MEDIUM</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
             <td>-4.8</td>
@@ -509,9 +507,9 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
         <tr>
             <td><strong>BCH</strong> <small>Bitcoin Cash</small></td>
             <td>coingecko</td>
-            <td>$433.4800</td>
-            <td>$8682.9M</td>
-            <td style="color:#ef4444">▼ -1.07%</td>
+            <td>$433.7500</td>
+            <td>$8689.9M</td>
+            <td style="color:#ef4444">▼ -1.21%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
             <td>-3.1</td>
@@ -519,129 +517,129 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
         <tr>
             <td><strong>LINK</strong> <small>Chainlink</small></td>
             <td>coingecko</td>
-            <td>$10.2300</td>
-            <td>$7439.4M</td>
-            <td style="color:#ef4444">▼ -2.90%</td>
+            <td>$10.2500</td>
+            <td>$7454.2M</td>
+            <td style="color:#ef4444">▼ -2.87%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-1.0</td>
+            <td>-0.9</td>
         </tr>
         <tr>
             <td><strong>XMR</strong> <small>Monero</small></td>
             <td>coingecko</td>
-            <td>$396.2100</td>
-            <td>$7301.9M</td>
-            <td style="color:#ef4444">▼ -4.39%</td>
+            <td>$397.9900</td>
+            <td>$7341.6M</td>
+            <td style="color:#ef4444">▼ -4.09%</td>
             <td><span class="badge badge-medium">MEDIUM</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-4.6</td>
+            <td>-4.2</td>
         </tr>
         <tr>
             <td><strong>CC</strong> <small>Canton</small></td>
             <td>coingecko</td>
-            <td>$0.1570</td>
-            <td>$6051.3M</td>
-            <td style="color:#22c55e">▲ 2.50%</td>
+            <td>$0.1577</td>
+            <td>$6069.4M</td>
+            <td style="color:#22c55e">▲ 2.98%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>3.8</td>
+            <td>4.3</td>
         </tr>
         <tr>
             <td><strong>TON</strong> <small>Toncoin</small></td>
             <td>coingecko</td>
             <td>$2.1000</td>
-            <td>$5635.6M</td>
-            <td style="color:#ef4444">▼ -7.51%</td>
+            <td>$5640.4M</td>
+            <td style="color:#ef4444">▼ -7.62%</td>
             <td><span class="badge badge-medium">MEDIUM</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-15.3</td>
+            <td>-15.4</td>
         </tr>
         <tr>
             <td><strong>XLM</strong> <small>Stellar</small></td>
             <td>coingecko</td>
-            <td>$0.1589</td>
-            <td>$5319.0M</td>
-            <td style="color:#ef4444">▼ -3.17%</td>
+            <td>$0.1591</td>
+            <td>$5327.7M</td>
+            <td style="color:#ef4444">▼ -3.02%</td>
             <td><span class="badge badge-medium">MEDIUM</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-2.6</td>
+            <td>-2.5</td>
         </tr>
         <tr>
             <td><strong>SUI</strong> <small>Sui</small></td>
             <td>coingecko</td>
-            <td>$1.1900</td>
-            <td>$4774.0M</td>
-            <td style="color:#ef4444">▼ -5.12%</td>
+            <td>$1.2000</td>
+            <td>$4787.8M</td>
+            <td style="color:#ef4444">▼ -4.47%</td>
             <td><span class="badge badge-medium">MEDIUM</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>4.7</td>
+            <td>5.3</td>
         </tr>
         <tr>
             <td><strong>USD1</strong> <small>USD1</small></td>
             <td>coingecko</td>
-            <td>$0.9990</td>
-            <td>$4431.1M</td>
-            <td style="color:#ef4444">▼ -0.05%</td>
-            <td><span class="badge badge-low">LOW</span></td>
-            <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-0.1</td>
-        </tr>
-        <tr>
-            <td><strong>LTC</strong> <small>Litecoin</small></td>
-            <td>coingecko</td>
-            <td>$57.1000</td>
-            <td>$4405.8M</td>
-            <td style="color:#ef4444">▼ -2.12%</td>
-            <td><span class="badge badge-low">LOW</span></td>
-            <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-1.1</td>
-        </tr>
-        <tr>
-            <td><strong>DAI</strong> <small>Dai</small></td>
-            <td>coingecko</td>
-            <td>$0.9995</td>
-            <td>$4374.6M</td>
+            <td>$0.9991</td>
+            <td>$4431.5M</td>
             <td style="color:#ef4444">▼ -0.02%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
             <td>-0.0</td>
         </tr>
         <tr>
+            <td><strong>LTC</strong> <small>Litecoin</small></td>
+            <td>coingecko</td>
+            <td>$57.1700</td>
+            <td>$4411.7M</td>
+            <td style="color:#ef4444">▼ -1.98%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-1.0</td>
+        </tr>
+        <tr>
             <td><strong>M</strong> <small>MemeCore</small></td>
             <td>coingecko</td>
             <td>$3.3600</td>
-            <td>$4369.6M</td>
-            <td style="color:#22c55e">▲ 2.66%</td>
+            <td>$4376.2M</td>
+            <td style="color:#22c55e">▲ 3.36%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-3.2</td>
+        </tr>
+        <tr>
+            <td><strong>DAI</strong> <small>Dai</small></td>
+            <td>coingecko</td>
+            <td>$0.9996</td>
+            <td>$4374.2M</td>
+            <td style="color:#ef4444">▼ -0.01%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-3.7</td>
+            <td>0.0</td>
         </tr>
         <tr>
             <td><strong>AVAX</strong> <small>Avalanche</small></td>
             <td>coingecko</td>
-            <td>$9.7200</td>
-            <td>$4197.6M</td>
-            <td style="color:#ef4444">▼ -2.59%</td>
+            <td>$9.7300</td>
+            <td>$4201.2M</td>
+            <td style="color:#ef4444">▼ -2.50%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-1.2</td>
+            <td>-1.1</td>
+        </tr>
+        <tr>
+            <td><strong>HBAR</strong> <small>Hedera</small></td>
+            <td>coingecko</td>
+            <td>$0.0931</td>
+            <td>$4038.9M</td>
+            <td style="color:#ef4444">▼ -1.36%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.2</td>
         </tr>
         <tr>
             <td><strong>USDE</strong> <small>Ethena USDe</small></td>
             <td>coingecko</td>
             <td>$1.0000</td>
-            <td>$4038.4M</td>
-            <td style="color:#22c55e">▲ 0.07%</td>
-            <td><span class="badge badge-low">LOW</span></td>
-            <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>0.1</td>
-        </tr>
-        <tr>
-            <td><strong>HBAR</strong> <small>Hedera</small></td>
-            <td>coingecko</td>
-            <td>$0.0930</td>
-            <td>$4032.2M</td>
-            <td style="color:#ef4444">▼ -1.45%</td>
+            <td>$4038.2M</td>
+            <td style="color:#22c55e">▲ 0.08%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
             <td>0.1</td>
@@ -650,28 +648,28 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td><strong>SHIB</strong> <small>Shiba Inu</small></td>
             <td>coingecko</td>
             <td>$0.0000</td>
-            <td>$3708.7M</td>
-            <td style="color:#ef4444">▼ -2.89%</td>
+            <td>$3712.3M</td>
+            <td style="color:#ef4444">▼ -2.74%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-1.9</td>
+            <td>-1.8</td>
         </tr>
         <tr>
             <td><strong>RAIN</strong> <small>Rain</small></td>
             <td>coingecko</td>
             <td>$0.0075</td>
-            <td>$3596.2M</td>
-            <td style="color:#ef4444">▼ -0.73%</td>
+            <td>$3597.1M</td>
+            <td style="color:#ef4444">▼ -0.68%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>1.6</td>
+            <td>1.7</td>
         </tr>
         <tr>
             <td><strong>PYUSD</strong> <small>PayPal USD</small></td>
             <td>coingecko</td>
             <td>$0.9997</td>
-            <td>$3478.5M</td>
-            <td style="color:#ef4444">▼ -0.00%</td>
+            <td>$3477.9M</td>
+            <td style="color:#ef4444">▼ -0.01%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
             <td>-0.0</td>
@@ -680,7 +678,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td><strong>USDG</strong> <small>Global Dollar</small></td>
             <td>coingecko</td>
             <td>$0.9997</td>
-            <td>$3417.7M</td>
+            <td>$3417.5M</td>
             <td style="color:#22c55e">▲ 0.01%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
@@ -689,12 +687,12 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
         <tr>
             <td><strong>CRO</strong> <small>Cronos</small></td>
             <td>coingecko</td>
-            <td>$0.0738</td>
-            <td>$3214.3M</td>
-            <td style="color:#ef4444">▼ -6.88%</td>
+            <td>$0.0737</td>
+            <td>$3213.9M</td>
+            <td style="color:#ef4444">▼ -7.08%</td>
             <td><span class="badge badge-medium">MEDIUM</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-2.4</td>
+            <td>-2.5</td>
         </tr>
         <tr>
             <td><strong>USYC</strong> <small>Circle USYC</small></td>
@@ -709,22 +707,22 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
         <tr>
             <td><strong>TAO</strong> <small>Bittensor</small></td>
             <td>coingecko</td>
-            <td>$295.6100</td>
-            <td>$2838.4M</td>
-            <td style="color:#ef4444">▼ -3.38%</td>
+            <td>$296.2600</td>
+            <td>$2842.4M</td>
+            <td style="color:#ef4444">▼ -3.17%</td>
             <td><span class="badge badge-medium">MEDIUM</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-4.2</td>
+            <td>-4.0</td>
         </tr>
         <tr>
             <td><strong>XAUT</strong> <small>Tether Gold</small></td>
             <td>coingecko</td>
-            <td>$4693.1800</td>
-            <td>$2778.3M</td>
-            <td style="color:#ef4444">▼ -0.10%</td>
+            <td>$4701.5700</td>
+            <td>$2785.2M</td>
+            <td style="color:#22c55e">▲ 0.10%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-0.3</td>
+            <td>-0.1</td>
         </tr>
         <tr>
             <td><strong>BUIDL</strong> <small>BlackRock USD Instit</small></td>
@@ -740,28 +738,28 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td><strong>UNI</strong> <small>Uniswap</small></td>
             <td>coingecko</td>
             <td>$3.6100</td>
-            <td>$2293.5M</td>
-            <td style="color:#ef4444">▼ -4.70%</td>
+            <td>$2297.1M</td>
+            <td style="color:#ef4444">▼ -4.60%</td>
             <td><span class="badge badge-medium">MEDIUM</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-1.0</td>
+            <td>-0.9</td>
         </tr>
         <tr>
             <td><strong>DOT</strong> <small>Polkadot</small></td>
             <td>coingecko</td>
             <td>$1.3300</td>
-            <td>$2234.3M</td>
-            <td style="color:#ef4444">▼ -4.11%</td>
+            <td>$2239.5M</td>
+            <td style="color:#ef4444">▼ -3.88%</td>
             <td><span class="badge badge-medium">MEDIUM</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-2.6</td>
+            <td>-2.3</td>
         </tr>
         <tr>
             <td><strong>MNT</strong> <small>Mantle</small></td>
             <td>coingecko</td>
-            <td>$0.6735</td>
-            <td>$2224.2M</td>
-            <td style="color:#22c55e">▲ 0.55%</td>
+            <td>$0.6742</td>
+            <td>$2226.7M</td>
+            <td style="color:#22c55e">▲ 0.56%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
             <td>1.1</td>
@@ -769,59 +767,59 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
         <tr>
             <td><strong>PAXG</strong> <small>PAX Gold</small></td>
             <td>coingecko</td>
-            <td>$4693.6200</td>
-            <td>$2213.2M</td>
-            <td style="color:#ef4444">▼ -0.12%</td>
+            <td>$4701.9000</td>
+            <td>$2219.0M</td>
+            <td style="color:#22c55e">▲ 0.08%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-0.1</td>
+            <td>0.1</td>
         </tr>
         <tr>
             <td><strong>WLFI</strong> <small>World Liberty Financ</small></td>
             <td>coingecko</td>
-            <td>$0.0684</td>
-            <td>$2173.7M</td>
-            <td style="color:#22c55e">▲ 0.58%</td>
+            <td>$0.0683</td>
+            <td>$2169.4M</td>
+            <td style="color:#22c55e">▲ 0.45%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>0.5</td>
+            <td>0.4</td>
         </tr>
         <tr>
             <td><strong>NEAR</strong> <small>NEAR Protocol</small></td>
             <td>coingecko</td>
-            <td>$1.5700</td>
-            <td>$2041.7M</td>
-            <td style="color:#ef4444">▼ -2.90%</td>
+            <td>$1.5800</td>
+            <td>$2037.6M</td>
+            <td style="color:#ef4444">▼ -2.45%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-0.5</td>
+            <td>-0.2</td>
         </tr>
         <tr>
             <td><strong>USDY</strong> <small>Ondo US Dollar Yield</small></td>
             <td>coingecko</td>
-            <td>$1.1300</td>
-            <td>$1897.3M</td>
-            <td style="color:#22c55e">▲ 0.05%</td>
+            <td>$1.1400</td>
+            <td>$1900.0M</td>
+            <td style="color:#22c55e">▲ 0.06%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>0.2</td>
+            <td>0.3</td>
         </tr>
         <tr>
             <td><strong>ONDO</strong> <small>Ondo</small></td>
             <td>coingecko</td>
-            <td>$0.3862</td>
-            <td>$1881.9M</td>
-            <td style="color:#ef4444">▼ -2.98%</td>
+            <td>$0.3878</td>
+            <td>$1887.2M</td>
+            <td style="color:#ef4444">▼ -2.61%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>4.2</td>
+            <td>4.6</td>
         </tr>
         <tr>
             <td><strong>PI</strong> <small>Pi Network</small></td>
             <td>coingecko</td>
-            <td>$0.1702</td>
-            <td>$1783.2M</td>
-            <td style="color:#ef4444">▼ -0.96%</td>
+            <td>$0.1703</td>
+            <td>$1784.0M</td>
+            <td style="color:#ef4444">▼ -0.89%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
             <td>-2.6</td>
@@ -830,21 +828,21 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td><strong>USDF</strong> <small>Falcon USD</small></td>
             <td>coingecko</td>
             <td>$0.9981</td>
-            <td>$1780.5M</td>
-            <td style="color:#ef4444">▼ -0.11%</td>
+            <td>$1780.4M</td>
+            <td style="color:#ef4444">▼ -0.12%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
             <td>-0.1</td>
         </tr>
         <tr>
-            <td><strong>HTX</strong> <small>HTX DAO</small></td>
+            <td><strong>OKB</strong> <small>OKB</small></td>
             <td>coingecko</td>
-            <td>$0.0000</td>
-            <td>$1777.4M</td>
-            <td style="color:#ef4444">▼ -0.42%</td>
+            <td>$84.6200</td>
+            <td>$1777.1M</td>
+            <td style="color:#ef4444">▼ -1.40%</td>
             <td><span class="badge badge-low">LOW</span></td>
             <td><span class="badge badge-tier">MID_CAP</span></td>
-            <td>-0.3</td>
+            <td>-1.8</td>
         </tr></tbody>
     </table>
     </div>
