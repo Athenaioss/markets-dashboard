@@ -1,36 +1,46 @@
 #!/usr/bin/env python3
 """
-Injects live Market Pulse Scanner into index.html.
-Simple marker-based replacement — no regex.
+Inject Hawkeye scanner into index.html with run_id validation and atomic write.
 """
 
+from __future__ import annotations
+
 from pathlib import Path
+from datetime import datetime
+import re
 
-MARKER_START = '<!-- ⚡ SCANNER START -->'
-MARKER_END = '<!-- ⚡ SCANNER END -->'
 
-def inject(html_path="index.html"):
-    """Generate scanner and inject between markers, or replace section."""
+def atomic_write(path: Path, content: str) -> None:
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(content)
+    tmp.replace(path)
+
+
+def inject(html_path="index.html", run_id: str | None = None):
     from scanner_generator import main as gen_scanner
-    scanner = gen_scanner()
-    
-    html = Path(html_path).read_text()
-    
-    # Strategy: find <section id="scanner"> up to its </section>
-    # and replace everything between them
+
+    run_id = run_id or datetime.now().astimezone().strftime("%Y%m%d-%H%M%S")
+    scanner = gen_scanner(run_id=run_id)
+    if f'data-run-id="{run_id}"' not in scanner:
+        raise RuntimeError(f"scanner run_id mismatch before injection: {run_id}")
+
+    path = Path(html_path)
+    html = path.read_text()
     start_tag = '<section id="scanner" class="scanner">'
-    end_tag = '</section>'
-    
     start_idx = html.find(start_tag)
     if start_idx == -1:
-        print("⚠️ No scanner section found")
-        return False
-    
-    # Find the matching </section> — scan for the one at the same depth
-    # Simple approach: find </section> after start_tag, then verify
-    end_search_start = start_idx + len(start_tag)
+        # Current artifact can already contain an augmented class; fall back to id match.
+        m = re.search(r'<section\s+id="scanner"[^>]*>', html)
+        if not m:
+            raise RuntimeError("No scanner section found")
+        start_idx = m.start()
+        end_search_start = m.end()
+    else:
+        end_search_start = start_idx + len(start_tag)
+
     depth = 1
     pos = end_search_start
+    end_idx = None
     while depth > 0 and pos < len(html):
         next_open = html.find('<section', pos)
         next_close = html.find('</section>', pos)
@@ -38,35 +48,33 @@ def inject(html_path="index.html"):
             break
         if next_open != -1 and next_open < next_close:
             depth += 1
-            pos = next_open + 8
+            pos = next_open + len('<section')
         else:
             depth -= 1
             if depth == 0:
                 end_idx = next_close + len('</section>')
                 break
-            pos = next_close + 10
-    
-    if depth != 0:
-        print("⚠️ Could not find matching </section>")
-        return False
-    
-    # Extract scanner inner content (between <section...> and </section>)
-    import re
+            pos = next_close + len('</section>')
+    if depth != 0 or end_idx is None:
+        raise RuntimeError("Could not find matching scanner </section>")
+
     inner = re.search(r'<section[^>]*>(.*)</section>\s*$', scanner, re.DOTALL)
     if not inner:
-        print("⚠️ Could not extract scanner content")
-        return False
-    
+        raise RuntimeError("Could not extract scanner content")
     new_content = inner.group(1)
     new_html = html[:end_search_start] + new_content + html[end_idx - len('</section>'):]
-    Path(html_path).write_text(new_html)
-    
-    print(f"✅ Scanner injected ({len(new_content)} bytes)")
-    # Verify
-    vfy = Path(html_path).read_text()
+    if f"run_id {run_id}" not in new_html or f"run_id:{run_id}" not in scanner:
+        raise RuntimeError(f"run_id validation failed after injection: {run_id}")
+    atomic_write(path, new_html)
+
+    vfy = path.read_text()
+    if f"run_id {run_id}" not in vfy:
+        raise RuntimeError(f"final index run_id mismatch: {run_id}")
+    print(f"✅ Scanner injected ({len(new_content)} bytes, run_id {run_id})")
     print(f"  signal-rows: {vfy.count('signal-row')}")
-    print(f"  asset-breakdown: {vfy.count('asset-breakdown')}")
+    print(f"  hawkeye-v4: {vfy.count('hawkeye-v4')}")
     return True
+
 
 if __name__ == "__main__":
     inject()

@@ -83,7 +83,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header">
 <div class="title-emoji">💰</div>
 <h1>Atlas Nexus - ETF Tracker</h1>
-<p>24 ETFs across 6 categories · Equity, Sectors, Bonds, International, Commodities & Thematic | 20260514-111628</p>
+<p>24 ETFs across 6 categories · Equity, Sectors, Bonds, International, Commodities & Thematic | 20260514-112956</p>
 </div>
 <div class="container">
 <div class="stats-grid">
@@ -101,11 +101,11 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     <div><span style="color:var(--muted)">17/24 assets up</span><br><strong>71</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>0.22</strong></div><div><span style="color:var(--muted)">16/24 bullish MA</span><br><strong>67</strong></div><div><span style="color:var(--muted)">1/24 elevated vol</span><br><strong>4</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>1.0</strong></div>
     </div></div>
 
-<section class="momentum-scanner-v2 scanner hawkeye-scanner" aria-label="Hawkeye v3">
+<section class="momentum-scanner-v2 scanner hawkeye-scanner hawkeye-v4" aria-label="Hawkeye V4">
   <style>
     .hawkeye-scanner{margin:0 0 24px;padding:24px;border:1px solid rgba(56,189,248,.20);border-radius:28px;position:relative;overflow:hidden;text-align:left;background:linear-gradient(135deg,rgba(16,22,34,.92),rgba(18,14,33,.86) 48%,rgba(29,22,10,.76));box-shadow:0 22px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}
-    .hawkeye-scanner:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,rgba(56,189,248,.18),transparent 35%),radial-gradient(circle at 92% 14%,rgba(245,158,11,.12),transparent 28%);pointer-events:none}
-    .hawkeye-scanner>*{position:relative}.scanner-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}.scanner-head h2{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}
+    .hawkeye-scanner:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,rgba(56,189,248,.18),transparent 35%),radial-gradient(circle at 92% 14%,rgba(245,158,11,.12),transparent 28%);pointer-events:none}.hawkeye-scanner>*{position:relative}
+    .scanner-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}.scanner-head h2{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}.scanner-sub{margin:6px 0 0;color:var(--muted);font-size:.82rem;line-height:1.45}
     .scanner-head .tier-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:.74em;color:var(--muted)}.scanner-head .tier-legend span{padding:3px 8px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04)}.scanner-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
     .signal-card{border:1px solid var(--atlas-border,var(--border));border-radius:22px;padding:14px;background:rgba(7,9,20,.38);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}.mixed-card{grid-column:1/-1}.signal-card h3{margin:0 0 12px;color:var(--atlas-text,var(--text));font-size:.98rem;font-weight:950;letter-spacing:-.025em}
     .signal-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px;border:1px solid rgba(148,163,184,.16);border-radius:16px;background:rgba(255,255,255,.035);margin-top:9px}.signal-row:first-of-type{margin-top:0}.asset-name{display:inline;font-weight:900;color:var(--atlas-text,var(--text));line-height:1.15;margin-right:6px}
@@ -114,204 +114,194 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     .score-hot{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}.score-risk{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}.score-warm{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}.score-muted{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}.momentum-empty{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}
     @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}.mixed-card{grid-column:auto}}@media(max-width:520px){.hawkeye-scanner{padding:16px;border-radius:22px}.signal-row{display:block}.signal-row>div:last-child{text-align:left!important;margin-top:10px}}
   </style>
-  <div class="scanner-head"><div><h2>🦅 Hawkeye v3</h2></div><div class="tier-legend"><span>⚡ Extreme 90+</span><span>🦅 Strong 80-89</span><span>👁️ Active 65-79</span><span>🟊 4 strong · 8 active</span></div></div>
-  <div class="scanner-board hawk-board"><div class="signal-card"><h3>🚀 Bullish pressure (4)</h3><div class="signal-row hawk-row">
+  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension. Manual chart check required.</p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ 0 · 🦅 0 · 👁️ 7</span></div></div>
+  <div class="scanner-board hawk-board"><div class="signal-card"><h3>📈 Bullish pressure (3)</h3><div class="signal-row hawk-row">
 <div>
 <span class="asset-name">US Oil Fund</span>
-<span class="asset-tag">BULL</span>
-<span class="asset-meta">etf · bull pressure</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">etf · uptrend · bullish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">📍 $142.04</span>
-<span style="color:#a7f3d0">ROC5 +6.0%</span>
+<span style="color:#bae6fd">Reference price $142.04</span>
+<span style="color:#c4b5fd">nROC5 +0.56</span>
 <span style="color:#fbbf24">RSI 56</span>
-<span style="color:#c4b5fd">Ext 0.8 ATR</span>
+<span style="color:#fca5a5">Ext 0.8 ATR</span>
+<span style="color:#93c5fd">Vol 0.3×</span>
+
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">82/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">USO</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<span class="score-pill score-warm">67/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +50 · USO</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div style="font-size:.68em;color:#94a3b8;margin-top:2px">Manual chart check required</div>
 </div>
 </div><div class="signal-row hawk-row">
 <div>
-<span class="asset-name">Consumer Disc.</span>
-<span class="asset-tag">BULL</span>
-<span class="asset-meta">etf · bull pressure</span>
+<span class="asset-name">iShares Russell 2000</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">etf · uptrend · bullish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">📍 $118.72</span>
-<span style="color:#a7f3d0">ROC5 -1.0%</span>
-<span style="color:#fbbf24">RSI 55</span>
-<span style="color:#c4b5fd">Ext 0.5 ATR</span>
+<span style="color:#bae6fd">Reference price $282.67</span>
+<span style="color:#c4b5fd">nROC5 -0.42</span>
+<span style="color:#fbbf24">RSI 60</span>
+<span style="color:#fca5a5">Ext 1.2 ATR</span>
+<span style="color:#93c5fd">Vol 0.8×</span>
+
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-warm">74/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">XLY</div>
-<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ ACTIVE</div>
-</div>
-</div><div class="signal-row hawk-row">
-<div>
-<span class="asset-name">ARK Innovation</span>
-<span class="asset-tag">BULL</span>
-<span class="asset-meta">etf · bull pressure</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">📍 $78.05</span>
-<span style="color:#a7f3d0">ROC5 -1.9%</span>
-<span style="color:#fbbf24">RSI 54</span>
-<span style="color:#c4b5fd">Ext 0.5 ATR</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-warm">74/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">ARKK</div>
-<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ ACTIVE</div>
+<span class="score-pill score-warm">60/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +43 · IWM</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div style="font-size:.68em;color:#94a3b8;margin-top:2px">Manual chart check required</div>
 </div>
 </div><div class="signal-row hawk-row">
 <div>
 <span class="asset-name">SPDR Dow Jones</span>
-<span class="asset-tag">BULL</span>
-<span class="asset-meta">etf · bull pressure</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">etf · uptrend · bullish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">📍 $497.14</span>
-<span style="color:#a7f3d0">ROC5 -0.4%</span>
+<span style="color:#bae6fd">Reference price $497.14</span>
+<span style="color:#c4b5fd">nROC5 -0.18</span>
 <span style="color:#fbbf24">RSI 56</span>
-<span style="color:#c4b5fd">Ext 1.1 ATR</span>
+<span style="color:#fca5a5">Ext 1.1 ATR</span>
+<span style="color:#93c5fd">Vol 0.8×</span>
+
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-warm">71/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">DIA</div>
-<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ ACTIVE</div>
+<span class="score-pill score-warm">60/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +43 · DIA</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div style="font-size:.68em;color:#94a3b8;margin-top:2px">Manual chart check required</div>
 </div>
-</div></div><div class="signal-card"><h3>🐻 Bearish pressure (4)</h3><div class="signal-row hawk-row">
+</div></div><div class="signal-card"><h3>📉 Bearish pressure (4)</h3><div class="signal-row hawk-row">
 <div>
 <span class="asset-name">Vanguard Total Bond</span>
-<span class="asset-tag">BEAR</span>
-<span class="asset-meta">etf · bear pressure</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">etf · downtrend · bearish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">📍 $73.18</span>
-<span style="color:#a7f3d0">ROC5 -0.5%</span>
+<span style="color:#bae6fd">Reference price $73.18</span>
+<span style="color:#c4b5fd">nROC5 -0.66</span>
 <span style="color:#fbbf24">RSI 38</span>
-<span style="color:#c4b5fd">Ext 1.2 ATR</span>
+<span style="color:#fca5a5">Ext 1.2 ATR</span>
+<span style="color:#93c5fd">Vol 1.4×</span>
+
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">93/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">BND</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">⚡ EXTREME</div>
-</div>
-</div><div class="signal-row hawk-row">
-<div>
-<span class="asset-name">iShares 20+ Year Tr.</span>
-<span class="asset-tag">BEAR</span>
-<span class="asset-meta">etf · bear pressure</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">📍 $84.80</span>
-<span style="color:#a7f3d0">ROC5 -1.5%</span>
-<span style="color:#fbbf24">RSI 34</span>
-<span style="color:#c4b5fd">Ext 1.7 ATR</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">87/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">TLT</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
-</div>
-</div><div class="signal-row hawk-row">
-<div>
-<span class="asset-name">iShares Inv. Grade</span>
-<span class="asset-tag">BEAR</span>
-<span class="asset-meta">etf · bear pressure</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">📍 $108.62</span>
-<span style="color:#a7f3d0">ROC5 -0.5%</span>
-<span style="color:#fbbf24">RSI 40</span>
-<span style="color:#c4b5fd">Ext 0.8 ATR</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">86/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">LQD</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<span class="score-pill score-warm">74/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -47 · BND</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div style="font-size:.68em;color:#94a3b8;margin-top:2px">Manual chart check required</div>
 </div>
 </div><div class="signal-row hawk-row">
 <div>
 <span class="asset-name">iShares Core US Agg</span>
-<span class="asset-tag">BEAR</span>
-<span class="asset-meta">etf · bear pressure</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">etf · downtrend · bearish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">📍 $98.67</span>
-<span style="color:#a7f3d0">ROC5 -0.5%</span>
+<span style="color:#bae6fd">Reference price $98.67</span>
+<span style="color:#c4b5fd">nROC5 -0.70</span>
 <span style="color:#fbbf24">RSI 37</span>
-<span style="color:#c4b5fd">Ext 1.3 ATR</span>
+<span style="color:#fca5a5">Ext 1.3 ATR</span>
+<span style="color:#93c5fd">Vol 0.7×</span>
+
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-warm">79/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">AGG</div>
-<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ ACTIVE</div>
+<span class="score-pill score-warm">64/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -47 · AGG</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div style="font-size:.68em;color:#94a3b8;margin-top:2px">Manual chart check required</div>
+</div>
+</div><div class="signal-row hawk-row">
+<div>
+<span class="asset-name">iShares 20+ Year Tr.</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">etf · downtrend · breakdown pressure · extension warning</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $84.80</span>
+<span style="color:#c4b5fd">nROC5 -0.91</span>
+<span style="color:#fbbf24">RSI 34</span>
+<span style="color:#fca5a5">Ext 1.7 ATR</span>
+<span style="color:#93c5fd">Vol 1.2×</span>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">63/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -43 · TLT</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div style="font-size:.68em;color:#94a3b8;margin-top:2px">Manual chart check required</div>
+</div>
+</div><div class="signal-row hawk-row">
+<div>
+<span class="asset-name">iShares Inv. Grade</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">etf · downtrend · bearish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $108.62</span>
+<span style="color:#c4b5fd">nROC5 -0.50</span>
+<span style="color:#fbbf24">RSI 40</span>
+<span style="color:#fca5a5">Ext 0.8 ATR</span>
+<span style="color:#93c5fd">Vol 0.7×</span>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">63/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -46 · LQD</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div style="font-size:.68em;color:#94a3b8;margin-top:2px">Manual chart check required</div>
+</div>
+</div></div><div class="signal-card mixed-card"><h3>⚪ Manual watch / mixed (2)</h3><div class="signal-row hawk-row">
+<div>
+<span class="asset-name">iShares High Yield</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">etf · mixed · mixed / no edge</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $79.91</span>
+<span style="color:#c4b5fd">nROC5 -0.41</span>
+<span style="color:#fbbf24">RSI 41</span>
+<span style="color:#fca5a5">Ext 0.6 ATR</span>
+<span style="color:#93c5fd">Vol 0.8×</span>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-muted">56/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -28 · HYG</div>
+<div style="font-size:.7em;color:#94a3b8;margin-top:2px">📡 Watch</div>
+<div style="font-size:.68em;color:#94a3b8;margin-top:2px">Manual chart check required</div>
+</div>
+</div><div class="signal-row hawk-row">
+<div>
+<span class="asset-name">Financial Select</span>
+<span class="asset-tag">Mixed / Neutral</span>
+<span class="asset-meta">etf · mixed · mixed / no edge</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $50.99</span>
+<span style="color:#c4b5fd">nROC5 -0.58</span>
+<span style="color:#fbbf24">RSI 39</span>
+<span style="color:#fca5a5">Ext 0.7 ATR</span>
+<span style="color:#93c5fd">Vol 1.0×</span>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-muted">51/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -14 · XLF</div>
+<div style="font-size:.7em;color:#94a3b8;margin-top:2px">📡 Watch</div>
+<div style="font-size:.68em;color:#94a3b8;margin-top:2px">Manual chart check required</div>
 </div>
 </div></div></div>
 </section>
 
-<section class="unusual-section" aria-label="Unusual Activity" style="margin:28px 0 0;padding:24px;border:1px solid rgba(245,158,11,.22);border-radius:22px;background:rgba(245,158,11,.03)">
-  <h2 style="margin:0 0 4px;font-size:1.05rem;font-weight:950;color:#f59e0b;letter-spacing:-.025em">🚨 Unusual Activity Alert</h2>
-  <p style="color:var(--muted);font-size:.78em;margin:0 0 12px">7 assets flagged — extreme readings</p>
-  <div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
-<div>
-<span style="font-weight:800;color:var(--text)">SPDR S&P 500</span>
-<span style="color:var(--muted);font-size:.78em;margin-left:6px">SPY</span>
-</div>
-<div style="font-size:.82em;text-align:right">
-<div style="color:#22c55e;font-weight:700">▲ 0.6%</div>
-<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Chase 3.5 ATR</span> · <span style="color:#f59e0b">RSI 82 overbought</span></div>
-</div>
-</div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
-<div>
-<span style="font-weight:800;color:var(--text)">Invesco QQQ</span>
-<span style="color:var(--muted);font-size:.78em;margin-left:6px">QQQ</span>
-</div>
-<div style="font-size:.82em;text-align:right">
-<div style="color:#22c55e;font-weight:700">▲ 1.1%</div>
-<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Chase 3.9 ATR</span> · <span style="color:#f59e0b">RSI 84 overbought</span></div>
-</div>
-</div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
-<div>
-<span style="font-weight:800;color:var(--text)">Vanguard Total Market</span>
-<span style="color:var(--muted);font-size:.78em;margin-left:6px">VTI</span>
-</div>
-<div style="font-size:.82em;text-align:right">
-<div style="color:#22c55e;font-weight:700">▲ 0.5%</div>
-<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Chase 3.2 ATR</span></div>
-</div>
-</div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
-<div>
-<span style="font-weight:800;color:var(--text)">Vanguard S&P 500</span>
-<span style="color:var(--muted);font-size:.78em;margin-left:6px">VOO</span>
-</div>
-<div style="font-size:.82em;text-align:right">
-<div style="color:#22c55e;font-weight:700">▲ 0.6%</div>
-<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Chase 3.5 ATR</span> · <span style="color:#f59e0b">RSI 82 overbought</span></div>
-</div>
-</div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
-<div>
-<span style="font-weight:800;color:var(--text)">Technology Select</span>
-<span style="color:var(--muted);font-size:.78em;margin-left:6px">XLK</span>
-</div>
-<div style="font-size:.82em;text-align:right">
-<div style="color:#22c55e;font-weight:700">▲ 0.9%</div>
-<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Chase 3.6 ATR</span> · <span style="color:#f59e0b">RSI 82 overbought</span></div>
-</div>
-</div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
-<div>
-<span style="font-weight:800;color:var(--text)">iShares MSCI EAFE</span>
-<span style="color:var(--muted);font-size:.78em;margin-left:6px">EFA</span>
-</div>
-<div style="font-size:.82em;text-align:right">
-<div style="color:#22c55e;font-weight:700">▲ 0.7%</div>
-<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Vertical candle</span></div>
-</div>
-</div>
+<section class="unusual-activity" style="margin:0 0 24px;padding:18px;border:1px solid rgba(245,158,11,.28);border-radius:20px;background:rgba(245,158,11,.06)">
+<h2 style="margin:0 0 10px;font-size:1.05rem">🚨 Unusual market pressure</h2>
+<p style="margin:0 0 12px;color:var(--muted);font-size:.84rem">Extension, volatility or RSI readings that require manual chart inspection.</p>
+<div class='alert-row'><strong>SPDR S&amp;P 500</strong><span>Extension 3.5 ATR · RSI 82 elevated</span></div><div class='alert-row'><strong>Invesco QQQ</strong><span>Extension 3.9 ATR · RSI 84 elevated</span></div><div class='alert-row'><strong>Vanguard Total Market</strong><span>Extension 3.2 ATR</span></div><div class='alert-row'><strong>Vanguard S&amp;P 500</strong><span>Extension 3.5 ATR · RSI 82 elevated</span></div><div class='alert-row'><strong>Technology Select</strong><span>Extension 3.6 ATR · ATR pct 96 · RSI 82 elevated</span></div><div class='alert-row'><strong>iShares Silver</strong><span>Extension 2.9 ATR</span></div>
 </section>
 <h2 style="color:var(--accent);margin-bottom:12px">📦 Category Breakdown</h2>
 <div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"><div class="card" style="border-left:3px solid #f59e0b"><div class="value" style="color:#f59e0b">-0.0%</div><div class="label">Bonds (4/5)</div></div><div class="card" style="border-left:3px solid #ef4444"><div class="value" style="color:#ef4444">-0.4%</div><div class="label">Commodity (1/3)</div></div><div class="card" style="border-left:3px solid #a78bfa"><div class="value" style="color:#a78bfa">+1.2%</div><div class="label">International (3/3)</div></div><div class="card" style="border-left:3px solid #22c55e"><div class="value" style="color:#22c55e">+0.1%</div><div class="label">Sector (4/6)</div></div><div class="card" style="border-left:3px solid #ec4899"><div class="value" style="color:#ec4899">-0.2%</div><div class="label">Thematic (0/1)</div></div><div class="card" style="border-left:3px solid #38bdf8"><div class="value" style="color:#38bdf8">+0.4%</div><div class="label">US Equity (5/6)</div></div></div>
@@ -521,7 +511,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
   <a href="index.html" style="display:inline-block;padding:12px 24px;border:1px solid var(--border);border-radius:12px;color:var(--muted);text-decoration:none;font-size:.88em;font-weight:700;transition:all .15s">← Retour Dashboard</a>
 </div>
 <div class="footer">
-<p>💰 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-111628</p>
+<p>💰 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-112956</p>
 <p style="margin-top:4px"><a href="index.html">← Back to Dashboard</a></p>
 </div>
 </div></body></html>
