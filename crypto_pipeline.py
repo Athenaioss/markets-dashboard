@@ -372,7 +372,7 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atlas Nexus — Crypto Dashboard</title>
+    <title>🪙 Atlas Nexus — Crypto Dashboard</title>
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{ font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0f172a; color: #e2e8f0; padding: 20px; }}
@@ -401,7 +401,7 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
 </head>
 <body>
     <div class="header">
-        <h1>₿ Atlas Nexus — Crypto</h1>
+        <h1>🪙 Atlas Nexus — Crypto</h1>
     </div>
     
     <div class="cards">
@@ -424,6 +424,7 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
     </div>
     
     {momentum_html}
+    {unusual_html}
     
     <h2>📊 Token Leaderboard</h2>
     <div style="overflow-x: auto;">
@@ -437,29 +438,6 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
     </table>
     </div>
     
-    <div class="section">
-        <div>
-            <h2>🚀 Top Gainers</h2>
-            <table>
-                <tr><th>Token</th><th>24h</th><th>Price</th></tr>
-                {''.join(f'''<tr><td><strong>{g['symbol']}</strong></td><td class="gainer">▲ {g['change_24h']:.1f}%</td><td>${g.get('price_usd',0) or 0:.4f}</td></tr>''' for g in summary.get('top_gainers',[])[:5])}
-            </table>
-        </div>
-        <div>
-            <h2>📉 Top Losers</h2>
-            <table>
-                <tr><th>Token</th><th>24h</th><th>Price</th></tr>
-                {''.join(f'''<tr><td><strong>{l['symbol']}</strong></td><td class="loser">▼ {l['change_24h']:.1f}%</td><td>${l.get('price_usd',0) or 0:.4f}</td></tr>''' for l in summary.get('top_losers',[])[:5])}
-            </table>
-        </div>
-    </div>
-    
-    {f'''<h2>⚠️ Unusual Volume ({len(summary.get('unusual_volume_tokens',[]))} tokens)</h2>
-    <table><tr><th>Token</th><th>Volume</th><th>Mcap</th><th>Ratio</th></tr>
-    {''.join(f'<tr><td><strong>{uv["symbol"]}</strong></td><td>${uv.get("volume_24h",0) or 0:,.0f}</td><td>${(uv.get("market_cap",0) or 0)/1e6:.1f}M</td><td>{uv.get("volume_mcap_ratio",0):.2%}</td></tr>' for uv in summary.get('unusual_volume_tokens',[])[:5])}
-    </table>''' if summary.get('unusual_volume_tokens') else ''}
-    
-{unusual_html}
 {back_html}
     
 </body>

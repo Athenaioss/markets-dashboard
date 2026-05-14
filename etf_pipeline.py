@@ -225,6 +225,7 @@ tr:hover{{background:rgba(56,189,248,.03)}}
 </div>
 {sent_html}
 {hawk_html}
+{unusual_html}
 <h2 style="color:var(--accent);margin-bottom:12px">📦 Category Breakdown</h2>
 <div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">{cat_cards}</div>
 <h2 style="color:var(--accent);margin:24px 0 12px">📋 ETF Leaderboard</h2>
@@ -232,7 +233,7 @@ tr:hover{{background:rgba(56,189,248,.03)}}
 <table><thead><tr>
 <th>ETF</th><th>Category</th><th>Price</th><th>Change</th><th>Trend</th><th>Volatility</th><th>52W Range</th>
 </tr></thead><tbody>{rows}</tbody></table></div></div>
-{unusual_html}
+{back_html}
 {back_html}
 <div class="footer">
 <p>💰 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: {NOW}</p>

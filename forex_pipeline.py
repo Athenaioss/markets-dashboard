@@ -210,12 +210,12 @@ tr:hover{{background:rgba(34,197,94,.03)}}
 </div>
 {sent_html}
 {hawk_html}
+{unusual_html}
 <h2 style="color:var(--accent);margin-bottom:12px">💱 Currency Pair Leaderboard</h2>
 <div class="table-wrapper"><div style="overflow-x:auto">
 <table><thead><tr>
 <th>Pair</th><th>Type</th><th>Price</th><th>Change</th><th>MA(5)</th><th>MA(20)</th><th>Trend</th><th>Volatility</th>
 </tr></thead><tbody>{rows}</tbody></table></div></div>
-{unusual_html}
 {back_html}
 <div class="footer"><p>💱 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: {NOW}</p></div>
 </div></body></html>"""

@@ -82,14 +82,14 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header">
 <div class="title-emoji">📈</div>
 <h1>Atlas Nexus — Global Indices</h1>
-<p>Real-time stock index tracking · S&P 500, Nasdaq, FTSE, DAX, Nikkei & more | 20260514-085751</p>
+<p>Real-time stock index tracking · S&P 500, Nasdaq, FTSE, DAX, Nikkei & more | 20260514-082305</p>
 </div>
 <div class="container">
 <div class="stats-grid">
 <div class="card"><div class="value" style="color:var(--accent)">16</div><div class="label">Indices Tracked</div></div>
 <div class="card"><div class="value" style="color:var(--green)">12</div><div class="label">Up Today</div></div>
 <div class="card"><div class="value" style="color:var(--red)">4</div><div class="label">Down Today</div></div>
-<div class="card"><div class="value" style="color:var(--accent2)">0.3%</div><div class="label">Avg Change</div></div>
+<div class="card"><div class="value" style="color:var(--accent2)">0.27%</div><div class="label">Avg Change</div></div>
 </div>
 <div class="sentiment-banner" style="background:#14532d;border:1px solid #86efac;border-radius:14px;padding:24px;margin-bottom:20px;text-align:center">
     <div style="font-size:1.8em;margin-bottom:6px">📈</div>
@@ -97,7 +97,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     <div style="font-size:2.2em;font-weight:800;color:#86efac;margin:4px 0">25%</div>
     <div style="color:var(--muted);font-size:.9em">confidence</div>
     <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;font-size:.85em">
-    <div><span style="color:var(--muted)">12/16 assets up</span><br><strong>75</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>0.3</strong></div><div><span style="color:var(--muted)">8/16 bullish MA</span><br><strong>50</strong></div><div><span style="color:var(--muted)">1/16 elevated vol</span><br><strong>6</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>0.9</strong></div>
+    <div><span style="color:var(--muted)">12/16 assets up</span><br><strong>75</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>0.27</strong></div><div><span style="color:var(--muted)">8/16 bullish MA</span><br><strong>50</strong></div><div><span style="color:var(--muted)">1/16 elevated vol</span><br><strong>6</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>0.8</strong></div>
     </div></div>
 
 <section class="momentum-scanner-v2 scanner hawkeye-scanner" aria-label="Hawkeye v2">
@@ -124,8 +124,10 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     .score-risk{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}
     .score-warm{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}
     .score-muted{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}
+    .momentum-radar-title{margin:14px 0 0!important;color:var(--atlas-muted,var(--muted))!important;font-size:.82rem!important;grid-column:1/-1}
+    .momentum-radar{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
     .momentum-empty{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}
-    @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}}
+    @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}.momentum-radar{grid-template-columns:1fr}}
     @media(max-width:520px){.hawkeye-scanner{padding:16px;border-radius:22px}.signal-row{display:block}.signal-row>div:last-child{text-align:left!important;margin-top:10px}}
   </style>
   <div class="scanner-head">
@@ -135,197 +137,187 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     </div>
   </div>
   <div class="scanner-board hawk-board">
-    <div class="signal-card"><h3>🚀 Bullish setups (4)</h3><div class="signal-row hawk-row">
+    <div class="signal-card"><h3>🚀 Bullish setups (4)</h3><div class="signal-row hawk-row" data-market="hk">
 <div>
 <span class="asset-name">Hang Seng</span>
-<span class="asset-tag">LONG</span>
-<span class="asset-meta">indices · STRONG</span>
+<span class="asset-tag">^HSI</span>
+<span class="asset-meta">HK · Trend: MA bull · Vol: fx · ext 0.8A</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $26,449.60</span>
-<span style="color:#ef4444">🛑 $25,636.74</span>
-<span style="color:#22c55e">🎯 $27,831.47</span>
+<span style="color:#22c55e">▲ 0.2%</span>
+<span style="color:#bae6fd">RSI 60</span>
+<span style="color:#a7f3d0">ROC5 -0.7%</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">80</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 −3.07%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
-</div><div class="signal-row hawk-row">
-<div>
-<span class="asset-name">Shanghai Comp</span>
-<span class="asset-tag">LONG</span>
-<span class="asset-meta">indices · WATCH</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $4,203.70</span>
-<span style="color:#ef4444">🛑 $4,056.07</span>
-<span style="color:#22c55e">🎯 $4,454.67</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-warm">79</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 −3.51%</div>
-<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ WATCH</div>
-</div>
-</div><div class="signal-row hawk-row">
+</div><div class="signal-row hawk-row" data-market="us">
 <div>
 <span class="asset-name">Dow Jones</span>
-<span class="asset-tag">LONG</span>
-<span class="asset-meta">indices · WATCH</span>
+<span class="asset-tag">^DJI</span>
+<span class="asset-meta">US · Trend: MA bull · ext 1.0A</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $49,693.20</span>
-<span style="color:#ef4444">🛑 $48,691.11</span>
-<span style="color:#22c55e">🎯 $51,396.75</span>
+<span style="color:#ef4444">▼ -0.1%</span>
+<span style="color:#bae6fd">RSI 56</span>
+<span style="color:#a7f3d0">ROC5 -0.4%</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-warm">78</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 −2.02%</div>
-<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ WATCH</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">WATCHLIST</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️</div>
 </div>
-</div><div class="signal-row hawk-row">
+</div><div class="signal-row hawk-row" data-market="us">
 <div>
 <span class="asset-name">Russell 2000</span>
-<span class="asset-tag">LONG</span>
-<span class="asset-meta">indices · WATCH</span>
+<span class="asset-tag">^RUT</span>
+<span class="asset-meta">US · Trend: MA bull · ext 1.3A</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $2,843.93</span>
-<span style="color:#ef4444">🛑 $2,737.96</span>
-<span style="color:#22c55e">🎯 $3,024.08</span>
+<span style="color:#22c55e">▲ 0.0%</span>
+<span style="color:#bae6fd">RSI 60</span>
+<span style="color:#a7f3d0">ROC5 -1.5%</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-warm">78</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 −3.73%</div>
-<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ WATCH</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">WATCHLIST</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="china">
+<div>
+<span class="asset-name">Shanghai Comp</span>
+<span class="asset-tag">000001.SS</span>
+<span class="asset-meta">China · Trend: MA bull · Vol: 19.9× · Ext: chase · ext 2.1A</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -0.8%</span>
+<span style="color:#bae6fd">RSI 72</span>
+<span style="color:#a7f3d0">ROC5 +0.7%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">66</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">WATCHLIST</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️</div>
 </div>
 </div></div>
-    <div class="signal-card"><h3>🐻 Bearish setups (4)</h3><div class="signal-row hawk-row">
+    <div class="signal-card"><h3>🐻 Bearish setups (4)</h3><div class="signal-row hawk-row" data-market="australia">
 <div>
 <span class="asset-name">ASX 200</span>
-<span class="asset-tag">SHORT</span>
-<span class="asset-meta">indices · STRONG</span>
+<span class="asset-tag">^AXJO</span>
+<span class="asset-meta">Australia · Trend: MA bear · Vol: fx · ext 1.3A</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $8,640.70</span>
-<span style="color:#ef4444">🛑 $8,900.31</span>
-<span style="color:#22c55e">🎯 $8,199.36</span>
+<span style="color:#22c55e">▲ 0.0%</span>
+<span style="color:#bae6fd">RSI 39</span>
+<span style="color:#a7f3d0">ROC5 -2.8%</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">92</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 −3.0%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
-</div><div class="signal-row hawk-row">
+</div><div class="signal-row hawk-row" data-market="uk">
 <div>
 <span class="asset-name">FTSE 100</span>
-<span class="asset-tag">SHORT</span>
-<span class="asset-meta">indices · STRONG</span>
+<span class="asset-tag">^FTSE</span>
+<span class="asset-meta">UK · Trend: MA bear · ext 0.2A</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $10,325.35</span>
-<span style="color:#ef4444">🛑 $10,507.93</span>
-<span style="color:#22c55e">🎯 $10,014.96</span>
+<span style="color:#22c55e">▲ 0.6%</span>
+<span style="color:#bae6fd">RSI 43</span>
+<span style="color:#a7f3d0">ROC5 -1.1%</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">90</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 −1.77%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
-</div><div class="signal-row hawk-row">
+</div><div class="signal-row hawk-row" data-market="france">
 <div>
 <span class="asset-name">CAC 40</span>
-<span class="asset-tag">SHORT</span>
-<span class="asset-meta">indices · STRONG</span>
+<span class="asset-tag">^FCHI</span>
+<span class="asset-meta">France · Trend: MA bear · ext 0.8A</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $8,007.97</span>
-<span style="color:#ef4444">🛑 $8,379.39</span>
-<span style="color:#22c55e">🎯 $7,376.56</span>
+<span style="color:#22c55e">▲ 0.3%</span>
+<span style="color:#bae6fd">RSI 43</span>
+<span style="color:#a7f3d0">ROC5 -3.5%</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">90</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 −4.64%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
-</div><div class="signal-row hawk-row">
+</div><div class="signal-row hawk-row" data-market="india">
 <div>
 <span class="asset-name">BSE Sensex</span>
-<span class="asset-tag">SHORT</span>
-<span class="asset-meta">indices · STRONG</span>
+<span class="asset-tag">^BSESN</span>
+<span class="asset-meta">India · Trend: MA bear · Vol: fx · ext 1.4A</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $75,305.86</span>
-<span style="color:#ef4444">🛑 $78,539.83</span>
-<span style="color:#22c55e">🎯 $69,808.11</span>
+<span style="color:#22c55e">▲ 0.8%</span>
+<span style="color:#bae6fd">RSI 36</span>
+<span style="color:#a7f3d0">ROC5 -3.4%</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">87</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 −4.29%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
+</div>
+</div></div>
+    <h4 class="momentum-radar-title">◇ Cross-market radar</h4>
+    <div class="momentum-radar"><div class="signal-row hawk-row" data-market="india">
+<div>
+<span class="asset-name">Nifty 50</span>
+<span class="asset-tag">^NSEI</span>
+<span class="asset-meta">India · Trend: MA bear · Vol: fx · ext 0.7A</span>
+<span class="asset-levels">
+<span style="color:#22c55e">▲ 1.2%</span>
+<span style="color:#bae6fd">RSI 41</span>
+<span style="color:#a7f3d0">ROC5 -2.6%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">87</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="brazil">
+<div>
+<span class="asset-name">Bovespa</span>
+<span class="asset-tag">^BVSP</span>
+<span class="asset-meta">Brazil · Trend: MA bear · Ext: chase · RSI: oversold · ext 3.4A</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -1.8%</span>
+<span style="color:#bae6fd">RSI 21</span>
+<span style="color:#a7f3d0">ROC5 -5.6%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">68</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">WATCHLIST</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="eu">
+<div>
+<span class="asset-name">Euro Stoxx 50</span>
+<span class="asset-tag">^STOXX50E</span>
+<span class="asset-meta">EU · Trend: MA bear · ext 0.2A</span>
+<span class="asset-levels">
+<span style="color:#22c55e">▲ 0.9%</span>
+<span style="color:#bae6fd">RSI 47</span>
+<span style="color:#a7f3d0">ROC5 -2.8%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-muted">64</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">IGNORE</div>
+<div style="font-size:.7em;color:#64748b;margin-top:2px"></div>
 </div>
 </div></div>
   </div>
-</section>
-
-<section class="unusual-section" aria-label="Unusual Activity" style="margin:28px 0 0;padding:24px;border:1px solid rgba(245,158,11,.22);border-radius:22px;background:rgba(245,158,11,.03)">
-  <h2 style="margin:0 0 4px;font-size:1.05rem;font-weight:950;color:#f59e0b;letter-spacing:-.025em">🚨 Unusual Activity Alert</h2>
-  <p style="color:var(--muted);font-size:.78em;margin:0 0 12px">6 assets flagged — extreme readings</p>
-  <div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
-<div>
-<span style="font-weight:800;color:var(--text)">S&P 500</span>
-<span style="color:var(--muted);font-size:.78em;margin-left:6px">^GSPC</span>
-</div>
-<div style="font-size:.82em;text-align:right">
-<div style="color:#22c55e;font-weight:700">▲ 0.6%</div>
-<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Chase 3.4 ATR</span> · <span style="color:#f59e0b">RSI 81 overbought</span></div>
-</div>
-</div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
-<div>
-<span style="font-weight:800;color:var(--text)">Nasdaq</span>
-<span style="color:var(--muted);font-size:.78em;margin-left:6px">^IXIC</span>
-</div>
-<div style="font-size:.82em;text-align:right">
-<div style="color:#22c55e;font-weight:700">▲ 1.2%</div>
-<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Chase 3.6 ATR</span> · <span style="color:#f59e0b">RSI 83 overbought</span></div>
-</div>
-</div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
-<div>
-<span style="font-weight:800;color:var(--text)">Hang Seng</span>
-<span style="color:var(--muted);font-size:.78em;margin-left:6px">^HSI</span>
-</div>
-<div style="font-size:.82em;text-align:right">
-<div style="color:#22c55e;font-weight:700">▲ 0.2%</div>
-<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Vertical candle</span></div>
-</div>
-</div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
-<div>
-<span style="font-weight:800;color:var(--text)">Shanghai Comp</span>
-<span style="color:var(--muted);font-size:.78em;margin-left:6px">000001.SS</span>
-</div>
-<div style="font-size:.82em;text-align:right">
-<div style="color:#ef4444;font-weight:700">▼ -0.9%</div>
-<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Vol 19.8× avg</span></div>
-</div>
-</div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
-<div>
-<span style="font-weight:800;color:var(--text)">KOSPI</span>
-<span style="color:var(--muted);font-size:.78em;margin-left:6px">^KS11</span>
-</div>
-<div style="font-size:.82em;text-align:right">
-<div style="color:#22c55e;font-weight:700">▲ 1.8%</div>
-<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Chase 3.6 ATR</span> · <span style="color:#f59e0b">RSI 87 overbought</span></div>
-</div>
-</div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
-<div>
-<span style="font-weight:800;color:var(--text)">Bovespa</span>
-<span style="color:var(--muted);font-size:.78em;margin-left:6px">^BVSP</span>
-</div>
-<div style="font-size:.82em;text-align:right">
-<div style="color:#ef4444;font-weight:700">▼ -1.8%</div>
-<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Chase 3.4 ATR</span> · <span style="color:#f59e0b">RSI 21 oversold</span></div>
-</div>
-</div>
 </section>
 <h2 style="color:var(--accent);margin-bottom:12px">🌍 Index Leaderboard</h2>
 <div class="table-wrapper"><div style="overflow-x:auto">
@@ -389,9 +381,9 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td>1.0%</td>
         </tr><tr>
             <td><strong>Nikkei 225</strong> <small style="color:var(--muted)">Japan</small></td>
-            <td class="price">62,654</td>
-            <td style="color:#ef4444">▼ 0.98%</td>
-            <td>62,760</td><td>60,151</td>
+            <td class="price">62,814</td>
+            <td style="color:#ef4444">▼ 0.72%</td>
+            <td>62,792</td><td>60,159</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>1.2%</td>
         </tr><tr>
@@ -403,37 +395,37 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td>0.8%</td>
         </tr><tr>
             <td><strong>Shanghai Comp</strong> <small style="color:var(--muted)">China</small></td>
-            <td class="price">4,204</td>
-            <td style="color:#ef4444">▼ 0.92%</td>
-            <td>4,213</td><td>4,120</td>
+            <td class="price">4,210</td>
+            <td style="color:#ef4444">▼ 0.76%</td>
+            <td>4,214</td><td>4,120</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>0.5%</td>
         </tr><tr>
             <td><strong>BSE Sensex</strong> <small style="color:var(--muted)">India</small></td>
-            <td class="price">75,306</td>
-            <td style="color:#22c55e">▲ 0.93%</td>
-            <td>75,564</td><td>77,181</td>
+            <td class="price">75,179</td>
+            <td style="color:#22c55e">▲ 0.76%</td>
+            <td>75,538</td><td>77,175</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>0.8%</td>
         </tr><tr>
             <td><strong>Nifty 50</strong> <small style="color:var(--muted)">India</small></td>
-            <td class="price">23,693</td>
-            <td style="color:#22c55e">▲ 1.20%</td>
-            <td>23,695</td><td>24,075</td>
+            <td class="price">23,688</td>
+            <td style="color:#22c55e">▲ 1.17%</td>
+            <td>23,694</td><td>24,074</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>0.7%</td>
         </tr><tr>
             <td><strong>KOSPI</strong> <small style="color:var(--muted)">Korea</small></td>
-            <td class="price">7,981</td>
-            <td style="color:#22c55e">▲ 1.75%</td>
-            <td>7,758</td><td>6,882</td>
+            <td class="price">7,933</td>
+            <td style="color:#22c55e">▲ 1.13%</td>
+            <td>7,748</td><td>6,879</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>1.9%</td>
         </tr><tr>
             <td><strong>ASX 200</strong> <small style="color:var(--muted)">Australia</small></td>
-            <td class="price">8,641</td>
-            <td style="color:#22c55e">▲ 0.12%</td>
-            <td>8,678</td><td>8,764</td>
+            <td class="price">8,631</td>
+            <td style="color:#22c55e">▲ 0.01%</td>
+            <td>8,676</td><td>8,763</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>0.5%</td>
         </tr><tr>
@@ -445,12 +437,68 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td>0.9%</td>
         </tr></tbody></table></div></div>
 
-<div style="margin-top:28px;text-align:center">
-  <a href="index.html" style="display:inline-block;padding:12px 24px;border:1px solid var(--border);border-radius:12px;color:var(--muted);text-decoration:none;font-size:.88em;font-weight:700;transition:all .15s">← Retour Dashboard</a>
+<section class="unusual-section" aria-label="Unusual Activity" style="margin:28px 0 0;padding:24px;border:1px solid rgba(245,158,11,.22);border-radius:22px;background:rgba(245,158,11,.03)">
+  <h2 style="margin:0 0 4px;font-size:1.05rem;font-weight:950;color:#f59e0b;letter-spacing:-.025em">🚨 Unusual Activity Alert</h2>
+  <p style="color:var(--muted);font-size:.78em;margin:0 0 12px">6 assets flagged — extreme readings</p>
+  <div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
+<div>
+<span style="font-weight:800;color:var(--text)">S&P 500</span>
+<span style="color:var(--muted);font-size:.78em;margin-left:6px">^GSPC</span>
 </div>
+<div style="font-size:.82em;text-align:right">
+<div style="color:#22c55e;font-weight:700">▲ 0.6%</div>
+<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Chase 3.4 ATR</span> · <span style="color:#f59e0b">RSI 81 overbought</span></div>
+</div>
+</div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
+<div>
+<span style="font-weight:800;color:var(--text)">Nasdaq</span>
+<span style="color:var(--muted);font-size:.78em;margin-left:6px">^IXIC</span>
+</div>
+<div style="font-size:.82em;text-align:right">
+<div style="color:#22c55e;font-weight:700">▲ 1.2%</div>
+<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Chase 3.6 ATR</span> · <span style="color:#f59e0b">RSI 83 overbought</span></div>
+</div>
+</div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
+<div>
+<span style="font-weight:800;color:var(--text)">Hang Seng</span>
+<span style="color:var(--muted);font-size:.78em;margin-left:6px">^HSI</span>
+</div>
+<div style="font-size:.82em;text-align:right">
+<div style="color:#22c55e;font-weight:700">▲ 0.2%</div>
+<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Vertical candle</span></div>
+</div>
+</div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
+<div>
+<span style="font-weight:800;color:var(--text)">Shanghai Comp</span>
+<span style="color:var(--muted);font-size:.78em;margin-left:6px">000001.SS</span>
+</div>
+<div style="font-size:.82em;text-align:right">
+<div style="color:#ef4444;font-weight:700">▼ -0.8%</div>
+<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Vol 19.9× avg</span></div>
+</div>
+</div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
+<div>
+<span style="font-weight:800;color:var(--text)">KOSPI</span>
+<span style="color:var(--muted);font-size:.78em;margin-left:6px">^KS11</span>
+</div>
+<div style="font-size:.82em;text-align:right">
+<div style="color:#22c55e;font-weight:700">▲ 1.1%</div>
+<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Chase 3.5 ATR</span> · <span style="color:#f59e0b">RSI 87 overbought</span></div>
+</div>
+</div><div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
+<div>
+<span style="font-weight:800;color:var(--text)">Bovespa</span>
+<span style="color:var(--muted);font-size:.78em;margin-left:6px">^BVSP</span>
+</div>
+<div style="font-size:.82em;text-align:right">
+<div style="color:#ef4444;font-weight:700">▼ -1.8%</div>
+<div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Chase 3.4 ATR</span> · <span style="color:#f59e0b">RSI 21 oversold</span></div>
+</div>
+</div>
+</section>
 
 <div style="margin-top:28px;text-align:center">
   <a href="index.html" style="display:inline-block;padding:12px 24px;border:1px solid var(--border);border-radius:12px;color:var(--muted);text-decoration:none;font-size:.88em;font-weight:700;transition:all .15s">← Retour Dashboard</a>
 </div>
-<div class="footer"><p>📈 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-085751</p></div>
+<div class="footer"><p>📈 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-082305</p></div>
 </div></body></html>

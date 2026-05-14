@@ -365,7 +365,8 @@ def build_setups(assets):
                 setups_long.append(dict(
                     name=name, source=a.get("source", ""), direction="LONG",
                     symbol=a.get("symbol", ""), score=bull, tier=tier, **levels,
-                    rsi=a.get("_rsi", 50), motif=f"{tier} setup",
+                    rsi=a.get("_rsi", 50), change_pct=a.get("change_pct", 0),
+                    motif=f"{tier} setup",
                     status="TRADEABLE" if tier == "STRONG" else "WATCHLIST"
                 ))
         
@@ -377,7 +378,8 @@ def build_setups(assets):
                 setups_short.append(dict(
                     name=name, source=a.get("source", ""), direction="SHORT",
                     symbol=a.get("symbol", ""), score=bear, tier=tier, **levels,
-                    rsi=a.get("_rsi", 50), motif=f"{tier} setup",
+                    rsi=a.get("_rsi", 50), change_pct=a.get("change_pct", 0),
+                    motif=f"{tier} setup",
                     status="TRADEABLE" if tier == "STRONG" else "WATCHLIST"
                 ))
     
@@ -434,7 +436,7 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
 </div>
 <div style="text-align:right">
 <span class="score-pill {score_class}">{score}</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR {s['rr']}:1 · {s.get('risk_pct',0)}%</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ {s.get('change_pct',0):+.1f}% · RSI {s.get('rsi',50)}</div>
 <div style="font-size:.7em;color:{badge_color};margin-top:2px">{badge}</div>
 <div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>

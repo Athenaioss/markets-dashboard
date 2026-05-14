@@ -82,14 +82,14 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header">
 <div class="title-emoji">💱</div>
 <h1>Atlas Nexus — Forex</h1>
-<p>Real-time currency pair tracking · Majors, Minors & Exotics | 20260514-085710</p>
+<p>Real-time currency pair tracking · Majors, Minors & Exotics | 20260514-082136</p>
 </div>
 <div class="container">
 <div class="stats-grid">
 <div class="card"><div class="value" style="color:var(--accent)">19</div><div class="label">Pairs Tracked</div></div>
 <div class="card"><div class="value" style="color:var(--green)">10</div><div class="label">Up Today</div></div>
 <div class="card"><div class="value" style="color:var(--red)">9</div><div class="label">Down Today</div></div>
-<div class="card"><div class="value" style="color:var(--accent2)">0.05%</div><div class="label">Avg Change</div></div>
+<div class="card"><div class="value" style="color:var(--accent2)">0.09%</div><div class="label">Avg Change</div></div>
 </div>
 <div class="sentiment-banner" style="background:#78350f;border:1px solid #f59e0b;border-radius:14px;padding:24px;margin-bottom:20px;text-align:center">
     <div style="font-size:1.8em;margin-bottom:6px">⚖️</div>
@@ -97,7 +97,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     <div style="font-size:2.2em;font-weight:800;color:#f59e0b;margin:4px 0">25%</div>
     <div style="color:var(--muted);font-size:.9em">confidence</div>
     <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;font-size:.85em">
-    <div><span style="color:var(--muted)">10/19 assets up</span><br><strong>53</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>0.05</strong></div><div><span style="color:var(--muted)">3/19 bullish MA</span><br><strong>16</strong></div><div><span style="color:var(--muted)">0/19 elevated vol</span><br><strong>0</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>0.3</strong></div>
+    <div><span style="color:var(--muted)">10/19 assets up</span><br><strong>53</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>0.09</strong></div><div><span style="color:var(--muted)">3/19 bullish MA</span><br><strong>16</strong></div><div><span style="color:var(--muted)">0/19 elevated vol</span><br><strong>0</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>0.3</strong></div>
     </div></div>
 
 <section class="momentum-scanner-v2 scanner hawkeye-scanner" aria-label="Hawkeye v2">
@@ -124,149 +124,358 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     .score-risk{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}
     .score-warm{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}
     .score-muted{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}
+    .momentum-radar-title{margin:14px 0 0!important;color:var(--atlas-muted,var(--muted))!important;font-size:.82rem!important;grid-column:1/-1}
+    .momentum-radar{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
     .momentum-empty{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}
-    @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}}
+    @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}.momentum-radar{grid-template-columns:1fr}}
     @media(max-width:520px){.hawkeye-scanner{padding:16px;border-radius:22px}.signal-row{display:block}.signal-row>div:last-child{text-align:left!important;margin-top:10px}}
   </style>
   <div class="scanner-head">
     <div><h2>🦅 Hawkeye v2</h2></div>
     <div class="tier-legend">
-      <span>🦅 Strong 80+</span><span>👁️ Watch 65-79</span><span>🟊 7 strong · 7 watch</span>
+      <span>🦅 Strong 80+</span><span>👁️ Watch 65-79</span><span>🟊 6 strong · 6 watch</span>
     </div>
   </div>
   <div class="scanner-board hawk-board">
-    <div class="signal-card"><h3>🚀 Bullish setups (4)</h3><div class="signal-row hawk-row">
+    <div class="signal-card"><h3>🚀 Bullish setups (4)</h3><div class="signal-row hawk-row" data-market="minor">
 <div>
 <span class="asset-name">AUDJPY</span>
-<span class="asset-tag">LONG</span>
-<span class="asset-meta">forex · STRONG</span>
+<span class="asset-tag">AUDJPY=X</span>
+<span class="asset-meta">Minor · Trend: MA bull · Vol: fx · ext 0.8A</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $114.60</span>
-<span style="color:#ef4444">🛑 $113.23</span>
-<span style="color:#22c55e">🎯 $117.08</span>
+<span style="color:#22c55e">▲ 0.4%</span>
+<span style="color:#bae6fd">RSI 56</span>
+<span style="color:#a7f3d0">ROC5 +1.2%</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">92</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.8:1 −1.2%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
-</div><div class="signal-row hawk-row">
+</div><div class="signal-row hawk-row" data-market="major">
 <div>
 <span class="asset-name">AUDUSD</span>
-<span class="asset-tag">LONG</span>
-<span class="asset-meta">forex · STRONG</span>
+<span class="asset-tag">AUDUSD=X</span>
+<span class="asset-meta">Major · Trend: MA bull · Vol: fx · ext 1.4A</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $0.7266</span>
-<span style="color:#ef4444">🛑 $0.7201</span>
-<span style="color:#22c55e">🎯 $0.7382</span>
+<span style="color:#22c55e">▲ 0.3%</span>
+<span style="color:#bae6fd">RSI 66</span>
+<span style="color:#a7f3d0">ROC5 +0.4%</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">87</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.8:1 −0.89%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
-</div><div class="signal-row hawk-row">
+</div><div class="signal-row hawk-row" data-market="major">
 <div>
 <span class="asset-name">NZDUSD</span>
-<span class="asset-tag">LONG</span>
-<span class="asset-meta">forex · STRONG</span>
+<span class="asset-tag">NZDUSD=X</span>
+<span class="asset-meta">Major · Trend: MA bull · Vol: fx · ext 0.5A</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $0.5943</span>
-<span style="color:#ef4444">🛑 $0.5876</span>
-<span style="color:#22c55e">🎯 $0.6064</span>
+<span style="color:#ef4444">▼ -0.2%</span>
+<span style="color:#bae6fd">RSI 61</span>
+<span style="color:#a7f3d0">ROC5 -0.2%</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">80</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.8:1 −1.13%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
-</div><div class="signal-row hawk-row">
+</div><div class="signal-row hawk-row" data-market="minor">
 <div>
 <span class="asset-name">NZDJPY</span>
-<span class="asset-tag">LONG</span>
-<span class="asset-meta">forex · STRONG</span>
+<span class="asset-tag">NZDJPY=X</span>
+<span class="asset-meta">Minor · Trend: MA bull · Vol: fx · ext 0.4A</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $93.74</span>
-<span style="color:#ef4444">🛑 $92.62</span>
-<span style="color:#22c55e">🎯 $95.77</span>
+<span style="color:#ef4444">▼ -0.1%</span>
+<span style="color:#bae6fd">RSI 53</span>
+<span style="color:#a7f3d0">ROC5 +0.6%</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">80</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.8:1 −1.2%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
 </div></div>
-    <div class="signal-card"><h3>🐻 Bearish setups (4)</h3><div class="signal-row hawk-row">
+    <div class="signal-card"><h3>🐻 Bearish setups (4)</h3><div class="signal-row hawk-row" data-market="exotic">
 <div>
 <span class="asset-name">USDMXN</span>
-<span class="asset-tag">SHORT</span>
-<span class="asset-meta">forex · STRONG</span>
+<span class="asset-tag">USDMXN=X</span>
+<span class="asset-meta">Exotic · Trend: MA bear · Vol: fx · ext 1.3A</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $17.1606</span>
-<span style="color:#ef4444">🛑 $17.3220</span>
-<span style="color:#22c55e">🎯 $16.8700</span>
+<span style="color:#ef4444">▼ -0.4%</span>
+<span style="color:#bae6fd">RSI 35</span>
+<span style="color:#a7f3d0">ROC5 -0.5%</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">87</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.8:1 −0.94%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
-</div><div class="signal-row hawk-row">
+</div><div class="signal-row hawk-row" data-market="minor">
 <div>
 <span class="asset-name">EURGBP</span>
-<span class="asset-tag">SHORT</span>
-<span class="asset-meta">forex · STRONG</span>
+<span class="asset-tag">EURGBP=X</span>
+<span class="asset-meta">Minor · Trend: MA bear · Vol: fx · ext 0.1A</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $0.8661</span>
-<span style="color:#ef4444">🛑 $0.8701</span>
-<span style="color:#22c55e">🎯 $0.8589</span>
+<span style="color:#ef4444">▼ -0.1%</span>
+<span style="color:#bae6fd">RSI 44</span>
+<span style="color:#a7f3d0">ROC5 +0.2%</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">85</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.8:1 −0.46%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">STRONG</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅</div>
 </div>
-</div><div class="signal-row hawk-row">
+</div><div class="signal-row hawk-row" data-market="major">
 <div>
 <span class="asset-name">USDCHF</span>
-<span class="asset-tag">SHORT</span>
-<span class="asset-meta">forex · STRONG</span>
+<span class="asset-tag">USDCHF=X</span>
+<span class="asset-meta">Major · Trend: MA bear · Vol: fx · ext 0.2A</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $0.7810</span>
-<span style="color:#ef4444">🛑 $0.7878</span>
-<span style="color:#22c55e">🎯 $0.7688</span>
+<span style="color:#22c55e">▲ 0.2%</span>
+<span style="color:#bae6fd">RSI 43</span>
+<span style="color:#a7f3d0">ROC5 +0.4%</span>
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">80</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.8:1 −0.87%</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<span class="score-pill score-warm">73</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">WATCHLIST</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️</div>
 </div>
-</div><div class="signal-row hawk-row">
+</div><div class="signal-row hawk-row" data-market="minor">
+<div>
+<span class="asset-name">GBPCHF</span>
+<span class="asset-tag">GBPCHF=X</span>
+<span class="asset-meta">Minor · Trend: MA bear · Vol: fx · ext 0.4A</span>
+<span class="asset-levels">
+<span style="color:#22c55e">▲ 0.1%</span>
+<span style="color:#bae6fd">RSI 46</span>
+<span style="color:#a7f3d0">ROC5 -0.1%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">71</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">WATCHLIST</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️</div>
+</div>
+</div></div>
+    <h4 class="momentum-radar-title">◇ Cross-market radar</h4>
+    <div class="momentum-radar"><div class="signal-row hawk-row" data-market="major">
+<div>
+<span class="asset-name">USDJPY</span>
+<span class="asset-tag">USDJPY=X</span>
+<span class="asset-meta">Major · Trend: MA bear · Vol: fx · ext 0.1A</span>
+<span class="asset-levels">
+<span style="color:#22c55e">▲ 0.1%</span>
+<span style="color:#bae6fd">RSI 38</span>
+<span style="color:#a7f3d0">ROC5 +0.9%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">70</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">WATCHLIST</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="minor">
+<div>
+<span class="asset-name">EURJPY</span>
+<span class="asset-tag">EURJPY=X</span>
+<span class="asset-meta">Minor · Trend: MA bear · Vol: fx · ext 0.2A</span>
+<span class="asset-levels">
+<span style="color:#ef4444">▼ -0.1%</span>
+<span style="color:#bae6fd">RSI 38</span>
+<span style="color:#a7f3d0">ROC5 +0.6%</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">70</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">WATCHLIST</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️</div>
+</div>
+</div><div class="signal-row hawk-row" data-market="minor">
 <div>
 <span class="asset-name">EURCHF</span>
-<span class="asset-tag">SHORT</span>
-<span class="asset-meta">forex · WATCH</span>
+<span class="asset-tag">EURCHF=X</span>
+<span class="asset-meta">Minor · Trend: MA bear · Vol: fx · ext 0.5A</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $0.9152</span>
-<span style="color:#ef4444">🛑 $0.9196</span>
-<span style="color:#22c55e">🎯 $0.9073</span>
+<span style="color:#ef4444">▼ -0.0%</span>
+<span style="color:#bae6fd">RSI 42</span>
+<span style="color:#a7f3d0">ROC5 +0.1%</span>
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-warm">75</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.8:1 −0.48%</div>
-<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ WATCH</div>
+<span class="score-pill score-warm">70</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">WATCHLIST</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️</div>
 </div>
 </div></div>
   </div>
 </section>
+<h2 style="color:var(--accent);margin-bottom:12px">💱 Currency Pair Leaderboard</h2>
+<div class="table-wrapper"><div style="overflow-x:auto">
+<table><thead><tr>
+<th>Pair</th><th>Type</th><th>Price</th><th>Change</th><th>MA(5)</th><th>MA(20)</th><th>Trend</th><th>Volatility</th>
+</tr></thead><tbody><tr>
+            <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>EURUSD</strong></td>
+            <td>Major</td>
+            <td class="price">1.17150</td>
+            <td style="color:#ef4444">▼ 0.170%</td>
+            <td>1.17462</td><td>1.17308</td>
+            <td><span style="color:#94a3b8">NEUTRAL</span></td>
+            <td>0.24%</td>
+        </tr><tr>
+            <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>GBPUSD</strong></td>
+            <td>Major</td>
+            <td class="price">1.35220</td>
+            <td style="color:#ef4444">▼ 0.110%</td>
+            <td>1.35627</td><td>1.35387</td>
+            <td><span style="color:#94a3b8">NEUTRAL</span></td>
+            <td>0.27%</td>
+        </tr><tr>
+            <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>USDJPY</strong></td>
+            <td>Major</td>
+            <td class="price">157.86100</td>
+            <td style="color:#22c55e">▲ 0.120%</td>
+            <td>157.29000</td><td>158.30650</td>
+            <td><span style="color:#ef4444">BEARISH</span></td>
+            <td>0.30%</td>
+        </tr><tr>
+            <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>USDCHF</strong></td>
+            <td>Major</td>
+            <td class="price">0.78180</td>
+            <td style="color:#22c55e">▲ 0.180%</td>
+            <td>0.77968</td><td>0.78266</td>
+            <td><span style="color:#94a3b8">NEUTRAL</span></td>
+            <td>0.30%</td>
+        </tr><tr>
+            <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>AUDUSD</strong></td>
+            <td>Major</td>
+            <td class="price">0.72610</td>
+            <td style="color:#22c55e">▲ 0.310%</td>
+            <td>0.72380</td><td>0.71888</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.38%</td>
+        </tr><tr>
+            <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>USDCAD</strong></td>
+            <td>Major</td>
+            <td class="price">1.37060</td>
+            <td style="color:#22c55e">▲ 0.060%</td>
+            <td>1.36851</td><td>1.36589</td>
+            <td><span style="color:#94a3b8">NEUTRAL</span></td>
+            <td>0.20%</td>
+        </tr><tr>
+            <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>NZDUSD</strong></td>
+            <td>Major</td>
+            <td class="price">0.59390</td>
+            <td style="color:#ef4444">▼ 0.220%</td>
+            <td>0.59492</td><td>0.59058</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.46%</td>
+        </tr><tr>
+            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>EURGBP</strong></td>
+            <td>Minor</td>
+            <td class="price">0.86610</td>
+            <td style="color:#ef4444">▼ 0.070%</td>
+            <td>0.86591</td><td>0.86641</td>
+            <td><span style="color:#94a3b8">NEUTRAL</span></td>
+            <td>0.11%</td>
+        </tr><tr>
+            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>EURJPY</strong></td>
+            <td>Minor</td>
+            <td class="price">184.88200</td>
+            <td style="color:#ef4444">▼ 0.080%</td>
+            <td>184.72920</td><td>185.69570</td>
+            <td><span style="color:#ef4444">BEARISH</span></td>
+            <td>0.25%</td>
+        </tr><tr>
+            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>GBPJPY</strong></td>
+            <td>Minor</td>
+            <td class="price">213.45100</td>
+            <td style="color:#22c55e">▲ 0.020%</td>
+            <td>213.31200</td><td>214.30901</td>
+            <td><span style="color:#94a3b8">NEUTRAL</span></td>
+            <td>0.25%</td>
+        </tr><tr>
+            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>EURCHF</strong></td>
+            <td>Minor</td>
+            <td class="price">0.91560</td>
+            <td style="color:#ef4444">▼ 0.040%</td>
+            <td>0.91575</td><td>0.91808</td>
+            <td><span style="color:#94a3b8">NEUTRAL</span></td>
+            <td>0.15%</td>
+        </tr><tr>
+            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>AUDJPY</strong></td>
+            <td>Minor</td>
+            <td class="price">114.57800</td>
+            <td style="color:#22c55e">▲ 0.420%</td>
+            <td>113.82600</td><td>113.77900</td>
+            <td><span style="color:#94a3b8">NEUTRAL</span></td>
+            <td>0.32%</td>
+        </tr><tr>
+            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>GBPCHF</strong></td>
+            <td>Minor</td>
+            <td class="price">1.05700</td>
+            <td style="color:#22c55e">▲ 0.060%</td>
+            <td>1.05734</td><td>1.05948</td>
+            <td><span style="color:#94a3b8">NEUTRAL</span></td>
+            <td>0.17%</td>
+        </tr><tr>
+            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>CADJPY</strong></td>
+            <td>Minor</td>
+            <td class="price">115.17900</td>
+            <td style="color:#22c55e">▲ 0.070%</td>
+            <td>114.92720</td><td>115.89085</td>
+            <td><span style="color:#ef4444">BEARISH</span></td>
+            <td>0.29%</td>
+        </tr><tr>
+            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>NZDJPY</strong></td>
+            <td>Minor</td>
+            <td class="price">93.72400</td>
+            <td style="color:#ef4444">▼ 0.110%</td>
+            <td>93.55000</td><td>93.46520</td>
+            <td><span style="color:#94a3b8">NEUTRAL</span></td>
+            <td>0.34%</td>
+        </tr><tr>
+            <td><span style="color:#f59e0b;font-weight:600;margin-right:6px">◆</span><strong>USDMXN</strong></td>
+            <td>Exotic</td>
+            <td class="price">17.16660</td>
+            <td style="color:#ef4444">▼ 0.360%</td>
+            <td>17.21576</td><td>17.34025</td>
+            <td><span style="color:#ef4444">BEARISH</span></td>
+            <td>0.32%</td>
+        </tr><tr>
+            <td><span style="color:#f59e0b;font-weight:600;margin-right:6px">◆</span><strong>USDZAR</strong></td>
+            <td>Exotic</td>
+            <td class="price">16.41950</td>
+            <td style="color:#ef4444">▼ 0.560%</td>
+            <td>16.44520</td><td>16.52034</td>
+            <td><span style="color:#94a3b8">NEUTRAL</span></td>
+            <td>0.56%</td>
+        </tr><tr>
+            <td><span style="color:#f59e0b;font-weight:600;margin-right:6px">◆</span><strong>USDTRY</strong></td>
+            <td>Exotic</td>
+            <td class="price">45.43210</td>
+            <td style="color:#22c55e">▲ 0.070%</td>
+            <td>45.35877</td><td>45.12323</td>
+            <td><span style="color:#22c55e">BULLISH</span></td>
+            <td>0.09%</td>
+        </tr><tr>
+            <td><span style="color:#f59e0b;font-weight:600;margin-right:6px">◆</span><strong>USDBRL</strong></td>
+            <td>Exotic</td>
+            <td class="price">5.01110</td>
+            <td style="color:#22c55e">▲ 2.070%</td>
+            <td>4.93708</td><td>4.97056</td>
+            <td><span style="color:#ef4444">BEARISH</span></td>
+            <td>0.62%</td>
+        </tr></tbody></table></div></div>
 
 <section class="unusual-section" aria-label="Unusual Activity" style="margin:28px 0 0;padding:24px;border:1px solid rgba(245,158,11,.22);border-radius:22px;background:rgba(245,158,11,.03)">
   <h2 style="margin:0 0 4px;font-size:1.05rem;font-weight:950;color:#f59e0b;letter-spacing:-.025em">🚨 Unusual Activity Alert</h2>
@@ -286,171 +495,14 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span style="color:var(--muted);font-size:.78em;margin-left:6px">USDBRL=X</span>
 </div>
 <div style="font-size:.82em;text-align:right">
-<div style="color:#22c55e;font-weight:700">▲ 1.5%</div>
+<div style="color:#22c55e;font-weight:700">▲ 2.1%</div>
 <div style="color:var(--muted);font-size:.74em;margin-top:2px"><span style="color:#f59e0b">Vertical candle</span></div>
 </div>
 </div>
 </section>
-<h2 style="color:var(--accent);margin-bottom:12px">💱 Currency Pair Leaderboard</h2>
-<div class="table-wrapper"><div style="overflow-x:auto">
-<table><thead><tr>
-<th>Pair</th><th>Type</th><th>Price</th><th>Change</th><th>MA(5)</th><th>MA(20)</th><th>Trend</th><th>Volatility</th>
-</tr></thead><tbody><tr>
-            <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>EURUSD</strong></td>
-            <td>Major</td>
-            <td class="price">1.17220</td>
-            <td style="color:#ef4444">▼ 0.110%</td>
-            <td>1.17476</td><td>1.17312</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.23%</td>
-        </tr><tr>
-            <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>GBPUSD</strong></td>
-            <td>Major</td>
-            <td class="price">1.35290</td>
-            <td style="color:#ef4444">▼ 0.060%</td>
-            <td>1.35642</td><td>1.35391</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.27%</td>
-        </tr><tr>
-            <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>USDJPY</strong></td>
-            <td>Major</td>
-            <td class="price">157.82900</td>
-            <td style="color:#22c55e">▲ 0.100%</td>
-            <td>157.28360</td><td>158.30490</td>
-            <td><span style="color:#ef4444">BEARISH</span></td>
-            <td>0.30%</td>
-        </tr><tr>
-            <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>USDCHF</strong></td>
-            <td>Major</td>
-            <td class="price">0.78100</td>
-            <td style="color:#22c55e">▲ 0.080%</td>
-            <td>0.77951</td><td>0.78262</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.29%</td>
-        </tr><tr>
-            <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>AUDUSD</strong></td>
-            <td>Major</td>
-            <td class="price">0.72660</td>
-            <td style="color:#22c55e">▲ 0.390%</td>
-            <td>0.72391</td><td>0.71890</td>
-            <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>0.38%</td>
-        </tr><tr>
-            <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>USDCAD</strong></td>
-            <td>Major</td>
-            <td class="price">1.37030</td>
-            <td style="color:#22c55e">▲ 0.040%</td>
-            <td>1.36844</td><td>1.36587</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.20%</td>
-        </tr><tr>
-            <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>NZDUSD</strong></td>
-            <td>Major</td>
-            <td class="price">0.59430</td>
-            <td style="color:#ef4444">▼ 0.160%</td>
-            <td>0.59500</td><td>0.59060</td>
-            <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>0.45%</td>
-        </tr><tr>
-            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>EURGBP</strong></td>
-            <td>Minor</td>
-            <td class="price">0.86610</td>
-            <td style="color:#ef4444">▼ 0.070%</td>
-            <td>0.86591</td><td>0.86641</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.11%</td>
-        </tr><tr>
-            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>EURJPY</strong></td>
-            <td>Minor</td>
-            <td class="price">184.93700</td>
-            <td style="color:#ef4444">▼ 0.050%</td>
-            <td>184.74020</td><td>185.69845</td>
-            <td><span style="color:#ef4444">BEARISH</span></td>
-            <td>0.24%</td>
-        </tr><tr>
-            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>GBPJPY</strong></td>
-            <td>Minor</td>
-            <td class="price">213.51200</td>
-            <td style="color:#22c55e">▲ 0.050%</td>
-            <td>213.32420</td><td>214.31206</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.25%</td>
-        </tr><tr>
-            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>EURCHF</strong></td>
-            <td>Minor</td>
-            <td class="price">0.91520</td>
-            <td style="color:#ef4444">▼ 0.080%</td>
-            <td>0.91568</td><td>0.91807</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.15%</td>
-        </tr><tr>
-            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>AUDJPY</strong></td>
-            <td>Minor</td>
-            <td class="price">114.60400</td>
-            <td style="color:#22c55e">▲ 0.440%</td>
-            <td>113.83120</td><td>113.78030</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.32%</td>
-        </tr><tr>
-            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>GBPCHF</strong></td>
-            <td>Minor</td>
-            <td class="price">1.05660</td>
-            <td style="color:#22c55e">▲ 0.020%</td>
-            <td>1.05725</td><td>1.05946</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.17%</td>
-        </tr><tr>
-            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>CADJPY</strong></td>
-            <td>Minor</td>
-            <td class="price">115.18100</td>
-            <td style="color:#22c55e">▲ 0.070%</td>
-            <td>114.92760</td><td>115.89095</td>
-            <td><span style="color:#ef4444">BEARISH</span></td>
-            <td>0.29%</td>
-        </tr><tr>
-            <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>NZDJPY</strong></td>
-            <td>Minor</td>
-            <td class="price">93.74200</td>
-            <td style="color:#ef4444">▼ 0.090%</td>
-            <td>93.55360</td><td>93.46610</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.34%</td>
-        </tr><tr>
-            <td><span style="color:#f59e0b;font-weight:600;margin-right:6px">◆</span><strong>USDMXN</strong></td>
-            <td>Exotic</td>
-            <td class="price">17.16060</td>
-            <td style="color:#ef4444">▼ 0.390%</td>
-            <td>17.21456</td><td>17.33995</td>
-            <td><span style="color:#ef4444">BEARISH</span></td>
-            <td>0.32%</td>
-        </tr><tr>
-            <td><span style="color:#f59e0b;font-weight:600;margin-right:6px">◆</span><strong>USDZAR</strong></td>
-            <td>Exotic</td>
-            <td class="price">16.38700</td>
-            <td style="color:#ef4444">▼ 0.750%</td>
-            <td>16.43869</td><td>16.51871</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.57%</td>
-        </tr><tr>
-            <td><span style="color:#f59e0b;font-weight:600;margin-right:6px">◆</span><strong>USDTRY</strong></td>
-            <td>Exotic</td>
-            <td class="price">45.43370</td>
-            <td style="color:#22c55e">▲ 0.070%</td>
-            <td>45.35910</td><td>45.12331</td>
-            <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>0.09%</td>
-        </tr><tr>
-            <td><span style="color:#f59e0b;font-weight:600;margin-right:6px">◆</span><strong>USDBRL</strong></td>
-            <td>Exotic</td>
-            <td class="price">4.98420</td>
-            <td style="color:#22c55e">▲ 1.520%</td>
-            <td>4.93170</td><td>4.96921</td>
-            <td><span style="color:#ef4444">BEARISH</span></td>
-            <td>0.60%</td>
-        </tr></tbody></table></div></div>
 
 <div style="margin-top:28px;text-align:center">
   <a href="index.html" style="display:inline-block;padding:12px 24px;border:1px solid var(--border);border-radius:12px;color:var(--muted);text-decoration:none;font-size:.88em;font-weight:700;transition:all .15s">← Retour Dashboard</a>
 </div>
-<div class="footer"><p>💱 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-085710</p></div>
+<div class="footer"><p>💱 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-082136</p></div>
 </div></body></html>

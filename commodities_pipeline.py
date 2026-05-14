@@ -277,19 +277,13 @@ tr:hover{{background:rgba(245,158,11,.03)}}
 </div>
 {sent_html}
 {hawk_html}
+{unusual_html}
 <h2 style="color:var(--accent);margin-bottom:12px">📊 Commodity Leaderboard</h2>
 <p style="color:var(--muted);font-size:.86em;margin:-4px 0 12px">Spread = minimum indicative futures spread based on 1 tick; live bid/ask is not exposed by the Yahoo chart feed.</p>
 <div class="table-wrapper"><div style="overflow-x:auto">
 <table><thead><tr>
 <th>Commodity</th><th>Category</th><th>Price</th><th>Change</th><th>Spread</th><th>MA(5)</th><th>MA(20)</th><th>Trend</th><th>Volatility</th><th>Vol Ratio</th>
 </tr></thead><tbody>{rows}</tbody></table>
-</div></div>
-<div class="gainers-losers">
-<div class="gl-card"><h3>🚀 Top Gainers</h3>
-{''.join(f'<div class="gl-item"><span><strong>{g["name"]}</strong></span><span style="color:var(--green)">▲ {g["change_pct"]:.1f}%</span></div>' for g in sorted(commodities,key=lambda x:x['change_pct'],reverse=True)[:5])}
-</div>
-<div class="gl-card"><h3>📉 Top Losers</h3>
-{''.join(f'<div class="gl-item"><span><strong>{l["name"]}</strong></span><span style="color:var(--red)">▼ {abs(l["change_pct"]):.1f}%</span></div>' for l in sorted(commodities,key=lambda x:x['change_pct'])[:5])}
 </div></div>
 {unusual_html}
 {back_html}

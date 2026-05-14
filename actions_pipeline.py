@@ -231,6 +231,7 @@ tr:hover{{background:rgba(34,197,94,.03)}}
 </div>
 {sent_html}
 {hawk_html}
+{unusual_html}
 <h2 style="color:var(--accent);margin-bottom:12px">🏭 Sector Breakdown</h2>
 <div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">{sector_cards}</div>
 <h2 style="color:var(--accent);margin:24px 0 12px">📋 Stock Leaderboard</h2>
@@ -238,7 +239,7 @@ tr:hover{{background:rgba(34,197,94,.03)}}
 <table><thead><tr>
 <th>Stock</th><th>Curr.</th><th>Price</th><th>Change</th><th>Trend</th><th>Volatility</th><th>Day Range</th>
 </tr></thead><tbody>{rows}</tbody></table></div></div>
-{unusual_html}
+{back_html}
 {back_html}
 <div class="footer">
 <p>📊 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: {NOW}</p>
