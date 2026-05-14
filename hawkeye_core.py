@@ -26,7 +26,7 @@ def num(value: Any, default: float = 0.0) -> float:
 
 
 def safe_price(asset: dict) -> float:
-    return num(asset.get("price") or asset.get("current_price") or asset.get("close"), 0.0)
+    return num(asset.get("price") or asset.get("price_usd") or asset.get("current_price") or asset.get("close"), 0.0)
 
 
 def series(asset: dict, key: str) -> list[float]:
@@ -122,7 +122,10 @@ def slope_pct(closes: list[float], period: int, bars_back: int = 5) -> float:
 
 def asset_source(asset: dict) -> str:
     src = str(asset.get("source") or "").lower()
-    return "actions" if src == "stocks" else src
+    if src == "stocks": return "actions"
+    if src in ("coingecko", "coingecko_trending", "jupiter", "dexscreener", "birdeye"):
+        return "crypto"
+    return src
 
 
 def asset_name(asset: dict) -> str:
@@ -145,6 +148,15 @@ def asset_symbol(asset: dict) -> str:
 def data_quality(asset: dict) -> dict:
     src = asset_source(asset)
     price = safe_price(asset)
+    # Crypto: convert sparkline_7d → OHLCV proxy if missing
+    if src == "crypto" and not asset.get("_close_prices"):
+        spark = [p for p in (asset.get("sparkline_7d") or []) if p is not None]
+        if len(spark) >= 10:
+            asset["_close_prices"] = spark
+            asset["_high_prices"] = [p * 1.015 for p in spark]
+            asset["_low_prices"] = [p * 0.985 for p in spark]
+    if src == "crypto" and not asset.get("price"):
+        asset["price"] = num(asset.get("price_usd"), 0) or price
     cp = series(asset, "_close_prices")
     hp = series(asset, "_high_prices")
     lp = series(asset, "_low_prices")
@@ -160,7 +172,8 @@ def data_quality(asset: dict) -> dict:
     atr = atr_val(hp if hp else cp, lp if lp else cp, cp, 14) if cp else 0.0
     if atr <= 0:
         issues.append("ATR unavailable")
-    volume_reliable = src in VOLUME_SOURCES and num(asset.get("vol_ratio"), 0) > 0
+    vol_has_data = num(asset.get("vol_ratio"), 0) > 0 or num(asset.get("volume_mcap_ratio"), 0) > 0
+    volume_reliable = src in VOLUME_SOURCES and vol_has_data
     return {
         "ok": not issues,
         "degraded": bool(issues),

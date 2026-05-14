@@ -60,7 +60,6 @@ def _row(a: dict, source: str = "") -> str:
 <span class="score-pill {_score_class(a['score'])}">{a['score']}/100</span>
 <div style="font-size:.72em;color:var(--muted);margin-top:3px">Net {a['net_pressure']:+d} · {escape(a['symbol'])}</div>
 <div style="font-size:.7em;color:{a['color']};margin-top:2px">{escape(a['label'])}</div>
-<div style="font-size:.68em;color:#94a3b8;margin-top:2px">Manual chart check required</div>
 </div>
 </div>"""
 
@@ -98,7 +97,7 @@ def momentum_scanner_html(assets: list, top_n: int = 4, source: str = "") -> str
     .score-hot{{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}}.score-risk{{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}}.score-warm{{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}}.score-muted{{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}}.momentum-empty{{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}}
     @media(max-width:860px){{.scanner-head{{display:block}}.scanner-board{{grid-template-columns:1fr}}}}@media(max-width:520px){{.hawkeye-scanner{{padding:16px;border-radius:22px}}.signal-row{{display:block}}.signal-row>div:last-child{{text-align:left!important;margin-top:10px}}}}
   </style>
-  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension. Manual chart check required.</p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ {extreme} · 🦅 {strong} · 👁️ {active}</span></div></div>
+  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension.</p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ {extreme} · 🦅 {strong} · 👁️ {active}</span></div></div>
   <div class="scanner-board hawk-board">{_card('Bullish pressure', '📈', bullish, 'No active bullish pressure')}{_card('Bearish pressure', '📉', bearish, 'No active bearish pressure')}</div>
 </section>"""
 
