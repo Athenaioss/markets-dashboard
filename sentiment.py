@@ -1,10 +1,11 @@
 """
-🦅 Hawkeye v2 Sentiment Engine — True /100 Directional Scoring
+🦅 Hawkeye v3 Sentiment Engine — Quality Pressure Scoring
 Used by all Atlas Nexus pipelines (crypto, commodities, indices, forex, actions, etf).
 
 Trend 30 · Momentum 25 · RSI 15 · Volume 15 · Structure 15
+Swing proximity replaces data-quality proxy · no TP/SL/RR ticket levels
 Chase penalty: extension > 2 ATR → -10
-Tiers: 80-100 Strong · 65-79 Watchlist · <65 Ignored
+Tiers: 90+ Extreme · 80-89 Strong · 65-79 Active · <65 Ignore
 """
 
 from __future__ import annotations
@@ -99,259 +100,172 @@ def _change_pct(a: dict) -> float:
 
 
 # ═══════════════════════════════════════════════════════════════
-# 🦅 Hawkeye v2 — True /100 Scoring
+# 🦅 Hawkeye v3 — Quality Pressure Scoring
 # ═══════════════════════════════════════════════════════════════
 
-def _hawkeye_score(a: dict) -> dict:
-    """
-    Compute Hawkeye v2 directional score (0-100) for a single asset.
-    Returns bull_score, bear_score, and metadata for display.
-    """
-    cp = a.get("_close_prices", [])
-    hp = a.get("_high_prices", [])
-    lp = a.get("_low_prices", [])
+def _swing_low(lows, window=10):
+    if not lows: return 0
+    return min(lows[-window:]) if len(lows) >= window else min(lows)
 
-    if not cp or len(cp) < 10:
-        # Fallback: minimal score from summary fields
+
+def _swing_high(highs, window=10):
+    if not highs: return 0
+    return max(highs[-window:]) if len(highs) >= window else max(highs)
+
+
+def _hawkeye_score(a: dict) -> dict:
+    """Hawkeye v3: rank directional pressure quality /100, not TP/SL/RR trade tickets."""
+    price0 = _num(a.get("price") or a.get("current_price") or a.get("close"), 1.0)
+    cp = [float(x) for x in (a.get("_close_prices") or []) if x is not None]
+    hp = [float(x) for x in (a.get("_high_prices") or []) if x is not None]
+    lp = [float(x) for x in (a.get("_low_prices") or []) if x is not None]
+    if len(cp) < 10:
         trend = str(a.get("trend", "NEUTRAL")).upper()
         ch = _change_pct(a)
-        bull = 65 if trend == "BULLISH" else 50 if ch > 0 else 30
-        bear = 65 if trend == "BEARISH" else 50 if ch < 0 else 30
-        return {
-            "bull_score": bull, "bear_score": bear,
-            "rsi": 50, "roc5": ch, "ema20_ext": 0,
-            "tier_bull": "WATCHLIST", "tier_bear": "WATCHLIST",
-            "tags": [("Trend", trend.title())],
-        }
-
-    if not hp: hp = [a.get("price", 1)] * 20
-    if not lp: lp = [a.get("price", 1)] * 20
-
-    price = cp[-1] if cp else a.get("price", 1)
+        bull = 65 if trend == "BULLISH" and ch > 0 else 50 if ch > 0 else 30
+        bear = 65 if trend == "BEARISH" and ch < 0 else 50 if ch < 0 else 30
+        return {"bull_score": bull, "bear_score": bear, "rsi": 50, "roc5": ch, "roc20": ch, "ema20_ext": 0, "tier_bull": _tier(bull), "tier_bear": _tier(bear), "tags": [("Trend", trend.title())]}
+    if len(hp) < len(cp): hp = cp[:]
+    if len(lp) < len(cp): lp = cp[:]
+    price = cp[-1]
     ema20 = _ema(cp, 20)
-    ema50 = _ema(cp, min(50, len(cp)))
+    ema50 = _ema(cp, 50) if len(cp) >= 50 else _ema(cp, min(50, len(cp)))
     rsi14 = _rsi(cp, 14)
     macd_h = _macd_hist(cp)
     roc5 = _roc(cp, 5)
     roc20 = _roc(cp, 20)
-    atr = _atr_val(hp, lp, cp, 14)
-    slope = _ema20_slope(cp)
     p_roc5 = _prev_roc5(cp)
+    atr = _atr_val(hp, lp, cp, 14)
+    if not atr or atr <= 0: atr = max(abs(price) * 0.01, 0.01)
+    slope = _ema20_slope(cp)
     vol_ratio = _num(a.get("vol_ratio"), 0)
-    has_volume = bool(vol_ratio and vol_ratio > 0)
+    has_volume = vol_ratio > 0
     candle_ratio = a.get("candle_ratio")
-    extension_atr = abs(price - ema20) / atr if atr > 0 else 0
+    try:
+        candle_ratio = float(candle_ratio) if candle_ratio is not None else None
+    except (TypeError, ValueError):
+        candle_ratio = None
+    candle_ok = candle_ratio is not None and candle_ratio <= 0.75
+    extension_atr = abs(price - ema20) / atr if atr else 0
+    dist_to_sw_low = (price - _swing_low(lp)) / atr if atr else 99
+    dist_to_sw_high = (_swing_high(hp) - price) / atr if atr else 99
 
-    # ═══ BULL SCORE ═══
     bull = 0
-    # Trend (30)
-    if price > ema20:   bull += 10
-    if ema20 > ema50:   bull += 10
-    if slope > 0:       bull += 10
-    # Momentum (25)
-    if roc5 > 0:        bull += 7
-    if roc20 > 0:       bull += 7
-    if macd_h > 0:      bull += 6
-    if roc5 > p_roc5:   bull += 5
-    # RSI (15)
-    if 52 <= rsi14 <= 66:        bull += 15
-    elif (45 <= rsi14 < 52) or (66 < rsi14 <= 72): bull += 8
-    # Volume (15)
+    if price > ema20: bull += 10
+    if ema20 > ema50: bull += 10
+    if slope > 0: bull += 10
+    if roc5 > 0: bull += 7
+    if roc20 > 0: bull += 7
+    if macd_h > 0: bull += 6
+    if roc5 > p_roc5: bull += 5
+    if 53 <= rsi14 <= 66: bull += 15
+    elif (45 <= rsi14 < 47) or (66 < rsi14 <= 72): bull += 8
+    elif rsi14 > 72: bull -= 5
     if has_volume:
-        if 1.1 <= vol_ratio <= 2.5:   bull += 10
-        elif vol_ratio > 2.5:         bull += 5
-        if candle_ratio is not None and candle_ratio < 0.75: bull += 5
-        elif candle_ratio is None:    bull += 3
+        if 1.1 <= vol_ratio <= 2.5: bull += 10
+        elif vol_ratio > 2.5: bull += 5
+        if candle_ok: bull += 5
     else:
-        bull += 7
-    # Structure (15)
-    if atr > 0 and len(cp) >= 20: bull += 8
-    if extension_atr <= 1.5:      bull += 7
-    elif extension_atr <= 2.0:    bull += 3
-    if extension_atr > 2.0:       bull -= 10
-    bull = max(0, min(100, bull))
+        bull += 5
+    if 0 <= dist_to_sw_low <= 1: bull += 8
+    elif 1 < dist_to_sw_low <= 2: bull += 4
+    if extension_atr <= 1.0: bull += 7
+    elif extension_atr <= 1.5: bull += 4
+    elif extension_atr <= 2.0: bull += 2
+    if extension_atr > 2.0: bull -= 10
 
-    # ═══ BEAR SCORE ═══
     bear = 0
-    if price < ema20:   bear += 10
-    if ema20 < ema50:   bear += 10
-    if slope < 0:       bear += 10
-    if roc5 < 0:        bear += 7
-    if roc20 < 0:       bear += 7
-    if macd_h < 0:      bear += 6
-    if roc5 < p_roc5:   bear += 5
-    if 34 <= rsi14 <= 48:        bear += 15
-    elif (28 <= rsi14 < 34) or (48 < rsi14 <= 55): bear += 8
+    if price < ema20: bear += 10
+    if ema20 < ema50: bear += 10
+    if slope < 0: bear += 10
+    if roc5 < 0: bear += 7
+    if roc20 < 0: bear += 7
+    if macd_h < 0: bear += 6
+    if roc5 < p_roc5: bear += 5
+    if 34 <= rsi14 <= 47: bear += 15
+    elif (28 <= rsi14 < 34) or (53 < rsi14 <= 55): bear += 8
+    elif rsi14 < 28: bear -= 5
     if has_volume:
-        if 1.1 <= vol_ratio <= 2.5:   bear += 10
-        elif vol_ratio > 2.5:         bear += 5
-        if candle_ratio is not None and candle_ratio < 0.75: bear += 5
-        elif candle_ratio is None:    bear += 3
+        if 1.1 <= vol_ratio <= 2.5: bear += 10
+        elif vol_ratio > 2.5: bear += 5
+        if candle_ok: bear += 5
     else:
-        bear += 7
-    if atr > 0 and len(cp) >= 20: bear += 8
-    if extension_atr <= 1.5:      bear += 7
-    elif extension_atr <= 2.0:    bear += 3
-    if extension_atr > 2.0:       bear -= 10
-    bear = max(0, min(100, bear))
+        bear += 5
+    if 0 <= dist_to_sw_high <= 1: bear += 8
+    elif 1 < dist_to_sw_high <= 2: bear += 4
+    if extension_atr <= 1.0: bear += 7
+    elif extension_atr <= 1.5: bear += 4
+    elif extension_atr <= 2.0: bear += 2
+    if extension_atr > 2.0: bear -= 10
 
-    # Tiers
-    def _tier(s):
-        if s >= 80: return "STRONG"
-        if s >= 65: return "WATCHLIST"
-        return "IGNORE"
-
-    # Tags for display
+    bull = max(0, min(100, int(round(bull))))
+    bear = max(0, min(100, int(round(bear))))
     tags = []
-    if price > ema20:   tags.append(("Trend", "MA bull"))
+    if price > ema20: tags.append(("Trend", "MA bull"))
     elif price < ema20: tags.append(("Trend", "MA bear"))
-    if has_volume:
-        if vol_ratio >= 1.5: tags.append(("Vol", f"{vol_ratio:.1f}×"))
-    else:
-        tags.append(("Vol", "fx"))
-    if extension_atr > 2.0: tags.append(("Ext", "chase"))
-    if rsi14 > 70:     tags.append(("RSI", "overbought"))
-    elif rsi14 < 30:   tags.append(("RSI", "oversold"))
+    if has_volume and vol_ratio >= 1.5: tags.append(("Vol", f"{vol_ratio:.1f}×"))
+    elif not has_volume: tags.append(("Vol", "neutral"))
+    if extension_atr > 2: tags.append(("Ext", "chase"))
+    if rsi14 > 72: tags.append(("RSI", "extended"))
+    elif rsi14 < 28: tags.append(("RSI", "extended"))
+    return {"bull_score": bull, "bear_score": bear, "rsi": rsi14, "roc5": roc5, "roc20": roc20, "ema20_ext": round(extension_atr, 1), "tier_bull": _tier(bull), "tier_bear": _tier(bear), "tags": tags[:3]}
 
-    return {
-        "bull_score": bull,
-        "bear_score": bear,
-        "rsi": rsi14,
-        "roc5": roc5,
-        "ema20_ext": round(extension_atr, 1),
-        "tier_bull": _tier(bull),
-        "tier_bear": _tier(bear),
-        "tags": tags[:3],
-    }
+
+def _tier(score: int) -> str:
+    if score >= 90: return "EXTREME"
+    if score >= 80: return "STRONG"
+    if score >= 65: return "ACTIVE"
+    return "WATCH"
 
 
 def _tier_badge(tier: str) -> tuple:
-    if tier == "STRONG":    return ("🦅 STRONG", "#22c55e", "score-hot")
-    if tier == "WATCHLIST": return ("👁️ WATCH", "#f59e0b", "score-warm")
-    return ("⏳ IGNORE", "#64748b", "score-muted")
+    if tier == "EXTREME": return ("⚡ EXTREME", "#22c55e", "score-hot")
+    if tier == "STRONG":  return ("🦅 STRONG", "#22c55e", "score-hot")
+    if tier == "ACTIVE":  return ("👁️ ACTIVE", "#f59e0b", "score-warm")
+    return ("📡 WATCH", "#64748b", "score-muted")
 
 
 # ═══════════════════════════════════════════════════════════════
-# Trade levels — same as scanner_generator.py contextual_levels
+# HTML Cards — pressure rows, no stop/target/RR
 # ═══════════════════════════════════════════════════════════════
 
-def _source_profile(source="", symbol=""):
-    symbol = (symbol or "").upper()
-    if source == "forex":
-        return {"decimals": 2 if "JPY" in symbol else 4, "stop_atr": 1.15, "target_rr": 1.8, "min_risk_pct": 0.25, "max_risk_pct": 1.20}
-    if source == "crypto":
-        return {"decimals": 2, "stop_atr": 1.8, "target_rr": 1.8, "min_risk_pct": 2.00, "max_risk_pct": 12.0}
-    if source in ("actions", "stocks", "etf"):
-        return {"decimals": 2, "stop_atr": 1.25, "target_rr": 1.7, "min_risk_pct": 0.80, "max_risk_pct": 6.00}
-    if source == "indices":
-        return {"decimals": 2, "stop_atr": 1.20, "target_rr": 1.7, "min_risk_pct": 0.60, "max_risk_pct": 5.00}
-    if source == "commodities":
-        return {"decimals": 2, "stop_atr": 1.15, "target_rr": 1.6, "min_risk_pct": 0.70, "max_risk_pct": 5.00}
-    return {"decimals": 2, "stop_atr": 1.30, "target_rr": 1.7, "min_risk_pct": 0.80, "max_risk_pct": 6.00}
+def _entry_precision(asset, source=""):
+    symbol = str(asset.get("symbol") or "").upper()
+    price = _num(asset.get("price"))
+    if source == "forex": return 2 if "JPY" in symbol else 4
+    return 2 if price >= 1 else 4
 
-def _swing_low(lows, window=10):
-    if not lows or len(lows) < window: return min(lows) if lows else 0
-    return min(lows[-window:])
-
-def _swing_high(highs, window=10):
-    if not highs or len(highs) < window: return max(highs) if highs else 0
-    return max(highs[-window:])
-
-def _trade_levels(asset, direction, source=""):
-    """Return entry, stop, target, RR for display ticket."""
-    entry = _num(asset.get("price"))
-    cp = asset.get("_close_prices", [])
-    hp = asset.get("_high_prices", [])
-    lp = asset.get("_low_prices", [])
-    if not cp: cp = [entry] * 20
-    if not hp: hp = [entry] * 20
-    if not lp: lp = [entry] * 20
-    
-    atr = _atr_val(hp, lp, cp, 14)
-    if not entry or not atr or atr <= 0:
-        return None
-    
-    profile = _source_profile(source, asset.get("symbol", ""))
-    atr_risk = atr * profile["stop_atr"]
-    min_risk = entry * profile["min_risk_pct"] / 100
-    max_risk = entry * profile["max_risk_pct"] / 100
-    risk = min(max(atr_risk, min_risk), max_risk)
-    
-    if direction == "LONG":
-        structure_stop = _swing_low(lp) - atr * 0.15
-        structure_risk = entry - structure_stop
-        if min_risk <= structure_risk <= max_risk:
-            risk = max(risk, structure_risk)
-        stop = entry - risk
-        tp = entry + risk * profile["target_rr"]
-        rr = round((tp - entry) / risk, 1) if risk > 0 else 0
-        tp_pct = round((tp - entry) / entry * 100, 1)
-    else:
-        structure_stop = _swing_high(hp) + atr * 0.15
-        structure_risk = structure_stop - entry
-        if min_risk <= structure_risk <= max_risk:
-            risk = max(risk, structure_risk)
-        stop = entry + risk
-        tp = entry - risk * profile["target_rr"]
-        rr = round((entry - tp) / risk, 1) if risk > 0 else 0
-        tp_pct = round((entry - tp) / entry * 100, 1)
-    
-    return {
-        "entry": round(entry, profile["decimals"]),
-        "stop": round(stop, profile["decimals"]),
-        "tp": round(tp, profile["decimals"]),
-        "rr": rr,
-        "risk_pct": round(risk / entry * 100, 2),
-        "tp_pct": tp_pct,
-        "precision": profile["decimals"],
-    }
-
-
-# ═══════════════════════════════════════════════════════════════
-# HTML Cards — Ticket format (entry, stop, target, RR)
-# ═══════════════════════════════════════════════════════════════
 
 def _pick_card(asset: dict, side: str, source: str = "") -> str:
     m = _hawkeye_score(asset)
     bullish = side == "bull"
-    direction = "LONG" if bullish else "SHORT"
+    direction = "BULL" if bullish else "BEAR"
     score = m["bull_score"] if bullish else m["bear_score"]
     tier = m["tier_bull"] if bullish else m["tier_bear"]
     badge, badge_color, score_class = _tier_badge(tier)
-    
-    levels = _trade_levels(asset, direction, source)
-    
     title = escape(_asset_name(asset))
     symbol = escape(_asset_symbol(asset))
-    
-    if levels:
-        precision = levels["precision"]
-        entry_fmt = f"${levels['entry']:,.{precision}f}"
-        stop_fmt = f"${levels['stop']:,.{precision}f}"
-        tp_fmt = f"${levels['tp']:,.{precision}f}"
-        rr_str = f"RR {levels['rr']}:1"
-        risk_str = f"−{levels['risk_pct']}%"
-    else:
-        entry_fmt = f"${asset.get('price',0):,.2f}"
-        stop_fmt = "—"
-        tp_fmt = "—"
-        rr_str = ""
-        risk_str = ""
-    
+    precision = _entry_precision(asset, source)
+    entry = _num(asset.get("price"))
+    entry_fmt = f"${entry:,.{precision}f}"
+    ext = m.get("ema20_ext", 0)
+    motif = "bull pressure" if bullish else "bear pressure"
+    if ext > 2: motif += " · chase risk"
     return f"""<div class="signal-row hawk-row">
 <div>
 <span class="asset-name">{title}</span>
 <span class="asset-tag">{direction}</span>
-<span class="asset-meta">{source or _asset_group(asset)} · {badge.strip('🦅👁️⏳ ')}</span>
+<span class="asset-meta">{source or _asset_group(asset)} · {motif}</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ {entry_fmt}</span>
-<span style="color:#ef4444">🛑 {stop_fmt}</span>
-<span style="color:#22c55e">🎯 {tp_fmt}</span>
+<span style="color:#bae6fd">📍 {entry_fmt}</span>
+<span style="color:#a7f3d0">ROC5 {m.get('roc5',0):+.1f}%</span>
+<span style="color:#fbbf24">RSI {m.get('rsi',50)}</span>
+<span style="color:#c4b5fd">Ext {ext:.1f} ATR</span>
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill {score_class}">{score}</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">{rr_str} {risk_str}</div>
+<span class="score-pill {score_class}">{score}/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">{symbol}</div>
 <div style="font-size:.7em;color:{badge_color};margin-top:2px">{badge}</div>
 </div>
 </div>"""
@@ -362,68 +276,48 @@ def _pick_card(asset: dict, side: str, source: str = "") -> str:
 # ═══════════════════════════════════════════════════════════════
 
 def momentum_scanner_html(assets: list, top_n: int = 4, source: str = "") -> str:
-    """Hawkeye v2 scanner — identical to main dashboard format with entry/stop/target."""
+    """Hawkeye v3 scanner — quality pressure rows, no TP/SL/RR."""
     if len(assets) < 2:
         return ""
-
     scored = [(a, _hawkeye_score(a)) for a in assets]
-
-    bullish_pool = [(a, m) for a, m in scored if m["bull_score"] >= 65]
-    bearish_pool = [(a, m) for a, m in scored if m["bear_score"] >= 65]
-
+    mixed_pool = [(a, m) for a, m in scored if m["bull_score"] >= 55 and m["bear_score"] >= 55]
+    mixed_ids = {id(a) for a, _ in mixed_pool}
+    bullish_pool = [(a, m) for a, m in scored if id(a) not in mixed_ids and m["bull_score"] >= 65]
+    bearish_pool = [(a, m) for a, m in scored if id(a) not in mixed_ids and m["bear_score"] >= 65]
     bullish = [a for a, _ in sorted(bullish_pool, key=lambda x: x[1]["bull_score"], reverse=True)[:top_n]]
     bearish = [a for a, _ in sorted(bearish_pool, key=lambda x: x[1]["bear_score"], reverse=True)[:top_n]]
-
+    mixed = [a for a, _ in sorted(mixed_pool, key=lambda x: max(x[1]["bull_score"], x[1]["bear_score"]), reverse=True)[:3]]
     strong_bull = sum(1 for _, m in scored if m["bull_score"] >= 80)
     strong_bear = sum(1 for _, m in scored if m["bear_score"] >= 80)
-    watch_bull = sum(1 for _, m in scored if 65 <= m["bull_score"] < 80)
-    watch_bear = sum(1 for _, m in scored if 65 <= m["bear_score"] < 80)
-
+    active_bull = sum(1 for _, m in scored if 65 <= m["bull_score"] < 80)
+    active_bear = sum(1 for _, m in scored if 65 <= m["bear_score"] < 80)
     def empty(text: str) -> str:
         return f'<div class="momentum-empty">{escape(text)}</div>'
-
-    bull_html = "".join(_pick_card(a, "bull", source) for a in bullish) or empty("No Strong or Watchlist bullish signal")
-    bear_html = "".join(_pick_card(a, "bear", source) for a in bearish) or empty("No Strong or Watchlist bearish signal")
-
+    bull_html = "".join(_pick_card(a, "bull", source) for a in bullish) or empty("No active bullish pressure")
+    bear_html = "".join(_pick_card(a, "bear", source) for a in bearish) or empty("No active bearish pressure")
+    mixed_html = ""
+    if mixed:
+        rows = []
+        for a in mixed:
+            m = _hawkeye_score(a)
+            rows.append(f"<div class='signal-row hawk-row'><div><span class='asset-name'>{escape(_asset_name(a))}</span><span class='asset-tag'>MIXED</span><span class='asset-meta'>{escape(source or _asset_group(a))} · contradictory pressure / volatile tape</span><span class='asset-levels'><span style='color:#bae6fd'>📍 ${_num(a.get('price')):,.2f}</span><span style='color:#22c55e'>Bull {m['bull_score']}</span><span style='color:#ef4444'>Bear {m['bear_score']}</span></span></div><div style='text-align:right'><span class='score-pill score-warm'>{max(m['bull_score'],m['bear_score'])}/100</span><div style='font-size:.7em;color:#f59e0b;margin-top:2px'>⚠️ MIXED / VOLATILE</div></div></div>")
+        mixed_html = f"<div class='signal-card mixed-card'><h3>⚠️ Mixed / Volatile ({len(mixed)})</h3>{''.join(rows)}</div>"
     return f"""
-<section class="momentum-scanner-v2 scanner hawkeye-scanner" aria-label="Hawkeye v2">
+<section class="momentum-scanner-v2 scanner hawkeye-scanner" aria-label="Hawkeye v3">
   <style>
     .hawkeye-scanner{{margin:0 0 24px;padding:24px;border:1px solid rgba(56,189,248,.20);border-radius:28px;position:relative;overflow:hidden;text-align:left;background:linear-gradient(135deg,rgba(16,22,34,.92),rgba(18,14,33,.86) 48%,rgba(29,22,10,.76));box-shadow:0 22px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}}
     .hawkeye-scanner:before{{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,rgba(56,189,248,.18),transparent 35%),radial-gradient(circle at 92% 14%,rgba(245,158,11,.12),transparent 28%);pointer-events:none}}
-    .hawkeye-scanner>*{{position:relative}}
-    .scanner-head{{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}}
-    .scanner-head h2{{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}}
-    .scanner-head .tier-legend{{display:flex;gap:10px;flex-wrap:wrap;font-size:.74em;color:var(--muted)}}
-    .scanner-head .tier-legend span{{padding:3px 8px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04)}}
-    .scanner-board{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
-    .signal-card{{border:1px solid var(--atlas-border,var(--border));border-radius:22px;padding:14px;background:rgba(7,9,20,.38);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}}
-    .signal-card h3{{margin:0 0 12px;color:var(--atlas-text,var(--text));font-size:.98rem;font-weight:950;letter-spacing:-.025em}}
-    .signal-row{{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px;border:1px solid rgba(148,163,184,.16);border-radius:16px;background:rgba(255,255,255,.035);margin-top:9px}}
-    .signal-row:first-of-type{{margin-top:0}}
-    .asset-name{{display:inline;font-weight:900;color:var(--atlas-text,var(--text));line-height:1.15;margin-right:6px}}
-    .asset-tag{{display:inline-flex;vertical-align:middle;padding:2px 7px;border-radius:999px;background:rgba(56,189,248,.10);border:1px solid rgba(56,189,248,.22);color:#bae6fd;font-size:.66rem;font-weight:900;text-transform:uppercase}}
-    .asset-meta{{display:block;color:var(--atlas-muted,var(--muted));font-size:.74rem;margin-top:4px;line-height:1.35}}
-    .asset-levels{{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}}
-    .asset-levels span{{padding:4px 7px;border-radius:999px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.16)}}
-    .score-pill{{display:inline-flex;align-items:center;justify-content:center;min-width:48px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent}}
-    .score-hot{{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}}
-    .score-risk{{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}}
-    .score-warm{{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}}
-    .score-muted{{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}}
-    .momentum-empty{{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}}
-    @media(max-width:860px){{.scanner-head{{display:block}}.scanner-board{{grid-template-columns:1fr}}}}
-    @media(max-width:520px){{.hawkeye-scanner{{padding:16px;border-radius:22px}}.signal-row{{display:block}}.signal-row>div:last-child{{text-align:left!important;margin-top:10px}}}}
+    .hawkeye-scanner>*{{position:relative}}.scanner-head{{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}}.scanner-head h2{{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}}
+    .scanner-head .tier-legend{{display:flex;gap:10px;flex-wrap:wrap;font-size:.74em;color:var(--muted)}}.scanner-head .tier-legend span{{padding:3px 8px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04)}}.scanner-board{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
+    .signal-card{{border:1px solid var(--atlas-border,var(--border));border-radius:22px;padding:14px;background:rgba(7,9,20,.38);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}}.mixed-card{{grid-column:1/-1}}.signal-card h3{{margin:0 0 12px;color:var(--atlas-text,var(--text));font-size:.98rem;font-weight:950;letter-spacing:-.025em}}
+    .signal-row{{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px;border:1px solid rgba(148,163,184,.16);border-radius:16px;background:rgba(255,255,255,.035);margin-top:9px}}.signal-row:first-of-type{{margin-top:0}}.asset-name{{display:inline;font-weight:900;color:var(--atlas-text,var(--text));line-height:1.15;margin-right:6px}}
+    .asset-tag{{display:inline-flex;vertical-align:middle;padding:2px 7px;border-radius:999px;background:rgba(56,189,248,.10);border:1px solid rgba(56,189,248,.22);color:#bae6fd;font-size:.66rem;font-weight:900;text-transform:uppercase}}.asset-meta{{display:block;color:var(--atlas-muted,var(--muted));font-size:.74rem;margin-top:4px;line-height:1.35}}
+    .asset-levels{{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}}.asset-levels span{{padding:4px 7px;border-radius:999px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.16)}}.score-pill{{display:inline-flex;align-items:center;justify-content:center;min-width:58px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent}}
+    .score-hot{{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}}.score-risk{{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}}.score-warm{{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}}.score-muted{{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}}.momentum-empty{{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}}
+    @media(max-width:860px){{.scanner-head{{display:block}}.scanner-board{{grid-template-columns:1fr}}.mixed-card{{grid-column:auto}}}}@media(max-width:520px){{.hawkeye-scanner{{padding:16px;border-radius:22px}}.signal-row{{display:block}}.signal-row>div:last-child{{text-align:left!important;margin-top:10px}}}}
   </style>
-  <div class="scanner-head">
-    <div><h2>🦅 Hawkeye v2</h2></div>
-    <div class="tier-legend">
-      <span>🦅 Strong 80+</span><span>👁️ Watch 65-79</span><span>🟊 {strong_bull+strong_bear} strong · {watch_bull+watch_bear} watch</span>
-    </div>
-  </div>
-  <div class="scanner-board hawk-board">
-    <div class="signal-card"><h3>🚀 Bullish setups ({len(bullish)})</h3>{bull_html}</div>
-    <div class="signal-card"><h3>🐻 Bearish setups ({len(bearish)})</h3>{bear_html}</div>
-  </div>
+  <div class="scanner-head"><div><h2>🦅 Hawkeye v3</h2></div><div class="tier-legend"><span>⚡ Extreme 90+</span><span>🦅 Strong 80-89</span><span>👁️ Active 65-79</span><span>🟊 {strong_bull+strong_bear} strong · {active_bull+active_bear} active</span></div></div>
+  <div class="scanner-board hawk-board"><div class="signal-card"><h3>🚀 Bullish pressure ({len(bullish)})</h3>{bull_html}</div><div class="signal-card"><h3>🐻 Bearish pressure ({len(bearish)})</h3>{bear_html}</div>{mixed_html}</div>
 </section>"""
 
 
