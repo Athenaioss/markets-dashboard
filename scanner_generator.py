@@ -429,26 +429,6 @@ def bias_label(net):
     return "⚪ Neutral"
 
 
-def macro_pulse_html(assets):
-    by_source = []
-    total_bull = sum(1 for a in assets if a.get("bull_score", 0) >= 65 and a.get("bear_score", 0) < 55)
-    total_bear = sum(1 for a in assets if a.get("bear_score", 0) >= 65 and a.get("bull_score", 0) < 55)
-    avg_net = 0
-    if assets:
-        avg_net = sum(a.get("bull_score", 0) - a.get("bear_score", 0) for a in assets) / len(assets)
-    for src, (emoji, label) in SOURCE_META.items():
-        subset = [a for a in assets if a.get("source") == src]
-        if not subset:
-            by_source.append(f"<span>{emoji} {label} ⚪ No data</span>")
-            continue
-        net = sum(a.get("bull_score", 0) - a.get("bear_score", 0) for a in subset) / len(subset)
-        by_source.append(f"<span>{emoji} {label} {bias_label(net)}</span>")
-    return f"""<div class="macro-pulse">
-<div class="macro-bias">{bias_label(avg_net)} Bias</div>
-<div class="macro-sources">{' '.join(by_source)}</div>
-<div class="macro-counts"><span>🟢 {total_bull} bullish pressure</span><span>🔴 {total_bear} bearish pressure</span><span>📡 {len(assets)} actifs analysés</span></div>
-</div>"""
-
 
 def main():
     print("🦅 Hawkeye v3 — Pressure Quality Scanner")
@@ -490,7 +470,6 @@ def main():
     print(f"  📉 Bear pressure: {len(bearish)}")
     print(f"  ⚠️ Mixed/Volatile: {len(mixed)}")
 
-    pulse = macro_pulse_html(assets_clean)
     bull_card = setup_card("Bullish Pressure", "📈", bullish, "score-hot")
     bear_card = setup_card("Bearish Pressure", "📉", bearish, "score-risk")
     mixed_html = mixed_card(mixed)
@@ -500,7 +479,6 @@ def main():
 <div class="scanner-head">
 <div>
 <h2>🦅 Hawkeye v3 — Pressure Scanner</h2>
-{pulse}
 </div>
 <div class="scanner-score">
 <div class="num">{len(assets_clean)}</div>
