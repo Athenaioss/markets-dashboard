@@ -345,9 +345,9 @@ def main():
 <div class="formula">
 <span class="chip">Entry = current</span>
 <span class="chip">SL = contextual ATR + structure</span>
-<span class="chip">TP = class-aware RR</span>
+<span class="chip">TP = class-aware reward/risk</span>
 <span class="chip"></span>
-<span class="chip">RR ≥ 1.0</span>
+<span class="chip">reward/risk ≥ 1.0</span>
 </div>
 </div>
 <div class="scanner-score">
