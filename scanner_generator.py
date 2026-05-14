@@ -232,7 +232,7 @@ def build_setups(assets):
                     name=name, source=src, direction="LONG", symbol=a.get("symbol", ""),
                     score=bull, **levels,
                     rsi=a.get("_rsi", 50),
-                    motif="trend + contextual risk",
+                    motif="trend momentum",
                     status="TRADEABLE"
                 ))
         
@@ -244,7 +244,7 @@ def build_setups(assets):
                     name=name, source=src, direction="SHORT", symbol=a.get("symbol", ""),
                     score=bear, **levels,
                     rsi=a.get("_rsi", 50),
-                    motif="downtrend + contextual risk",
+                    motif="downtrend momentum",
                     status="TRADEABLE"
                 ))
     
@@ -267,8 +267,8 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
     rows = ""
     for s in setups:
         score = s["score"]
-        entry = s["entry"]; stop = s["stop"]; tp = s["tp"]
-        rr = s["rr"]; risk_pct = s["risk_pct"]; status = s["status"]
+        entry = s["entry"]
+        status = s["status"]
         motif = s.get("motif", "")
         market = market_for_source(s.get("source", ""))
         
@@ -277,10 +277,6 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
         
         precision = int(s.get("precision", 2 if entry > 1 else 4))
         price_fmt = f"${entry:,.{precision}f}"
-        stop_fmt = f"${stop:,.{precision}f}"
-        tp = s.get("tp", 0)
-        tp_fmt = f"${tp:,.{precision}f}"
-        tp_pct = s.get("tp_pct", 0)
         
         rows += f"""<div class="signal-row" data-market="{market}">
 <div>
@@ -288,14 +284,11 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
 <span class="asset-tag">{s.get('direction','')}</span>
 <span class="asset-meta">{s.get('source','')} · {motif}</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🚪 {price_fmt}</span>
-<span style="color:#22c55e">🎯 {tp_fmt} <small>{is_bullish and '+' or '-'}{tp_pct}%</small></span>
-<span style="color:#ef4444">🛑 {stop_fmt}</span>
+<span style="color:#bae6fd">🎟️ {price_fmt}</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill {color_class}">{score}</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR {rr}:1 · −{risk_pct}%</div>
 <div style="font-size:.7em;color:{badge_color};margin-top:2px">{badge_text}</div>
 <div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>
@@ -343,13 +336,6 @@ def main():
 <div class="scanner-head">
 <div>
 <h2>⚡ Market Pulse Scanner</h2>
-<p>Tradeable setups from Yahoo Finance OHLCV daily data.<br>ATR-based stops/targets · Bull/Bear scoring · RR ≥ 1.0 required</p>
-<div class="formula">
-<span class="chip">Entry = current</span>
-<span class="chip">TP = class-aware reward/risk</span>
-<span class="chip">SL = contextual ATR + structure</span>
-<span class="chip">reward/risk ≥ 1.0</span>
-</div>
 </div>
 <div class="scanner-score">
 <div class="num">{len(assets_clean)}</div>
@@ -363,9 +349,9 @@ def main():
 </div>
 
 <div class="legend">
-<span>✅ TRADEABLE — RR ≥ 1.0, levels valid</span>
+<span>✅ TRADEABLE — directional scanner signal</span>
 <span class="demo-tag">Updated {UPDATED_AT_LABEL}</span>
-<span class="demo-tag">Yahoo Finance · ATR-based · {NOW}</span>
+<span class="demo-tag">Yahoo Finance · {NOW}</span>
 </div>
 </section>"""
     
