@@ -132,24 +132,24 @@ h1{{font-size:3em;font-weight:800;background:linear-gradient(135deg,#38bdf8,#818
 </div>
 <!-- TradingView Widget END -->
 <div class="grid">
-<a href="../enhanced_dashboard.html" class="panel panel-1">
+<a href="crypto_dashboard.html" class="panel panel-1">
 <div class="emoji">🪙</div><h2>Crypto</h2>
-<div class="desc">Bitcoin, Ethereum, Solana & 100+ tokens</div></a>
+<div class="desc">BTC, ETH, SOL & liquid majors · 24/7 momentum</div></a>
 <a href="commodities_dashboard.html" class="panel panel-2">
 <div class="emoji">🛢️</div><h2>Commodities</h2>
-<div class="desc">Gold, Oil, Copper, Grains & Softs</div></a>
+<div class="desc">Gold, Silver, Oil, Copper, Grains · CFD/extended context</div></a>
 <a href="indices_dashboard.html" class="panel panel-3">
-<div class="emoji">📈</div><h2>Indices</h2>
-<div class="desc">S&P 500, Nasdaq, FTSE, DAX, Nikkei</div></a>
+<div class="emoji">🌍</div><h2>Indices</h2>
+<div class="desc">S&P 500, Nasdaq, DAX, CAC, Nikkei · global risk pulse</div></a>
 <a href="forex_dashboard.html" class="panel panel-4">
 <div class="emoji">💱</div><h2>Forex</h2>
-<div class="desc">Majors, Minors & Exotic currency pairs</div></a>
+<div class="desc">EURUSD, GBPJPY, AUDUSD · majors, crosses and exotics</div></a>
 <a href="actions_dashboard.html" class="panel panel-5">
-<div class="emoji">📊</div><h2>Actions</h2>
-<div class="desc">AAPL, LVMH, NVDA, TSLA · 30 stocks</div></a>
+<div class="emoji">🏛️</div><h2>Stocks</h2>
+<div class="desc">Mega-cap tech, luxury, banks, defensives · equity momentum</div></a>
 <a href="etf_dashboard.html" class="panel panel-6">
-<div class="emoji">💰</div><h2>ETF</h2>
-<div class="desc">SPY, QQQ, GLD, ARKK · 24 ETFs</div></a>
+<div class="emoji">🧺</div><h2>ETF</h2>
+<div class="desc">SPY, QQQ, GLD, TLT, ARKK · themes and cross-asset exposure</div></a>
 </div>
 <div class="footer"><p>🔮 Built by <strong>Atlas Nexus</strong> · Yahoo Finance + TradingView · Updated daily</p>
 <p style="margin-top:4px"><a href="https://github.com/AtlasNexusOps/birdeye-sprint4" style="color:#38bdf8">github.com/AtlasNexusOps/birdeye-sprint4</a></p>
