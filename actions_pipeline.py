@@ -240,10 +240,8 @@ tr:hover{{background:rgba(34,197,94,.03)}}
 <th>Stock</th><th>Curr.</th><th>Price</th><th>Change</th><th>Trend</th><th>Volatility</th><th>Day Range</th>
 </tr></thead><tbody>{rows}</tbody></table></div></div>
 {back_html}
-{back_html}
 <div class="footer">
 <p>📊 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: {NOW}</p>
-<p style="margin-top:4px"><a href="index.html">← Back to Dashboard</a></p>
 </div>
 </div></body></html>"""
 
