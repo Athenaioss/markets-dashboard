@@ -358,7 +358,7 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atlas Nexus — Birdeye Sprint 4 Dashboard</title>
+    <title>Atlas Nexus — Crypto Dashboard</title>
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{ font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0f172a; color: #e2e8f0; padding: 20px; }}
@@ -387,8 +387,7 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
 </head>
 <body>
     <div class="header">
-        <h1>🔮 Atlas Nexus — Birdeye Sprint 4</h1>
-        <p>Multi-source crypto analytics pipeline | Generated: {NOW}</p>
+        <h1>₿ Atlas Nexus — Crypto</h1>
     </div>
     
     <div class="cards">
@@ -446,10 +445,6 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
     {''.join(f'<tr><td><strong>{uv["symbol"]}</strong></td><td>${uv.get("volume_24h",0) or 0:,.0f}</td><td>${(uv.get("market_cap",0) or 0)/1e6:.1f}M</td><td>{uv.get("volume_mcap_ratio",0):.2%}</td></tr>' for uv in summary.get('unusual_volume_tokens',[])[:5])}
     </table>''' if summary.get('unusual_volume_tokens') else ''}
     
-    <div style="text-align:center; padding:30px; color:#64748b; margin-top:20px;">
-        <p>Built for Birdeye Data BIP Sprint 4 by Atlas Nexus</p>
-        <p style="font-size:0.8em">Multi-source pipeline: CoinGecko + DEX Screener + Birdeye BDS | {NOW}</p>
-    </div>
 </body>
 </html>"""
     
