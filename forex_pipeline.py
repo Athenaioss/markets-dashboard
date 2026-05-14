@@ -12,7 +12,7 @@ Tracks: EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD,
 import json, csv, urllib.request, os, time, statistics
 from datetime import datetime
 from pathlib import Path
-from sentiment import compute_sentiment, hawk_eye_html, tools_section_html
+from sentiment import compute_sentiment, hawk_eye_html, back_to_dashboard_html, unusual_activity_html
 from dashboard_theme import enhance_dashboard_html
 
 OUTPUT_DIR = Path("output")
@@ -167,7 +167,8 @@ def export_html(pairs):
     avg = round(sum(p["change_pct"] for p in pairs) / len(pairs), 2) if pairs else 0
 
     hawk_html = hawk_eye_html(pairs)
-    tools_html = tools_section_html()
+    unusual_html = unusual_activity_html(pairs)
+    back_html = back_to_dashboard_html()
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -214,7 +215,8 @@ tr:hover{{background:rgba(34,197,94,.03)}}
 <table><thead><tr>
 <th>Pair</th><th>Type</th><th>Price</th><th>Change</th><th>MA(5)</th><th>MA(20)</th><th>Trend</th><th>Volatility</th>
 </tr></thead><tbody>{rows}</tbody></table></div></div>
-{tools_html}
+{unusual_html}
+{back_html}
 <div class="footer"><p>💱 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: {NOW}</p></div>
 </div></body></html>"""
 

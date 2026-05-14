@@ -362,47 +362,83 @@ hawk_eye_html = momentum_scanner_html
 
 
 # ═══════════════════════════════════════════════════════════════
-# Best Tools — uniform across all dashboard pages
+# Shared sections — Back link + Unusual Activity Alert
 # ═══════════════════════════════════════════════════════════════
 
-def tools_section_html() -> str:
-    """Shared 'Best Tools' section for every dashboard page."""
+def back_to_dashboard_html() -> str:
+    """Simple '← Back to Dashboard' link, uniform across all pages."""
     return """
-<section class="tools-section" aria-label="Best Tools">
-  <style>
-    .tools-section{margin:28px 0 0;padding:24px;border:1px solid rgba(56,189,248,.16);border-radius:22px;background:rgba(255,255,255,.025)}
-    .tools-section h2{margin:0 0 16px;font-size:1.05rem;font-weight:950;letter-spacing:-.025em;color:var(--text)}
-    .tools-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-    .tool-card{display:block;padding:16px;border:1px solid var(--border);border-radius:14px;background:rgba(7,9,20,.32);text-decoration:none;color:var(--text);transition:all .18s}
-    .tool-card:hover{border-color:#38bdf8;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
-    .tool-card .tl-emoji{font-size:1.6em;margin-bottom:8px;display:block}
-    .tool-card .tl-name{font-weight:850;font-size:.92em;display:block;margin-bottom:3px}
-    .tool-card .tl-desc{color:var(--muted);font-size:.76em;line-height:1.4}
-    @media(max-width:640px){.tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  </style>
-  <h2>🛠️ Best Tools</h2>
-  <div class="tools-grid">
-    <a href="https://www.tradingview.com/chart/" target="_blank" rel="noopener" class="tool-card">
-      <span class="tl-emoji">📊</span>
-      <span class="tl-name">TradingView</span>
-      <span class="tl-desc">Advanced charts, indicators &amp; Pine Script</span>
-    </a>
-    <a href="https://finance.yahoo.com/" target="_blank" rel="noopener" class="tool-card">
-      <span class="tl-emoji">📈</span>
-      <span class="tl-name">Yahoo Finance</span>
-      <span class="tl-desc">Real-time quotes, news &amp; fundamentals</span>
-    </a>
-    <a href="https://www.coingecko.com/" target="_blank" rel="noopener" class="tool-card">
-      <span class="tl-emoji">🪙</span>
-      <span class="tl-name">CoinGecko</span>
-      <span class="tl-desc">Crypto prices, on-chain &amp; market data</span>
-    </a>
-    <a href="https://github.com/AtlasNexusOps/markets-dashboard" target="_blank" rel="noopener" class="tool-card">
-      <span class="tl-emoji">🔮</span>
-      <span class="tl-name">Atlas Nexus</span>
-      <span class="tl-desc">Open-source pipeline · GitHub</span>
-    </a>
-  </div>
+<div style="margin-top:28px;text-align:center">
+  <a href="index.html" style="display:inline-block;padding:12px 24px;border:1px solid var(--border);border-radius:12px;color:var(--muted);text-decoration:none;font-size:.88em;font-weight:700;transition:all .15s">← Retour Dashboard</a>
+</div>"""
+
+
+def unusual_activity_html(assets: list) -> str:
+    """
+    🚨 Unusual Activity Alert — detects extreme readings across all assets.
+    Flags: volume spike (vol_ratio > 3x), vertical candle (>0.85), 
+           chase (>2.5 ATR), RSI extreme (>78 or <22), volatility spike (>4%).
+    """
+    alerts = []
+    
+    for a in assets:
+        name = _asset_name(a)
+        symbol = _asset_symbol(a)
+        vol_ratio = _num(a.get("vol_ratio"), 0)
+        candle = _num(a.get("candle_ratio"), 0.3)
+        ch = _change_pct(a)
+        vol20 = _num(a.get("volatility_20d"), 0)
+        
+        # Get RSI and extension from Hawkeye scoring
+        hk = _hawkeye_score(a)
+        rsi = hk["rsi"]
+        ext = hk["ema20_ext"]
+        
+        flags = []
+        if vol_ratio > 3.5:
+            flags.append(f"Vol {vol_ratio:.1f}× avg")
+        if candle > 0.85:
+            flags.append("Vertical candle")
+        if ext > 2.5:
+            flags.append(f"Chase {ext:.1f} ATR")
+        if rsi > 78:
+            flags.append(f"RSI {rsi} overbought")
+        elif rsi < 22:
+            flags.append(f"RSI {rsi} oversold")
+        if vol20 > 4:
+            flags.append(f"Volatility {vol20:.1f}%")
+            
+        if flags:
+            ch_color = "#22c55e" if ch >= 0 else "#ef4444"
+            arrow = "▲" if ch >= 0 else "▼"
+            alerts.append({
+                "name": name, "symbol": symbol,
+                "change": ch, "arrow": arrow, "ch_color": ch_color,
+                "flags": flags, "rsi": rsi, "ext": ext,
+            })
+    
+    if not alerts:
+        return '<div class="unusual-alert" style="margin-top:28px;padding:18px;border:1px solid rgba(34,197,94,.16);border-radius:14px;background:rgba(34,197,94,.04);text-align:center;color:var(--muted);font-size:.88em">✅ No unusual activity detected</div>'
+    
+    rows = ""
+    for a in alerts[:6]:
+        flags_html = " · ".join(f'<span style="color:#f59e0b">{f}</span>' for f in a["flags"])
+        rows += f"""<div class="alert-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid rgba(245,158,11,.16);border-radius:10px;background:rgba(245,158,11,.04);margin-top:8px">
+<div>
+<span style="font-weight:800;color:var(--text)">{a['name']}</span>
+<span style="color:var(--muted);font-size:.78em;margin-left:6px">{a['symbol']}</span>
+</div>
+<div style="font-size:.82em;text-align:right">
+<div style="color:{a['ch_color']};font-weight:700">{a['arrow']} {a['change']:.1f}%</div>
+<div style="color:var(--muted);font-size:.74em;margin-top:2px">{flags_html}</div>
+</div>
+</div>"""
+    
+    return f"""
+<section class="unusual-section" aria-label="Unusual Activity" style="margin:28px 0 0;padding:24px;border:1px solid rgba(245,158,11,.22);border-radius:22px;background:rgba(245,158,11,.03)">
+  <h2 style="margin:0 0 4px;font-size:1.05rem;font-weight:950;color:#f59e0b;letter-spacing:-.025em">🚨 Unusual Activity Alert</h2>
+  <p style="color:var(--muted);font-size:.78em;margin:0 0 12px">{len(alerts)} asset{'' if len(alerts)==1 else 's'} flagged — extreme readings</p>
+  {rows}
 </section>"""
 
 

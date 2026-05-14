@@ -13,7 +13,7 @@ Tracks: S&P 500, Nasdaq, Dow Jones, FTSE 100, DAX, CAC 40,
 import json, csv, urllib.request, os, time, statistics
 from datetime import datetime
 from pathlib import Path
-from sentiment import compute_sentiment, hawk_eye_html, tools_section_html
+from sentiment import compute_sentiment, hawk_eye_html, back_to_dashboard_html, unusual_activity_html
 from dashboard_theme import enhance_dashboard_html
 
 OUTPUT_DIR = Path("output")
@@ -157,7 +157,8 @@ def export_html(indices):
     avg = round(sum(i["change_pct"] for i in indices) / len(indices), 2) if indices else 0
 
     hawk_html = hawk_eye_html(indices)
-    tools_html = tools_section_html()
+    unusual_html = unusual_activity_html(indices)
+    back_html = back_to_dashboard_html()
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -204,7 +205,8 @@ tr:hover{{background:rgba(56,189,248,.03)}}
 <table><thead><tr>
 <th>Index</th><th>Price</th><th>Change</th><th>MA(5)</th><th>MA(20)</th><th>Trend</th><th>Volatility</th>
 </tr></thead><tbody>{rows}</tbody></table></div></div>
-{tools_html}
+{unusual_html}
+{back_html}
 <div class="footer"><p>📈 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: {NOW}</p></div>
 </div></body></html>"""
 
