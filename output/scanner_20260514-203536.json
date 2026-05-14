@@ -1,0 +1,103 @@
+{
+  "run_id": "20260514-203536",
+  "generated": "20260514-203536",
+  "scoring": "Hawkeye V4 \u2014 market pressure radar /100",
+  "total": 104,
+  "distribution": {
+    "extreme": 0,
+    "strong": 0,
+    "active": 16,
+    "watch": 65,
+    "weak": 23,
+    "degraded": 0
+  },
+  "bullish_pressure": [
+    {
+      "name": "Corn",
+      "score": 74,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$467.75/USD/bushel"
+    },
+    {
+      "name": "US Oil Fund",
+      "score": 67,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$142.09"
+    },
+    {
+      "name": "Soybeans",
+      "score": 66,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$1,193.50/USD/bushel"
+    },
+    {
+      "name": "Boeing",
+      "score": 64,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$232.98"
+    },
+    {
+      "name": "Amazon",
+      "score": 63,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$267.95"
+    },
+    {
+      "name": "ARK Innovation",
+      "score": 63,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$78.60"
+    },
+    {
+      "name": "Wheat",
+      "score": 62,
+      "regime": "uptrend",
+      "family": "breakout pressure",
+      "reference_price": "$658.25/USD/bushel"
+    }
+  ],
+  "bearish_pressure": [
+    {
+      "name": "LVMH",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac460.85"
+    },
+    {
+      "name": "ASX 200",
+      "score": 66,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "8,630.40 pts"
+    },
+    {
+      "name": "Palladium",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$1,465.50/USD/oz"
+    },
+    {
+      "name": "Herm\u00e8s",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac1,593.50"
+    },
+    {
+      "name": "Shell",
+      "score": 60,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "GBP 84.99"
+    }
+  ],
+  "degraded": []
+}

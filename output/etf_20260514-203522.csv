@@ -1,0 +1,25 @@
+name,symbol,category,price,change_pct,trend,volatility_20d,vol_ratio
+SPDR S&P 500,SPY,US Equity,747.86,0.75,BULLISH,0.58,0.56
+Invesco QQQ,QQQ,US Equity,719.78,0.71,BULLISH,0.93,0.65
+iShares Russell 2000,IWM,US Equity,284.84,0.77,BULLISH,0.9,0.49
+SPDR Dow Jones,DIA,US Equity,500.97,0.77,BULLISH,0.56,0.91
+Vanguard Total Market,VTI,US Equity,367.44,0.75,BULLISH,0.59,0.64
+Vanguard S&P 500,VOO,US Equity,687.57,0.76,BULLISH,0.58,0.58
+Financial Select,XLF,Sector,51.34,0.7,BEARISH,0.52,0.66
+Technology Select,XLK,Sector,179.58,1.54,BULLISH,1.33,0.74
+Energy Select,XLE,Sector,58.11,0.83,NEUTRAL,1.23,0.37
+Health Care Select,XLV,Sector,146.46,-0.17,NEUTRAL,0.73,0.66
+Industrial Select,XLI,Sector,174.26,0.37,BULLISH,1.03,0.66
+Consumer Disc.,XLY,Sector,118.83,0.09,NEUTRAL,0.67,0.59
+iShares Core US Agg,AGG,Bonds,98.77,0.1,NEUTRAL,0.21,0.5
+Vanguard Total Bond,BND,Bonds,73.25,0.1,NEUTRAL,0.22,0.63
+iShares 20+ Year Tr.,TLT,Bonds,85.15,0.41,BEARISH,0.43,0.67
+iShares High Yield,HYG,Bonds,79.94,0.04,NEUTRAL,0.22,0.51
+iShares Inv. Grade,LQD,Bonds,108.79,0.16,NEUTRAL,0.28,0.49
+iShares MSCI EAFE,EFA,International,103.58,-0.24,BULLISH,0.99,0.42
+iShares MSCI EM,EEM,International,67.42,0.31,BULLISH,1.39,0.49
+Vanguard FTSE Dev.,VEA,International,70.62,-0.01,BULLISH,1.09,0.71
+SPDR Gold,GLD,Commodity,428.92,-0.37,BULLISH,1.06,0.43
+iShares Silver,SLV,Commodity,76.44,-3.66,BULLISH,2.69,0.87
+US Oil Fund,USO,Commodity,142.09,0.03,BULLISH,3.37,0.29
+ARK Innovation,ARKK,Thematic,78.6,0.7,BULLISH,1.76,0.83
