@@ -1,0 +1,120 @@
+{
+  "generated": "20260514-034645",
+  "total": 90,
+  "longs": [
+    {
+      "name": "Corn",
+      "entry": 481.5,
+      "stop": 467.95,
+      "tp": 503.19,
+      "tp_pct": 4.5,
+      "rr": 1.6
+    },
+    {
+      "name": "Hang Seng",
+      "entry": 26785.13,
+      "stop": 25636.74,
+      "tp": 28737.4,
+      "tp_pct": 7.3,
+      "rr": 1.7
+    },
+    {
+      "name": "AUDUSD",
+      "entry": 0.7252,
+      "stop": 0.7188,
+      "tp": 0.7368,
+      "tp_pct": 1.6,
+      "rr": 1.8
+    },
+    {
+      "name": "ASML",
+      "entry": 1581.58,
+      "stop": 1503.18,
+      "tp": 1714.85,
+      "tp_pct": 8.4,
+      "rr": 1.7
+    },
+    {
+      "name": "Goldman Sachs",
+      "entry": 955.42,
+      "stop": 927.55,
+      "tp": 1002.8,
+      "tp_pct": 5.0,
+      "rr": 1.7
+    },
+    {
+      "name": "Visa",
+      "entry": 320.31,
+      "stop": 310.5,
+      "tp": 336.99,
+      "tp_pct": 5.2,
+      "rr": 1.7
+    },
+    {
+      "name": "Silver",
+      "entry": 88.03,
+      "stop": 83.62,
+      "tp": 95.07,
+      "tp_pct": 8.0,
+      "rr": 1.6
+    }
+  ],
+  "shorts": [
+    {
+      "name": "FTSE 100",
+      "entry": 10325.35,
+      "stop": 10507.93,
+      "tp": 10014.96,
+      "tp_pct": 3.0,
+      "rr": 1.7
+    },
+    {
+      "name": "CAC 40",
+      "entry": 8007.97,
+      "stop": 8379.39,
+      "tp": 7376.56,
+      "tp_pct": 7.9,
+      "rr": 1.7
+    },
+    {
+      "name": "Nifty 50",
+      "entry": 23412.6,
+      "stop": 24527.79,
+      "tp": 21516.78,
+      "tp_pct": 8.1,
+      "rr": 1.7
+    },
+    {
+      "name": "ASX 200",
+      "entry": 8628.5,
+      "stop": 8900.31,
+      "tp": 8166.42,
+      "tp_pct": 5.4,
+      "rr": 1.7
+    },
+    {
+      "name": "USDMXN",
+      "entry": 17.1633,
+      "stop": 17.3247,
+      "tp": 16.8727,
+      "tp_pct": 1.7,
+      "rr": 1.8
+    },
+    {
+      "name": "Mastercard",
+      "entry": 490.64,
+      "stop": 516.11,
+      "tp": 447.34,
+      "tp_pct": 8.8,
+      "rr": 1.7
+    },
+    {
+      "name": "Procter & Gamble",
+      "entry": 142.24,
+      "stop": 149.77,
+      "tp": 129.45,
+      "tp_pct": 9.0,
+      "rr": 1.7
+    }
+  ]
+}
