@@ -156,7 +156,7 @@ def export_html(indices):
     down = sum(1 for i in indices if i["change_pct"] < 0)
     avg = round(sum(i["change_pct"] for i in indices) / len(indices), 2) if indices else 0
 
-    hawk_html = hawk_eye_html(indices)
+    hawk_html = hawk_eye_html(indices, source="indices")
     unusual_html = unusual_activity_html(indices)
     back_html = back_to_dashboard_html()
     html = f"""<!DOCTYPE html>

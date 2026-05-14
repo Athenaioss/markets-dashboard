@@ -226,47 +226,133 @@ def _hawkeye_score(a: dict) -> dict:
 
 
 def _tier_badge(tier: str) -> tuple:
-    if tier == "STRONG":    return ("🦅", "#22c55e", "score-hot")
-    if tier == "WATCHLIST": return ("👁️", "#f59e0b", "score-warm")
-    return ("", "#64748b", "score-muted")
+    if tier == "STRONG":    return ("🦅 STRONG", "#22c55e", "score-hot")
+    if tier == "WATCHLIST": return ("👁️ WATCH", "#f59e0b", "score-warm")
+    return ("⏳ IGNORE", "#64748b", "score-muted")
 
 
 # ═══════════════════════════════════════════════════════════════
-# HTML Cards
+# Trade levels — same as scanner_generator.py contextual_levels
 # ═══════════════════════════════════════════════════════════════
 
-def _pick_card(asset: dict, side: str) -> str:
+def _source_profile(source="", symbol=""):
+    symbol = (symbol or "").upper()
+    if source == "forex":
+        return {"decimals": 2 if "JPY" in symbol else 4, "stop_atr": 1.15, "target_rr": 1.8, "min_risk_pct": 0.25, "max_risk_pct": 1.20}
+    if source == "crypto":
+        return {"decimals": 2, "stop_atr": 1.8, "target_rr": 1.8, "min_risk_pct": 2.00, "max_risk_pct": 12.0}
+    if source in ("actions", "stocks", "etf"):
+        return {"decimals": 2, "stop_atr": 1.25, "target_rr": 1.7, "min_risk_pct": 0.80, "max_risk_pct": 6.00}
+    if source == "indices":
+        return {"decimals": 2, "stop_atr": 1.20, "target_rr": 1.7, "min_risk_pct": 0.60, "max_risk_pct": 5.00}
+    if source == "commodities":
+        return {"decimals": 2, "stop_atr": 1.15, "target_rr": 1.6, "min_risk_pct": 0.70, "max_risk_pct": 5.00}
+    return {"decimals": 2, "stop_atr": 1.30, "target_rr": 1.7, "min_risk_pct": 0.80, "max_risk_pct": 6.00}
+
+def _swing_low(lows, window=10):
+    if not lows or len(lows) < window: return min(lows) if lows else 0
+    return min(lows[-window:])
+
+def _swing_high(highs, window=10):
+    if not highs or len(highs) < window: return max(highs) if highs else 0
+    return max(highs[-window:])
+
+def _trade_levels(asset, direction, source=""):
+    """Return entry, stop, target, RR for display ticket."""
+    entry = _num(asset.get("price"))
+    cp = asset.get("_close_prices", [])
+    hp = asset.get("_high_prices", [])
+    lp = asset.get("_low_prices", [])
+    if not cp: cp = [entry] * 20
+    if not hp: hp = [entry] * 20
+    if not lp: lp = [entry] * 20
+    
+    atr = _atr_val(hp, lp, cp, 14)
+    if not entry or not atr or atr <= 0:
+        return None
+    
+    profile = _source_profile(source, asset.get("symbol", ""))
+    atr_risk = atr * profile["stop_atr"]
+    min_risk = entry * profile["min_risk_pct"] / 100
+    max_risk = entry * profile["max_risk_pct"] / 100
+    risk = min(max(atr_risk, min_risk), max_risk)
+    
+    if direction == "LONG":
+        structure_stop = _swing_low(lp) - atr * 0.15
+        structure_risk = entry - structure_stop
+        if min_risk <= structure_risk <= max_risk:
+            risk = max(risk, structure_risk)
+        stop = entry - risk
+        tp = entry + risk * profile["target_rr"]
+        rr = round((tp - entry) / risk, 1) if risk > 0 else 0
+        tp_pct = round((tp - entry) / entry * 100, 1)
+    else:
+        structure_stop = _swing_high(hp) + atr * 0.15
+        structure_risk = structure_stop - entry
+        if min_risk <= structure_risk <= max_risk:
+            risk = max(risk, structure_risk)
+        stop = entry + risk
+        tp = entry - risk * profile["target_rr"]
+        rr = round((entry - tp) / risk, 1) if risk > 0 else 0
+        tp_pct = round((entry - tp) / entry * 100, 1)
+    
+    return {
+        "entry": round(entry, profile["decimals"]),
+        "stop": round(stop, profile["decimals"]),
+        "tp": round(tp, profile["decimals"]),
+        "rr": rr,
+        "risk_pct": round(risk / entry * 100, 2),
+        "tp_pct": tp_pct,
+        "precision": profile["decimals"],
+    }
+
+
+# ═══════════════════════════════════════════════════════════════
+# HTML Cards — Ticket format (entry, stop, target, RR)
+# ═══════════════════════════════════════════════════════════════
+
+def _pick_card(asset: dict, side: str, source: str = "") -> str:
     m = _hawkeye_score(asset)
     bullish = side == "bull"
+    direction = "LONG" if bullish else "SHORT"
     score = m["bull_score"] if bullish else m["bear_score"]
     tier = m["tier_bull"] if bullish else m["tier_bear"]
-    emoji, badge_color, score_class = _tier_badge(tier)
-
-    ch = _change_pct(asset)
-    arrow = "▲" if ch >= 0 else "▼"
-    change_color = "#22c55e" if ch >= 0 else "#ef4444"
+    badge, badge_color, score_class = _tier_badge(tier)
+    
+    levels = _trade_levels(asset, direction, source)
+    
     title = escape(_asset_name(asset))
     symbol = escape(_asset_symbol(asset))
-    group = escape(_asset_group(asset))
-
-    tag_text = " · ".join(f"{k}: {v}" for k, v in m["tags"]) or "clean read"
-    ext_label = f"ext {m['ema20_ext']}A" if m["ema20_ext"] > 0 else ""
-
-    return f"""<div class="signal-row hawk-row" data-market="{group.lower()}">
+    
+    if levels:
+        precision = levels["precision"]
+        entry_fmt = f"${levels['entry']:,.{precision}f}"
+        stop_fmt = f"${levels['stop']:,.{precision}f}"
+        tp_fmt = f"${levels['tp']:,.{precision}f}"
+        rr_str = f"RR {levels['rr']}:1"
+        risk_str = f"−{levels['risk_pct']}%"
+    else:
+        entry_fmt = f"${asset.get('price',0):,.2f}"
+        stop_fmt = "—"
+        tp_fmt = "—"
+        rr_str = ""
+        risk_str = ""
+    
+    return f"""<div class="signal-row hawk-row">
 <div>
 <span class="asset-name">{title}</span>
-<span class="asset-tag">{symbol}</span>
-<span class="asset-meta">{group} · {tag_text}{' · ' + ext_label if ext_label else ''}</span>
+<span class="asset-tag">{direction}</span>
+<span class="asset-meta">{source or _asset_group(asset)} · {badge.strip('🦅👁️⏳ ')}</span>
 <span class="asset-levels">
-<span style="color:{change_color}">{arrow} {ch:.1f}%</span>
-<span style="color:#bae6fd">RSI {m['rsi']}</span>
-<span style="color:#a7f3d0">ROC5 {m['roc5']:+.1f}%</span>
+<span style="color:#bae6fd">🎟️ {entry_fmt}</span>
+<span style="color:#ef4444">🛑 {stop_fmt}</span>
+<span style="color:#22c55e">🎯 {tp_fmt}</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill {score_class}">{score}</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">{tier}</div>
-<div style="font-size:.7em;color:{badge_color};margin-top:2px">{emoji}</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">{rr_str} {risk_str}</div>
+<div style="font-size:.7em;color:{badge_color};margin-top:2px">{badge}</div>
 </div>
 </div>"""
 
@@ -275,27 +361,19 @@ def _pick_card(asset: dict, side: str) -> str:
 # Public API — momentum_scanner_html / hawk_eye_html
 # ═══════════════════════════════════════════════════════════════
 
-def momentum_scanner_html(assets: list, top_n: int = 4) -> str:
-    """Hawkeye v2 scanner for every category dashboard page."""
+def momentum_scanner_html(assets: list, top_n: int = 4, source: str = "") -> str:
+    """Hawkeye v2 scanner — identical to main dashboard format with entry/stop/target."""
     if len(assets) < 2:
         return ""
 
     scored = [(a, _hawkeye_score(a)) for a in assets]
 
-    # Bullish: top by bull_score
     bullish_pool = [(a, m) for a, m in scored if m["bull_score"] >= 65]
     bearish_pool = [(a, m) for a, m in scored if m["bear_score"] >= 65]
 
     bullish = [a for a, _ in sorted(bullish_pool, key=lambda x: x[1]["bull_score"], reverse=True)[:top_n]]
     bearish = [a for a, _ in sorted(bearish_pool, key=lambda x: x[1]["bear_score"], reverse=True)[:top_n]]
 
-    # Radar: remaining top-scoring (either direction)
-    used = {id(a) for a in bullish + bearish}
-    radar_pool = [(a, m) for a, m in scored if id(a) not in used]
-    radar = [a for a, _ in sorted(radar_pool,
-               key=lambda x: max(x[1]["bull_score"], x[1]["bear_score"]), reverse=True)[:3]]
-
-    n = len(assets)
     strong_bull = sum(1 for _, m in scored if m["bull_score"] >= 80)
     strong_bear = sum(1 for _, m in scored if m["bear_score"] >= 80)
     watch_bull = sum(1 for _, m in scored if 65 <= m["bull_score"] < 80)
@@ -304,12 +382,8 @@ def momentum_scanner_html(assets: list, top_n: int = 4) -> str:
     def empty(text: str) -> str:
         return f'<div class="momentum-empty">{escape(text)}</div>'
 
-    bull_html = "".join(_pick_card(a, "bull") for a in bullish) or empty("No Strong or Watchlist bullish signal")
-    bear_html = "".join(_pick_card(a, "bear") for a in bearish) or empty("No Strong or Watchlist bearish signal")
-    radar_html = "".join(
-        _pick_card(a, "bull" if _hawkeye_score(a)["bull_score"] >= _hawkeye_score(a)["bear_score"] else "bear")
-        for a in radar
-    ) or empty("Radar is clean")
+    bull_html = "".join(_pick_card(a, "bull", source) for a in bullish) or empty("No Strong or Watchlist bullish signal")
+    bear_html = "".join(_pick_card(a, "bear", source) for a in bearish) or empty("No Strong or Watchlist bearish signal")
 
     return f"""
 <section class="momentum-scanner-v2 scanner hawkeye-scanner" aria-label="Hawkeye v2">
@@ -336,10 +410,8 @@ def momentum_scanner_html(assets: list, top_n: int = 4) -> str:
     .score-risk{{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}}
     .score-warm{{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}}
     .score-muted{{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}}
-    .momentum-radar-title{{margin:14px 0 0!important;color:var(--atlas-muted,var(--muted))!important;font-size:.82rem!important;grid-column:1/-1}}
-    .momentum-radar{{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}}
     .momentum-empty{{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}}
-    @media(max-width:860px){{.scanner-head{{display:block}}.scanner-board{{grid-template-columns:1fr}}.momentum-radar{{grid-template-columns:1fr}}}}
+    @media(max-width:860px){{.scanner-head{{display:block}}.scanner-board{{grid-template-columns:1fr}}}}
     @media(max-width:520px){{.hawkeye-scanner{{padding:16px;border-radius:22px}}.signal-row{{display:block}}.signal-row>div:last-child{{text-align:left!important;margin-top:10px}}}}
   </style>
   <div class="scanner-head">
@@ -351,14 +423,13 @@ def momentum_scanner_html(assets: list, top_n: int = 4) -> str:
   <div class="scanner-board hawk-board">
     <div class="signal-card"><h3>🚀 Bullish setups ({len(bullish)})</h3>{bull_html}</div>
     <div class="signal-card"><h3>🐻 Bearish setups ({len(bearish)})</h3>{bear_html}</div>
-    <h4 class="momentum-radar-title">◇ Cross-market radar</h4>
-    <div class="momentum-radar">{radar_html}</div>
   </div>
 </section>"""
 
 
-# Backward compat alias
-hawk_eye_html = momentum_scanner_html
+# Backward compat alias — accepts source as kwarg for existing callers
+def hawk_eye_html(assets: list, top_n: int = 4, source: str = "") -> str:
+    return momentum_scanner_html(assets, top_n, source)
 
 
 # ═══════════════════════════════════════════════════════════════

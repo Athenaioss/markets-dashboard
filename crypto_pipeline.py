@@ -351,7 +351,19 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
             <td>{t.get('momentum_score',0):.1f}</td>
         </tr>"""
     
-    momentum_html = momentum_scanner_html(tokens)
+    # Add OHLCV proxy for Hawkeye trade levels (CoinGecko sparkline → _close_prices)
+    for t in tokens:
+        if not t.get("_close_prices"):
+            spark = [p for p in (t.get("sparkline_7d") or []) if p is not None]
+            if len(spark) >= 10:
+                t["_close_prices"] = spark
+                t["_high_prices"] = [p * 1.015 for p in spark]
+                t["_low_prices"] = [p * 0.985 for p in spark]
+        # Ensure `price` field for trade levels
+        if not t.get("price"):
+            t["price"] = t.get("price_usd", 0)
+    
+    momentum_html = momentum_scanner_html(tokens, source="crypto")
     unusual_html = unusual_activity_html(tokens)
     back_html = back_to_dashboard_html()
     

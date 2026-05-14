@@ -166,7 +166,7 @@ def export_html(pairs):
     down = sum(1 for p in pairs if p["change_pct"] < 0)
     avg = round(sum(p["change_pct"] for p in pairs) / len(pairs), 2) if pairs else 0
 
-    hawk_html = hawk_eye_html(pairs)
+    hawk_html = hawk_eye_html(pairs, source="forex")
     unusual_html = unusual_activity_html(pairs)
     back_html = back_to_dashboard_html()
     html = f"""<!DOCTYPE html>

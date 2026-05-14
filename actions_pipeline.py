@@ -186,7 +186,7 @@ def export_html(actions):
         sec_avg = round(sec_data["total_change"]/sec_data["count"], 2)
         sector_cards += f"""<div class="card" style="border-left:3px solid {c}"><div class="value" style="color:{c}">{sec_avg:+.1f}%</div><div class="label">{sec_name} ({sec_data['up']}/{sec_data['count']})</div></div>"""
 
-    hawk_html = hawk_eye_html(actions)
+    hawk_html = hawk_eye_html(actions, source="actions")
     unusual_html = unusual_activity_html(actions)
     back_html = back_to_dashboard_html()
     html = f"""<!DOCTYPE html>

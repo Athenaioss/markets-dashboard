@@ -180,7 +180,7 @@ def export_html(etfs):
         cat_avg = round(cat_data["total_change"]/cat_data["count"], 2)
         cat_cards += f"""<div class="card" style="border-left:3px solid {c}"><div class="value" style="color:{c}">{cat_avg:+.1f}%</div><div class="label">{cat_name} ({cat_data['up']}/{cat_data['count']})</div></div>"""
 
-    hawk_html = hawk_eye_html(etfs)
+    hawk_html = hawk_eye_html(etfs, source="etf")
     unusual_html = unusual_activity_html(etfs)
     back_html = back_to_dashboard_html()
     html = f"""<!DOCTYPE html>

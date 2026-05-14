@@ -227,7 +227,7 @@ def export_html(commodities, summary):
             <td style="color:{vol_color}">{c['vol_ratio']:.1f}x</td>
         </tr>"""
 
-    hawk_html = hawk_eye_html(commodities)
+    hawk_html = hawk_eye_html(commodities, source="commodities")
     unusual_html = unusual_activity_html(commodities)
     back_html = back_to_dashboard_html()
     html = f"""<!DOCTYPE html>
