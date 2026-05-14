@@ -112,4 +112,10 @@ def enhance_dashboard_html(html: str, page_key: str) -> str:
             html = html.replace("</div>\n    \n    <div", f'<p class="atlas-page-subtitle">{escape(subtitle)}</p></div>\n    \n    <div', 1)
     if "atlas-scroll-hint" not in html:
         html = html.replace("<table", '<div class="atlas-scroll-hint">Swipe sideways to inspect all columns →</div>\n<table', 1)
+    # Crypto: remove header gradient, keep it clean
+    if key == "crypto":
+        html = html.replace(
+            "background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.035)),radial-gradient(circle at 88% 5%,color-mix(in srgb,var(--atlas-accent) 28%,transparent),transparent 36%)!important",
+            "background:rgba(15,20,32,.74)!important",
+        )
     return html

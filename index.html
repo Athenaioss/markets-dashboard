@@ -43,7 +43,7 @@ a{color:inherit}.shell{width:min(1240px,calc(100% - 32px));margin:0 auto;padding
 .session-led.open:before{background:var(--green);box-shadow:0 0 18px rgba(34,197,94,.95)}.session-led.closed{color:#ffc4cd;border-color:rgba(251,113,133,.24);background:rgba(251,113,133,.075)}.session-led.closed:before{background:var(--red);box-shadow:0 0 18px rgba(251,113,133,.95)}.session-led.soon{color:#ffe2a8;border-color:rgba(245,158,11,.24);background:rgba(245,158,11,.075)}.session-led.soon:before{background:var(--amber);box-shadow:0 0 18px rgba(245,158,11,.95)}.crypto{--glow:#38bdf8}.commodities{--glow:#f59e0b}.indices{--glow:#8b5cf6}.forex{--glow:#22c55e}.actions{--glow:#4ade80}.etf{--glow:#ec4899}
 footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line-height:1.75}footer a{color:#7dd3fc;text-decoration:none}footer a:hover{text-decoration:underline}
 @media(max-width:980px){.hero{grid-template-columns:1fr}.scanner-board,.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:680px){.shell{width:min(100% - 22px,1240px);padding-top:12px}.topbar{align-items:flex-start;flex-direction:column;top:8px}.hero-main{padding:24px;border-radius:24px}.hero-side{grid-template-columns:1fr;border-radius:24px}.scanner-board,.grid{grid-template-columns:1fr!important}.scanner-head{display:block}.scanner-score{margin-top:16px;text-align:left}.metric-value{font-size:1.7em}h1{font-size:clamp(2.45rem,17vw,4rem)}}
-</style></head><body><main class="shell"><header class="topbar"><div class="brand"><span class="brand-mark">🔮</span><span>Atlas Nexus</span></div><nav class="nav" aria-label="Dashboard navigation"><a href="#scanner">Scanner</a><a href="#dashboards">Markets</a><a href="https://github.com/AtlasNexusOps/markets-dashboard">GitHub</a></nav></header><section class="hero" aria-label="Atlas Nexus Markets overview"><div class="hero-main"><div class="eyebrow"><span class="live-dot"></span> Live multi-asset intelligence</div><div class="title-emoji">🔮</div><h1>Markets Command Deck</h1><p class="hero-sub">A client-facing market intelligence cockpit for crypto, stocks, ETFs, indices, forex and commodities — live widgets, generated dashboards, and a technical scanner built for fast signal reading.</p><div class="hero-cta"><a href="#scanner" class="btn btn-primary">⚡ Open Market Pulse</a><a href="#dashboards" class="btn">Explore 6 dashboards</a></div></div><aside class="hero-side" aria-label="Key coverage metrics"><div class="metric-card wide"><div><div class="metric-label">Scanner coverage</div><div class="metric-value"><span class="count-up" data-target="89">0</span> assets</div></div><div class="status-line"><span class="live-dot"></span>Yahoo Finance OHLCV · live scoring</div></div><div class="metric-card"><div class="metric-label">Markets</div><div class="metric-value">6</div><div class="metric-copy">Crypto · Stocks · ETF · Indices · FX · Commodities</div></div><div class="metric-card"><div class="metric-label">Trade model</div><div class="metric-value">Reward/Risk</div><div class="metric-copy">Entry · SL · TP · ATR</div></div></aside></section><section class="market-strip" aria-label="Live market ticker"><div class="ticker-wrap"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>{"symbols":[{"proName":"FOREXCOM:SPXUSD","title":"S&P 500"},{"proName":"FOREXCOM:NAS100","title":"Nasdaq"},{"proName":"BITSTAMP:BTCUSD","title":"BTC/USD"},{"proName":"BITSTAMP:ETHUSD","title":"ETH/USD"},{"proName":"TVC:GOLD","title":"Gold"},{"proName":"TVC:USOIL","title":"WTI Oil"},{"proName":"FOREXCOM:EURUSD","title":"EUR/USD"},{"proName":"NASDAQ:AAPL","title":"Apple"},{"proName":"NASDAQ:NVDA","title":"NVIDIA"},{"proName":"AMEX:SPY","title":"SPY"},{"proName":"NASDAQ:QQQ","title":"QQQ"},{"proName":"TVC:DXY","title":"DXY"}],"showSymbolLogo":true,"isTransparent":true,"displayMode":"adaptive","colorTheme":"dark","locale":"en"}</script></div></div></section><section id="scanner" class="scanner">
+</style></head><body><main class="shell"><header class="topbar"><div class="brand"><span class="brand-mark">🔮</span><span>Atlas Nexus</span></div><nav class="nav" aria-label="Dashboard navigation"><a href="#scanner">Scanner</a><a href="#dashboards">Markets</a><a href="https://github.com/AtlasNexusOps/markets-dashboard">GitHub</a></nav></header><section class="hero" aria-label="Atlas Nexus Markets overview"><div class="hero-main"><div class="eyebrow"><span class="live-dot"></span> Live multi-asset intelligence</div><div class="title-emoji">🔮</div><h1>Markets Command Deck</h1><p class="hero-sub">A client-facing market intelligence cockpit for crypto, stocks, ETFs, indices, forex and commodities — live widgets, generated dashboards, and a technical scanner built for fast signal reading.</p><div class="hero-cta"><a href="#scanner" class="btn btn-primary">⚡ Open Market Pulse</a><a href="#dashboards" class="btn">Explore 6 dashboards</a></div></div><aside class="hero-side" aria-label="Key coverage metrics"><div class="metric-card wide"><div><div class="metric-label">Scanner coverage</div><div class="metric-value"><span class="count-up" data-target="89">0</span> assets</div></div><div class="status-line"><span class="live-dot"></span>Yahoo Finance OHLCV · live scoring</div></div><div class="metric-card"><div class="metric-label">Markets</div><div class="metric-value">6</div><div class="metric-copy">Crypto · Stocks · ETF · Indices · FX · Commodities</div></div><div class="metric-card"><div class="metric-label">Scoring engine</div><div class="metric-value">Hawkeye v2</div><div class="metric-copy">Trend · Momentum · RSI · Volume · Structure</div></div></aside></section><section class="market-strip" aria-label="Live market ticker"><div class="ticker-wrap"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>{"symbols":[{"proName":"FOREXCOM:SPXUSD","title":"S&P 500"},{"proName":"FOREXCOM:NAS100","title":"Nasdaq"},{"proName":"BITSTAMP:BTCUSD","title":"BTC/USD"},{"proName":"BITSTAMP:ETHUSD","title":"ETH/USD"},{"proName":"TVC:GOLD","title":"Gold"},{"proName":"TVC:USOIL","title":"WTI Oil"},{"proName":"FOREXCOM:EURUSD","title":"EUR/USD"},{"proName":"NASDAQ:AAPL","title":"Apple"},{"proName":"NASDAQ:NVDA","title":"NVIDIA"},{"proName":"AMEX:SPY","title":"SPY"},{"proName":"NASDAQ:QQQ","title":"QQQ"},{"proName":"TVC:DXY","title":"DXY"}],"showSymbolLogo":true,"isTransparent":true,"displayMode":"adaptive","colorTheme":"dark","locale":"en"}</script></div></div></section><section id="scanner" class="scanner">
 <div class="scanner-head">
 <div>
 <h2>🦅 Hawkeye v2 — Directional Scanner</h2>
@@ -86,12 +86,12 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-tag">LONG</span>
 <span class="asset-meta">forex · STRONG setup</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $114.61</span>
+<span style="color:#bae6fd">🎟️ $114.60</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">92</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +0.5% · RSI 56</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +0.4% · RSI 56</div>
 <div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
 <div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>
@@ -131,12 +131,27 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-tag">LONG</span>
 <span class="asset-meta">forex · STRONG setup</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $0.7263</span>
+<span style="color:#bae6fd">🎟️ $0.7266</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">87</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +0.3% · RSI 66</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +0.4% · RSI 66</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
+</div>
+</div><div class="signal-row" data-market="commodities">
+<div>
+<span class="asset-name">Crude Oil WTI</span>
+<span class="asset-tag">LONG</span>
+<span class="asset-meta">commodities · STRONG setup</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">🎟️ $99.79</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">85</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ -1.2% · RSI 56</div>
 <div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
 <div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>
@@ -152,21 +167,6 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <div style="text-align:right">
 <span class="score-pill score-hot">85</span>
 <div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ -1.9% · RSI 59</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
-</div>
-</div><div class="signal-row" data-market="stocks">
-<div>
-<span class="asset-name">Walmart</span>
-<span class="asset-tag">LONG</span>
-<span class="asset-meta">actions · STRONG setup</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $131.47</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">83</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +0.9% · RSI 48</div>
 <div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
 <div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>
@@ -267,12 +267,12 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-tag">SHORT</span>
 <span class="asset-meta">indices · STRONG setup</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $75,403.80</span>
+<span style="color:#bae6fd">🎟️ $75,305.86</span>
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-hot">87</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +1.1% · RSI 37</div>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +0.9% · RSI 37</div>
 <div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
 <div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>
@@ -282,8 +282,8 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <div class="legend">
 <span>🦅 STRONG 80-100 — tradeable directional setup</span>
 <span>👁️ WATCH 65-79 — monitor for entry</span>
-<span class="demo-tag">Updated 14/05/2026 08:57 CEST</span>
-<span class="demo-tag">Yahoo Finance · 20260514-085704</span>
+<span class="demo-tag">Updated 14/05/2026 09:33 CEST</span>
+<span class="demo-tag">Yahoo Finance · 20260514-093315</span>
 </div>
 </section><section id="dashboards" aria-label="Live dashboards"><div class="section-head"><div><div class="section-label">Live Dashboards</div><div class="section-kicker">Six live boards, refreshed for the current market context.</div></div></div><div class="grid"><a href="crypto_dashboard.html" class="panel crypto"><div class="emoji">🪙</div><h2>Crypto</h2><div class="desc">BTC, ETH, SOL & liquid majors · 24/7 momentum</div><span class="count">24/7 market</span></a><a href="commodities_dashboard.html" class="panel commodities"><div class="emoji">🛢️</div><h2>Commodities</h2><div class="desc">Gold, Silver, Oil, Copper, Grains · CFD/extended context</div><span class="count">15 assets</span></a><a href="indices_dashboard.html" class="panel indices"><div class="emoji">🌍</div><h2>Indices</h2><div class="desc">S&P 500, Nasdaq, DAX, CAC, Nikkei · global risk pulse</div><span class="count">16 indices</span></a><a href="forex_dashboard.html" class="panel forex"><div class="emoji">💱</div><h2>Forex</h2><div class="desc">EURUSD, GBPJPY, AUDUSD · majors, crosses and exotics</div><span class="count">19 pairs</span></a><a href="actions_dashboard.html" class="panel actions"><div class="emoji">🏛️</div><h2>Stocks</h2><div class="desc">Mega-cap tech, luxury, banks, defensives · equity momentum</div><span class="count">30 stocks</span></a><a href="etf_dashboard.html" class="panel etf"><div class="emoji">💼</div><h2>ETF</h2><div class="desc">SPY, QQQ, GLD, TLT, ARKK · themes and cross-asset exposure</div><span class="count">24 ETFs</span></a></div></section><footer><p>🔮 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance + TradingView · Open source</p><p><a href="https://github.com/AtlasNexusOps/markets-dashboard">github.com/AtlasNexusOps/markets-dashboard</a></p></footer><script>
 (() => {
