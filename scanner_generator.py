@@ -11,7 +11,9 @@ from datetime import datetime
 
 OUTPUT_DIR = Path("output")
 OUTPUT_DIR.mkdir(exist_ok=True)
-NOW = datetime.now().strftime("%Y%m%d-%H%M%S")
+GENERATED_AT = datetime.now().astimezone()
+NOW = GENERATED_AT.strftime("%Y%m%d-%H%M%S")
+UPDATED_AT_LABEL = GENERATED_AT.strftime("%d/%m/%Y %H:%M %Z")
 
 # ── Indicators ──
 
@@ -364,6 +366,7 @@ def main():
 <div class="legend">
 <span>✅ TRADEABLE — RR ≥ 1.0, levels valid</span>
 <span>⏳ WATCHLIST — needs confirmation</span>
+<span class="demo-tag">Updated {UPDATED_AT_LABEL}</span>
 <span class="demo-tag">Yahoo Finance · ATR-based · {NOW}</span>
 </div>
 </section>"""
