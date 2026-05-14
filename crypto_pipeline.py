@@ -378,6 +378,7 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
         body {{ font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0f172a; color: #e2e8f0; padding: 20px; }}
         .header {{ text-align: center; padding: 30px; background: linear-gradient(135deg, #1e293b, #0f172a); border-radius: 12px; margin-bottom: 20px; border: 1px solid #334155; }}
         .header h1 {{ font-size: 2em; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }}
+        .crypto-coin-emoji {{ background: none !important; -webkit-background-clip: initial !important; background-clip: initial !important; -webkit-text-fill-color: initial !important; color: initial !important; display: inline-block; }}
         .header p {{ color: #94a3b8; margin-top: 8px; }}
         .cards {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }}
         .card {{ background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px; text-align: center; }}
@@ -401,7 +402,7 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
 </head>
 <body>
     <div class="header">
-        <h1>🪙 Atlas Nexus — Crypto</h1>
+        <h1><span class="crypto-coin-emoji">🪙</span> Atlas Nexus — Crypto</h1>
     </div>
     
     <div class="cards">
