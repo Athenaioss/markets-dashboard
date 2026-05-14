@@ -32,6 +32,7 @@ from typing import Any
 import urllib.request
 import urllib.error
 from dashboard_theme import enhance_dashboard_html
+from sentiment import momentum_scanner_html
 
 # ════════════════════════════════════════════════════════════
 # CONFIGURATION
@@ -350,6 +351,8 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
             <td>{t.get('momentum_score',0):.1f}</td>
         </tr>"""
     
+    momentum_html = momentum_scanner_html(tokens)
+    
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -406,6 +409,8 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
             <div class="label">Avg 24h Change</div>
         </div>
     </div>
+    
+    {momentum_html}
     
     <h2>📊 Token Leaderboard</h2>
     <div style="overflow-x: auto;">

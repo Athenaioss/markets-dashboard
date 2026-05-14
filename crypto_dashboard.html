@@ -1,265 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🪙 Atlas Nexus — Token Intelligence Dashboard | Birdeye Sprint 4</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<style>
-  :root {
-    --bg: #080b16;
-    --card: #0f1420;
-    --border: #1a2040;
-    --accent: #38bdf8;
-    --accent2: #818cf8;
-    --green: #22c55e;
-    --red: #ef4444;
-    --text: #e2e8f0;
-    --muted: #64748b;
-    --orange: #f59e0b;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    background-image:
-      radial-gradient(ellipse at 20% 0%, rgba(56,189,248,0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 100%, rgba(129,140,248,0.05) 0%, transparent 50%);
-  }
-
-  /* ── Header ── */
-  .header {
-    text-align: center;
-    padding: 40px 20px 30px;
-    border-bottom: 1px solid var(--border);
-    background: linear-gradient(180deg, rgba(15,20,40,0.9), transparent);
-  }
-  .title-emoji { font-size: 2.8em; margin-bottom: 0; line-height: 1; }
-  .header h1 {
-    font-size: 2.4em;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: -0.5px;
-  }
-  .header .subtitle {
-    color: var(--muted);
-    margin-top: 8px;
-    font-size: 1em;
-  }
-  .live-badge {
-    display: inline-block;
-    background: rgba(34,197,94,0.15);
-    color: var(--green);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.85em;
-    font-weight: 600;
-    margin-top: 10px;
-    animation: pulse 2s infinite;
-  }
-  .live-dot { display:inline-block; width:8px; height:8px; background:var(--green); border-radius:50%; margin-right:6px; }
-  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
-
-  /* ── Layout ── */
-  .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-
-  /* ── Stat Cards ── */
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-  .stat-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.2s, border-color 0.2s;
-  }
-  .stat-card:hover { transform: translateY(-2px); border-color: var(--accent); }
-  .stat-card .icon { font-size: 1.5em; margin-bottom: 8px; }
-  .stat-card .value { font-size: 2.2em; font-weight: 800; letter-spacing: -1px; }
-  .stat-card .label { color: var(--muted); font-size: 0.9em; margin-top: 4px; }
-  .stat-card .delta { font-size: 0.85em; margin-top: 4px; }
-
-  /* ── Search & Filters ── */
-  .controls {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .search-box {
-    flex: 1;
-    min-width: 250px;
-    padding: 12px 18px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background: var(--card);
-    color: var(--text);
-    font-size: 1em;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .search-box:focus { border-color: var(--accent); }
-  .filter-btn {
-    padding: 10px 18px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--card);
-    color: var(--text);
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-  .filter-btn:hover, .filter-btn.active {
-    border-color: var(--accent);
-    background: rgba(56,189,248,0.1);
-    color: var(--accent);
-  }
-
-  /* ── Table ── */
-  .table-wrapper {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    margin-bottom: 24px;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.92em;
-  }
-  th {
-    background: rgba(15,20,40,0.6);
-    padding: 14px 16px;
-    text-align: left;
-    font-weight: 600;
-    color: var(--accent);
-    font-size: 0.82em;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    user-select: none;
-    white-space: nowrap;
-  }
-  th:hover { color: var(--accent2); }
-  td { padding: 12px 16px; border-bottom: 1px solid rgba(26,32,64,0.5); }
-  tr:hover { background: rgba(56,189,248,0.03); }
-  .token-cell { display:flex; align-items:center; gap:10px; }
-  .token-icon { width:32px; height:32px; border-radius:50%; background:var(--border); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8em; }
-  .token-name { font-weight:600; }
-  .token-symbol { color:var(--muted); font-size:0.85em; }
-  .price { font-weight:600; font-variant-numeric: tabular-nums; }
-  .change-positive { color:var(--green); }
-  .change-negative { color:var(--red); }
-
-  /* ── Charts ── */
-  .charts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-    gap: 20px;
-    margin-bottom: 24px;
-  }
-  .chart-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
-  }
-  .chart-card h3 {
-    font-size: 1.1em;
-    margin-bottom: 16px;
-    color: var(--accent);
-  }
-  .chart-container { position: relative; height: 280px; }
-
-  /* ── Gainers/Losers ── */
-  .gainers-losers {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 24px;
-  }
-  @media (max-width: 768px) { .gainers-losers { grid-template-columns: 1fr; } }
-
-  .gl-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
-  }
-  .gl-card h3 { margin-bottom: 14px; font-size: 1.05em; }
-  .gl-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(26,32,64,0.4);
-  }
-  .gl-item:last-child { border-bottom: none; }
-  .gl-rank { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.85em; }
-  .rank-gold { background:rgba(245,158,11,0.15); color:var(--orange); }
-  .rank-silver { background:rgba(148,163,184,0.15); color:#94a3b8; }
-  .rank-bronze { background:rgba(180,83,9,0.15); color:#b45309; }
-  .rank-normal { background:var(--border); color:var(--muted); }
-
-  /* ── Alerts Section ── */
-  .alerts-section {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px 24px;
-    margin-bottom: 24px;
-  }
-  .alerts-section h3 { color: var(--orange); margin-bottom: 12px; }
-  .alert-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px;
-    margin: 6px 0;
-    background: rgba(245,158,11,0.05);
-    border-radius: 8px;
-    border-left: 3px solid var(--orange);
-  }
-  .alert-token { font-weight:600; min-width:80px; }
-  .alert-desc { color: var(--muted); font-size:0.9em; }
-  .alert-value { margin-left:auto; font-weight:600; font-variant-numeric: tabular-nums; }
-
-  /* ── Footer ── */
-  .footer {
-    text-align: center;
-    padding: 30px;
-    color: var(--muted);
-    font-size: 0.85em;
-    border-top: 1px solid var(--border);
-  }
-
-  .hidden { display: none; }
-  .loading { text-align:center; padding:60px; color:var(--muted); }
-  .error-banner {
-    background: rgba(239,68,68,0.1);
-    border: 1px solid rgba(239,68,68,0.3);
-    border-radius: 10px;
-    padding: 12px 20px;
-    margin-bottom: 20px;
-    color: var(--red);
-    display: none;
-  }
-  .sentiment-banner { text-align:center; border-radius:14px; padding:24px; margin-bottom:20px; }
-  .sentiment-banner .sig { display:inline-block; min-width:100px; margin:4px 8px; }
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas Nexus — Birdeye Sprint 4 Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0f172a; color: #e2e8f0; padding: 20px; }
+        .header { text-align: center; padding: 30px; background: linear-gradient(135deg, #1e293b, #0f172a); border-radius: 12px; margin-bottom: 20px; border: 1px solid #334155; }
+        .header h1 { font-size: 2em; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header p { color: #94a3b8; margin-top: 8px; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px; text-align: center; }
+        .card .value { font-size: 2em; font-weight: bold; }
+        .card .label { color: #94a3b8; font-size: 0.9em; margin-top: 5px; }
+        .up { color: #22c55e; } .down { color: #ef4444; }
+        table { width: 100%; border-collapse: collapse; background: #1e293b; border-radius: 10px; overflow: hidden; }
+        th { background: #334155; padding: 12px; text-align: left; font-weight: 600; color: #38bdf8; }
+        td { padding: 10px 12px; border-bottom: 1px solid #1e293b; }
+        tr:hover { background: #334155; }
+        .badge { padding: 3px 8px; border-radius: 12px; font-size: 0.8em; font-weight: 600; }
+        .badge-high { background: #7f1d1d; color: #fca5a5; }
+        .badge-medium { background: #78350f; color: #fcd34d; }
+        .badge-low { background: #14532d; color: #86efac; }
+        .badge-tier { background: #1e3a5f; color: #93c5fd; }
+        .gainer { color: #22c55e; } .loser { color: #ef4444; }
+        h2 { margin: 20px 0 10px; color: #38bdf8; }
+        .section { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) { .section { grid-template-columns: 1fr; } }
+    
 /* ATLAS_PREMIUM_DASHBOARD_THEME_V1 */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 :root{
@@ -316,635 +85,801 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 </head>
 <body>
 <nav class="atlas-nav" aria-label="Atlas Nexus dashboard navigation"><a class="atlas-brand" href="index.html"><span>🔮</span><span>Atlas Nexus</span></a><div class="atlas-links"><a href="index.html">Home</a><a class="active" href="crypto_dashboard.html">Crypto</a><a href="commodities_dashboard.html">Commodities</a><a href="indices_dashboard.html">Indices</a><a href="forex_dashboard.html">Forex</a><a href="actions_dashboard.html">Stocks</a><a href="etf_dashboard.html">ETF</a></div></nav>
-
-<div class="header">
-  <div class="title-emoji">🪙</div>
-  <h1>Atlas Nexus — Token Intelligence</h1>
-  <p class="subtitle">Multi-source crypto analytics · CoinGecko + DEX Screener + Birdeye BDS</p>
-  <div class="live-badge"><span class="live-dot"></span>Live · <span id="lastUpdate">loading...</span></div>
-</div>
-
-<div class="container">
-  <div class="error-banner" id="errorBanner"></div>
-  <div id="sentimentBanner"></div>
-
-  <!-- Stat Cards -->
-  <div class="stats-grid" id="statsGrid">
-    <div class="stat-card">
-      <div class="icon">📊</div>
-      <div class="value" style="color:var(--accent)" id="statTokens">--</div>
-      <div class="label">Tokens Tracked</div>
+    <div class="header">
+        <h1>🔮 Atlas Nexus — Birdeye Sprint 4</h1>
+        <p>Multi-source crypto analytics pipeline | Generated: 20260514-045717</p>
     </div>
-    <div class="stat-card">
-      <div class="icon">📈</div>
-      <div class="value" style="color:var(--green)" id="statUp">--</div>
-      <div class="label">Gaining (24h)</div>
-    </div>
-    <div class="stat-card">
-      <div class="icon">📉</div>
-      <div class="value" style="color:var(--red)" id="statDown">--</div>
-      <div class="label">Falling (24h)</div>
-    </div>
-    <div class="stat-card">
-      <div class="icon">🌐</div>
-      <div class="value" style="color:var(--accent2)" id="statMc">--</div>
-      <div class="label">Total Market Cap</div>
-    </div>
-    <div class="stat-card">
-      <div class="icon">💎</div>
-      <div class="value" style="color:var(--orange)" id="statGems">--</div>
-      <div class="label">Hidden Gems*</div>
-      <div class="delta" style="color:var(--muted);font-size:0.75em">*Vol ↑ >2x avg, MCap <$500M</div>
-    </div>
-  </div>
-
-  <!-- Search & Filters -->
-  <div class="controls">
-    <input type="text" class="search-box" id="searchInput" placeholder="🔍 Search by name or symbol (e.g. ETH, Solana, PEPE)...">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="gainers">📈 Gainers</button>
-    <button class="filter-btn" data-filter="losers">📉 Losers</button>
-    <button class="filter-btn" data-filter="large">🏦 Large Cap</button>
-    <button class="filter-btn" data-filter="mid">🏗 Mid Cap</button>
-    <button class="filter-btn" data-filter="small">🔬 Small Cap</button>
-    <button class="filter-btn" data-filter="gems">💎 Hidden Gems</button>
-    <button class="filter-btn" data-filter="highvol">⚡ High Vol</button>
-  </div>
-
-  <!-- Market Cap Distribution Chart -->
-  <div class="charts-grid">
-    <div class="chart-card">
-      <h3>📊 Market Cap Distribution</h3>
-      <div class="chart-container"><canvas id="mcapChart"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <h3>🔥 Volatility Heatmap (24h)</h3>
-      <div class="chart-container"><canvas id="volatilityChart"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <h3>📈 Top 10 by Market Cap</h3>
-      <div class="chart-container"><canvas id="topMcapChart"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <h3>⚡ Momentum Score Distribution</h3>
-      <div class="chart-container"><canvas id="momentumChart"></canvas></div>
-    </div>
-  </div>
-
-  <!-- Gainers & Losers -->
-  <div class="gainers-losers">
-    <div class="gl-card">
-      <h3>🚀 Top 10 Gainers (24h)</h3>
-      <div id="gainersList"></div>
-    </div>
-    <div class="gl-card">
-      <h3>📉 Top 10 Losers (24h)</h3>
-      <div id="losersList"></div>
-    </div>
-  </div>
-
-  <!-- Alerts -->
-  <div class="alerts-section hidden" id="alertsSection">
-    <h3>⚠️ Smart Alerts — Unusual Activity Detected</h3>
-    <div id="alertsList"></div>
-  </div>
-
-  <!-- Token Table -->
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th data-sort="mcap_rank">#</th>
-          <th data-sort="name">Token</th>
-          <th data-sort="current_price">Price</th>
-          <th data-sort="market_cap">Market Cap</th>
-          <th data-sort="price_change_percentage_24h">24h Δ</th>
-          <th data-sort="price_change_percentage_7d_in_currency">7d Δ</th>
-          <th data-sort="volatility">Volatility</th>
-          <th data-sort="momentum">Momentum</th>
-          <th data-sort="total_volume">Volume 24h</th>
-        </tr>
-      </thead>
-      <tbody id="tokenTableBody"></tbody>
-    </table>
-  </div>
-  <div class="loading" id="loadingRow">Fetching live data from CoinGecko...</div>
-
-  <div class="footer">
-    <p>🪙 Built for Birdeye Data BIP Sprint 4 by <strong>Atlas Nexus</strong></p>
-    <p style="margin-top:4px">Multi-source pipeline: CoinGecko API · DEX Screener · Birdeye BDS | Data refreshes every 60s</p>
-    <p style="margin-top:4px;font-size:0.8em"><a href="https://github.com/AtlasNexusOps/birdeye-sprint4" style="color:var(--accent)">github.com/AtlasNexusOps/birdeye-sprint4</a></p>
-  </div>
-</div>
-
-<script>
-// ═══════════════════════════════════════════════════════
-// ATLAS NEXUS — TOKEN INTELLIGENCE DASHBOARD
-// Birdeye Data BIP Sprint 4
-// ═══════════════════════════════════════════════════════
-
-const COINGECKO_API = 'https://api.coingecko.com/api/v3';
-const CACHE_DURATION = 60000; // 60 seconds
-let allTokens = [];
-let activeFilter = 'all';
-let sortField = 'market_cap';
-let sortDir = 'desc';
-let charts = {};
-
-// ── API Fetch ──
-async function fetchWithCache(url, cacheKey) {
-  const cached = sessionStorage.getItem(cacheKey);
-  if (cached) {
-    const { data, ts } = JSON.parse(cached);
-    if (Date.now() - ts < CACHE_DURATION) return data;
-  }
-  try {
-    const resp = await fetch(url);
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    const data = await resp.json();
-    sessionStorage.setItem(cacheKey, JSON.stringify({ data, ts: Date.now() }));
-    return data;
-  } catch (e) {
-    console.warn(`Fetch failed for ${cacheKey}:`, e.message);
-    const cached = sessionStorage.getItem(cacheKey);
-    return cached ? JSON.parse(cached).data : null;
-  }
-}
-
-async function fetchAllData() {
-  try {
-    const [markets, global] = await Promise.all([
-      fetchWithCache(
-        `${COINGECKO_API}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=24h,7d`,
-        'cg_markets'
-      ),
-      fetchWithCache(`${COINGECKO_API}/global`, 'cg_global')
-    ]);
-
-    document.getElementById('errorBanner').style.display = 'none';
-
-    if (!markets || !markets.length) {
-      throw new Error('No market data returned');
-    }
-
-    // Enrich data
-    const enriched = markets.map((t, i) => {
-      const change24 = t.price_change_percentage_24h || 0;
-      const change7d = t.price_change_percentage_7d_in_currency || 0;
-      const mcap = t.market_cap || 0;
-      const vol = t.total_volume || 0;
-
-      let volatility = 'LOW';
-      if (Math.abs(change24) > 10) volatility = 'HIGH';
-      else if (Math.abs(change24) > 3) volatility = 'MEDIUM';
-
-      let tier = 'UNKNOWN';
-      if (mcap > 10_000_000_000) tier = 'LARGE_CAP';
-      else if (mcap > 1_000_000_000) tier = 'MID_CAP';
-      else if (mcap > 100_000_000) tier = 'SMALL_CAP';
-      else if (mcap > 0) tier = 'MICRO_CAP';
-
-      const momentum = (change24 * 0.6 + change7d * 0.4);
-
-      return {
-        ...t,
-        volatility,
-        mcap_tier: tier,
-        momentum_score: Math.round(momentum * 100) / 100,
-        volume_mcap_ratio: mcap > 0 ? vol / mcap : 0,
-        trend: change24 > 5 ? 'STRONG_UP' : change24 > 1 ? 'UP' : change24 < -5 ? 'STRONG_DOWN' : change24 < -1 ? 'DOWN' : 'FLAT'
-      };
-    });
-
-    return { tokens: enriched, global };
-  } catch (e) {
-    document.getElementById('errorBanner').style.display = 'block';
-    document.getElementById('errorBanner').textContent = `⚠️ API Error: ${e.message}. Using cached data if available.`;
-    return { tokens: [], global: null };
-  }
-}
-
-// ── Compute Stats ──
-function computeStats(tokens) {
-  const gainers = tokens.filter(t => (t.price_change_percentage_24h || 0) > 0).length;
-  const losers = tokens.filter(t => (t.price_change_percentage_24h || 0) < 0).length;
-  const totalMcap = tokens.reduce((s, t) => s + (t.market_cap || 0), 0);
-  const avgVol = tokens.reduce((s, t) => s + (t.total_volume || 0), 0) / tokens.length;
-  const gems = tokens.filter(t =>
-    (t.total_volume || 0) > avgVol * 2 && (t.market_cap || 0) < 500_000_000 && (t.market_cap || 0) > 0
-  );
-
-  return { total: tokens.length, gainers, losers, totalMcap, gems: gems.length, avgVol };
-}
-
-// ── Update Stats Cards ──
-function updateStats(stats) {
-  document.getElementById('statTokens').textContent = stats.total;
-  document.getElementById('statUp').textContent = stats.gainers;
-  document.getElementById('statDown').textContent = stats.losers;
-  document.getElementById('statMc').textContent = formatCurrency(stats.totalMcap);
-  document.getElementById('statGems').textContent = stats.gems;
-  document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
-}
-
-// ── Update Gainers/Losers ──
-function updateGainersLosers(tokens) {
-  const sorted = [...tokens].sort((a, b) =>
-    (b.price_change_percentage_24h || 0) - (a.price_change_percentage_24h || 0)
-  );
-
-  const gainersEl = document.getElementById('gainersList');
-  gainersEl.innerHTML = sorted.slice(0, 10).map((t, i) => {
-    const rankClass = i === 0 ? 'rank-gold' : i === 1 ? 'rank-silver' : i === 2 ? 'rank-bronze' : 'rank-normal';
-    return `<div class="gl-item">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <span class="gl-rank ${rankClass}">${i+1}</span>
-        <span><strong>${t.symbol.toUpperCase()}</strong> <small style="color:var(--muted)">${(t.name||'').slice(0,15)}</small></span>
-      </div>
-      <span class="change-positive">▲ ${(t.price_change_percentage_24h||0).toFixed(1)}%</span>
-    </div>`;
-  }).join('');
-
-  const losersEl = document.getElementById('losersList');
-  losersEl.innerHTML = sorted.slice(-10).reverse().map((t, i) => {
-    const rankClass = i === 0 ? 'rank-gold' : i === 1 ? 'rank-silver' : i === 2 ? 'rank-bronze' : 'rank-normal';
-    return `<div class="gl-item">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <span class="gl-rank ${rankClass}">${i+1}</span>
-        <span><strong>${t.symbol.toUpperCase()}</strong> <small style="color:var(--muted)">${(t.name||'').slice(0,15)}</small></span>
-      </div>
-      <span class="change-negative">▼ ${Math.abs(t.price_change_percentage_24h||0).toFixed(1)}%</span>
-    </div>`;
-  }).join('');
-}
-
-// ── Update Alerts ──
-function updateAlerts(tokens, stats) {
-  const alerts = [];
-
-  // Unusual volume alerts
-  const unusual = tokens.filter(t =>
-    (t.total_volume || 0) > stats.avgVol * 3 && (t.market_cap || 0) > 0 && (t.market_cap || 0) < 1_000_000_000
-  );
-
-  // Strong movers
-  const strongUp = tokens.filter(t => (t.price_change_percentage_24h || 0) > 15);
-  const strongDown = tokens.filter(t => (t.price_change_percentage_24h || 0) < -15);
-
-  // Hidden gems (high volume, low mcap, strong price action)
-  const gems = unusual.filter(t =>
-    (t.price_change_percentage_24h || 0) > 5 && (t.market_cap || 0) < 500_000_000
-  );
-
-  if (gems.length > 0) {
-    alerts.push(...gems.slice(0, 3).map(t => ({
-      token: t.symbol.toUpperCase(),
-      desc: 'Hidden Gem — high vol + strong up + low mcap',
-      value: `▲${(t.price_change_percentage_24h||0).toFixed(1)}% · Vol $${formatNum(t.total_volume||0)}`
-    })));
-  }
-
-  if (strongUp.length > 0) {
-    alerts.push(...strongUp.slice(0, 3).map(t => ({
-      token: t.symbol.toUpperCase(),
-      desc: 'Strong breakout >15%',
-      value: `▲${(t.price_change_percentage_24h||0).toFixed(1)}%`
-    })));
-  }
-
-  if (strongDown.length > 0) {
-    alerts.push(...strongDown.slice(0, 2).map(t => ({
-      token: t.symbol.toUpperCase(),
-      desc: 'Sharp decline >15% — risk alert',
-      value: `▼${Math.abs(t.price_change_percentage_24h||0).toFixed(1)}%`
-    })));
-  }
-
-  const section = document.getElementById('alertsSection');
-  const list = document.getElementById('alertsList');
-
-  if (alerts.length > 0) {
-    section.classList.remove('hidden');
-    list.innerHTML = alerts.map(a => `
-      <div class="alert-item">
-        <span class="alert-token">${a.token}</span>
-        <span class="alert-desc">${a.desc}</span>
-        <span class="alert-value" style="color:${a.value.includes('▲')?'var(--green)':'var(--red)'}">${a.value}</span>
-      </div>
-    `).join('');
-  } else {
-    section.classList.add('hidden');
-  }
-}
-
-// ── Update Table ──
-function updateTable(tokens) {
-  const tbody = document.getElementById('tokenTableBody');
-  document.getElementById('loadingRow').style.display = 'none';
-
-  let filtered = [...tokens];
-
-  // Search filter
-  const search = document.getElementById('searchInput').value.toLowerCase();
-  if (search) {
-    filtered = filtered.filter(t =>
-      t.symbol.toLowerCase().includes(search) ||
-      (t.name || '').toLowerCase().includes(search)
-    );
-  }
-
-  // Category filter
-  const avgVol = tokens.reduce((s, t) => s + (t.total_volume || 0), 0) / tokens.length;
-  switch (activeFilter) {
-    case 'gainers': filtered = filtered.filter(t => (t.price_change_percentage_24h || 0) > 0); break;
-    case 'losers': filtered = filtered.filter(t => (t.price_change_percentage_24h || 0) < 0); break;
-    case 'large': filtered = filtered.filter(t => t.mcap_tier === 'LARGE_CAP'); break;
-    case 'mid': filtered = filtered.filter(t => t.mcap_tier === 'MID_CAP'); break;
-    case 'small': filtered = filtered.filter(t => t.mcap_tier === 'SMALL_CAP' || t.mcap_tier === 'MICRO_CAP'); break;
-    case 'gems': filtered = filtered.filter(t => (t.total_volume||0) > avgVol*2 && (t.market_cap||0) < 500_000_000 && (t.market_cap||0) > 0); break;
-    case 'highvol': filtered = filtered.filter(t => t.volatility === 'HIGH'); break;
-  }
-
-  // Sort
-  filtered.sort((a, b) => {
-    let va = a[sortField], vb = b[sortField];
-    if (va == null) va = 0;
-    if (vb == null) vb = 0;
-    if (typeof va === 'string') va = va.toLowerCase();
-    if (typeof vb === 'string') vb = vb.toLowerCase();
-    return sortDir === 'asc' ? (va > vb ? 1 : -1) : (va < vb ? 1 : -1);
-  });
-
-  tbody.innerHTML = filtered.map((t, i) => {
-    const change24 = t.price_change_percentage_24h || 0;
-    const change7d = t.price_change_percentage_7d_in_currency || 0;
-    const color24 = change24 > 0 ? 'change-positive' : change24 < 0 ? 'change-negative' : '';
-    const color7d = change7d > 0 ? 'change-positive' : change7d < 0 ? 'change-negative' : '';
-    const arrow = change24 > 0 ? '▲' : change24 < 0 ? '▼' : '—';
-
-    const tierColors = {
-      'LARGE_CAP': '#818cf8', 'MID_CAP': '#38bdf8',
-      'SMALL_CAP': '#22c55e', 'MICRO_CAP': '#f59e0b', 'UNKNOWN': '#64748b'
-    };
-    const volColors = { 'HIGH': '#ef4444', 'MEDIUM': '#f59e0b', 'LOW': '#22c55e' };
-
-    return `<tr>
-      <td style="color:var(--muted)">${i+1}</td>
-      <td>
-        <div class="token-cell">
-          <img src="${t.image}" width="28" height="28" style="border-radius:50%" onerror="this.style.display='none'" alt="">
-          <div>
-            <div class="token-name">${t.name}</div>
-            <div class="token-symbol">${t.symbol.toUpperCase()}</div>
-          </div>
+    
+    <div class="cards">
+        <div class="card">
+            <div class="value" style="color:#38bdf8">108</div>
+            <div class="label">Tokens Analyzed</div>
         </div>
-      </td>
-      <td class="price">$${t.current_price < 0.01 ? t.current_price.toFixed(6) : t.current_price < 1 ? t.current_price.toFixed(4) : t.current_price.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
-      <td>$${formatNum(t.market_cap || 0)}</td>
-      <td class="${color24}">${arrow} ${Math.abs(change24).toFixed(2)}%</td>
-      <td class="${color7d}">${change7d > 0 ? '▲' : change7d < 0 ? '▼' : '—'} ${Math.abs(change7d).toFixed(2)}%</td>
-      <td><span style="color:${volColors[t.volatility]};font-weight:600">${t.volatility}</span></td>
-      <td><span style="color:${t.momentum_score > 0 ? 'var(--green)' : t.momentum_score < 0 ? 'var(--red)' : 'var(--muted)'};font-weight:600">${t.momentum_score.toFixed(1)}</span></td>
-      <td>$${formatNum(t.total_volume || 0)}</td>
-    </tr>`;
-  }).join('');
-
-  if (filtered.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--muted)">No tokens match your filters</td></tr>';
-  }
-}
-
-// ── Sentiment Engine ──
-function computeSentiment(tokens) {
-  const n = tokens.length;
-  if (!n) return { direction: 'NEUTRAL', confidence: 0, score: 0, signals: {}, summary: 'No data' };
-  
-  const up = tokens.filter(t => (t.price_change_percentage_24h || 0) > 0).length;
-  const breadth = (up / n) * 100;
-  const avgChange = tokens.reduce((s, t) => s + (t.price_change_percentage_24h || 0), 0) / n;
-  const momentumScore = Math.max(-100, Math.min(100, avgChange * 20));
-  const bullishTrend = tokens.filter(t => (t.momentum_score || 0) > 0).length;
-  const trendScore = (bullishTrend / n) * 100;
-  const avgVol = tokens.reduce((s, t) => s + (t.total_volume || 0), 0) / n;
-  const highVol = tokens.filter(t => (t.total_volume || 0) > avgVol * 1.5).length;
-  const volConviction = highVol / n * 100;
-  
-  const rawScore = (breadth - 50) * 0.35 + momentumScore * 0.30 + (trendScore - 50) * 0.20 + (volConviction - 15) * 0.10;
-  
-  let direction;
-  if (rawScore > 20) direction = 'BULLISH';
-  else if (rawScore > 7) direction = 'SLIGHTLY BULLISH';
-  else if (rawScore >= -7) direction = 'NEUTRAL';
-  else if (rawScore > -20) direction = 'SLIGHTLY BEARISH';
-  else direction = 'BEARISH';
-  
-  const confidence = Math.min(95, Math.max(25, Math.abs(rawScore) * 1.5 + 25));
-  
-  return {
-    direction, confidence: Math.round(confidence), score: rawScore.toFixed(1),
-    signals: {
-      breadth: { value: Math.round(breadth), label: `${up}/${n} tokens up` },
-      avg_change: { value: avgChange.toFixed(2), label: 'Avg change' },
-      trend_alignment: { value: Math.round(trendScore), label: `${bullishTrend}/${n} bullish momentum` },
-      volume_conviction: { value: Math.round(volConviction), label: `${highVol}/${n} elevated vol` }
-    },
-    summary: `${direction} (${Math.round(confidence)}%)`
-  };
-}
-
-function updateSentiment(tokens) {
-  const s = computeSentiment(tokens);
-  const colors = {
-    'BULLISH': ['#22c55e', '#14532d', '🚀'],
-    'SLIGHTLY BULLISH': ['#86efac', '#14532d', '📈'],
-    'NEUTRAL': ['#f59e0b', '#78350f', '⚖️'],
-    'SLIGHTLY BEARISH': ['#fca5a5', '#7f1d1d', '📉'],
-    'BEARISH': ['#ef4444', '#7f1d1d', '🐻']
-  };
-  const [c, bg, e] = colors[s.direction] || ['#94a3b8', '#1e293b', '📊'];
-  
-  document.getElementById('sentimentBanner').innerHTML = `
-    <div class="sentiment-banner" style="background:${bg};border:1px solid ${c}">
-      <div style="font-size:2.5em">${e}</div>
-      <div style="font-size:1.5em;font-weight:700;color:${c}">${s.direction}</div>
-      <div style="font-size:2.2em;font-weight:800;color:${c}">${s.confidence}%</div>
-      <div style="color:var(--muted);font-size:.9em">confidence</div>
-      <div style="margin-top:12px;font-size:.85em">
-        ${Object.values(s.signals).map(v => `<span class="sig"><span style="color:var(--muted)">${v.label}</span><br><strong>${v.value}</strong></span>`).join('')}
+        <div class="card">
+            <div class="value" style="color:#22c55e">5</div>
+            <div class="label">Tokens Up (24h)</div>
+        </div>
+        <div class="card">
+            <div class="value" style="color:#ef4444">59</div>
+            <div class="label">Tokens Down (24h)</div>
+        </div>
+        <div class="card">
+            <div class="value" style="color:#f59e0b">-2.0%</div>
+            <div class="label">Avg 24h Change</div>
+        </div>
+    </div>
+    
+    
+<section class="momentum-scanner-v2" aria-label="Momentum Scanner">
+  <style>
+    .momentum-scanner-v2{margin:0 0 24px;padding:22px;border:1px solid var(--atlas-border,var(--border));border-radius:26px;background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.03));box-shadow:0 22px 70px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06)}
+    .momentum-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
+    .momentum-kicker{color:var(--atlas-accent,var(--accent));font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;font-weight:900;margin-bottom:5px}
+    .momentum-title{font-size:1.35rem;font-weight:950;letter-spacing:-.055em;color:var(--atlas-text,var(--text))}
+    .momentum-sub{color:var(--atlas-muted,var(--muted));font-size:.86rem;margin-top:5px;line-height:1.55}
+    .momentum-regime{border:1px solid var(--atlas-border,var(--border));border-radius:999px;padding:8px 11px;font-size:.78rem;font-weight:900;white-space:nowrap;background:rgba(255,255,255,.045)}
+    .momentum-regime.bull{color:var(--atlas-green,var(--green))}.momentum-regime.bear{color:var(--atlas-red,var(--red))}.momentum-regime.neutral{color:var(--atlas-amber,#f59e0b)}
+    .momentum-pulse{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
+    .momentum-chip{padding:12px;border-radius:18px;border:1px solid var(--atlas-border,var(--border));background:rgba(7,9,20,.34)}
+    .momentum-chip span{display:block;color:var(--atlas-muted,var(--muted));font-size:.72rem;font-weight:850;text-transform:uppercase;letter-spacing:.06em}.momentum-chip b{display:block;margin-top:4px;color:var(--atlas-text,var(--text));font-size:.98rem}
+    .momentum-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.momentum-col{display:flex;flex-direction:column;gap:10px}.momentum-col h4{margin:0 0 2px;font-size:.88rem;font-weight:950;letter-spacing:-.025em;color:var(--atlas-text,var(--text))}
+    .momentum-pick{border:1px solid var(--atlas-border,var(--border));border-radius:20px;padding:13px;background:rgba(7,9,20,.36);box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
+    .momentum-pick.bull{border-left:3px solid var(--atlas-green,var(--green))}.momentum-pick.bear{border-left:3px solid var(--atlas-red,var(--red))}
+    .momentum-pick-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.momentum-name{font-weight:900;color:var(--atlas-text,var(--text));line-height:1.2}.momentum-meta{color:var(--atlas-muted,var(--muted));font-size:.76rem;margin-top:3px}.momentum-score{font-weight:950;font-size:1.15rem;letter-spacing:-.04em}
+    .momentum-tags{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.momentum-tag{border:1px solid var(--atlas-border,var(--border));border-radius:999px;padding:4px 7px;color:var(--atlas-muted,var(--muted));font-size:.68rem;background:rgba(255,255,255,.035)}.momentum-tag b{color:var(--atlas-text,var(--text))}.momentum-tag.muted{opacity:.7}
+    .momentum-bar{height:5px;border-radius:99px;background:rgba(148,163,184,.16);overflow:hidden;margin:8px 0 10px}.momentum-bar span{display:block;height:100%;border-radius:99px;box-shadow:0 0 18px currentColor}
+    .momentum-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.momentum-metrics span{min-width:0}.momentum-metrics b{display:block;color:var(--atlas-text,var(--text));font-size:.74rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.momentum-metrics em{display:block;color:var(--atlas-faint,var(--muted));font-size:.64rem;font-style:normal;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+    .momentum-radar{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:2px}.momentum-radar-title{grid-column:1/-1;margin:6px 0 0!important;color:var(--atlas-muted,var(--muted))!important;font-size:.82rem!important}
+    .momentum-empty{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}
+    @media(max-width:860px){.momentum-head{flex-direction:column}.momentum-pulse{grid-template-columns:repeat(2,1fr)}.momentum-grid{grid-template-columns:1fr}.momentum-radar{grid-template-columns:1fr}}
+    @media(max-width:480px){.momentum-scanner-v2{padding:16px;border-radius:22px}.momentum-pulse{grid-template-columns:1fr}.momentum-metrics{grid-template-columns:repeat(2,1fr)}}
+  </style>
+  <div class="momentum-head">
+    <div>
+      <div class="momentum-kicker">Market pulse scanner</div>
+      <div class="momentum-title">Momentum leaders & pressure zones</div>
+      <div class="momentum-sub">Score composite : change, trend MA, volume, distance au 52W high, bougie et volatilité. Les barres indiquent la conviction normalisée.</div>
+    </div>
+    <div class="momentum-regime neutral">Mixed · -1.0</div>
+  </div>
+  <div class="momentum-pulse">
+    <div class="momentum-chip"><span>Leader</span><b>B · +17.3</b></div>
+    <div class="momentum-chip"><span>Pressure</span><b>VVV · -15.8</b></div>
+    <div class="momentum-chip"><span>Breadth</span><b>21/108 up · 19%</b></div>
+    <div class="momentum-chip"><span>Conviction</span><b>7 vol spikes · 0 near 52W</b></div>
+  </div>
+  <div class="momentum-grid">
+    <div class="momentum-col"><h4>▲ Bullish momentum</h4>
+    <article class="momentum-pick bull">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">BUILDon</div>
+          <div class="momentum-meta">B · SMALL_CAP</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+17.3</div>
       </div>
-    </div>`;
-}
-
-// ── Charts ──
-function destroyCharts() {
-  Object.values(charts).forEach(c => c.destroy());
-  charts = {};
-}
-
-function updateCharts(tokens) {
-  destroyCharts();
-
-  // Market Cap Distribution (Pie)
-  const tiers = ['LARGE_CAP', 'MID_CAP', 'SMALL_CAP', 'MICRO_CAP'];
-  const tierCounts = tiers.map(tier => tokens.filter(t => t.mcap_tier === tier).length);
-  charts.mcap = new Chart(document.getElementById('mcapChart'), {
-    type: 'doughnut',
-    data: {
-      labels: ['Large Cap (>$10B)', 'Mid Cap ($1B-$10B)', 'Small Cap ($100M-$1B)', 'Micro Cap (<$100M)'],
-      datasets: [{ data: tierCounts, backgroundColor: ['#818cf8','#38bdf8','#22c55e','#f59e0b'], borderWidth: 0 }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { position: 'right', labels: { color: '#94a3b8', padding: 12, font: { size: 11 } } } }
-    }
-  });
-
-  // Volatility Distribution
-  const volLevels = ['HIGH', 'MEDIUM', 'LOW'];
-  const volCounts = volLevels.map(v => tokens.filter(t => t.volatility === v).length);
-  charts.vol = new Chart(document.getElementById('volatilityChart'), {
-    type: 'bar',
-    data: {
-      labels: ['High Vol (>10%)', 'Medium Vol (3-10%)', 'Low Vol (<3%)'],
-      datasets: [{
-        data: volCounts, backgroundColor: ['#ef4444','#f59e0b','#22c55e'],
-        borderRadius: 8, borderWidth: 0
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      indexAxis: 'y',
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { grid: { color: 'rgba(100,116,139,0.1)' }, ticks: { color: '#94a3b8' } },
-        y: { grid: { display: false }, ticks: { color: '#e2e8f0' } }
-      }
-    }
-  });
-
-  // Top 10 by Market Cap
-  const top10 = [...tokens].sort((a, b) => (b.market_cap || 0) - (a.market_cap || 0)).slice(0, 10);
-  charts.topMcap = new Chart(document.getElementById('topMcapChart'), {
-    type: 'bar',
-    data: {
-      labels: top10.map(t => t.symbol.toUpperCase()),
-      datasets: [{
-        label: 'Market Cap (Billions)',
-        data: top10.map(t => (t.market_cap || 0) / 1e9),
-        backgroundColor: top10.map((_, i) => {
-          const colors = ['#818cf8','#38bdf8','#22c55e','#f59e0b','#ef4444','#a78bfa','#2dd4bf','#f97316','#e879f9','#64748b'];
-          return colors[i];
-        }),
-        borderRadius: 6, borderWidth: 0
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { grid: { display: false }, ticks: { color: '#e2e8f0' } },
-        y: { grid: { color: 'rgba(100,116,139,0.1)' }, ticks: { color: '#94a3b8', callback: v => '$' + v + 'B' } }
-      }
-    }
-  });
-
-  // Momentum Score Distribution
-  const momentumBins = { 'Strong (>5)': 0, 'Positive (1-5)': 0, 'Neutral (-1 to 1)': 0, 'Negative (-5 to -1)': 0, 'Strong (<-5)': 0 };
-  tokens.forEach(t => {
-    const m = t.momentum_score || 0;
-    if (m > 5) momentumBins['Strong (>5)']++;
-    else if (m > 1) momentumBins['Positive (1-5)']++;
-    else if (m >= -1) momentumBins['Neutral (-1 to 1)']++;
-    else if (m >= -5) momentumBins['Negative (-5 to -1)']++;
-    else momentumBins['Strong (<-5)']++;
-  });
-  charts.momentum = new Chart(document.getElementById('momentumChart'), {
-    type: 'bar',
-    data: {
-      labels: Object.keys(momentumBins),
-      datasets: [{
-        data: Object.values(momentumBins),
-        backgroundColor: ['#22c55e','#86efac','#94a3b8','#fca5a5','#ef4444'],
-        borderRadius: 8, borderWidth: 0
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { grid: { display: false }, ticks: { color: '#e2e8f0', font: { size: 10 } } },
-        y: { grid: { color: 'rgba(100,116,139,0.1)' }, ticks: { color: '#94a3b8', stepSize: 1 } }
-      }
-    }
-  });
-}
-
-// ── Helpers ──
-function formatNum(n) {
-  if (!n || n === 0) return '0';
-  if (n >= 1e12) return (n / 1e12).toFixed(2) + 'T';
-  if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
-  if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
-  if (n >= 1e3) return (n / 1e3).toFixed(2) + 'K';
-  return n.toFixed(2);
-}
-
-function formatCurrency(n) {
-  if (!n || n === 0) return '$0';
-  return '$' + formatNum(n);
-}
-
-// ── Event Listeners ──
-document.getElementById('searchInput').addEventListener('input', () => {
-  updateTable(allTokens);
-});
-
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeFilter = btn.dataset.filter;
-    updateTable(allTokens);
-  });
-});
-
-document.querySelectorAll('th[data-sort]').forEach(th => {
-  th.addEventListener('click', () => {
-    const field = th.dataset.sort;
-    if (sortField === field) {
-      sortDir = sortDir === 'asc' ? 'desc' : 'asc';
-    } else {
-      sortField = field;
-      sortDir = 'desc';
-    }
-    updateTable(allTokens);
-  });
-});
-
-// ── Main Refresh ──
-async function refresh() {
-  document.getElementById('lastUpdate').textContent = 'updating...';
-  const { tokens, global } = await fetchAllData();
-
-  if (!tokens.length) {
-    document.getElementById('lastUpdate').textContent = 'error — retrying...';
-    return;
-  }
-
-  allTokens = tokens;
-  const stats = computeStats(tokens);
-
-  updateStats(stats);
-  updateSentiment(tokens);
-  updateTable(tokens);
-  updateGainersLosers(tokens);
-  updateAlerts(tokens, stats);
-  updateCharts(tokens);
-}
-
-// ── Init ──
-refresh();
-setInterval(refresh, CACHE_DURATION);
-</script>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>52W</b> room</span><span class="momentum-tag"><b>Vol</b> hot</span></div>
+      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▲ 11.9%</b><em>change</em></span>
+        <span><b>Bullish</b><em>trend</em></span>
+        <span><b>0.8×</b><em>volume</em></span>
+        <span><b>10%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bull">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">​​Stable</div>
+          <div class="momentum-meta">STABLE · SMALL_CAP</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+15.9</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>52W</b> room</span></div>
+      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▲ 9.5%</b><em>change</em></span>
+        <span><b>Bullish</b><em>trend</em></span>
+        <span><b>0.2×</b><em>volume</em></span>
+        <span><b>10%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bull">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">Dogecoin</div>
+          <div class="momentum-meta">DOGE · LARGE_CAP</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+9.4</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>52W</b> room</span><span class="momentum-tag"><b>Vol</b> stable</span></div>
+      <div class="momentum-bar"><span style="width:73%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▲ 2.2%</b><em>change</em></span>
+        <span><b>Bullish</b><em>trend</em></span>
+        <span><b>1.1×</b><em>volume</em></span>
+        <span><b>10%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bull">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">JUST</div>
+          <div class="momentum-meta">JST · SMALL_CAP</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+8.3</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>52W</b> room</span><span class="momentum-tag"><b>Vol</b> stable</span></div>
+      <div class="momentum-bar"><span style="width:64%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▲ 1.1%</b><em>change</em></span>
+        <span><b>Bullish</b><em>trend</em></span>
+        <span><b>0.3×</b><em>volume</em></span>
+        <span><b>10%</b><em>52W room</em></span>
+      </div>
+    </article></div>
+    <div class="momentum-col"><h4>▼ Bearish pressure</h4>
+    <article class="momentum-pick bear">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">Venice Token</div>
+          <div class="momentum-meta">VVV · SMALL_CAP</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-15.8</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bear</span><span class="momentum-tag"><b>52W</b> room</span><span class="momentum-tag"><b>Vol</b> hot</span></div>
+      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▼ 13.2%</b><em>change</em></span>
+        <span><b>Bearish</b><em>trend</em></span>
+        <span><b>1.3×</b><em>volume</em></span>
+        <span><b>10%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bear">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">Zcash</div>
+          <div class="momentum-meta">ZEC · MID_CAP</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-13.6</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bear</span><span class="momentum-tag"><b>52W</b> room</span><span class="momentum-tag"><b>Vol</b> hot</span></div>
+      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▼ 10.9%</b><em>change</em></span>
+        <span><b>Bearish</b><em>trend</em></span>
+        <span><b>1.1×</b><em>volume</em></span>
+        <span><b>10%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bear">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">Toncoin</div>
+          <div class="momentum-meta">TON · MID_CAP</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-11.4</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bear</span><span class="momentum-tag"><b>52W</b> room</span></div>
+      <div class="momentum-bar"><span style="width:97%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▼ 9.8%</b><em>change</em></span>
+        <span><b>Bearish</b><em>trend</em></span>
+        <span><b>0.7×</b><em>volume</em></span>
+        <span><b>10%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bear">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">Jupiter</div>
+          <div class="momentum-meta">JUP · SMALL_CAP</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-10.5</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bear</span><span class="momentum-tag"><b>52W</b> room</span></div>
+      <div class="momentum-bar"><span style="width:90%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▼ 8.9%</b><em>change</em></span>
+        <span><b>Bearish</b><em>trend</em></span>
+        <span><b>0.5×</b><em>volume</em></span>
+        <span><b>10%</b><em>52W room</em></span>
+      </div>
+    </article></div>
+    <h4 class="momentum-radar-title">◇ Cross-market radar</h4>
+    <div class="momentum-radar">
+    <article class="momentum-pick bear">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">Pump.fun</div>
+          <div class="momentum-meta">PUMP · SMALL_CAP</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-9.3</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bear</span><span class="momentum-tag"><b>52W</b> room</span></div>
+      <div class="momentum-bar"><span style="width:79%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▼ 7.7%</b><em>change</em></span>
+        <span><b>Bearish</b><em>trend</em></span>
+        <span><b>0.8×</b><em>volume</em></span>
+        <span><b>10%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bear">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">Cosmos Hub</div>
+          <div class="momentum-meta">ATOM · MID_CAP</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-8.5</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bear</span><span class="momentum-tag"><b>52W</b> room</span></div>
+      <div class="momentum-bar"><span style="width:72%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▼ 6.9%</b><em>change</em></span>
+        <span><b>Bearish</b><em>trend</em></span>
+        <span><b>0.8×</b><em>volume</em></span>
+        <span><b>10%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bear">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">Arbitrum</div>
+          <div class="momentum-meta">ARB · SMALL_CAP</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-7.9</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bear</span><span class="momentum-tag"><b>52W</b> room</span></div>
+      <div class="momentum-bar"><span style="width:67%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▼ 6.3%</b><em>change</em></span>
+        <span><b>Bearish</b><em>trend</em></span>
+        <span><b>0.9×</b><em>volume</em></span>
+        <span><b>10%</b><em>52W room</em></span>
+      </div>
+    </article></div>
+  </div>
+</section>
+    
+    <h2>📊 Token Leaderboard</h2>
+    <div style="overflow-x: auto;">
+    <table>
+        <thead>
+            <tr>
+                <th>Token</th><th>Source</th><th>Price</th><th>Market Cap</th><th>24h Δ</th><th>Volatility</th><th>Tier</th><th>Momentum</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><strong>BTC</strong> <small>Bitcoin</small></td>
+            <td>coingecko</td>
+            <td>$79336.0000</td>
+            <td>$1588189.8M</td>
+            <td style="color:#ef4444">▼ -2.08%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>-2.1</td>
+        </tr>
+        <tr>
+            <td><strong>ETH</strong> <small>Ethereum</small></td>
+            <td>coingecko</td>
+            <td>$2251.1900</td>
+            <td>$271578.7M</td>
+            <td style="color:#ef4444">▼ -1.83%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>-2.4</td>
+        </tr>
+        <tr>
+            <td><strong>USDT</strong> <small>Tether</small></td>
+            <td>coingecko</td>
+            <td>$0.9995</td>
+            <td>$189769.2M</td>
+            <td style="color:#ef4444">▼ -0.02%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>-0.0</td>
+        </tr>
+        <tr>
+            <td><strong>BNB</strong> <small>BNB</small></td>
+            <td>coingecko</td>
+            <td>$669.8100</td>
+            <td>$90258.6M</td>
+            <td style="color:#ef4444">▼ -1.43%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>0.7</td>
+        </tr>
+        <tr>
+            <td><strong>XRP</strong> <small>XRP</small></td>
+            <td>coingecko</td>
+            <td>$1.4300</td>
+            <td>$88062.9M</td>
+            <td style="color:#ef4444">▼ -1.51%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>-0.6</td>
+        </tr>
+        <tr>
+            <td><strong>USDC</strong> <small>USDC</small></td>
+            <td>coingecko</td>
+            <td>$0.9997</td>
+            <td>$76754.2M</td>
+            <td style="color:#ef4444">▼ -0.03%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>-0.0</td>
+        </tr>
+        <tr>
+            <td><strong>SOL</strong> <small>Solana</small></td>
+            <td>coingecko</td>
+            <td>$90.6100</td>
+            <td>$52360.3M</td>
+            <td style="color:#ef4444">▼ -4.82%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>-1.9</td>
+        </tr>
+        <tr>
+            <td><strong>TRX</strong> <small>TRON</small></td>
+            <td>coingecko</td>
+            <td>$0.3501</td>
+            <td>$33192.3M</td>
+            <td style="color:#22c55e">▲ 0.33%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>0.6</td>
+        </tr>
+        <tr>
+            <td><strong>FIGR_HELOC</strong> <small>Figure Heloc</small></td>
+            <td>coingecko</td>
+            <td>$1.0440</td>
+            <td>$18479.7M</td>
+            <td style="color:#22c55e">▲ 0.62%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>1.3</td>
+        </tr>
+        <tr>
+            <td><strong>DOGE</strong> <small>Dogecoin</small></td>
+            <td>coingecko</td>
+            <td>$0.1135</td>
+            <td>$17490.6M</td>
+            <td style="color:#22c55e">▲ 2.16%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>2.2</td>
+        </tr>
+        <tr>
+            <td><strong>WBT</strong> <small>WhiteBIT Coin</small></td>
+            <td>coingecko</td>
+            <td>$58.3500</td>
+            <td>$12418.5M</td>
+            <td style="color:#ef4444">▼ -1.93%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>-1.9</td>
+        </tr>
+        <tr>
+            <td><strong>USDS</strong> <small>USDS</small></td>
+            <td>coingecko</td>
+            <td>$0.9996</td>
+            <td>$10990.3M</td>
+            <td style="color:#ef4444">▼ -0.01%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>-0.0</td>
+        </tr>
+        <tr>
+            <td><strong>ADA</strong> <small>Cardano</small></td>
+            <td>coingecko</td>
+            <td>$0.2647</td>
+            <td>$9788.3M</td>
+            <td style="color:#ef4444">▼ -3.18%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-1.9</td>
+        </tr>
+        <tr>
+            <td><strong>LEO</strong> <small>LEO Token</small></td>
+            <td>coingecko</td>
+            <td>$10.0700</td>
+            <td>$9274.8M</td>
+            <td style="color:#22c55e">▲ 0.70%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.6</td>
+        </tr>
+        <tr>
+            <td><strong>HYPE</strong> <small>Hyperliquid</small></td>
+            <td>coingecko</td>
+            <td>$38.7000</td>
+            <td>$9237.0M</td>
+            <td style="color:#ef4444">▼ -4.41%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-6.5</td>
+        </tr>
+        <tr>
+            <td><strong>ZEC</strong> <small>Zcash</small></td>
+            <td>coingecko</td>
+            <td>$524.4900</td>
+            <td>$8746.2M</td>
+            <td style="color:#ef4444">▼ -10.87%</td>
+            <td><span class="badge badge-high">HIGH</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-8.5</td>
+        </tr>
+        <tr>
+            <td><strong>BCH</strong> <small>Bitcoin Cash</small></td>
+            <td>coingecko</td>
+            <td>$433.6400</td>
+            <td>$8684.4M</td>
+            <td style="color:#ef4444">▼ -1.49%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-3.6</td>
+        </tr>
+        <tr>
+            <td><strong>LINK</strong> <small>Chainlink</small></td>
+            <td>coingecko</td>
+            <td>$10.1900</td>
+            <td>$7406.9M</td>
+            <td style="color:#ef4444">▼ -2.15%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.3</td>
+        </tr>
+        <tr>
+            <td><strong>XMR</strong> <small>Monero</small></td>
+            <td>coingecko</td>
+            <td>$397.7600</td>
+            <td>$7341.6M</td>
+            <td style="color:#ef4444">▼ -3.91%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-3.4</td>
+        </tr>
+        <tr>
+            <td><strong>CC</strong> <small>Canton</small></td>
+            <td>coingecko</td>
+            <td>$0.1558</td>
+            <td>$5999.7M</td>
+            <td style="color:#22c55e">▲ 1.03%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>3.0</td>
+        </tr>
+        <tr>
+            <td><strong>TON</strong> <small>Toncoin</small></td>
+            <td>coingecko</td>
+            <td>$2.0800</td>
+            <td>$5582.8M</td>
+            <td style="color:#ef4444">▼ -9.78%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-13.5</td>
+        </tr>
+        <tr>
+            <td><strong>XLM</strong> <small>Stellar</small></td>
+            <td>coingecko</td>
+            <td>$0.1589</td>
+            <td>$5323.1M</td>
+            <td style="color:#ef4444">▼ -2.96%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-2.3</td>
+        </tr>
+        <tr>
+            <td><strong>SUI</strong> <small>Sui</small></td>
+            <td>coingecko</td>
+            <td>$1.2100</td>
+            <td>$4842.3M</td>
+            <td style="color:#ef4444">▼ -3.21%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>7.6</td>
+        </tr>
+        <tr>
+            <td><strong>USD1</strong> <small>USD1</small></td>
+            <td>coingecko</td>
+            <td>$0.9992</td>
+            <td>$4433.4M</td>
+            <td style="color:#ef4444">▼ -0.02%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.0</td>
+        </tr>
+        <tr>
+            <td><strong>LTC</strong> <small>Litecoin</small></td>
+            <td>coingecko</td>
+            <td>$56.9900</td>
+            <td>$4398.1M</td>
+            <td style="color:#ef4444">▼ -2.16%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.9</td>
+        </tr>
+        <tr>
+            <td><strong>DAI</strong> <small>Dai</small></td>
+            <td>coingecko</td>
+            <td>$0.9996</td>
+            <td>$4366.7M</td>
+            <td style="color:#22c55e">▲ 0.00%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td><strong>M</strong> <small>MemeCore</small></td>
+            <td>coingecko</td>
+            <td>$3.3300</td>
+            <td>$4334.3M</td>
+            <td style="color:#22c55e">▲ 0.75%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-3.7</td>
+        </tr>
+        <tr>
+            <td><strong>AVAX</strong> <small>Avalanche</small></td>
+            <td>coingecko</td>
+            <td>$9.7400</td>
+            <td>$4208.8M</td>
+            <td style="color:#ef4444">▼ -2.35%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.5</td>
+        </tr>
+        <tr>
+            <td><strong>HBAR</strong> <small>Hedera</small></td>
+            <td>coingecko</td>
+            <td>$0.0935</td>
+            <td>$4052.8M</td>
+            <td style="color:#ef4444">▼ -1.60%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.4</td>
+        </tr>
+        <tr>
+            <td><strong>USDE</strong> <small>Ethena USDe</small></td>
+            <td>coingecko</td>
+            <td>$1.0000</td>
+            <td>$4019.8M</td>
+            <td style="color:#22c55e">▲ 0.06%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.1</td>
+        </tr>
+        <tr>
+            <td><strong>SHIB</strong> <small>Shiba Inu</small></td>
+            <td>coingecko</td>
+            <td>$0.0000</td>
+            <td>$3697.3M</td>
+            <td style="color:#ef4444">▼ -2.93%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-2.1</td>
+        </tr>
+        <tr>
+            <td><strong>RAIN</strong> <small>Rain</small></td>
+            <td>coingecko</td>
+            <td>$0.0075</td>
+            <td>$3585.3M</td>
+            <td style="color:#ef4444">▼ -0.89%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>1.3</td>
+        </tr>
+        <tr>
+            <td><strong>PYUSD</strong> <small>PayPal USD</small></td>
+            <td>coingecko</td>
+            <td>$0.9997</td>
+            <td>$3456.2M</td>
+            <td style="color:#ef4444">▼ -0.01%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.0</td>
+        </tr>
+        <tr>
+            <td><strong>USDG</strong> <small>Global Dollar</small></td>
+            <td>coingecko</td>
+            <td>$0.9996</td>
+            <td>$3417.3M</td>
+            <td style="color:#22c55e">▲ 0.00%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.0</td>
+        </tr>
+        <tr>
+            <td><strong>CRO</strong> <small>Cronos</small></td>
+            <td>coingecko</td>
+            <td>$0.0740</td>
+            <td>$3218.2M</td>
+            <td style="color:#ef4444">▼ -6.10%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-1.5</td>
+        </tr>
+        <tr>
+            <td><strong>USYC</strong> <small>Circle USYC</small></td>
+            <td>coingecko</td>
+            <td>$1.1200</td>
+            <td>$2993.2M</td>
+            <td style="color:#6b7280">— 0.00%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td><strong>TAO</strong> <small>Bittensor</small></td>
+            <td>coingecko</td>
+            <td>$296.3200</td>
+            <td>$2845.4M</td>
+            <td style="color:#ef4444">▼ -5.17%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-4.9</td>
+        </tr>
+        <tr>
+            <td><strong>XAUT</strong> <small>Tether Gold</small></td>
+            <td>coingecko</td>
+            <td>$4677.6000</td>
+            <td>$2771.1M</td>
+            <td style="color:#ef4444">▼ -0.20%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.3</td>
+        </tr>
+        <tr>
+            <td><strong>UNI</strong> <small>Uniswap</small></td>
+            <td>coingecko</td>
+            <td>$3.6200</td>
+            <td>$2300.2M</td>
+            <td style="color:#ef4444">▼ -5.19%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-1.0</td>
+        </tr>
+        <tr>
+            <td><strong>BUIDL</strong> <small>BlackRock USD Instit</small></td>
+            <td>coingecko</td>
+            <td>$1.0000</td>
+            <td>$2299.0M</td>
+            <td style="color:#6b7280">— 0.00%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td><strong>DOT</strong> <small>Polkadot</small></td>
+            <td>coingecko</td>
+            <td>$1.3300</td>
+            <td>$2235.6M</td>
+            <td style="color:#ef4444">▼ -3.56%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-1.6</td>
+        </tr>
+        <tr>
+            <td><strong>MNT</strong> <small>Mantle</small></td>
+            <td>coingecko</td>
+            <td>$0.6734</td>
+            <td>$2225.0M</td>
+            <td style="color:#22c55e">▲ 0.59%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>1.1</td>
+        </tr>
+        <tr>
+            <td><strong>PAXG</strong> <small>PAX Gold</small></td>
+            <td>coingecko</td>
+            <td>$4675.9000</td>
+            <td>$2206.8M</td>
+            <td style="color:#ef4444">▼ -0.23%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.1</td>
+        </tr>
+        <tr>
+            <td><strong>WLFI</strong> <small>World Liberty Financ</small></td>
+            <td>coingecko</td>
+            <td>$0.0682</td>
+            <td>$2171.1M</td>
+            <td style="color:#22c55e">▲ 0.95%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>1.2</td>
+        </tr>
+        <tr>
+            <td><strong>NEAR</strong> <small>NEAR Protocol</small></td>
+            <td>coingecko</td>
+            <td>$1.5700</td>
+            <td>$2030.8M</td>
+            <td style="color:#ef4444">▼ -6.36%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-1.8</td>
+        </tr>
+        <tr>
+            <td><strong>USDY</strong> <small>Ondo US Dollar Yield</small></td>
+            <td>coingecko</td>
+            <td>$1.1300</td>
+            <td>$1891.8M</td>
+            <td style="color:#22c55e">▲ 0.29%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.1</td>
+        </tr>
+        <tr>
+            <td><strong>ONDO</strong> <small>Ondo</small></td>
+            <td>coingecko</td>
+            <td>$0.3803</td>
+            <td>$1852.7M</td>
+            <td style="color:#ef4444">▼ -5.98%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>3.8</td>
+        </tr>
+        <tr>
+            <td><strong>PI</strong> <small>Pi Network</small></td>
+            <td>coingecko</td>
+            <td>$0.1705</td>
+            <td>$1787.3M</td>
+            <td style="color:#ef4444">▼ -1.29%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-2.5</td>
+        </tr>
+        <tr>
+            <td><strong>USDF</strong> <small>Falcon USD</small></td>
+            <td>coingecko</td>
+            <td>$0.9979</td>
+            <td>$1780.3M</td>
+            <td style="color:#ef4444">▼ -0.17%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.1</td>
+        </tr>
+        <tr>
+            <td><strong>OKB</strong> <small>OKB</small></td>
+            <td>coingecko</td>
+            <td>$84.4000</td>
+            <td>$1772.4M</td>
+            <td style="color:#ef4444">▼ -1.93%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-2.1</td>
+        </tr></tbody>
+    </table>
+    </div>
+    
+    <div class="section">
+        <div>
+            <h2>🚀 Top Gainers</h2>
+            <table>
+                <tr><th>Token</th><th>24h</th><th>Price</th></tr>
+                <tr><td><strong>B</strong></td><td class="gainer">▲ 11.9%</td><td>$0.6699</td></tr><tr><td><strong>STABLE</strong></td><td class="gainer">▲ 9.5%</td><td>$0.0411</td></tr><tr><td><strong>DOGE</strong></td><td class="gainer">▲ 2.2%</td><td>$0.1135</td></tr><tr><td><strong>JST</strong></td><td class="gainer">▲ 1.1%</td><td>$0.0911</td></tr><tr><td><strong>CC</strong></td><td class="gainer">▲ 1.0%</td><td>$0.1558</td></tr>
+            </table>
+        </div>
+        <div>
+            <h2>📉 Top Losers</h2>
+            <table>
+                <tr><th>Token</th><th>24h</th><th>Price</th></tr>
+                <tr><td><strong>VVV</strong></td><td class="loser">▼ -13.2%</td><td>$13.5000</td></tr><tr><td><strong>ZEC</strong></td><td class="loser">▼ -10.9%</td><td>$524.4900</td></tr><tr><td><strong>TON</strong></td><td class="loser">▼ -9.8%</td><td>$2.0800</td></tr><tr><td><strong>JUP</strong></td><td class="loser">▼ -8.9%</td><td>$0.2219</td></tr><tr><td><strong>PUMP</strong></td><td class="loser">▼ -7.7%</td><td>$0.0019</td></tr>
+            </table>
+        </div>
+    </div>
+    
+    <h2>⚠️ Unusual Volume (5 tokens)</h2>
+    <table><tr><th>Token</th><th>Volume</th><th>Mcap</th><th>Ratio</th></tr>
+    <tr><td><strong>BTC</strong></td><td>$45,548,279,403</td><td>$1588189.8M</td><td>2.87%</td></tr><tr><td><strong>ETH</strong></td><td>$14,749,464,894</td><td>$271578.7M</td><td>5.43%</td></tr><tr><td><strong>USDT</strong></td><td>$72,030,995,729</td><td>$189769.2M</td><td>37.96%</td></tr><tr><td><strong>USDC</strong></td><td>$12,835,716,186</td><td>$76754.2M</td><td>16.72%</td></tr><tr><td><strong>SOL</strong></td><td>$3,909,330,435</td><td>$52360.3M</td><td>7.47%</td></tr>
+    </table>
+    
+    <div style="text-align:center; padding:30px; color:#64748b; margin-top:20px;">
+        <p>Built for Birdeye Data BIP Sprint 4 by Atlas Nexus</p>
+        <p style="font-size:0.8em">Multi-source pipeline: CoinGecko + DEX Screener + Birdeye BDS | 20260514-045717</p>
+    </div>
 </body>
 </html>

@@ -83,7 +83,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header">
 <div class="title-emoji">📊</div>
 <h1>Atlas Nexus - Global Stocks</h1>
-<p>30 major stocks across 7 sectors · Technology, Finance, Healthcare, Consumer, Industrial, Energy, Luxury | 20260514-044618</p>
+<p>30 major stocks across 7 sectors · Technology, Finance, Healthcare, Consumer, Industrial, Energy, Luxury | 20260514-045653</p>
 </div>
 <div class="container">
 <div class="stats-grid">
@@ -100,22 +100,239 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;font-size:.85em">
     <div><span style="color:var(--muted)">15/30 assets up</span><br><strong>50</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>3.13</strong></div><div><span style="color:var(--muted)">16/30 bullish MA</span><br><strong>53</strong></div><div><span style="color:var(--muted)">0/30 elevated vol</span><br><strong>0</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>1.5</strong></div>
     </div></div>
-<div style="background:rgba(56,189,248,.02);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:20px">
-<h3 style="margin:0 0 14px 0;font-size:1.1em">⚡ Momentum Scanner <span style="color:var(--muted);font-weight:400;font-size:.85em">— Trend · Volume · Résistance · Bougie</span></h3>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-<div>
-<h4 style="margin:0 0 10px 0;color:#22c55e" title="Score = Δ% + trend ± volume ± résistance − volatilité">▲ Bullish Signals</h4>
-<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(26,32,64,.3)"><div><strong>Amazon</strong><span style="color:var(--muted);font-size:.78em;margin-left:4px">💎stable</span></div><div style="text-align:right"><span style="color:#22c55e;font-weight:600">▲ 35.9%</span><span style="color:var(--muted);font-size:.78em;margin-left:6px">⚡39.9</span></div></div><div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(26,32,64,.3)"><div><strong>UnitedHealth</strong><span style="color:var(--muted);font-size:.78em;margin-left:4px">⚠️rés. 💎stable</span></div><div style="text-align:right"><span style="color:#22c55e;font-weight:600">▲ 36.8%</span><span style="color:var(--muted);font-size:.78em;margin-left:6px">⚡37.8</span></div></div><div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(26,32,64,.3)"><div><strong>Broadcom</strong><span style="color:var(--muted);font-size:.78em;margin-left:4px">💎stable</span></div><div style="text-align:right"><span style="color:#22c55e;font-weight:600">▲ 28.2%</span><span style="color:var(--muted);font-size:.78em;margin-left:6px">⚡32.2</span></div></div>
-</div>
-<div>
-<h4 style="margin:0 0 10px 0;color:#ef4444" title="Score = Δ% + trend ± volume ± résistance − volatilité">▼ Bearish Signals</h4>
-<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(26,32,64,.3)"><div><strong>Nike</strong><span style="color:var(--muted);font-size:.78em;margin-left:4px">💎stable</span></div><div style="text-align:right"><span style="color:#ef4444;font-weight:600">▼ 32.9%</span><span style="color:var(--muted);font-size:.78em;margin-left:6px">⚡-34.9</span></div></div><div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(26,32,64,.3)"><div><strong>Hermès</strong><span style="color:var(--muted);font-size:.78em;margin-left:4px"></span></div><div style="text-align:right"><span style="color:#ef4444;font-weight:600">▼ 26.3%</span><span style="color:var(--muted);font-size:.78em;margin-left:6px">⚡-28.3</span></div></div><div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(26,32,64,.3)"><div><strong>McDonald's</strong><span style="color:var(--muted);font-size:.78em;margin-left:4px">💎stable</span></div><div style="text-align:right"><span style="color:#ef4444;font-weight:600">▼ 15.8%</span><span style="color:var(--muted);font-size:.78em;margin-left:6px">⚡-17.8</span></div></div>
-</div>
-</div>
-<div style="margin-top:12px;font-size:.72em;color:var(--muted);border-top:1px solid rgba(26,32,64,.3);padding-top:10px;display:flex;flex-wrap:wrap;gap:10px">
-<span>📊vol = volume &gt; 1.5×</span><span>🕯️ = bougie verticale</span><span>⚠️rés. = proche 52W high</span><span>💎stable = vol &lt; 2%</span>
-</div>
-</div>
+
+<section class="momentum-scanner-v2" aria-label="Momentum Scanner">
+  <style>
+    .momentum-scanner-v2{margin:0 0 24px;padding:22px;border:1px solid var(--atlas-border,var(--border));border-radius:26px;background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.03));box-shadow:0 22px 70px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06)}
+    .momentum-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
+    .momentum-kicker{color:var(--atlas-accent,var(--accent));font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;font-weight:900;margin-bottom:5px}
+    .momentum-title{font-size:1.35rem;font-weight:950;letter-spacing:-.055em;color:var(--atlas-text,var(--text))}
+    .momentum-sub{color:var(--atlas-muted,var(--muted));font-size:.86rem;margin-top:5px;line-height:1.55}
+    .momentum-regime{border:1px solid var(--atlas-border,var(--border));border-radius:999px;padding:8px 11px;font-size:.78rem;font-weight:900;white-space:nowrap;background:rgba(255,255,255,.045)}
+    .momentum-regime.bull{color:var(--atlas-green,var(--green))}.momentum-regime.bear{color:var(--atlas-red,var(--red))}.momentum-regime.neutral{color:var(--atlas-amber,#f59e0b)}
+    .momentum-pulse{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
+    .momentum-chip{padding:12px;border-radius:18px;border:1px solid var(--atlas-border,var(--border));background:rgba(7,9,20,.34)}
+    .momentum-chip span{display:block;color:var(--atlas-muted,var(--muted));font-size:.72rem;font-weight:850;text-transform:uppercase;letter-spacing:.06em}.momentum-chip b{display:block;margin-top:4px;color:var(--atlas-text,var(--text));font-size:.98rem}
+    .momentum-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.momentum-col{display:flex;flex-direction:column;gap:10px}.momentum-col h4{margin:0 0 2px;font-size:.88rem;font-weight:950;letter-spacing:-.025em;color:var(--atlas-text,var(--text))}
+    .momentum-pick{border:1px solid var(--atlas-border,var(--border));border-radius:20px;padding:13px;background:rgba(7,9,20,.36);box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
+    .momentum-pick.bull{border-left:3px solid var(--atlas-green,var(--green))}.momentum-pick.bear{border-left:3px solid var(--atlas-red,var(--red))}
+    .momentum-pick-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.momentum-name{font-weight:900;color:var(--atlas-text,var(--text));line-height:1.2}.momentum-meta{color:var(--atlas-muted,var(--muted));font-size:.76rem;margin-top:3px}.momentum-score{font-weight:950;font-size:1.15rem;letter-spacing:-.04em}
+    .momentum-tags{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.momentum-tag{border:1px solid var(--atlas-border,var(--border));border-radius:999px;padding:4px 7px;color:var(--atlas-muted,var(--muted));font-size:.68rem;background:rgba(255,255,255,.035)}.momentum-tag b{color:var(--atlas-text,var(--text))}.momentum-tag.muted{opacity:.7}
+    .momentum-bar{height:5px;border-radius:99px;background:rgba(148,163,184,.16);overflow:hidden;margin:8px 0 10px}.momentum-bar span{display:block;height:100%;border-radius:99px;box-shadow:0 0 18px currentColor}
+    .momentum-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.momentum-metrics span{min-width:0}.momentum-metrics b{display:block;color:var(--atlas-text,var(--text));font-size:.74rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.momentum-metrics em{display:block;color:var(--atlas-faint,var(--muted));font-size:.64rem;font-style:normal;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+    .momentum-radar{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:2px}.momentum-radar-title{grid-column:1/-1;margin:6px 0 0!important;color:var(--atlas-muted,var(--muted))!important;font-size:.82rem!important}
+    .momentum-empty{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}
+    @media(max-width:860px){.momentum-head{flex-direction:column}.momentum-pulse{grid-template-columns:repeat(2,1fr)}.momentum-grid{grid-template-columns:1fr}.momentum-radar{grid-template-columns:1fr}}
+    @media(max-width:480px){.momentum-scanner-v2{padding:16px;border-radius:22px}.momentum-pulse{grid-template-columns:1fr}.momentum-metrics{grid-template-columns:repeat(2,1fr)}}
+  </style>
+  <div class="momentum-head">
+    <div>
+      <div class="momentum-kicker">Market pulse scanner</div>
+      <div class="momentum-title">Momentum leaders & pressure zones</div>
+      <div class="momentum-sub">Score composite : change, trend MA, volume, distance au 52W high, bougie et volatilité. Les barres indiquent la conviction normalisée.</div>
+    </div>
+    <div class="momentum-regime neutral">Mixed · +4.5</div>
+  </div>
+  <div class="momentum-pulse">
+    <div class="momentum-chip"><span>Leader</span><b>AMZN · +39.5</b></div>
+    <div class="momentum-chip"><span>Pressure</span><b>NKE · -33.7</b></div>
+    <div class="momentum-chip"><span>Breadth</span><b>15/30 up · 50%</b></div>
+    <div class="momentum-chip"><span>Conviction</span><b>0 vol spikes · 5 near 52W</b></div>
+  </div>
+  <div class="momentum-grid">
+    <div class="momentum-col"><h4>▲ Bullish momentum</h4>
+    <article class="momentum-pick bull">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">Amazon</div>
+          <div class="momentum-meta">AMZN · Technology</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+39.5</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>Vol</b> stable</span></div>
+      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▲ 35.9%</b><em>change</em></span>
+        <span><b>Bullish</b><em>trend</em></span>
+        <span><b>0.8×</b><em>volume</em></span>
+        <span><b>3%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bull">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">UnitedHealth</div>
+          <div class="momentum-meta">UNH · Healthcare</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+38.0</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>52W</b> résistance</span></div>
+      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▲ 36.8%</b><em>change</em></span>
+        <span><b>Bullish</b><em>trend</em></span>
+        <span><b>1.0×</b><em>volume</em></span>
+        <span><b>1%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bull">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">Broadcom</div>
+          <div class="momentum-meta">AVGO · Technology</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+33.2</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span></div>
+      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▲ 28.2%</b><em>change</em></span>
+        <span><b>Bullish</b><em>trend</em></span>
+        <span><b>0.8×</b><em>volume</em></span>
+        <span><b>5%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bull">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">Alphabet</div>
+          <div class="momentum-meta">GOOGL · Technology</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+30.9</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>52W</b> résistance</span><span class="momentum-tag"><b>Candle</b> vertical</span></div>
+      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▲ 31.7%</b><em>change</em></span>
+        <span><b>Bullish</b><em>trend</em></span>
+        <span><b>1.0×</b><em>volume</em></span>
+        <span><b>0%</b><em>52W room</em></span>
+      </div>
+    </article></div>
+    <div class="momentum-col"><h4>▼ Bearish pressure</h4>
+    <article class="momentum-pick bear">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">Nike</div>
+          <div class="momentum-meta">NKE · Consumer</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-33.7</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bear</span><span class="momentum-tag"><b>52W</b> room</span><span class="momentum-tag"><b>Vol</b> stable</span></div>
+      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▼ 32.9%</b><em>change</em></span>
+        <span><b>Bearish</b><em>trend</em></span>
+        <span><b>1.0×</b><em>volume</em></span>
+        <span><b>47%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bear">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">Hermès</div>
+          <div class="momentum-meta">RMS.PA · Luxury</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-27.9</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bear</span><span class="momentum-tag"><b>52W</b> room</span></div>
+      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▼ 26.3%</b><em>change</em></span>
+        <span><b>Bearish</b><em>trend</em></span>
+        <span><b>0.9×</b><em>volume</em></span>
+        <span><b>39%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bear">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">McDonald&#x27;s</div>
+          <div class="momentum-meta">MCD · Consumer</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-16.6</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bear</span><span class="momentum-tag"><b>52W</b> room</span><span class="momentum-tag"><b>Vol</b> stable</span></div>
+      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▼ 15.8%</b><em>change</em></span>
+        <span><b>Bearish</b><em>trend</em></span>
+        <span><b>0.9×</b><em>volume</em></span>
+        <span><b>19%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bear">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">LVMH</div>
+          <div class="momentum-meta">MC.PA · Luxury</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-13.6</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bear</span><span class="momentum-tag"><b>52W</b> room</span></div>
+      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▼ 12.0%</b><em>change</em></span>
+        <span><b>Bearish</b><em>trend</em></span>
+        <span><b>1.0×</b><em>volume</em></span>
+        <span><b>31%</b><em>52W room</em></span>
+      </div>
+    </article></div>
+    <h4 class="momentum-radar-title">◇ Cross-market radar</h4>
+    <div class="momentum-radar">
+    <article class="momentum-pick bull">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">Apple</div>
+          <div class="momentum-meta">AAPL · Technology</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+17.2</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>52W</b> résistance</span></div>
+      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▲ 16.9%</b><em>change</em></span>
+        <span><b>Bullish</b><em>trend</em></span>
+        <span><b>0.9×</b><em>volume</em></span>
+        <span><b>1%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bull">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">NVIDIA</div>
+          <div class="momentum-meta">NVDA · Technology</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+24.7</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>52W</b> résistance</span></div>
+      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▲ 23.5%</b><em>change</em></span>
+        <span><b>Bullish</b><em>trend</em></span>
+        <span><b>0.9×</b><em>volume</em></span>
+        <span><b>1%</b><em>52W room</em></span>
+      </div>
+    </article>
+    <article class="momentum-pick bull">
+      <div class="momentum-pick-top">
+        <div>
+          <div class="momentum-name">Tesla</div>
+          <div class="momentum-meta">TSLA · Technology</div>
+        </div>
+        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+13.1</div>
+      </div>
+      <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>52W</b> room</span></div>
+      <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
+      <div class="momentum-metrics">
+        <span><b>▲ 6.7%</b><em>change</em></span>
+        <span><b>Bullish</b><em>trend</em></span>
+        <span><b>1.0×</b><em>volume</em></span>
+        <span><b>11%</b><em>52W room</em></span>
+      </div>
+    </article></div>
+  </div>
+</section>
 <h2 style="color:var(--accent);margin-bottom:12px">🏭 Sector Breakdown</h2>
 <div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"><div class="card" style="border-left:3px solid #a78bfa"><div class="value" style="color:#a78bfa">-11.9%</div><div class="label">Consumer (1/5)</div></div><div class="card" style="border-left:3px solid #ef4444"><div class="value" style="color:#ef4444">+5.0%</div><div class="label">Energy (2/2)</div></div><div class="card" style="border-left:3px solid #22c55e"><div class="value" style="color:#22c55e">-0.8%</div><div class="label">Finance (2/5)</div></div><div class="card" style="border-left:3px solid #f59e0b"><div class="value" style="color:#f59e0b">+6.0%</div><div class="label">Healthcare (1/4)</div></div><div class="card" style="border-left:3px solid #6b7280"><div class="value" style="color:#6b7280">+3.0%</div><div class="label">Industrial (1/3)</div></div><div class="card" style="border-left:3px solid #ec4899"><div class="value" style="color:#ec4899">-19.2%</div><div class="label">Luxury (0/2)</div></div><div class="card" style="border-left:3px solid #38bdf8"><div class="value" style="color:#38bdf8">+17.0%</div><div class="label">Technology (8/9)</div></div></div>
 <h2 style="color:var(--accent);margin:24px 0 12px">📋 Stock Leaderboard</h2>
@@ -364,7 +581,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td style="color:var(--muted)">453.40 / 430.21</td>
         </tr></tbody></table></div></div>
 <div class="footer">
-<p>📊 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-044618</p>
+<p>📊 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-045653</p>
 <p style="margin-top:4px"><a href="index.html">← Back to Dashboard</a></p>
 </div>
 </div></body></html>
