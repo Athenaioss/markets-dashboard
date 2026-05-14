@@ -1,0 +1,101 @@
+{
+  "generated": "20260514-094331",
+  "scoring": "Hawkeye v3 \u2014 quality pressure /100",
+  "total": 100,
+  "distribution": {
+    "bull_strong": 6,
+    "bull_active": 19,
+    "bear_strong": 8,
+    "bear_active": 21,
+    "mixed": 0
+  },
+  "bullish_pressure": [
+    {
+      "name": "AUDJPY",
+      "score": 86,
+      "tier": "STRONG",
+      "entry": 114.6
+    },
+    {
+      "name": "Visa",
+      "score": 85,
+      "tier": "STRONG",
+      "entry": 320.31
+    },
+    {
+      "name": "Goldman Sachs",
+      "score": 84,
+      "tier": "STRONG",
+      "entry": 955.42
+    },
+    {
+      "name": "Boeing",
+      "score": 82,
+      "tier": "STRONG",
+      "entry": 240.6
+    },
+    {
+      "name": "US Oil Fund",
+      "score": 82,
+      "tier": "STRONG",
+      "entry": 142.04
+    },
+    {
+      "name": "Crude Oil WTI",
+      "score": 81,
+      "tier": "STRONG",
+      "entry": 99.79
+    },
+    {
+      "name": "AUDUSD",
+      "score": 74,
+      "tier": "ACTIVE",
+      "entry": 0.7266
+    }
+  ],
+  "bearish_pressure": [
+    {
+      "name": "Vanguard Total Bond",
+      "score": 93,
+      "tier": "EXTREME",
+      "entry": 73.18
+    },
+    {
+      "name": "iShares 20+ Year Tr.",
+      "score": 87,
+      "tier": "STRONG",
+      "entry": 84.8
+    },
+    {
+      "name": "FTSE 100",
+      "score": 86,
+      "tier": "STRONG",
+      "entry": 10325.35
+    },
+    {
+      "name": "Mastercard",
+      "score": 86,
+      "tier": "STRONG",
+      "entry": 490.64
+    },
+    {
+      "name": "iShares Inv. Grade",
+      "score": 86,
+      "tier": "STRONG",
+      "entry": 108.62
+    },
+    {
+      "name": "CAC 40",
+      "score": 82,
+      "tier": "STRONG",
+      "entry": 8007.97
+    },
+    {
+      "name": "Procter & Gamble",
+      "score": 82,
+      "tier": "STRONG",
+      "entry": 142.24
+    }
+  ],
+  "mixed_volatile": []
+}
