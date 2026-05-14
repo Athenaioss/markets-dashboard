@@ -46,279 +46,402 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 </style></head><body><main class="shell"><header class="topbar"><div class="brand"><span class="brand-mark">🔮</span><span>Atlas Nexus</span></div><nav class="nav" aria-label="Dashboard navigation"><a href="#scanner">Scanner</a><a href="#dashboards">Markets</a><a href="https://github.com/AtlasNexusOps/markets-dashboard">GitHub</a></nav></header><section class="hero" aria-label="Atlas Nexus Markets overview"><div class="hero-main"><div class="eyebrow"><span class="live-dot"></span> Live multi-asset intelligence</div><div class="title-emoji">🔮</div><h1>Markets Command Deck</h1><p class="hero-sub">A client-facing market intelligence cockpit for crypto, stocks, ETFs, indices, forex and commodities — live widgets, generated dashboards, and a technical scanner built for fast signal reading.</p><div class="hero-cta"><a href="#scanner" class="btn btn-primary">⚡ Open Market Pulse</a><a href="#dashboards" class="btn">Explore 6 dashboards</a></div></div><aside class="hero-side" aria-label="Key coverage metrics"><div class="metric-card wide"><div><div class="metric-label">Scanner coverage</div><div class="metric-value"><span class="count-up" data-target="89">0</span> assets</div></div><div class="status-line"><span class="live-dot"></span>Yahoo Finance OHLCV · live scoring</div></div><div class="metric-card"><div class="metric-label">Markets</div><div class="metric-value">6</div><div class="metric-copy">Crypto · Stocks · ETF · Indices · FX · Commodities</div></div><div class="metric-card"><div class="metric-label">Scoring engine</div><div class="metric-value">Hawkeye v2</div><div class="metric-copy">Trend · Momentum · RSI · Volume · Structure</div></div></aside></section><section class="market-strip" aria-label="Live market ticker"><div class="ticker-wrap"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>{"symbols":[{"proName":"FOREXCOM:SPXUSD","title":"S&P 500"},{"proName":"FOREXCOM:NAS100","title":"Nasdaq"},{"proName":"BITSTAMP:BTCUSD","title":"BTC/USD"},{"proName":"BITSTAMP:ETHUSD","title":"ETH/USD"},{"proName":"TVC:GOLD","title":"Gold"},{"proName":"TVC:USOIL","title":"WTI Oil"},{"proName":"FOREXCOM:EURUSD","title":"EUR/USD"},{"proName":"NASDAQ:AAPL","title":"Apple"},{"proName":"NASDAQ:NVDA","title":"NVIDIA"},{"proName":"AMEX:SPY","title":"SPY"},{"proName":"NASDAQ:QQQ","title":"QQQ"},{"proName":"TVC:DXY","title":"DXY"}],"showSymbolLogo":true,"isTransparent":true,"displayMode":"adaptive","colorTheme":"dark","locale":"en"}</script></div></div></section><section id="scanner" class="scanner">
 <div class="scanner-head">
 <div>
-<h2>🦅 Hawkeye v3 — Pressure Scanner</h2>
+<h2>🦅 Hawkeye V4 — Market Pressure Radar</h2>
+<p class="scanner-sub">Radar multi-actifs de pression, régime, momentum et extension. Inspection manuelle requise sur xStation / TradingView.</p>
 </div>
-<div class="scanner-score">
-<div class="num">102</div>
-<div class="label">assets scored</div>
+<div class="scanner-score"><div class="num">103</div><div class="label">assets scanned</div></div>
 </div>
-</div>
-
 <div class="scanner-board" style="grid-template-columns:repeat(2,1fr)">
-<div class="signal-card"><h3>📈 Bullish Pressure (7)</h3><div class="signal-row" data-market="forex">
-<div>
-<span class="asset-name">AUDJPY</span>
-<span class="asset-tag">BULL</span>
-<span class="asset-meta">forex · bull pressure</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $114.50</span>
-<span style="color:#a7f3d0">ROC5 +1.1%</span>
-<span style="color:#fbbf24">RSI 55</span>
-<span style="color:#c4b5fd">Ext 0.8 ATR</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">86/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +0.3% · Vol 0.0x</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
-</div>
-</div><div class="signal-row" data-market="stocks">
-<div>
-<span class="asset-name">Visa</span>
-<span class="asset-tag">BULL</span>
-<span class="asset-meta">actions · bull pressure</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $320.31</span>
-<span style="color:#a7f3d0">ROC5 +0.5%</span>
-<span style="color:#fbbf24">RSI 59</span>
-<span style="color:#c4b5fd">Ext 0.2 ATR</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">85/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ -1.9% · Vol 1.1x</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
-</div>
-</div><div class="signal-row" data-market="stocks">
+<div class="signal-card"><h3>📈 Bullish pressure (7)</h3><div class="signal-row" data-market="stocks">
 <div>
 <span class="asset-name">Goldman Sachs</span>
-<span class="asset-tag">BULL</span>
-<span class="asset-meta">actions · bull pressure</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">actions · uptrend · bullish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $955.42</span>
-<span style="color:#a7f3d0">ROC5 +1.9%</span>
+<span style="color:#bae6fd">Reference price $955.42</span>
+<span style="color:#c4b5fd">nROC5 +0.37</span>
 <span style="color:#fbbf24">RSI 57</span>
-<span style="color:#c4b5fd">Ext 1.4 ATR</span>
+<span style="color:#fca5a5">Ext 1.4 ATR</span>
+<span style="color:#93c5fd">Vol 1.3×</span>
+
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">84/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +1.0% · Vol 1.3x</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
-</div>
-</div><div class="signal-row" data-market="commodities">
-<div>
-<span class="asset-name">Crude Oil WTI</span>
-<span class="asset-tag">BULL</span>
-<span class="asset-meta">commodities · bull pressure</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $101.81</span>
-<span style="color:#a7f3d0">ROC5 +7.4%</span>
-<span style="color:#fbbf24">RSI 59</span>
-<span style="color:#c4b5fd">Ext 0.5 ATR</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">82/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +0.8% · Vol 0.1x</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
+<span class="score-pill score-warm">70/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +43 · GS</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
 </div>
 </div><div class="signal-row" data-market="stocks">
 <div>
 <span class="asset-name">Boeing</span>
-<span class="asset-tag">BULL</span>
-<span class="asset-meta">actions · bull pressure</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">actions · uptrend · breakout pressure · extension warning</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $240.60</span>
-<span style="color:#a7f3d0">ROC5 +4.6%</span>
+<span style="color:#bae6fd">Reference price $240.60</span>
+<span style="color:#c4b5fd">nROC5 +0.80</span>
 <span style="color:#fbbf24">RSI 57</span>
-<span style="color:#c4b5fd">Ext 1.8 ATR</span>
+<span style="color:#fca5a5">Ext 1.8 ATR</span>
+<span style="color:#93c5fd">Vol 1.1×</span>
+
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">82/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +1.6% · Vol 1.1x</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
+<span class="score-pill score-warm">67/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +47 · BA</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
 </div>
 </div><div class="signal-row" data-market="etf">
 <div>
 <span class="asset-name">US Oil Fund</span>
-<span class="asset-tag">BULL</span>
-<span class="asset-meta">etf · bull pressure</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">etf · uptrend · bullish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $142.04</span>
-<span style="color:#a7f3d0">ROC5 +6.0%</span>
+<span style="color:#bae6fd">Reference price $142.04</span>
+<span style="color:#c4b5fd">nROC5 +0.56</span>
 <span style="color:#fbbf24">RSI 56</span>
-<span style="color:#c4b5fd">Ext 0.8 ATR</span>
+<span style="color:#fca5a5">Ext 0.8 ATR</span>
+<span style="color:#93c5fd">Vol 0.3×</span>
+
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">82/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ -1.6% · Vol 0.3x</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
+<span class="score-pill score-warm">67/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +50 · USO</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
+</div>
+</div><div class="signal-row" data-market="forex">
+<div>
+<span class="asset-name">AUDJPY</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">forex · uptrend · bullish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price 114.51</span>
+<span style="color:#c4b5fd">nROC5 +0.44</span>
+<span style="color:#fbbf24">RSI 55</span>
+<span style="color:#fca5a5">Ext 0.8 ATR</span>
+<span style="color:#93c5fd">Range pct 64</span>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">66/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +42 · AUDJPY=X</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
+</div>
+</div><div class="signal-row" data-market="commodities">
+<div>
+<span class="asset-name">Sugar</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">commodities · uptrend · bullish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $15.22/USD/lb</span>
+<span style="color:#c4b5fd">nROC5 +0.73</span>
+<span style="color:#fbbf24">RSI 68</span>
+<span style="color:#fca5a5">Ext 1.2 ATR</span>
+<span style="color:#93c5fd">Range pct 71</span>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">63/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +43 · SB=F</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
+</div>
+</div><div class="signal-row" data-market="stocks">
+<div>
+<span class="asset-name">Visa</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">actions · uptrend · bullish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $320.31</span>
+<span style="color:#c4b5fd">nROC5 +0.09</span>
+<span style="color:#fbbf24">RSI 59</span>
+<span style="color:#fca5a5">Ext 0.2 ATR</span>
+<span style="color:#93c5fd">Vol 1.1×</span>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">63/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +42 · V</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
+</div>
+</div><div class="signal-row" data-market="commodities">
+<div>
+<span class="asset-name">Crude Oil WTI</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">commodities · uptrend · bullish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $101.60/USD/barrel</span>
+<span style="color:#c4b5fd">nROC5 +0.50</span>
+<span style="color:#fbbf24">RSI 58</span>
+<span style="color:#fca5a5">Ext 0.4 ATR</span>
+<span style="color:#93c5fd">Range pct 2</span>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">62/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +46 · CL=F</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
+</div>
+</div></div>
+<div class="signal-card"><h3>📉 Bearish pressure (7)</h3><div class="signal-row" data-market="etf">
+<div>
+<span class="asset-name">Vanguard Total Bond</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">etf · downtrend · bearish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $73.18</span>
+<span style="color:#c4b5fd">nROC5 -0.66</span>
+<span style="color:#fbbf24">RSI 38</span>
+<span style="color:#fca5a5">Ext 1.2 ATR</span>
+<span style="color:#93c5fd">Vol 1.4×</span>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">74/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -47 · BND</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
 </div>
 </div><div class="signal-row" data-market="indices">
 <div>
-<span class="asset-name">DAX</span>
-<span class="asset-tag">BULL</span>
-<span class="asset-meta">indices · bull pressure</span>
+<span class="asset-name">BSE Sensex</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">indices · downtrend · bearish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $24,382.21</span>
-<span style="color:#a7f3d0">ROC5 -1.1%</span>
-<span style="color:#fbbf24">RSI 54</span>
-<span style="color:#c4b5fd">Ext 0.5 ATR</span>
+<span style="color:#bae6fd">Reference price 75,618.54 pts</span>
+<span style="color:#c4b5fd">nROC5 -0.92</span>
+<span style="color:#fbbf24">RSI 39</span>
+<span style="color:#fca5a5">Ext 0.9 ATR</span>
+<span style="color:#93c5fd">Range pct 25</span>
+
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-warm">79/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +1.0% · Vol 0.0x</div>
-<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ ACTIVE</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
+<span class="score-pill score-warm">71/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -50 · ^BSESN</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
 </div>
-</div></div>
-<div class="signal-card"><h3>📉 Bearish Pressure (7)</h3><div class="signal-row" data-market="etf">
+</div><div class="signal-row" data-market="indices">
 <div>
-<span class="asset-name">Vanguard Total Bond</span>
-<span class="asset-tag">BEAR</span>
-<span class="asset-meta">etf · bear pressure</span>
+<span class="asset-name">Nifty 50</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">indices · downtrend · bearish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $73.18</span>
-<span style="color:#a7f3d0">ROC5 -0.5%</span>
-<span style="color:#fbbf24">RSI 38</span>
-<span style="color:#c4b5fd">Ext 1.2 ATR</span>
+<span style="color:#bae6fd">Reference price 23,715.75 pts</span>
+<span style="color:#c4b5fd">nROC5 -0.85</span>
+<span style="color:#fbbf24">RSI 42</span>
+<span style="color:#fca5a5">Ext 0.6 ATR</span>
+<span style="color:#93c5fd">Range pct 25</span>
+
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">93/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +0.0% · Vol 1.4x</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">⚡ EXTREME</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
+<span class="score-pill score-warm">67/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -46 · ^NSEI</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
+</div>
+</div><div class="signal-row" data-market="indices">
+<div>
+<span class="asset-name">ASX 200</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">indices · downtrend · bearish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price 8,640.70 pts</span>
+<span style="color:#c4b5fd">nROC5 -1.25</span>
+<span style="color:#fbbf24">RSI 39</span>
+<span style="color:#fca5a5">Ext 1.2 ATR</span>
+<span style="color:#93c5fd">Range pct 19</span>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">65/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -49 · ^AXJO</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
+</div>
+</div><div class="signal-row" data-market="stocks">
+<div>
+<span class="asset-name">Shell</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">actions · downtrend · bearish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price GBP 84.93</span>
+<span style="color:#c4b5fd">nROC5 -0.56</span>
+<span style="color:#fbbf24">RSI 37</span>
+<span style="color:#fca5a5">Ext 1.5 ATR</span>
+<span style="color:#93c5fd">Vol 0.8×</span>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">64/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -47 · SHEL</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
 </div>
 </div><div class="signal-row" data-market="etf">
 <div>
-<span class="asset-name">iShares 20+ Year Tr.</span>
-<span class="asset-tag">BEAR</span>
-<span class="asset-meta">etf · bear pressure</span>
+<span class="asset-name">iShares Core US Agg</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">etf · downtrend · bearish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $84.80</span>
-<span style="color:#a7f3d0">ROC5 -1.5%</span>
-<span style="color:#fbbf24">RSI 34</span>
-<span style="color:#c4b5fd">Ext 1.8 ATR</span>
+<span style="color:#bae6fd">Reference price $98.67</span>
+<span style="color:#c4b5fd">nROC5 -0.70</span>
+<span style="color:#fbbf24">RSI 37</span>
+<span style="color:#fca5a5">Ext 1.3 ATR</span>
+<span style="color:#93c5fd">Vol 0.7×</span>
+
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">87/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ -0.2% · Vol 1.2x</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
+<span class="score-pill score-warm">64/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -47 · AGG</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
 </div>
 </div><div class="signal-row" data-market="stocks">
 <div>
 <span class="asset-name">Mastercard</span>
-<span class="asset-tag">BEAR</span>
-<span class="asset-meta">actions · bear pressure</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">actions · downtrend · bearish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $490.64</span>
-<span style="color:#a7f3d0">ROC5 -0.3%</span>
+<span style="color:#bae6fd">Reference price $490.64</span>
+<span style="color:#c4b5fd">nROC5 -0.04</span>
 <span style="color:#fbbf24">RSI 44</span>
-<span style="color:#c4b5fd">Ext 0.8 ATR</span>
+<span style="color:#fca5a5">Ext 0.8 ATR</span>
+<span style="color:#93c5fd">Vol 0.9×</span>
+
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">86/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ -1.8% · Vol 0.9x</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
+<span class="score-pill score-warm">63/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -42 · MA</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
+</div>
+</div></div>
+<div class="signal-card"><h3>⚪ Mixed / manual watch (5)</h3><div class="signal-row" data-market="forex">
+<div>
+<span class="asset-name">USDCHF</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">forex · mixed · mixed / no edge</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price 0.7820</span>
+<span style="color:#c4b5fd">nROC5 +0.24</span>
+<span style="color:#fbbf24">RSI 43</span>
+<span style="color:#fca5a5">Ext 0.1 ATR</span>
+<span style="color:#93c5fd">Range pct 2</span>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-muted">58/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -42 · USDCHF=X</div>
+<div style="font-size:.7em;color:#94a3b8;margin-top:2px">📡 Watch</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
+</div>
+</div><div class="signal-row" data-market="forex">
+<div>
+<span class="asset-name">EURGBP</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">forex · compression · compression watch</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price 0.8663</span>
+<span style="color:#c4b5fd">nROC5 +0.36</span>
+<span style="color:#fbbf24">RSI 45</span>
+<span style="color:#fca5a5">Ext 0.0 ATR</span>
+<span style="color:#93c5fd">Range pct 2</span>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-muted">58/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -42 · EURGBP=X</div>
+<div style="font-size:.7em;color:#94a3b8;margin-top:2px">📡 Watch</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
+</div>
+</div><div class="signal-row" data-market="forex">
+<div>
+<span class="asset-name">NZDJPY</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">forex · mixed · mixed / no edge</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price 93.77</span>
+<span style="color:#c4b5fd">nROC5 +0.26</span>
+<span style="color:#fbbf24">RSI 53</span>
+<span style="color:#fca5a5">Ext 0.4 ATR</span>
+<span style="color:#93c5fd">Range pct 88</span>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-muted">57/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +37 · NZDJPY=X</div>
+<div style="font-size:.7em;color:#94a3b8;margin-top:2px">📡 Watch</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
+</div>
+</div><div class="signal-row" data-market="forex">
+<div>
+<span class="asset-name">USDZAR</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">forex · mixed · mixed / no edge</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price 16.4058</span>
+<span style="color:#c4b5fd">nROC5 +0.01</span>
+<span style="color:#fbbf24">RSI 42</span>
+<span style="color:#fca5a5">Ext 0.5 ATR</span>
+<span style="color:#93c5fd">Range pct 26</span>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-muted">56/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -28 · USDZAR=X</div>
+<div style="font-size:.7em;color:#94a3b8;margin-top:2px">📡 Watch</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
 </div>
 </div><div class="signal-row" data-market="etf">
 <div>
-<span class="asset-name">iShares Inv. Grade</span>
-<span class="asset-tag">BEAR</span>
-<span class="asset-meta">etf · bear pressure</span>
+<span class="asset-name">iShares High Yield</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">etf · mixed · mixed / no edge</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $108.62</span>
-<span style="color:#a7f3d0">ROC5 -0.5%</span>
-<span style="color:#fbbf24">RSI 40</span>
-<span style="color:#c4b5fd">Ext 0.8 ATR</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">86/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +0.1% · Vol 0.7x</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
-</div>
-</div><div class="signal-row" data-market="stocks">
-<div>
-<span class="asset-name">Procter & Gamble</span>
-<span class="asset-tag">BEAR</span>
-<span class="asset-meta">actions · bear pressure</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $142.24</span>
-<span style="color:#a7f3d0">ROC5 -3.8%</span>
-<span style="color:#fbbf24">RSI 42</span>
-<span style="color:#c4b5fd">Ext 1.0 ATR</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">82/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ -1.2% · Vol 0.8x</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
-</div>
-</div><div class="signal-row" data-market="stocks">
-<div>
-<span class="asset-name">LVMH</span>
-<span class="asset-tag">BEAR</span>
-<span class="asset-meta">actions · bear pressure</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $456.35</span>
-<span style="color:#a7f3d0">ROC5 -4.6%</span>
+<span style="color:#bae6fd">Reference price $79.91</span>
+<span style="color:#c4b5fd">nROC5 -0.41</span>
 <span style="color:#fbbf24">RSI 41</span>
-<span style="color:#c4b5fd">Ext 0.6 ATR</span>
+<span style="color:#fca5a5">Ext 0.6 ATR</span>
+<span style="color:#93c5fd">Vol 0.8×</span>
+
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">82/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +0.9% · Vol 0.1x</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
-</div>
-</div><div class="signal-row" data-market="stocks">
-<div>
-<span class="asset-name">Hermès</span>
-<span class="asset-tag">BEAR</span>
-<span class="asset-meta">actions · bear pressure</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $1,593.00</span>
-<span style="color:#a7f3d0">ROC5 -6.4%</span>
-<span style="color:#fbbf24">RSI 40</span>
-<span style="color:#c4b5fd">Ext 1.0 ATR</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">82/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Δ +0.7% · Vol 0.1x</div>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
+<span class="score-pill score-muted">56/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -28 · HYG</div>
+<div style="font-size:.7em;color:#94a3b8;margin-top:2px">📡 Watch</div>
+<div><span class="session-led asset-session" data-session-label>Manual chart check required</span></div>
 </div>
 </div></div>
 
 </div>
-
 <div class="legend">
-<span>⚡ EXTREME 90-100</span>
-<span>🦅 STRONG 80-89 — Strong setup</span>
-<span>👁️ ACTIVE 65-79 — Watchlist</span>
-<span>📡 &lt;65 — Ignore</span>
-<span class="demo-tag">Updated 14/05/2026 10:31 CEST</span>
-<span class="demo-tag">Yahoo Finance · quality pressure score /100 · 20260514-103117</span>
+<span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90-100 Extreme pressure</span>
+<span class="demo-tag">Reference prices · no automatic targets/stops</span>
+<span class="demo-tag">Updated 14/05/2026 11:16 CEST</span>
+<span class="demo-tag">run_id 20260514-111642</span>
 </div>
 </section><section id="dashboards" aria-label="Live dashboards"><div class="section-head"><div><div class="section-label">Live Dashboards</div><div class="section-kicker">Six live boards, refreshed for the current market context.</div></div></div><div class="grid"><a href="crypto_dashboard.html" class="panel crypto"><div class="emoji">🪙</div><h2>Crypto</h2><div class="desc">BTC, ETH, SOL & liquid majors · 24/7 momentum</div><span class="count">24/7 market</span></a><a href="commodities_dashboard.html" class="panel commodities"><div class="emoji">🛢️</div><h2>Commodities</h2><div class="desc">Gold, Silver, Oil, Copper, Grains · CFD/extended context</div><span class="count">15 assets</span></a><a href="indices_dashboard.html" class="panel indices"><div class="emoji">🌍</div><h2>Indices</h2><div class="desc">S&P 500, Nasdaq, DAX, CAC, Nikkei · global risk pulse</div><span class="count">16 indices</span></a><a href="forex_dashboard.html" class="panel forex"><div class="emoji">💱</div><h2>Forex</h2><div class="desc">EURUSD, GBPJPY, AUDUSD · majors, crosses and exotics</div><span class="count">19 pairs</span></a><a href="actions_dashboard.html" class="panel actions"><div class="emoji">🏛️</div><h2>Stocks</h2><div class="desc">Mega-cap tech, luxury, banks, defensives · equity momentum</div><span class="count">30 stocks</span></a><a href="etf_dashboard.html" class="panel etf"><div class="emoji">💼</div><h2>ETF</h2><div class="desc">SPY, QQQ, GLD, TLT, ARKK · themes and cross-asset exposure</div><span class="count">24 ETFs</span></a></div></section><footer><p>🔮 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance + TradingView · Open source</p><p><a href="https://github.com/AtlasNexusOps/markets-dashboard">github.com/AtlasNexusOps/markets-dashboard</a></p></footer><script>
 (() => {

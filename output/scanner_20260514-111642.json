@@ -1,0 +1,154 @@
+{
+  "run_id": "20260514-111642",
+  "generated": "20260514-111642",
+  "scoring": "Hawkeye V4 \u2014 market pressure radar /100",
+  "total": 103,
+  "distribution": {
+    "extreme": 0,
+    "strong": 0,
+    "active": 25,
+    "watch": 57,
+    "weak": 21,
+    "degraded": 0
+  },
+  "bullish_pressure": [
+    {
+      "name": "Goldman Sachs",
+      "score": 70,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$955.42"
+    },
+    {
+      "name": "Boeing",
+      "score": 67,
+      "regime": "uptrend",
+      "family": "breakout pressure",
+      "reference_price": "$240.60"
+    },
+    {
+      "name": "US Oil Fund",
+      "score": 67,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$142.04"
+    },
+    {
+      "name": "AUDJPY",
+      "score": 66,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "114.51"
+    },
+    {
+      "name": "Sugar",
+      "score": 63,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$15.22/USD/lb"
+    },
+    {
+      "name": "Visa",
+      "score": 63,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$320.31"
+    },
+    {
+      "name": "Crude Oil WTI",
+      "score": 62,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$101.60/USD/barrel"
+    }
+  ],
+  "bearish_pressure": [
+    {
+      "name": "Vanguard Total Bond",
+      "score": 74,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$73.18"
+    },
+    {
+      "name": "BSE Sensex",
+      "score": 71,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "75,618.54 pts"
+    },
+    {
+      "name": "Nifty 50",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "23,715.75 pts"
+    },
+    {
+      "name": "ASX 200",
+      "score": 65,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "8,640.70 pts"
+    },
+    {
+      "name": "Shell",
+      "score": 64,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "GBP 84.93"
+    },
+    {
+      "name": "iShares Core US Agg",
+      "score": 64,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$98.67"
+    },
+    {
+      "name": "Mastercard",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$490.64"
+    }
+  ],
+  "manual_watch": [
+    {
+      "name": "USDCHF",
+      "score": 58,
+      "regime": "mixed",
+      "family": "mixed / no edge",
+      "net": -42
+    },
+    {
+      "name": "EURGBP",
+      "score": 58,
+      "regime": "compression",
+      "family": "compression watch",
+      "net": -42
+    },
+    {
+      "name": "NZDJPY",
+      "score": 57,
+      "regime": "mixed",
+      "family": "mixed / no edge",
+      "net": 37
+    },
+    {
+      "name": "USDZAR",
+      "score": 56,
+      "regime": "mixed",
+      "family": "mixed / no edge",
+      "net": -28
+    },
+    {
+      "name": "iShares High Yield",
+      "score": 56,
+      "regime": "mixed",
+      "family": "mixed / no edge",
+      "net": -28
+    }
+  ],
+  "degraded": []
+}
