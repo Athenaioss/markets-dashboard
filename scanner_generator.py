@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-⚡ Market Pulse Scanner v3 — Tradeable Setups
-ATR-based targets/stops · Separate bull/bear scores · RR ≥ 1.0 · No padding
+🦅 Hawkeye v2 — Directional Scanner with True /100 Scoring
+Trend 30 · Momentum 25 · RSI 15 · Volume 15 · Structure 15
+Chase penalty: extension > 2 ATR → -10
 Data: Yahoo Finance OHLCV daily
 """
 
@@ -45,7 +46,6 @@ def macd_hist(prices):
     return round((e12 - e26) / e26 * 100, 2) if e26 else 0
 
 def atr_val(highs, lows, closes, period=14):
-    """Average True Range in absolute terms"""
     if len(highs) < period + 1: return 0.01
     trs = []
     for i in range(-period, 0):
@@ -54,13 +54,25 @@ def atr_val(highs, lows, closes, period=14):
     return sum(trs) / period
 
 def swing_low(lows, window=10):
-    """Recent swing low"""
     if len(lows) < window: return min(lows)
     return min(lows[-window:])
 
 def swing_high(highs, window=10):
     if len(highs) < window: return max(highs)
     return max(highs[-window:])
+
+def ema20_slope(cp):
+    """EMA20 slope: (current - 5 bars ago) / 5 bars ago * 100, sign-preserving pct"""
+    if len(cp) < 25: return 0
+    ema_now = ema(cp, 20)
+    ema_prev = ema(cp[:-5], 20)
+    if ema_prev == 0: return 0
+    return round((ema_now - ema_prev) / ema_prev * 100, 2)
+
+def prev_roc5(cp):
+    """ROC5 computed 1 bar before current"""
+    if len(cp) < 7: return 0
+    return roc(cp[:-1], 5)
 
 # ── Loading ──
 
@@ -73,9 +85,22 @@ def load_latest(pattern):
     if isinstance(data, dict) and "data" in data: return data["data"]
     return []
 
-# ── Scoring ──
+# ── Hawkeye v2 Scoring ──
 
-def compute_scores(all_assets):
+def compute_hawkeye_scores(all_assets):
+    """
+    🦅 Hawkeye v2 — True /100 Directional Scoring
+    
+    Trend         30 pts  (price > EMA20, EMA20 > EMA50, EMA20 slope+)
+    Momentum      25 pts  (ROC5+, ROC20+, MACD hist+, ROC5 improving)
+    RSI / Entry   15 pts  (52-66 optimal, 45-52/66-72 neutral, >72 penalty)
+    Volume        15 pts  (vol ratio 1.1-2.5x optimal, >2.5x exhaustion, <0.8x zero)
+    Structure     15 pts  (RR check, extension from EMA20)
+    
+    Penalty: extension from EMA20 > 2 ATR → -10 (chase penalty)
+    
+    Tiers: 80-100 = Strong · 65-79 = Watchlist · <65 = Ignore
+    """
     for a in all_assets:
         cp = a.get("_close_prices", [])
         hp = a.get("_high_prices", [])
@@ -94,26 +119,130 @@ def compute_scores(all_assets):
         atr = atr_val(hp, lp, cp, 14)
         atr_pct = round(atr / price * 100, 2) if price else 2
         
-        # ── BULL SCORE (0-100) ──
+        slope = ema20_slope(cp)
+        p_roc5 = prev_roc5(cp)
+        
+        vol_ratio = a.get("vol_ratio", 0)
+        has_volume = bool(vol_ratio and vol_ratio > 0)
+        candle_ratio = a.get("candle_ratio", None)
+        
+        extension_atr = abs(price - ema20) / atr if atr > 0 else 0
+        
+        # ═══════════════════════════════════════
+        # BULL SCORE
+        # ═══════════════════════════════════════
         bull = 0
-        if price > ema20: bull += 15
-        if ema20 > ema50: bull += 10
-        if roc5 > 0: bull += 10
-        if roc20 > 0: bull += 10
-        if macd_h > 0: bull += 8
-        if 50 <= rsi14 <= 70: bull += 7
-        bull = min(100, bull)
         
-        # ── BEAR SCORE (0-100) ──
+        # ── Trend (30 pts) ──
+        if price > ema20:   bull += 10
+        if ema20 > ema50:   bull += 10
+        if slope > 0:       bull += 10
+        
+        # ── Momentum (25 pts) ──
+        if roc5 > 0:        bull += 7
+        if roc20 > 0:       bull += 7
+        if macd_h > 0:      bull += 6
+        if roc5 > p_roc5:   bull += 5  # ROC5 accelerating
+        
+        # ── RSI / Entry quality (15 pts) ──
+        if 52 <= rsi14 <= 66:
+            bull += 15
+        elif (45 <= rsi14 < 52) or (66 < rsi14 <= 72):
+            bull += 8
+        # RSI > 72 → 0 (overbought — no bull points)
+        # RSI < 45 → 0 (too weak for bull)
+        
+        # ── Volume / Participation (15 pts) ──
+        if has_volume:
+            if 1.1 <= vol_ratio <= 2.5:
+                bull += 10
+            elif vol_ratio > 2.5:
+                bull += 5  # possible exhaustion
+            # vol_ratio < 0.8 → 0
+            
+            # Candle body not overextended (healthy participation)
+            if candle_ratio is not None and candle_ratio < 0.75:
+                bull += 5
+            elif candle_ratio is not None:
+                pass  # large body relative to range = possible exhaustion or gap
+            else:
+                bull += 3  # no candle data → neutral
+        else:
+            # Forex & assets without volume → neutral volume score
+            bull += 7
+        
+        # ── Structure / Tradeability (15 pts) ──
+        # RR check: does the asset have enough data to build a setup?
+        if atr > 0 and len(cp) >= 20:
+            bull += 8  # data quality gate — real RR computed at setup time
+        
+        # Price proximity to EMA20 / support
+        if extension_atr <= 1.5:
+            bull += 7
+        elif extension_atr <= 2.0:
+            bull += 3
+        # > 2.0 → 0 points (chasing)
+        
+        # ── Chase / Extension Penalty ──
+        if extension_atr > 2.0:
+            bull -= 10
+        
+        bull = max(0, min(100, bull))
+        
+        # ═══════════════════════════════════════
+        # BEAR SCORE (Mirrored)
+        # ═══════════════════════════════════════
         bear = 0
-        if price < ema20: bear += 15
-        if ema20 < ema50: bear += 10
-        if roc5 < 0: bear += 10
-        if roc20 < 0: bear += 10
-        if macd_h < 0: bear += 8
-        if 30 <= rsi14 <= 55: bear += 7
-        bear = min(100, bear)
         
+        # ── Trend (30 pts) ──
+        if price < ema20:   bear += 10
+        if ema20 < ema50:   bear += 10
+        if slope < 0:       bear += 10
+        
+        # ── Momentum (25 pts) ──
+        if roc5 < 0:        bear += 7
+        if roc20 < 0:       bear += 7
+        if macd_h < 0:      bear += 6
+        if roc5 < p_roc5:   bear += 5  # ROC5 accelerating downward
+        
+        # ── RSI / Entry quality (15 pts) ──
+        if 34 <= rsi14 <= 48:
+            bear += 15
+        elif (28 <= rsi14 < 34) or (48 < rsi14 <= 55):
+            bear += 8
+        # RSI < 28 → 0 (oversold — no bear points)
+        # RSI > 55 → 0 (too strong for bear)
+        
+        # ── Volume / Participation (15 pts) ──
+        if has_volume:
+            if 1.1 <= vol_ratio <= 2.5:
+                bear += 10
+            elif vol_ratio > 2.5:
+                bear += 5
+            if candle_ratio is not None and candle_ratio < 0.75:
+                bear += 5
+            elif candle_ratio is not None:
+                pass
+            else:
+                bear += 3
+        else:
+            bear += 7
+        
+        # ── Structure / Tradeability (15 pts) ──
+        if atr > 0 and len(cp) >= 20:
+            bear += 8
+        
+        if extension_atr <= 1.5:
+            bear += 7
+        elif extension_atr <= 2.0:
+            bear += 3
+        
+        if extension_atr > 2.0:
+            bear -= 10
+        
+        bear = max(0, min(100, bear))
+        
+        # Store
         a["bull_score"] = bull
         a["bear_score"] = bear
         a["_atr"] = atr
@@ -126,14 +255,18 @@ def compute_scores(all_assets):
         a["_roc5"] = roc5
         a["_roc20"] = roc20
 
-def source_profile(source, symbol=""):
-    """Asset-class aware risk model for entry/SL/TP display.
 
-    The scanner mixes FX pairs, CFDs/commodities, indices, equities, ETFs and crypto.
-    A single ATR multiplier plus 2-decimal rounding creates nonsensical FX levels
-    (e.g. AUD/USD 0.7257 rendered as 0.7300). Profiles keep precision and risk
-    bands aligned with the asset context.
-    """
+# ── Tier labels ──
+
+def score_tier(score):
+    if score >= 80: return ("STRONG", "#22c55e")
+    if score >= 65: return ("WATCHLIST", "#f59e0b")
+    return ("IGNORE", "#64748b")
+
+
+# ── Source Profiles (unchanged) ──
+
+def source_profile(source, symbol=""):
     symbol = (symbol or "").upper()
     if source == "forex":
         return {"decimals": 2 if "JPY" in symbol else 4, "stop_atr": 1.15, "target_rr": 1.8, "min_risk_pct": 0.25, "max_risk_pct": 1.20}
@@ -164,8 +297,6 @@ def contextual_levels(a, direction):
     max_risk = entry * profile["max_risk_pct"] / 100
     risk = min(max(atr_risk, min_risk), max_risk)
 
-    # Respect nearby market structure when it is plausible, without letting
-    # stale candles create absurdly wide stops for volatile/mixed instruments.
     if direction == "LONG":
         structure_stop = a.get("_swing_low", entry) - atr * 0.15
         structure_risk = entry - structure_stop
@@ -197,7 +328,6 @@ def contextual_levels(a, direction):
     }
 
 def compact_forex_symbol(symbol):
-    """Compact FX pair label for scanner rows: EURUSD, GBPJPY, etc."""
     return (symbol or "").upper().replace("=X", "")
 
 def display_asset_name(asset):
@@ -209,7 +339,12 @@ def display_asset_name(asset):
 
 
 def build_setups(assets):
-    """Build tradeable setups with asset-contextual stops/targets"""
+    """
+    Build tradeable setups using Hawkeye v2 tiers.
+    Strong (80-100) → always included
+    Watchlist (65-79) → included, labeled WATCH
+    Ignore (<65) → excluded
+    """
     setups_long = []
     setups_short = []
     
@@ -221,34 +356,32 @@ def build_setups(assets):
         name = display_asset_name(a)
         bull = a["bull_score"]
         bear = a["bear_score"]
-        src = a.get("source", "")
-        trend = a.get("trend", "NEUTRAL")
         
         # ── LONG setup ──
-        if bull >= 50 and trend == "BULLISH" and a.get("change_pct", 0) > 0:
+        if bull >= 65:
             levels = contextual_levels(a, "LONG")
             if levels and levels["stop"] < levels["entry"] and levels["tp"] > levels["entry"] and levels["rr"] >= 1.0:
+                tier, _ = score_tier(bull)
                 setups_long.append(dict(
-                    name=name, source=src, direction="LONG", symbol=a.get("symbol", ""),
-                    score=bull, **levels,
-                    rsi=a.get("_rsi", 50),
-                    motif="trend momentum",
-                    status="TRADEABLE"
+                    name=name, source=a.get("source", ""), direction="LONG",
+                    symbol=a.get("symbol", ""), score=bull, tier=tier, **levels,
+                    rsi=a.get("_rsi", 50), motif=f"{tier} setup",
+                    status="TRADEABLE" if tier == "STRONG" else "WATCHLIST"
                 ))
         
         # ── SHORT setup ──
-        if bear >= 50 and trend == "BEARISH" and a.get("change_pct", 0) < 0:
+        if bear >= 65:
             levels = contextual_levels(a, "SHORT")
             if levels and levels["stop"] > levels["entry"] and levels["tp"] < levels["entry"] and levels["rr"] >= 1.0:
+                tier, _ = score_tier(bear)
                 setups_short.append(dict(
-                    name=name, source=src, direction="SHORT", symbol=a.get("symbol", ""),
-                    score=bear, **levels,
-                    rsi=a.get("_rsi", 50),
-                    motif="downtrend momentum",
-                    status="TRADEABLE"
+                    name=name, source=a.get("source", ""), direction="SHORT",
+                    symbol=a.get("symbol", ""), score=bear, tier=tier, **levels,
+                    rsi=a.get("_rsi", 50), motif=f"{tier} setup",
+                    status="TRADEABLE" if tier == "STRONG" else "WATCHLIST"
                 ))
     
-    # Sort and take top 7 — NO PADDING
+    # Sort by score descending, take top 7
     setups_long.sort(key=lambda s: s["score"], reverse=True)
     setups_short.sort(key=lambda s: s["score"], reverse=True)
     
@@ -262,18 +395,30 @@ def market_for_source(source):
 
 def setup_card(title, emoji, setups, color_class, is_bullish=True):
     if not setups:
-        return f"""<div class="signal-card"><h3>{emoji} {title}</h3><div class="no-signal">No valid {title.lower()} setup</div></div>"""
+        return f"""<div class="signal-card"><h3>{emoji} {title}</h3>
+<div class="no-signal">No valid {title.lower()} setup (all assets scored < 65)</div></div>"""
     
     rows = ""
     for s in setups:
         score = s["score"]
         entry = s["entry"]
+        tier = s["tier"]
         status = s["status"]
         motif = s.get("motif", "")
         market = market_for_source(s.get("source", ""))
         
-        badge_color = "#22c55e" if status == "TRADEABLE" else "#f59e0b"
-        badge_text = "✅ TRADEABLE" if status == "TRADEABLE" else "⏳ WATCHLIST"
+        if tier == "STRONG":
+            badge = "🦅 STRONG"
+            badge_color = "#22c55e"
+            score_class = "score-hot"
+        elif tier == "WATCHLIST":
+            badge = "👁️ WATCH"
+            badge_color = "#f59e0b"
+            score_class = "score-warm"
+        else:
+            badge = "⏳ IGNORE"
+            badge_color = "#64748b"
+            score_class = "score-muted"
         
         precision = int(s.get("precision", 2 if entry > 1 else 4))
         price_fmt = f"${entry:,.{precision}f}"
@@ -288,16 +433,18 @@ def setup_card(title, emoji, setups, color_class, is_bullish=True):
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill {color_class}">{score}</span>
-<div style="font-size:.7em;color:{badge_color};margin-top:2px">{badge_text}</div>
+<span class="score-pill {score_class}">{score}</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR {s['rr']}:1 · {s.get('risk_pct',0)}%</div>
+<div style="font-size:.7em;color:{badge_color};margin-top:2px">{badge}</div>
 <div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>
 </div>"""
     
     return f"""<div class="signal-card"><h3>{emoji} {title} ({len(setups)})</h3>{rows}</div>"""
 
+
 def main():
-    print("⚡ Market Pulse Scanner v3 — Tradeable Setups")
+    print("🦅 Hawkeye v2 — True /100 Directional Scanner")
     print("-" * 50)
     
     sources = {
@@ -322,20 +469,42 @@ def main():
     skipped = len(all_assets) - len(assets_clean)
     if skipped: print(f"  ⚠️ Filtered {skipped} artifacts")
     
-    compute_scores(assets_clean)
+    compute_hawkeye_scores(assets_clean)
+    
+    # Score distribution
+    bulls = [a["bull_score"] for a in assets_clean]
+    bears = [a["bear_score"] for a in assets_clean]
+    strong_bulls = sum(1 for s in bulls if s >= 80)
+    watch_bulls = sum(1 for s in bulls if 65 <= s < 80)
+    strong_bears = sum(1 for s in bears if s >= 80)
+    watch_bears = sum(1 for s in bears if 65 <= s < 80)
+    
+    print(f"  🦅 Bull: {strong_bulls} Strong · {watch_bulls} Watch · {len(bulls)-strong_bulls-watch_bulls} Ignore")
+    print(f"  🐻 Bear: {strong_bears} Strong · {watch_bears} Watch · {len(bears)-strong_bears-watch_bears} Ignore")
+    
     setups_long, setups_short = build_setups(assets_clean)
     
-    print(f"  🚀 LONG setups: {len(setups_long)}")
-    print(f"  🐻 SHORT setups: {len(setups_short)}")
+    print(f"  📈 LONG setups: {len(setups_long)}")
+    print(f"  📉 SHORT setups: {len(setups_short)}")
     
-    long_card  = setup_card("Long Setups", "🚀", setups_long, "score-hot", True)
-    short_card = setup_card("Short Setups", "🐻", setups_short, "score-risk", False)
+    long_card  = setup_card("Long Setups", "📈", setups_long, "score-hot", True)
+    short_card = setup_card("Short Setups", "📉", setups_short, "score-risk", False)
     
-    scanner_html = f"""<!-- ⚡ Market Pulse Scanner v3 — {NOW} -->
+    scanner_html = f"""<!-- 🦅 Hawkeye v2 — {NOW} -->
 <section id="scanner" class="scanner">
 <div class="scanner-head">
 <div>
-<h2>⚡ Market Pulse Scanner</h2>
+<h2>🦅 Hawkeye v2 — Directional Scanner</h2>
+<p>True /100 scoring · Trend 30 · Momentum 25 · RSI 15 · Volume 15 · Structure 15<br>
+<strong>80-100 Strong</strong> · 65-79 Watchlist · &lt;65 Ignored · Chase penalty at &gt;2 ATR extension</p>
+<div class="formula">
+<span class="chip">Trend 30</span>
+<span class="chip">Momentum 25</span>
+<span class="chip">RSI 15</span>
+<span class="chip">Volume 15</span>
+<span class="chip">Structure 15</span>
+<span class="chip">Chase -10</span>
+</div>
 </div>
 <div class="scanner-score">
 <div class="num">{len(assets_clean)}</div>
@@ -349,7 +518,8 @@ def main():
 </div>
 
 <div class="legend">
-<span>✅ TRADEABLE — directional scanner signal</span>
+<span>🦅 STRONG 80-100 — tradeable directional setup</span>
+<span>👁️ WATCH 65-79 — monitor for entry</span>
 <span class="demo-tag">Updated {UPDATED_AT_LABEL}</span>
 <span class="demo-tag">Yahoo Finance · {NOW}</span>
 </div>
@@ -361,9 +531,19 @@ def main():
     
     # Report
     report = {
-        "generated": NOW, "total": len(assets_clean),
-        "longs": [{"name": s["name"], "entry": s["entry"], "stop": s["stop"], "tp": s["tp"], "tp_pct": s["tp_pct"], "rr": s["rr"]} for s in setups_long],
-        "shorts": [{"name": s["name"], "entry": s["entry"], "stop": s["stop"], "tp": s["tp"], "tp_pct": s["tp_pct"], "rr": s["rr"]} for s in setups_short],
+        "generated": NOW,
+        "scoring": "Hawkeye v2 — True /100",
+        "total": len(assets_clean),
+        "distribution": {
+            "bull_strong": strong_bulls, "bull_watch": watch_bulls,
+            "bear_strong": strong_bears, "bear_watch": watch_bears,
+        },
+        "long_setups": [{"name": s["name"], "score": s["score"], "tier": s["tier"],
+                         "entry": s["entry"], "stop": s["stop"], "tp": s["tp"],
+                         "tp_pct": s["tp_pct"], "rr": s["rr"]} for s in setups_long],
+        "short_setups": [{"name": s["name"], "score": s["score"], "tier": s["tier"],
+                          "entry": s["entry"], "stop": s["stop"], "tp": s["tp"],
+                          "tp_pct": s["tp_pct"], "rr": s["rr"]} for s in setups_short],
     }
     (OUTPUT_DIR / f"scanner_{NOW}.json").write_text(json.dumps(report, indent=2))
     
