@@ -194,6 +194,18 @@ def contextual_levels(a, direction):
         "precision": profile["decimals"],
     }
 
+def compact_forex_symbol(symbol):
+    """Compact FX pair label for scanner rows: EURUSD, GBPJPY, etc."""
+    return (symbol or "").upper().replace("=X", "")
+
+def display_asset_name(asset):
+    if asset.get("source") == "forex":
+        compact = compact_forex_symbol(asset.get("symbol", ""))
+        if compact:
+            return compact
+    return asset.get("name", asset.get("symbol", "?"))
+
+
 def build_setups(assets):
     """Build tradeable setups with asset-contextual stops/targets"""
     setups_long = []
@@ -204,7 +216,7 @@ def build_setups(assets):
         atr = a.get("_atr", 0.01)
         if not price or not atr: continue
         
-        name = a.get("name", a.get("symbol", "?"))
+        name = display_asset_name(a)
         bull = a["bull_score"]
         bear = a["bear_score"]
         src = a.get("source", "")

@@ -43,6 +43,10 @@ FOREX_PAIRS = {
     "USDBRL=X":  {"base": "USD", "quote": "BRL", "group": "Exotic", "name": "US Dollar / Brazilian Real"},
 }
 
+def compact_pair_symbol(symbol):
+    """Return compact FX pair format for UI, e.g. EURUSD from EURUSD=X."""
+    return symbol.upper().replace("=X", "")
+
 def fetch_yahoo(symbol):
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?range=3mo&interval=1d"
     req = urllib.request.Request(url, headers={"User-Agent": "AtlasNexus/1.0"})
@@ -100,8 +104,8 @@ def extract_metrics(symbol, data):
         dist_to_52w_high = round((wh - current) / wh * 100, 1) if wh > 0 else 0
         
         return {
-            "symbol": symbol, "pair": f"{info['base']}/{info['quote']}",
-            "name": info["name"], "base": info["base"], "quote": info["quote"],
+            "symbol": symbol, "pair": compact_pair_symbol(symbol),
+            "name": compact_pair_symbol(symbol), "base": info["base"], "quote": info["quote"],
             "group": info["group"],
             "price": round(current, 5),
             "change": round(change, 5) if change else 0,
