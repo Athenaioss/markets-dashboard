@@ -82,7 +82,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header">
 <div class="title-emoji">💱</div>
 <h1>Atlas Nexus — Forex</h1>
-<p>Real-time currency pair tracking · Majors, Minors & Exotics | 20260514-053027</p>
+<p>Real-time currency pair tracking · Majors, Minors & Exotics | 20260514-053959</p>
 </div>
 <div class="container">
 <div class="stats-grid">
@@ -100,18 +100,12 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     <div><span style="color:var(--muted)">13/19 assets up</span><br><strong>68</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>1.17</strong></div><div><span style="color:var(--muted)">3/19 bullish MA</span><br><strong>16</strong></div><div><span style="color:var(--muted)">0/19 elevated vol</span><br><strong>0</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>0.3</strong></div>
     </div></div>
 
-<section class="momentum-scanner-v2" aria-label="Momentum Scanner">
+<section class="momentum-scanner-v2" aria-label="Hawkeye">
   <style>
     .momentum-scanner-v2{margin:0 0 24px;padding:22px;border:1px solid var(--atlas-border,var(--border));border-radius:26px;background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.03));box-shadow:0 22px 70px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06)}
     .momentum-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
     .momentum-kicker{color:var(--atlas-accent,var(--accent));font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;font-weight:900;margin-bottom:5px}
     .momentum-title{font-size:1.35rem;font-weight:950;letter-spacing:-.055em;color:var(--atlas-text,var(--text))}
-    .momentum-sub{color:var(--atlas-muted,var(--muted));font-size:.86rem;margin-top:5px;line-height:1.55}
-    .momentum-regime{border:1px solid var(--atlas-border,var(--border));border-radius:999px;padding:8px 11px;font-size:.78rem;font-weight:900;white-space:nowrap;background:rgba(255,255,255,.045)}
-    .momentum-regime.bull{color:var(--atlas-green,var(--green))}.momentum-regime.bear{color:var(--atlas-red,var(--red))}.momentum-regime.neutral{color:var(--atlas-amber,#f59e0b)}
-    .momentum-pulse{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
-    .momentum-chip{padding:12px;border-radius:18px;border:1px solid var(--atlas-border,var(--border));background:rgba(7,9,20,.34)}
-    .momentum-chip span{display:block;color:var(--atlas-muted,var(--muted));font-size:.72rem;font-weight:850;text-transform:uppercase;letter-spacing:.06em}.momentum-chip b{display:block;margin-top:4px;color:var(--atlas-text,var(--text));font-size:.98rem}
     .momentum-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.momentum-col{display:flex;flex-direction:column;gap:10px}.momentum-col h4{margin:0 0 2px;font-size:.88rem;font-weight:950;letter-spacing:-.025em;color:var(--atlas-text,var(--text))}
     .momentum-pick{border:1px solid var(--atlas-border,var(--border));border-radius:20px;padding:13px;background:rgba(7,9,20,.36);box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
     .momentum-pick.bull{border-left:3px solid var(--atlas-green,var(--green))}.momentum-pick.bear{border-left:3px solid var(--atlas-red,var(--red))}
@@ -121,22 +115,13 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     .momentum-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.momentum-metrics span{min-width:0}.momentum-metrics b{display:block;color:var(--atlas-text,var(--text));font-size:.74rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.momentum-metrics em{display:block;color:var(--atlas-faint,var(--muted));font-size:.64rem;font-style:normal;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
     .momentum-radar{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:2px}.momentum-radar-title{grid-column:1/-1;margin:6px 0 0!important;color:var(--atlas-muted,var(--muted))!important;font-size:.82rem!important}
     .momentum-empty{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}
-    @media(max-width:860px){.momentum-head{flex-direction:column}.momentum-pulse{grid-template-columns:repeat(2,1fr)}.momentum-grid{grid-template-columns:1fr}.momentum-radar{grid-template-columns:1fr}}
-    @media(max-width:480px){.momentum-scanner-v2{padding:16px;border-radius:22px}.momentum-pulse{grid-template-columns:1fr}.momentum-metrics{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:860px){.momentum-head{flex-direction:column}.momentum-grid{grid-template-columns:1fr}.momentum-radar{grid-template-columns:1fr}}
+    @media(max-width:480px){.momentum-scanner-v2{padding:16px;border-radius:22px}.momentum-metrics{grid-template-columns:repeat(2,1fr)}}
   </style>
   <div class="momentum-head">
     <div>
-      <div class="momentum-kicker">Market pulse scanner</div>
-      <div class="momentum-title">Momentum leaders & pressure zones</div>
-      <div class="momentum-sub">Score composite : change, trend MA, volume, distance au 52W high, bougie et volatilité. Les barres indiquent la conviction normalisée.</div>
+      <div class="momentum-kicker">🦅 Hawkeye</div>
     </div>
-    <div class="momentum-regime neutral">Mixed · +1.1</div>
-  </div>
-  <div class="momentum-pulse">
-    <div class="momentum-chip"><span>Leader</span><b>USDZAR=X · +6.1</b></div>
-    <div class="momentum-chip"><span>Pressure</span><b>USDBRL=X · -6.7</b></div>
-    <div class="momentum-chip"><span>Breadth</span><b>13/19 up · 68%</b></div>
-    <div class="momentum-chip"><span>Conviction</span><b>0 vol spikes · 8 near 52W</b></div>
   </div>
   <div class="momentum-grid">
     <div class="momentum-col"><h4>▲ Bullish momentum</h4>
@@ -149,7 +134,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
         <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+6.1</div>
       </div>
       <div class="momentum-tags"><span class="momentum-tag"><b>52W</b> room</span><span class="momentum-tag"><b>Vol</b> stable</span></div>
-      <div class="momentum-bar"><span style="width:49%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
+      <div class="momentum-bar"><span style="width:50%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
       <div class="momentum-metrics">
         <span><b>▲ 2.9%</b><em>change</em></span>
         <span><b>Neutral</b><em>trend</em></span>
@@ -302,10 +287,10 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
           <div class="momentum-name">USDCHF</div>
           <div class="momentum-meta">USDCHF=X · Major</div>
         </div>
-        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+3.4</div>
+        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+2.6</div>
       </div>
       <div class="momentum-tags"><span class="momentum-tag"><b>Vol</b> stable</span></div>
-      <div class="momentum-bar"><span style="width:27%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
+      <div class="momentum-bar"><span style="width:21%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
       <div class="momentum-metrics">
         <span><b>▲ 1.6%</b><em>change</em></span>
         <span><b>Neutral</b><em>trend</em></span>
@@ -322,7 +307,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
         <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+2.5</div>
       </div>
       <div class="momentum-tags"><span class="momentum-tag"><b>Vol</b> stable</span></div>
-      <div class="momentum-bar"><span style="width:19%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
+      <div class="momentum-bar"><span style="width:20%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
       <div class="momentum-metrics">
         <span><b>▲ 0.7%</b><em>change</em></span>
         <span><b>Neutral</b><em>trend</em></span>
@@ -349,135 +334,135 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td>Major</td>
             <td class="price">1.35290</td>
             <td style="color:#ef4444">▼ 0.670%</td>
-            <td>1.35643</td><td>1.35391</td>
+            <td>1.35641</td><td>1.35391</td>
             <td><span style="color:#94a3b8">NEUTRAL</span></td>
             <td>0.27%</td>
         </tr><tr>
             <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>USDJPY</strong></td>
             <td>Major</td>
-            <td class="price">157.93100</td>
-            <td style="color:#22c55e">▲ 3.340%</td>
-            <td>157.30400</td><td>158.31000</td>
+            <td class="price">157.94400</td>
+            <td style="color:#22c55e">▲ 3.350%</td>
+            <td>157.30660</td><td>158.31065</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>0.30%</td>
         </tr><tr>
             <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>USDCHF</strong></td>
             <td>Major</td>
-            <td class="price">0.78160</td>
-            <td style="color:#22c55e">▲ 1.560%</td>
-            <td>0.77963</td><td>0.78265</td>
+            <td class="price">0.78180</td>
+            <td style="color:#22c55e">▲ 1.590%</td>
+            <td>0.77966</td><td>0.78266</td>
             <td><span style="color:#94a3b8">NEUTRAL</span></td>
             <td>0.30%</td>
         </tr><tr>
             <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>AUDUSD</strong></td>
             <td>Major</td>
-            <td class="price">0.72560</td>
-            <td style="color:#22c55e">▲ 2.380%</td>
-            <td>0.72371</td><td>0.71885</td>
+            <td class="price">0.72540</td>
+            <td style="color:#22c55e">▲ 2.360%</td>
+            <td>0.72367</td><td>0.71884</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>0.37%</td>
         </tr><tr>
             <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>USDCAD</strong></td>
             <td>Major</td>
-            <td class="price">1.37030</td>
-            <td style="color:#22c55e">▲ 0.680%</td>
-            <td>1.36845</td><td>1.36587</td>
+            <td class="price">1.37070</td>
+            <td style="color:#22c55e">▲ 0.710%</td>
+            <td>1.36853</td><td>1.36589</td>
             <td><span style="color:#94a3b8">NEUTRAL</span></td>
             <td>0.20%</td>
         </tr><tr>
             <td><span style="color:#818cf8;font-weight:600;margin-right:6px">◆</span><strong>NZDUSD</strong></td>
             <td>Major</td>
-            <td class="price">0.59320</td>
-            <td style="color:#ef4444">▼ 1.670%</td>
-            <td>0.59477</td><td>0.59055</td>
+            <td class="price">0.59300</td>
+            <td style="color:#ef4444">▼ 1.710%</td>
+            <td>0.59473</td><td>0.59053</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>0.46%</td>
         </tr><tr>
             <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>EURGBP</strong></td>
             <td>Minor</td>
-            <td class="price">0.86580</td>
-            <td style="color:#ef4444">▼ 0.640%</td>
-            <td>0.86585</td><td>0.86639</td>
+            <td class="price">0.86590</td>
+            <td style="color:#ef4444">▼ 0.630%</td>
+            <td>0.86586</td><td>0.86640</td>
             <td><span style="color:#94a3b8">NEUTRAL</span></td>
             <td>0.11%</td>
         </tr><tr>
             <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>EURJPY</strong></td>
             <td>Minor</td>
-            <td class="price">185.00900</td>
+            <td class="price">185.02100</td>
             <td style="color:#22c55e">▲ 2.010%</td>
-            <td>184.75460</td><td>185.70205</td>
+            <td>184.75700</td><td>185.70265</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>0.24%</td>
         </tr><tr>
             <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>GBPJPY</strong></td>
             <td>Minor</td>
-            <td class="price">213.65800</td>
+            <td class="price">213.66100</td>
             <td style="color:#22c55e">▲ 2.670%</td>
-            <td>213.35340</td><td>214.31936</td>
+            <td>213.35400</td><td>214.31951</td>
             <td><span style="color:#94a3b8">NEUTRAL</span></td>
             <td>0.25%</td>
         </tr><tr>
             <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>EURCHF</strong></td>
             <td>Minor</td>
-            <td class="price">0.91560</td>
-            <td style="color:#22c55e">▲ 0.250%</td>
-            <td>0.91575</td><td>0.91808</td>
+            <td class="price">0.91580</td>
+            <td style="color:#22c55e">▲ 0.270%</td>
+            <td>0.91579</td><td>0.91809</td>
             <td><span style="color:#94a3b8">NEUTRAL</span></td>
             <td>0.15%</td>
         </tr><tr>
             <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>AUDJPY</strong></td>
             <td>Minor</td>
-            <td class="price">114.53800</td>
-            <td style="color:#22c55e">▲ 5.760%</td>
-            <td>113.81800</td><td>113.77700</td>
+            <td class="price">114.52500</td>
+            <td style="color:#22c55e">▲ 5.750%</td>
+            <td>113.81540</td><td>113.77635</td>
             <td><span style="color:#94a3b8">NEUTRAL</span></td>
             <td>0.32%</td>
         </tr><tr>
             <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>GBPCHF</strong></td>
             <td>Minor</td>
-            <td class="price">1.05740</td>
-            <td style="color:#22c55e">▲ 0.940%</td>
-            <td>1.05742</td><td>1.05950</td>
+            <td class="price">1.05750</td>
+            <td style="color:#22c55e">▲ 0.950%</td>
+            <td>1.05743</td><td>1.05951</td>
             <td><span style="color:#94a3b8">NEUTRAL</span></td>
             <td>0.17%</td>
         </tr><tr>
             <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>CADJPY</strong></td>
             <td>Minor</td>
-            <td class="price">115.22300</td>
-            <td style="color:#22c55e">▲ 2.630%</td>
-            <td>114.93600</td><td>115.89305</td>
+            <td class="price">115.23300</td>
+            <td style="color:#22c55e">▲ 2.640%</td>
+            <td>114.93800</td><td>115.89355</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>0.29%</td>
         </tr><tr>
             <td><span style="color:#38bdf8;font-weight:600;margin-right:6px">◆</span><strong>NZDJPY</strong></td>
             <td>Minor</td>
-            <td class="price">93.63500</td>
-            <td style="color:#22c55e">▲ 1.590%</td>
-            <td>93.53220</td><td>93.46075</td>
+            <td class="price">93.63100</td>
+            <td style="color:#22c55e">▲ 1.580%</td>
+            <td>93.53140</td><td>93.46055</td>
             <td><span style="color:#94a3b8">NEUTRAL</span></td>
             <td>0.35%</td>
         </tr><tr>
             <td><span style="color:#f59e0b;font-weight:600;margin-right:6px">◆</span><strong>USDMXN</strong></td>
             <td>Exotic</td>
-            <td class="price">17.16590</td>
-            <td style="color:#ef4444">▼ 0.240%</td>
-            <td>17.21562</td><td>17.34022</td>
+            <td class="price">17.17140</td>
+            <td style="color:#ef4444">▼ 0.210%</td>
+            <td>17.21672</td><td>17.34049</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>0.32%</td>
         </tr><tr>
             <td><span style="color:#f59e0b;font-weight:600;margin-right:6px">◆</span><strong>USDZAR</strong></td>
             <td>Exotic</td>
-            <td class="price">16.41100</td>
-            <td style="color:#22c55e">▲ 2.900%</td>
-            <td>16.44348</td><td>16.51991</td>
+            <td class="price">16.41630</td>
+            <td style="color:#22c55e">▲ 2.940%</td>
+            <td>16.44455</td><td>16.52018</td>
             <td><span style="color:#94a3b8">NEUTRAL</span></td>
             <td>0.56%</td>
         </tr><tr>
             <td><span style="color:#f59e0b;font-weight:600;margin-right:6px">◆</span><strong>USDTRY</strong></td>
             <td>Exotic</td>
-            <td class="price">45.41030</td>
+            <td class="price">45.40950</td>
             <td style="color:#22c55e">▲ 3.850%</td>
-            <td>45.35440</td><td>45.12214</td>
+            <td>45.35425</td><td>45.12210</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>0.08%</td>
         </tr><tr>
@@ -489,5 +474,5 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>0.62%</td>
         </tr></tbody></table></div></div>
-<div class="footer"><p>💱 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-053027</p></div>
+<div class="footer"><p>💱 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-053959</p></div>
 </div></body></html>

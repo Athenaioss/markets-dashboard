@@ -82,7 +82,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header">
 <div class="title-emoji">📈</div>
 <h1>Atlas Nexus — Global Indices</h1>
-<p>Real-time stock index tracking · S&P 500, Nasdaq, FTSE, DAX, Nikkei & more | 20260514-053020</p>
+<p>Real-time stock index tracking · S&P 500, Nasdaq, FTSE, DAX, Nikkei & more | 20260514-053948</p>
 </div>
 <div class="container">
 <div class="stats-grid">
@@ -97,21 +97,15 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     <div style="font-size:2.2em;font-weight:800;color:#86efac;margin:4px 0">25%</div>
     <div style="color:var(--muted);font-size:.9em">confidence</div>
     <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;font-size:.85em">
-    <div><span style="color:var(--muted)">7/16 assets up</span><br><strong>44</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>3.42</strong></div><div><span style="color:var(--muted)">8/16 bullish MA</span><br><strong>50</strong></div><div><span style="color:var(--muted)">1/16 elevated vol</span><br><strong>6</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>0.9</strong></div>
+    <div><span style="color:var(--muted)">7/16 assets up</span><br><strong>44</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>3.42</strong></div><div><span style="color:var(--muted)">8/16 bullish MA</span><br><strong>50</strong></div><div><span style="color:var(--muted)">1/16 elevated vol</span><br><strong>6</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>0.8</strong></div>
     </div></div>
 
-<section class="momentum-scanner-v2" aria-label="Momentum Scanner">
+<section class="momentum-scanner-v2" aria-label="Hawkeye">
   <style>
     .momentum-scanner-v2{margin:0 0 24px;padding:22px;border:1px solid var(--atlas-border,var(--border));border-radius:26px;background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.03));box-shadow:0 22px 70px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06)}
     .momentum-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
     .momentum-kicker{color:var(--atlas-accent,var(--accent));font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;font-weight:900;margin-bottom:5px}
     .momentum-title{font-size:1.35rem;font-weight:950;letter-spacing:-.055em;color:var(--atlas-text,var(--text))}
-    .momentum-sub{color:var(--atlas-muted,var(--muted));font-size:.86rem;margin-top:5px;line-height:1.55}
-    .momentum-regime{border:1px solid var(--atlas-border,var(--border));border-radius:999px;padding:8px 11px;font-size:.78rem;font-weight:900;white-space:nowrap;background:rgba(255,255,255,.045)}
-    .momentum-regime.bull{color:var(--atlas-green,var(--green))}.momentum-regime.bear{color:var(--atlas-red,var(--red))}.momentum-regime.neutral{color:var(--atlas-amber,#f59e0b)}
-    .momentum-pulse{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
-    .momentum-chip{padding:12px;border-radius:18px;border:1px solid var(--atlas-border,var(--border));background:rgba(7,9,20,.34)}
-    .momentum-chip span{display:block;color:var(--atlas-muted,var(--muted));font-size:.72rem;font-weight:850;text-transform:uppercase;letter-spacing:.06em}.momentum-chip b{display:block;margin-top:4px;color:var(--atlas-text,var(--text));font-size:.98rem}
     .momentum-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.momentum-col{display:flex;flex-direction:column;gap:10px}.momentum-col h4{margin:0 0 2px;font-size:.88rem;font-weight:950;letter-spacing:-.025em;color:var(--atlas-text,var(--text))}
     .momentum-pick{border:1px solid var(--atlas-border,var(--border));border-radius:20px;padding:13px;background:rgba(7,9,20,.36);box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
     .momentum-pick.bull{border-left:3px solid var(--atlas-green,var(--green))}.momentum-pick.bear{border-left:3px solid var(--atlas-red,var(--red))}
@@ -121,22 +115,13 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     .momentum-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.momentum-metrics span{min-width:0}.momentum-metrics b{display:block;color:var(--atlas-text,var(--text));font-size:.74rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.momentum-metrics em{display:block;color:var(--atlas-faint,var(--muted));font-size:.64rem;font-style:normal;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
     .momentum-radar{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:2px}.momentum-radar-title{grid-column:1/-1;margin:6px 0 0!important;color:var(--atlas-muted,var(--muted))!important;font-size:.82rem!important}
     .momentum-empty{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}
-    @media(max-width:860px){.momentum-head{flex-direction:column}.momentum-pulse{grid-template-columns:repeat(2,1fr)}.momentum-grid{grid-template-columns:1fr}.momentum-radar{grid-template-columns:1fr}}
-    @media(max-width:480px){.momentum-scanner-v2{padding:16px;border-radius:22px}.momentum-pulse{grid-template-columns:1fr}.momentum-metrics{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:860px){.momentum-head{flex-direction:column}.momentum-grid{grid-template-columns:1fr}.momentum-radar{grid-template-columns:1fr}}
+    @media(max-width:480px){.momentum-scanner-v2{padding:16px;border-radius:22px}.momentum-metrics{grid-template-columns:repeat(2,1fr)}}
   </style>
   <div class="momentum-head">
     <div>
-      <div class="momentum-kicker">Market pulse scanner</div>
-      <div class="momentum-title">Momentum leaders & pressure zones</div>
-      <div class="momentum-sub">Score composite : change, trend MA, volume, distance au 52W high, bougie et volatilité. Les barres indiquent la conviction normalisée.</div>
+      <div class="momentum-kicker">🦅 Hawkeye</div>
     </div>
-    <div class="momentum-regime neutral">Mixed · +4.6</div>
-  </div>
-  <div class="momentum-pulse">
-    <div class="momentum-chip"><span>Leader</span><b>^KS11 · +44.6</b></div>
-    <div class="momentum-chip"><span>Pressure</span><b>^BSESN · -10.5</b></div>
-    <div class="momentum-chip"><span>Breadth</span><b>7/16 up · 44%</b></div>
-    <div class="momentum-chip"><span>Conviction</span><b>1 vol spikes · 7 near 52W</b></div>
   </div>
   <div class="momentum-grid">
     <div class="momentum-col"><h4>▲ Bullish momentum</h4>
@@ -146,15 +131,15 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
           <div class="momentum-name">KOSPI</div>
           <div class="momentum-meta">^KS11 · Korea</div>
         </div>
-        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+44.6</div>
+        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+46.6</div>
       </div>
       <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>52W</b> résistance</span></div>
       <div class="momentum-bar"><span style="width:100%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
       <div class="momentum-metrics">
-        <span><b>▲ 43.4%</b><em>change</em></span>
+        <span><b>▲ 43.0%</b><em>change</em></span>
         <span><b>Bullish</b><em>trend</em></span>
         <span><b>0.7×</b><em>volume</em></span>
-        <span><b>1%</b><em>52W room</em></span>
+        <span><b>2%</b><em>52W room</em></span>
       </div>
     </article>
     <article class="momentum-pick bull">
@@ -232,14 +217,14 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
           <div class="momentum-name">Nifty 50</div>
           <div class="momentum-meta">^NSEI · India</div>
         </div>
-        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-8.9</div>
+        <div class="momentum-score" style="color:var(--atlas-red,var(--red,#ef4444))">-8.4</div>
       </div>
       <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bear</span><span class="momentum-tag"><b>52W</b> room</span><span class="momentum-tag"><b>Vol</b> stable</span></div>
-      <div class="momentum-bar"><span style="width:76%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
+      <div class="momentum-bar"><span style="width:72%;background:var(--atlas-red,var(--red,#ef4444))"></span></div>
       <div class="momentum-metrics">
-        <span><b>▼ 8.1%</b><em>change</em></span>
+        <span><b>▼ 7.6%</b><em>change</em></span>
         <span><b>Bearish</b><em>trend</em></span>
-        <span><b>0.9×</b><em>volume</em></span>
+        <span><b>0.0×</b><em>volume</em></span>
         <span><b>11%</b><em>52W room</em></span>
       </div>
     </article>
@@ -302,12 +287,12 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
           <div class="momentum-name">Shanghai Comp</div>
           <div class="momentum-meta">000001.SS · China</div>
         </div>
-        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+7.5</div>
+        <div class="momentum-score" style="color:var(--atlas-green,var(--green,#22c55e))">+7.6</div>
       </div>
       <div class="momentum-tags"><span class="momentum-tag"><b>Trend</b> MA bull</span><span class="momentum-tag"><b>Volume</b> 19.9×</span><span class="momentum-tag"><b>52W</b> résistance</span><span class="momentum-tag"><b>Candle</b> vertical</span></div>
       <div class="momentum-bar"><span style="width:60%;background:var(--atlas-green,var(--green,#22c55e))"></span></div>
       <div class="momentum-metrics">
-        <span><b>▲ 2.6%</b><em>change</em></span>
+        <span><b>▲ 2.7%</b><em>change</em></span>
         <span><b>Bullish</b><em>trend</em></span>
         <span><b>19.9×</b><em>volume</em></span>
         <span><b>2%</b><em>52W room</em></span>
@@ -401,16 +386,16 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td>1.1%</td>
         </tr><tr>
             <td><strong>Hang Seng</strong> <small style="color:var(--muted)">HK</small></td>
-            <td class="price">26,463</td>
-            <td style="color:#ef4444">▼ 0.39%</td>
-            <td>26,400</td><td>26,189</td>
+            <td class="price">26,440</td>
+            <td style="color:#ef4444">▼ 0.48%</td>
+            <td>26,395</td><td>26,188</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>0.8%</td>
         </tr><tr>
             <td><strong>Shanghai Comp</strong> <small style="color:var(--muted)">China</small></td>
-            <td class="price">4,189</td>
-            <td style="color:#22c55e">▲ 2.62%</td>
-            <td>4,210</td><td>4,119</td>
+            <td class="price">4,193</td>
+            <td style="color:#22c55e">▲ 2.72%</td>
+            <td>4,211</td><td>4,119</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>0.5%</td>
         </tr><tr>
@@ -422,18 +407,18 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td>0.8%</td>
         </tr><tr>
             <td><strong>Nifty 50</strong> <small style="color:var(--muted)">India</small></td>
-            <td class="price">23,413</td>
-            <td style="color:#ef4444">▼ 8.08%</td>
-            <td>23,822</td><td>24,101</td>
+            <td class="price">23,530</td>
+            <td style="color:#ef4444">▼ 7.62%</td>
+            <td>23,663</td><td>24,066</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
-            <td>0.8%</td>
+            <td>0.7%</td>
         </tr><tr>
             <td><strong>KOSPI</strong> <small style="color:var(--muted)">Korea</small></td>
-            <td class="price">7,899</td>
-            <td style="color:#22c55e">▲ 43.44%</td>
-            <td>7,741</td><td>6,878</td>
+            <td class="price">7,876</td>
+            <td style="color:#22c55e">▲ 43.01%</td>
+            <td>7,737</td><td>6,876</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>1.9%</td>
+            <td>1.8%</td>
         </tr><tr>
             <td><strong>ASX 200</strong> <small style="color:var(--muted)">Australia</small></td>
             <td class="price">8,612</td>
@@ -449,5 +434,5 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>0.9%</td>
         </tr></tbody></table></div></div>
-<div class="footer"><p>📈 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-053020</p></div>
+<div class="footer"><p>📈 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260514-053948</p></div>
 </div></body></html>

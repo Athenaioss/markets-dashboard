@@ -222,18 +222,12 @@ def momentum_scanner_html(assets: list, top_n: int = 4) -> str:
     radar_html = "".join(_pick_card(a, "bull" if _score_asset(a)["score"] >= 0 else "bear") for a in radar) or empty("Radar is clean")
 
     return f"""
-<section class="momentum-scanner-v2" aria-label="Momentum Scanner">
+<section class="momentum-scanner-v2" aria-label="Hawkeye">
   <style>
     .momentum-scanner-v2{{margin:0 0 24px;padding:22px;border:1px solid var(--atlas-border,var(--border));border-radius:26px;background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.03));box-shadow:0 22px 70px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06)}}
     .momentum-head{{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}}
     .momentum-kicker{{color:var(--atlas-accent,var(--accent));font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;font-weight:900;margin-bottom:5px}}
     .momentum-title{{font-size:1.35rem;font-weight:950;letter-spacing:-.055em;color:var(--atlas-text,var(--text))}}
-    .momentum-sub{{color:var(--atlas-muted,var(--muted));font-size:.86rem;margin-top:5px;line-height:1.55}}
-    .momentum-regime{{border:1px solid var(--atlas-border,var(--border));border-radius:999px;padding:8px 11px;font-size:.78rem;font-weight:900;white-space:nowrap;background:rgba(255,255,255,.045)}}
-    .momentum-regime.bull{{color:var(--atlas-green,var(--green))}}.momentum-regime.bear{{color:var(--atlas-red,var(--red))}}.momentum-regime.neutral{{color:var(--atlas-amber,#f59e0b)}}
-    .momentum-pulse{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}}
-    .momentum-chip{{padding:12px;border-radius:18px;border:1px solid var(--atlas-border,var(--border));background:rgba(7,9,20,.34)}}
-    .momentum-chip span{{display:block;color:var(--atlas-muted,var(--muted));font-size:.72rem;font-weight:850;text-transform:uppercase;letter-spacing:.06em}}.momentum-chip b{{display:block;margin-top:4px;color:var(--atlas-text,var(--text));font-size:.98rem}}
     .momentum-grid{{display:grid;grid-template-columns:1fr 1fr;gap:14px}}.momentum-col{{display:flex;flex-direction:column;gap:10px}}.momentum-col h4{{margin:0 0 2px;font-size:.88rem;font-weight:950;letter-spacing:-.025em;color:var(--atlas-text,var(--text))}}
     .momentum-pick{{border:1px solid var(--atlas-border,var(--border));border-radius:20px;padding:13px;background:rgba(7,9,20,.36);box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}}
     .momentum-pick.bull{{border-left:3px solid var(--atlas-green,var(--green))}}.momentum-pick.bear{{border-left:3px solid var(--atlas-red,var(--red))}}
@@ -243,22 +237,13 @@ def momentum_scanner_html(assets: list, top_n: int = 4) -> str:
     .momentum-metrics{{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}}.momentum-metrics span{{min-width:0}}.momentum-metrics b{{display:block;color:var(--atlas-text,var(--text));font-size:.74rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}.momentum-metrics em{{display:block;color:var(--atlas-faint,var(--muted));font-size:.64rem;font-style:normal;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}}
     .momentum-radar{{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:2px}}.momentum-radar-title{{grid-column:1/-1;margin:6px 0 0!important;color:var(--atlas-muted,var(--muted))!important;font-size:.82rem!important}}
     .momentum-empty{{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}}
-    @media(max-width:860px){{.momentum-head{{flex-direction:column}}.momentum-pulse{{grid-template-columns:repeat(2,1fr)}}.momentum-grid{{grid-template-columns:1fr}}.momentum-radar{{grid-template-columns:1fr}}}}
-    @media(max-width:480px){{.momentum-scanner-v2{{padding:16px;border-radius:22px}}.momentum-pulse{{grid-template-columns:1fr}}.momentum-metrics{{grid-template-columns:repeat(2,1fr)}}}}
+    @media(max-width:860px){{.momentum-head{{flex-direction:column}}.momentum-grid{{grid-template-columns:1fr}}.momentum-radar{{grid-template-columns:1fr}}}}
+    @media(max-width:480px){{.momentum-scanner-v2{{padding:16px;border-radius:22px}}.momentum-metrics{{grid-template-columns:repeat(2,1fr)}}}}
   </style>
   <div class="momentum-head">
     <div>
-      <div class="momentum-kicker">Market pulse scanner</div>
-      <div class="momentum-title">Momentum leaders & pressure zones</div>
-      <div class="momentum-sub">Score composite : change, trend MA, volume, distance au 52W high, bougie et volatilité. Les barres indiquent la conviction normalisée.</div>
+      <div class="momentum-kicker">🦅 Hawkeye</div>
     </div>
-    <div class="momentum-regime {regime_cls}">{regime} · {_fmt_score(avg_score)}</div>
-  </div>
-  <div class="momentum-pulse">
-    <div class="momentum-chip"><span>Leader</span><b>{escape(_asset_symbol(leader[0]))} · {_fmt_score(leader[1]['score'])}</b></div>
-    <div class="momentum-chip"><span>Pressure</span><b>{escape(_asset_symbol(pressure[0]))} · {_fmt_score(pressure[1]['score'])}</b></div>
-    <div class="momentum-chip"><span>Breadth</span><b>{up}/{n} up · {round(up/n*100)}%</b></div>
-    <div class="momentum-chip"><span>Conviction</span><b>{high_volume} vol spikes · {near_resistance} near 52W</b></div>
   </div>
   <div class="momentum-grid">
     <div class="momentum-col"><h4>▲ Bullish momentum</h4>{bull_html}</div>
