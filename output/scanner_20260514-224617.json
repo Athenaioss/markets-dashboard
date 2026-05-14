@@ -1,0 +1,117 @@
+{
+  "run_id": "20260514-224617",
+  "generated": "20260514-224617",
+  "scoring": "Hawkeye V4 \u2014 market pressure radar /100",
+  "total": 104,
+  "distribution": {
+    "extreme": 0,
+    "strong": 0,
+    "active": 25,
+    "watch": 60,
+    "weak": 19,
+    "degraded": 0
+  },
+  "bullish_pressure": [
+    {
+      "name": "Corn",
+      "score": 74,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$467.75/USD/bushel"
+    },
+    {
+      "name": "Soybeans",
+      "score": 66,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$1,193.50/USD/bushel"
+    },
+    {
+      "name": "AUDJPY",
+      "score": 65,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "114.35"
+    },
+    {
+      "name": "iShares Silver",
+      "score": 65,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$75.51"
+    },
+    {
+      "name": "Silver",
+      "score": 63,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$83.76/USD/oz"
+    },
+    {
+      "name": "Crude Oil WTI",
+      "score": 62,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$102.11/USD/barrel"
+    },
+    {
+      "name": "Wheat",
+      "score": 62,
+      "regime": "uptrend",
+      "family": "breakout pressure",
+      "reference_price": "$658.25/USD/bushel"
+    }
+  ],
+  "bearish_pressure": [
+    {
+      "name": "LVMH",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac460.85"
+    },
+    {
+      "name": "ASX 200",
+      "score": 66,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "8,630.40 pts"
+    },
+    {
+      "name": "iShares 20+ Year Tr.",
+      "score": 66,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$84.92"
+    },
+    {
+      "name": "Palladium",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$1,461.50/USD/oz"
+    },
+    {
+      "name": "Procter & Gamble",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$142.71"
+    },
+    {
+      "name": "Herm\u00e8s",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac1,593.50"
+    },
+    {
+      "name": "Bank of America",
+      "score": 62,
+      "regime": "mixed",
+      "family": "mixed / no edge",
+      "reference_price": "$49.85"
+    }
+  ],
+  "degraded": []
+}
