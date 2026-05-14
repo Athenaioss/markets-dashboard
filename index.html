@@ -46,7 +46,17 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 </style></head><body><main class="shell"><header class="topbar"><div class="brand"><span class="brand-mark">🔮</span><span>Atlas Nexus</span></div><nav class="nav" aria-label="Dashboard navigation"><a href="#scanner">Scanner</a><a href="#dashboards">Markets</a><a href="https://github.com/AtlasNexusOps/markets-dashboard">GitHub</a></nav></header><section class="hero" aria-label="Atlas Nexus Markets overview"><div class="hero-main"><div class="eyebrow"><span class="live-dot"></span> Live multi-asset intelligence</div><div class="title-emoji">🔮</div><h1>Markets Command Deck</h1><p class="hero-sub">A client-facing market intelligence cockpit for crypto, stocks, ETFs, indices, forex and commodities — live widgets, generated dashboards, and a technical scanner built for fast signal reading.</p><div class="hero-cta"><a href="#scanner" class="btn btn-primary">⚡ Open Market Pulse</a><a href="#dashboards" class="btn">Explore 6 dashboards</a></div></div><aside class="hero-side" aria-label="Key coverage metrics"><div class="metric-card wide"><div><div class="metric-label">Scanner coverage</div><div class="metric-value"><span class="count-up" data-target="89">0</span> assets</div></div><div class="status-line"><span class="live-dot"></span>Yahoo Finance OHLCV · live scoring</div></div><div class="metric-card"><div class="metric-label">Markets</div><div class="metric-value">6</div><div class="metric-copy">Crypto · Stocks · ETF · Indices · FX · Commodities</div></div><div class="metric-card"><div class="metric-label">Trade model</div><div class="metric-value">Reward/Risk</div><div class="metric-copy">Entry · SL · TP · ATR</div></div></aside></section><section class="market-strip" aria-label="Live market ticker"><div class="ticker-wrap"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>{"symbols":[{"proName":"FOREXCOM:SPXUSD","title":"S&P 500"},{"proName":"FOREXCOM:NAS100","title":"Nasdaq"},{"proName":"BITSTAMP:BTCUSD","title":"BTC/USD"},{"proName":"BITSTAMP:ETHUSD","title":"ETH/USD"},{"proName":"TVC:GOLD","title":"Gold"},{"proName":"TVC:USOIL","title":"WTI Oil"},{"proName":"FOREXCOM:EURUSD","title":"EUR/USD"},{"proName":"NASDAQ:AAPL","title":"Apple"},{"proName":"NASDAQ:NVDA","title":"NVIDIA"},{"proName":"AMEX:SPY","title":"SPY"},{"proName":"NASDAQ:QQQ","title":"QQQ"},{"proName":"TVC:DXY","title":"DXY"}],"showSymbolLogo":true,"isTransparent":true,"displayMode":"adaptive","colorTheme":"dark","locale":"en"}</script></div></div></section><section id="scanner" class="scanner">
 <div class="scanner-head">
 <div>
-<h2>⚡ Market Pulse Scanner</h2>
+<h2>🦅 Hawkeye v2 — Directional Scanner</h2>
+<p>True /100 scoring · Trend 30 · Momentum 25 · RSI 15 · Volume 15 · Structure 15<br>
+<strong>80-100 Strong</strong> · 65-79 Watchlist · &lt;65 Ignored · Chase penalty at &gt;2 ATR extension</p>
+<div class="formula">
+<span class="chip">Trend 30</span>
+<span class="chip">Momentum 25</span>
+<span class="chip">RSI 15</span>
+<span class="chip">Volume 15</span>
+<span class="chip">Structure 15</span>
+<span class="chip">Chase -10</span>
+</div>
 </div>
 <div class="scanner-score">
 <div class="num">90</div>
@@ -55,210 +65,225 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 </div>
 
 <div class="scanner-board" style="grid-template-columns:repeat(2,1fr)">
-<div class="signal-card"><h3>🚀 Long Setups (7)</h3><div class="signal-row" data-market="commodities">
+<div class="signal-card"><h3>📈 Long Setups (7)</h3><div class="signal-row" data-market="stocks">
 <div>
-<span class="asset-name">Silver</span>
+<span class="asset-name">Goldman Sachs</span>
 <span class="asset-tag">LONG</span>
-<span class="asset-meta">commodities · trend momentum</span>
+<span class="asset-meta">actions · STRONG setup</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $87.08</span>
+<span style="color:#bae6fd">🎟️ $955.42</span>
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">60</span>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">✅ TRADEABLE</div>
+<span class="score-pill score-hot">95</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 · 2.92%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
 <div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>
-</div><div class="signal-row" data-market="commodities">
+</div><div class="signal-row" data-market="forex">
 <div>
-<span class="asset-name">Corn</span>
+<span class="asset-name">AUDJPY</span>
 <span class="asset-tag">LONG</span>
-<span class="asset-meta">commodities · trend momentum</span>
+<span class="asset-meta">forex · STRONG setup</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $481.75</span>
+<span style="color:#bae6fd">🎟️ $114.47</span>
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">60</span>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">✅ TRADEABLE</div>
+<span class="score-pill score-hot">92</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.8:1 · 1.2%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
 <div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>
-</div><div class="signal-row" data-market="indices">
+</div><div class="signal-row" data-market="stocks">
 <div>
-<span class="asset-name">Shanghai Comp</span>
+<span class="asset-name">Boeing</span>
 <span class="asset-tag">LONG</span>
-<span class="asset-meta">indices · trend momentum</span>
+<span class="asset-meta">actions · STRONG setup</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $4,199.19</span>
+<span style="color:#bae6fd">🎟️ $240.60</span>
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">60</span>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">✅ TRADEABLE</div>
+<span class="score-pill score-hot">91</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 · 3.26%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
 <div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>
 </div><div class="signal-row" data-market="forex">
 <div>
 <span class="asset-name">AUDUSD</span>
 <span class="asset-tag">LONG</span>
-<span class="asset-meta">forex · trend momentum</span>
+<span class="asset-meta">forex · STRONG setup</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ $0.7256</span>
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">60</span>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">✅ TRADEABLE</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
-</div>
-</div><div class="signal-row" data-market="stocks">
-<div>
-<span class="asset-name">ASML</span>
-<span class="asset-tag">LONG</span>
-<span class="asset-meta">actions · trend momentum</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $1,581.58</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">60</span>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">✅ TRADEABLE</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
-</div>
-</div><div class="signal-row" data-market="stocks">
-<div>
-<span class="asset-name">Goldman Sachs</span>
-<span class="asset-tag">LONG</span>
-<span class="asset-meta">actions · trend momentum</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $955.42</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-hot">60</span>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">✅ TRADEABLE</div>
+<span class="score-pill score-hot">87</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.8:1 · 0.88%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
 <div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>
 </div><div class="signal-row" data-market="stocks">
 <div>
 <span class="asset-name">Visa</span>
 <span class="asset-tag">LONG</span>
-<span class="asset-meta">actions · trend momentum</span>
+<span class="asset-meta">actions · STRONG setup</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ $320.31</span>
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-hot">60</span>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">✅ TRADEABLE</div>
+<span class="score-pill score-hot">85</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 · 3.06%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
+</div>
+</div><div class="signal-row" data-market="stocks">
+<div>
+<span class="asset-name">Walmart</span>
+<span class="asset-tag">LONG</span>
+<span class="asset-meta">actions · STRONG setup</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">🎟️ $131.47</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">83</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 · 4.17%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
+</div>
+</div><div class="signal-row" data-market="stocks">
+<div>
+<span class="asset-name">ASML</span>
+<span class="asset-tag">LONG</span>
+<span class="asset-meta">actions · STRONG setup</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">🎟️ $1,581.58</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">81</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 · 4.96%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
 <div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>
 </div></div>
-<div class="signal-card"><h3>🐻 Short Setups (7)</h3><div class="signal-row" data-market="indices">
+<div class="signal-card"><h3>📉 Short Setups (7)</h3><div class="signal-row" data-market="etf">
+<div>
+<span class="asset-name">Vanguard Total Bond</span>
+<span class="asset-tag">SHORT</span>
+<span class="asset-meta">etf · STRONG setup</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">🎟️ $73.18</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 · 0.8%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
+</div>
+</div><div class="signal-row" data-market="etf">
+<div>
+<span class="asset-name">iShares 20+ Year Tr.</span>
+<span class="asset-tag">SHORT</span>
+<span class="asset-meta">etf · STRONG setup</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">🎟️ $84.80</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">96</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 · 1.87%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
+</div>
+</div><div class="signal-row" data-market="indices">
 <div>
 <span class="asset-name">FTSE 100</span>
 <span class="asset-tag">SHORT</span>
-<span class="asset-meta">indices · downtrend momentum</span>
+<span class="asset-meta">indices · STRONG setup</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ $10,325.35</span>
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-risk">60</span>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">✅ TRADEABLE</div>
+<span class="score-pill score-hot">90</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 · 1.77%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
 <div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>
 </div><div class="signal-row" data-market="indices">
 <div>
 <span class="asset-name">CAC 40</span>
 <span class="asset-tag">SHORT</span>
-<span class="asset-meta">indices · downtrend momentum</span>
+<span class="asset-meta">indices · STRONG setup</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ $8,007.97</span>
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-risk">60</span>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">✅ TRADEABLE</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
-</div>
-</div><div class="signal-row" data-market="indices">
-<div>
-<span class="asset-name">BSE Sensex</span>
-<span class="asset-tag">SHORT</span>
-<span class="asset-meta">indices · downtrend momentum</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $75,028.02</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-risk">60</span>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">✅ TRADEABLE</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
-</div>
-</div><div class="signal-row" data-market="indices">
-<div>
-<span class="asset-name">Nifty 50</span>
-<span class="asset-tag">SHORT</span>
-<span class="asset-meta">indices · downtrend momentum</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $23,511.00</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-risk">60</span>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">✅ TRADEABLE</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
-</div>
-</div><div class="signal-row" data-market="indices">
-<div>
-<span class="asset-name">ASX 200</span>
-<span class="asset-tag">SHORT</span>
-<span class="asset-meta">indices · downtrend momentum</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $8,608.10</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-risk">60</span>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">✅ TRADEABLE</div>
-<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
-</div>
-</div><div class="signal-row" data-market="forex">
-<div>
-<span class="asset-name">USDMXN</span>
-<span class="asset-tag">SHORT</span>
-<span class="asset-meta">forex · downtrend momentum</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $17.1660</span>
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-risk">60</span>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">✅ TRADEABLE</div>
+<span class="score-pill score-hot">90</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 · 4.64%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
 <div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>
 </div><div class="signal-row" data-market="stocks">
 <div>
 <span class="asset-name">Mastercard</span>
 <span class="asset-tag">SHORT</span>
-<span class="asset-meta">actions · downtrend momentum</span>
+<span class="asset-meta">actions · STRONG setup</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ $490.64</span>
 </span>
 </div>
 <div style="text-align:right">
-<span class="score-pill score-risk">60</span>
-<div style="font-size:.7em;color:#22c55e;margin-top:2px">✅ TRADEABLE</div>
+<span class="score-pill score-hot">90</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 · 5.19%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
+</div>
+</div><div class="signal-row" data-market="stocks">
+<div>
+<span class="asset-name">Procter & Gamble</span>
+<span class="asset-tag">SHORT</span>
+<span class="asset-meta">actions · STRONG setup</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">🎟️ $142.24</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">90</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 · 5.29%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
+<div><span class="session-led asset-session" data-session-label>Session check…</span></div>
+</div>
+</div><div class="signal-row" data-market="stocks">
+<div>
+<span class="asset-name">LVMH</span>
+<span class="asset-tag">SHORT</span>
+<span class="asset-meta">actions · STRONG setup</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">🎟️ $452.30</span>
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-hot">90</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">RR 1.7:1 · 3.66%</div>
+<div style="font-size:.7em;color:#22c55e;margin-top:2px">🦅 STRONG</div>
 <div><span class="session-led asset-session" data-session-label>Session check…</span></div>
 </div>
 </div></div>
 </div>
 
 <div class="legend">
-<span>✅ TRADEABLE — directional scanner signal</span>
-<span class="demo-tag">Updated 14/05/2026 06:18 CEST</span>
-<span class="demo-tag">Yahoo Finance · 20260514-061810</span>
+<span>🦅 STRONG 80-100 — tradeable directional setup</span>
+<span>👁️ WATCH 65-79 — monitor for entry</span>
+<span class="demo-tag">Updated 14/05/2026 07:03 CEST</span>
+<span class="demo-tag">Yahoo Finance · 20260514-070326</span>
 </div>
 </section><section id="dashboards" aria-label="Live dashboards"><div class="section-head"><div><div class="section-label">Live Dashboards</div><div class="section-kicker">Six live boards, refreshed for the current market context.</div></div></div><div class="grid"><a href="crypto_dashboard.html" class="panel crypto"><div class="emoji">🪙</div><h2>Crypto</h2><div class="desc">BTC, ETH, SOL & liquid majors · 24/7 momentum</div><span class="count">24/7 market</span></a><a href="commodities_dashboard.html" class="panel commodities"><div class="emoji">🛢️</div><h2>Commodities</h2><div class="desc">Gold, Silver, Oil, Copper, Grains · CFD/extended context</div><span class="count">15 assets</span></a><a href="indices_dashboard.html" class="panel indices"><div class="emoji">🌍</div><h2>Indices</h2><div class="desc">S&P 500, Nasdaq, DAX, CAC, Nikkei · global risk pulse</div><span class="count">16 indices</span></a><a href="forex_dashboard.html" class="panel forex"><div class="emoji">💱</div><h2>Forex</h2><div class="desc">EURUSD, GBPJPY, AUDUSD · majors, crosses and exotics</div><span class="count">19 pairs</span></a><a href="actions_dashboard.html" class="panel actions"><div class="emoji">🏛️</div><h2>Stocks</h2><div class="desc">Mega-cap tech, luxury, banks, defensives · equity momentum</div><span class="count">30 stocks</span></a><a href="etf_dashboard.html" class="panel etf"><div class="emoji">💼</div><h2>ETF</h2><div class="desc">SPY, QQQ, GLD, TLT, ARKK · themes and cross-asset exposure</div><span class="count">24 ETFs</span></a></div></section><footer><p>🔮 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance + TradingView · Open source</p><p><a href="https://github.com/AtlasNexusOps/markets-dashboard">github.com/AtlasNexusOps/markets-dashboard</a></p></footer><script>
 (() => {
