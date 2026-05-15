@@ -1,0 +1,117 @@
+{
+  "run_id": "20260515-090102",
+  "generated": "20260515-090102",
+  "scoring": "Hawkeye V4 \u2014 market pressure radar /100",
+  "total": 100,
+  "distribution": {
+    "extreme": 0,
+    "strong": 0,
+    "active": 26,
+    "watch": 58,
+    "weak": 16,
+    "degraded": 0
+  },
+  "bullish_pressure": [
+    {
+      "name": "Corn",
+      "score": 74,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$468.50/USD/bushel"
+    },
+    {
+      "name": "Nikkei 225",
+      "score": 67,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "61,409.29 pts"
+    },
+    {
+      "name": "Crude Oil WTI",
+      "score": 66,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$103.25/USD/barrel"
+    },
+    {
+      "name": "Wheat",
+      "score": 66,
+      "regime": "uptrend",
+      "family": "breakout pressure",
+      "reference_price": "$653.25/USD/bushel"
+    },
+    {
+      "name": "KOSPI",
+      "score": 65,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "7,493.18 pts"
+    },
+    {
+      "name": "iShares Silver",
+      "score": 65,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$75.51"
+    },
+    {
+      "name": "Walmart",
+      "score": 64,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$132.46"
+    }
+  ],
+  "bearish_pressure": [
+    {
+      "name": "Procter & Gamble",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$142.71"
+    },
+    {
+      "name": "LVMH",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac460.85"
+    },
+    {
+      "name": "BSE Sensex",
+      "score": 66,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "75,574.33 pts"
+    },
+    {
+      "name": "iShares 20+ Year Tr.",
+      "score": 66,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$84.92"
+    },
+    {
+      "name": "Palladium",
+      "score": 64,
+      "regime": "downtrend",
+      "family": "breakdown pressure",
+      "reference_price": "$1,430.00/USD/oz"
+    },
+    {
+      "name": "Gold",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$4,577.60/USD/oz"
+    },
+    {
+      "name": "ASX 200",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "8,630.80 pts"
+    }
+  ],
+  "degraded": []
+}
