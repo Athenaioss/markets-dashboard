@@ -1,0 +1,117 @@
+{
+  "run_id": "20260516-010146",
+  "generated": "20260516-010146",
+  "scoring": "Hawkeye V4 \u2014 market pressure radar /100",
+  "total": 104,
+  "distribution": {
+    "extreme": 0,
+    "strong": 0,
+    "active": 27,
+    "watch": 65,
+    "weak": 12,
+    "degraded": 0
+  },
+  "bullish_pressure": [
+    {
+      "name": "Caterpillar",
+      "score": 73,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$888.31"
+    },
+    {
+      "name": "Energy Select",
+      "score": 70,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$59.44"
+    },
+    {
+      "name": "Walmart",
+      "score": 69,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$131.45"
+    },
+    {
+      "name": "iShares MSCI EM",
+      "score": 69,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$65.07"
+    },
+    {
+      "name": "Shanghai Comp",
+      "score": 67,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "4,177.92 pts"
+    },
+    {
+      "name": "NVIDIA",
+      "score": 67,
+      "regime": "uptrend",
+      "family": "breakout pressure",
+      "reference_price": "$225.32"
+    },
+    {
+      "name": "Sugar",
+      "score": 66,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$14.78/USD/lb"
+    }
+  ],
+  "bearish_pressure": [
+    {
+      "name": "SPDR Gold",
+      "score": 74,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$417.29"
+    },
+    {
+      "name": "Herm\u00e8s",
+      "score": 73,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac1,593.50"
+    },
+    {
+      "name": "iShares Inv. Grade",
+      "score": 69,
+      "regime": "downtrend",
+      "family": "breakdown pressure",
+      "reference_price": "$107.86"
+    },
+    {
+      "name": "ASX 200",
+      "score": 66,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "8,640.70 pts"
+    },
+    {
+      "name": "Palladium",
+      "score": 64,
+      "regime": "downtrend",
+      "family": "breakdown pressure",
+      "reference_price": "$1,429.00/USD/oz"
+    },
+    {
+      "name": "CAC 40",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "8,082.27 pts"
+    },
+    {
+      "name": "Mastercard",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$494.20"
+    }
+  ],
+  "degraded": []
+}
