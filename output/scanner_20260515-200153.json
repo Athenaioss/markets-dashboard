@@ -1,0 +1,117 @@
+{
+  "run_id": "20260515-200153",
+  "generated": "20260515-200153",
+  "scoring": "Hawkeye V4 \u2014 market pressure radar /100",
+  "total": 104,
+  "distribution": {
+    "extreme": 0,
+    "strong": 0,
+    "active": 21,
+    "watch": 67,
+    "weak": 16,
+    "degraded": 0
+  },
+  "bullish_pressure": [
+    {
+      "name": "Energy Select",
+      "score": 69,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$59.02"
+    },
+    {
+      "name": "US Oil Fund",
+      "score": 68,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$147.40"
+    },
+    {
+      "name": "Shanghai Comp",
+      "score": 67,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "4,177.92 pts"
+    },
+    {
+      "name": "Wheat",
+      "score": 65,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$635.50/USD/bushel"
+    },
+    {
+      "name": "Caterpillar",
+      "score": 63,
+      "regime": "shock",
+      "family": "shock / extended",
+      "reference_price": "$884.73"
+    },
+    {
+      "name": "SPDR Dow Jones",
+      "score": 63,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$496.68"
+    },
+    {
+      "name": "Crude Oil WTI",
+      "score": 62,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$100.76/USD/barrel"
+    }
+  ],
+  "bearish_pressure": [
+    {
+      "name": "Herm\u00e8s",
+      "score": 70,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac1,575.50"
+    },
+    {
+      "name": "Gold",
+      "score": 68,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$4,564.00/USD/oz"
+    },
+    {
+      "name": "SPDR Gold",
+      "score": 68,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$418.59"
+    },
+    {
+      "name": "LVMH",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac455.60"
+    },
+    {
+      "name": "ASX 200",
+      "score": 66,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "8,640.70 pts"
+    },
+    {
+      "name": "iShares Inv. Grade",
+      "score": 65,
+      "regime": "downtrend",
+      "family": "breakdown pressure",
+      "reference_price": "$107.79"
+    },
+    {
+      "name": "Palladium",
+      "score": 64,
+      "regime": "downtrend",
+      "family": "breakdown pressure",
+      "reference_price": "$1,431.00/USD/oz"
+    }
+  ],
+  "degraded": []
+}
