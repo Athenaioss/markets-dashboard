@@ -1,0 +1,117 @@
+{
+  "run_id": "20260515-153127",
+  "generated": "20260515-153127",
+  "scoring": "Hawkeye V4 \u2014 market pressure radar /100",
+  "total": 103,
+  "distribution": {
+    "extreme": 0,
+    "strong": 0,
+    "active": 17,
+    "watch": 67,
+    "weak": 19,
+    "degraded": 0
+  },
+  "bullish_pressure": [
+    {
+      "name": "Wheat",
+      "score": 73,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$648.00/USD/bushel"
+    },
+    {
+      "name": "Nikkei 225",
+      "score": 67,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "61,409.29 pts"
+    },
+    {
+      "name": "KOSPI",
+      "score": 65,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "7,493.18 pts"
+    },
+    {
+      "name": "Energy Select",
+      "score": 64,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$58.61"
+    },
+    {
+      "name": "Sugar",
+      "score": 62,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$14.78/USD/lb"
+    },
+    {
+      "name": "Shanghai Comp",
+      "score": 62,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "4,135.39 pts"
+    },
+    {
+      "name": "Corn",
+      "score": 61,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$461.75/USD/bushel"
+    }
+  ],
+  "bearish_pressure": [
+    {
+      "name": "Procter & Gamble",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$142.71"
+    },
+    {
+      "name": "Palladium",
+      "score": 64,
+      "regime": "downtrend",
+      "family": "breakdown pressure",
+      "reference_price": "$1,428.50/USD/oz"
+    },
+    {
+      "name": "CAC 40",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "7,960.42 pts"
+    },
+    {
+      "name": "BSE Sensex",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "75,237.99 pts"
+    },
+    {
+      "name": "ASX 200",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "8,630.80 pts"
+    },
+    {
+      "name": "LVMH",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac454.00"
+    },
+    {
+      "name": "Nifty 50",
+      "score": 62,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "23,643.50 pts"
+    }
+  ],
+  "degraded": []
+}
