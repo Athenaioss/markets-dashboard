@@ -1,0 +1,117 @@
+{
+  "run_id": "20260515-033107",
+  "generated": "20260515-033107",
+  "scoring": "Hawkeye V4 \u2014 market pressure radar /100",
+  "total": 93,
+  "distribution": {
+    "extreme": 0,
+    "strong": 0,
+    "active": 18,
+    "watch": 56,
+    "weak": 19,
+    "degraded": 0
+  },
+  "bullish_pressure": [
+    {
+      "name": "iShares Silver",
+      "score": 65,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$75.51"
+    },
+    {
+      "name": "Walmart",
+      "score": 64,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$132.46"
+    },
+    {
+      "name": "Sugar",
+      "score": 62,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$15.00/USD/lb"
+    },
+    {
+      "name": "US Oil Fund",
+      "score": 62,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$143.00"
+    },
+    {
+      "name": "AUDJPY",
+      "score": 61,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "114.04"
+    },
+    {
+      "name": "ASML",
+      "score": 61,
+      "regime": "uptrend",
+      "family": "breakout pressure",
+      "reference_price": "\u20ac1,584.51"
+    },
+    {
+      "name": "Goldman Sachs",
+      "score": 61,
+      "regime": "uptrend",
+      "family": "breakout pressure",
+      "reference_price": "$968.96"
+    }
+  ],
+  "bearish_pressure": [
+    {
+      "name": "ASX 200",
+      "score": 68,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "8,654.70 pts"
+    },
+    {
+      "name": "LVMH",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac452.30"
+    },
+    {
+      "name": "Herm\u00e8s",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac1,582.50"
+    },
+    {
+      "name": "iShares 20+ Year Tr.",
+      "score": 66,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$84.92"
+    },
+    {
+      "name": "Procter & Gamble",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$142.71"
+    },
+    {
+      "name": "CAC 40",
+      "score": 62,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "8,007.97 pts"
+    },
+    {
+      "name": "Bank of America",
+      "score": 62,
+      "regime": "mixed",
+      "family": "mixed / no edge",
+      "reference_price": "$49.85"
+    }
+  ],
+  "degraded": []
+}
