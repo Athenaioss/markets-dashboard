@@ -54,6 +54,7 @@ body{
     linear-gradient(180deg,#070914 0%,#0a0f1d 48%,#070914 100%)!important;
   padding:0!important;
 }
+{TV_LINK_CSS}
 body:before{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
   background-image:linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px, transparent 1px);
@@ -83,14 +84,14 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header">
 <div class="title-emoji">📊</div>
 <h1>Atlas Nexus - Global Stocks</h1>
-<p>30 major stocks across 7 sectors · Technology, Finance, Healthcare, Consumer, Industrial, Energy, Luxury | 20260515-194529</p>
+<p>30 major stocks across 7 sectors · Technology, Finance, Healthcare, Consumer, Industrial, Energy, Luxury | 20260515-195111</p>
 </div>
 <div class="container">
 <div class="stats-grid">
 <div class="card"><div class="value" style="color:var(--accent)">30</div><div class="label">Stocks Tracked</div></div>
 <div class="card"><div class="value" style="color:var(--green)">10</div><div class="label">Up Today</div></div>
 <div class="card"><div class="value" style="color:var(--red)">20</div><div class="label">Down Today</div></div>
-<div class="card"><div class="value" style="color:var(--accent2)">-0.8%</div><div class="label">Avg Change</div></div>
+<div class="card"><div class="value" style="color:var(--accent2)">-0.82%</div><div class="label">Avg Change</div></div>
 </div>
 <div class="sentiment-banner" style="background:#7f1d1d;border:1px solid #fca5a5;border-radius:14px;padding:24px;margin-bottom:20px;text-align:center">
     <div style="font-size:1.8em;margin-bottom:6px">📉</div>
@@ -98,7 +99,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     <div style="font-size:1.6em;font-weight:800;color:#fca5a5;margin:4px 0">25%</div>
     <div style="color:var(--muted);font-size:.9em">confidence</div>
     <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;font-size:.85em">
-    <div><span style="color:var(--muted)">10/30 assets up</span><br><strong>33</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>-0.8</strong></div><div><span style="color:var(--muted)">17/30 bullish MA</span><br><strong>57</strong></div><div><span style="color:var(--muted)">0/30 elevated vol</span><br><strong>0</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>1.5</strong></div>
+    <div><span style="color:var(--muted)">10/30 assets up</span><br><strong>33</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>-0.82</strong></div><div><span style="color:var(--muted)">17/30 bullish MA</span><br><strong>57</strong></div><div><span style="color:var(--muted)">0/30 elevated vol</span><br><strong>0</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>1.5</strong></div>
     </div></div>
 
 <section class="momentum-scanner-v2 scanner hawkeye-scanner hawkeye-v4" aria-label="Hawkeye V4">
@@ -111,33 +112,13 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     .signal-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px;border:1px solid rgba(148,163,184,.16);border-radius:16px;background:rgba(255,255,255,.035);margin-top:9px}.signal-row:first-of-type{margin-top:0}.asset-name{display:inline;font-weight:900;color:var(--atlas-text,var(--text));line-height:1.15;margin-right:6px}
     .asset-tag{display:inline-flex;vertical-align:middle;padding:2px 7px;border-radius:999px;background:rgba(56,189,248,.10);border:1px solid rgba(56,189,248,.22);color:#bae6fd;font-size:.66rem;font-weight:900;text-transform:uppercase}.asset-meta{display:block;color:var(--atlas-muted,var(--muted));font-size:.74rem;margin-top:4px;line-height:1.35}
     .asset-levels{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}.asset-levels span{padding:4px 7px;border-radius:999px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.16)}.score-pill{display:inline-flex;align-items:center;justify-content:center;min-width:58px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent}
-    .tv-link{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:4px 8px;border-radius:999px;border:1px solid rgba(56,189,248,.26);background:rgba(56,189,248,.10);color:#bae6fd!important;text-decoration:none;font-size:.72rem;font-weight:900;white-space:nowrap;transition:all .15s}
-.tv-link:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.45);transform:translateY(-1px)}
+    .tv-link{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:5px 10px;border-radius:999px;border:1px solid rgba(56,189,248,.32);background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(124,92,255,.12));color:#d9f3ff!important;text-decoration:none;font-size:.76rem;font-weight:950;white-space:nowrap;transition:all .16s;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.tv-link:hover{background:linear-gradient(135deg,rgba(56,189,248,.24),rgba(124,92,255,.20));border-color:rgba(56,189,248,.58);transform:translateY(-1px);box-shadow:0 8px 24px rgba(56,189,248,.12),inset 0 1px 0 rgba(255,255,255,.10)}
     .score-hot{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}.score-risk{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}.score-warm{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}.score-muted{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}.momentum-empty{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}
     @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}}@media(max-width:520px){.hawkeye-scanner{padding:16px;border-radius:22px}.signal-row{display:block}.signal-row>div:last-child{text-align:left!important;margin-top:10px}}
   </style>
-  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension.</p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ 0 · 🦅 0 · 👁️ 5</span></div></div>
-  <div class="scanner-board hawk-board"><div class="signal-card"><h3>📈 Bullish pressure (1)</h3><div class="signal-row hawk-row">
-<div>
-<span class="asset-name">Caterpillar</span>
-<span class="asset-tag">Bullish pressure</span>
-<span class="asset-meta">actions · shock · shock / extended</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">Reference price $884.08</span>
-<span style="color:#c4b5fd">nROC5 -0.18</span>
-<span style="color:#fbbf24">RSI 59</span>
-<span style="color:#fca5a5">Ext 0.5 ATR</span>
-<span style="color:#93c5fd">Vol 0.7×</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ACAT" target="_blank" rel="noopener noreferrer" title="Open NYSE:CAT on TradingView">📈 TV</a>
-
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-warm">63/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +46 · CAT</div>
-<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
-</div>
-</div></div><div class="signal-card"><h3>📉 Bearish pressure (4)</h3><div class="signal-row hawk-row">
+  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension.</p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ 0 · 🦅 0 · 👁️ 4</span></div></div>
+  <div class="scanner-board hawk-board"><div class="signal-card"><h3>📈 Bullish pressure (0)</h3><div class="momentum-empty">No active bullish pressure</div></div><div class="signal-card"><h3>📉 Bearish pressure (4)</h3><div class="signal-row hawk-row">
 <div>
 <span class="asset-name">Hermès</span>
 <span class="asset-tag">Bearish pressure</span>
@@ -148,7 +129,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span style="color:#fbbf24">RSI 40</span>
 <span style="color:#fca5a5">Ext 1.2 ATR</span>
 <span style="color:#93c5fd">Vol 1.1×</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EURONEXT%3ARMS" target="_blank" rel="noopener noreferrer" title="Open EURONEXT:RMS on TradingView">📈 TV</a>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EURONEXT%3ARMS" target="_blank" rel="noopener noreferrer" title="Open EURONEXT:RMS on TradingView">Chart ↗</a>
 
 </span>
 </div>
@@ -168,7 +149,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span style="color:#fbbf24">RSI 43</span>
 <span style="color:#fca5a5">Ext 0.6 ATR</span>
 <span style="color:#93c5fd">Vol 1.0×</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EURONEXT%3AMC" target="_blank" rel="noopener noreferrer" title="Open EURONEXT:MC on TradingView">📈 TV</a>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EURONEXT%3AMC" target="_blank" rel="noopener noreferrer" title="Open EURONEXT:MC on TradingView">Chart ↗</a>
 
 </span>
 </div>
@@ -183,12 +164,12 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-tag">Bearish pressure</span>
 <span class="asset-meta">actions · downtrend · bearish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">Reference price $142.10</span>
-<span style="color:#c4b5fd">nROC5 -0.65</span>
+<span style="color:#bae6fd">Reference price $142.21</span>
+<span style="color:#c4b5fd">nROC5 -0.63</span>
 <span style="color:#fbbf24">RSI 35</span>
 <span style="color:#fca5a5">Ext 0.9 ATR</span>
 <span style="color:#93c5fd">Vol 0.4×</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3APG" target="_blank" rel="noopener noreferrer" title="Open NYSE:PG on TradingView">📈 TV</a>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3APG" target="_blank" rel="noopener noreferrer" title="Open NYSE:PG on TradingView">Chart ↗</a>
 
 </span>
 </div>
@@ -203,12 +184,12 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-tag">Bearish pressure</span>
 <span class="asset-meta">actions · downtrend · bearish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">Reference price $42.56</span>
-<span style="color:#c4b5fd">nROC5 -0.71</span>
+<span style="color:#bae6fd">Reference price $42.59</span>
+<span style="color:#c4b5fd">nROC5 -0.70</span>
 <span style="color:#fbbf24">RSI 30</span>
 <span style="color:#fca5a5">Ext 1.5 ATR</span>
 <span style="color:#93c5fd">Vol 0.7×</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ANKE" target="_blank" rel="noopener noreferrer" title="Open NYSE:NKE on TradingView">📈 TV</a>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ANKE" target="_blank" rel="noopener noreferrer" title="Open NYSE:NKE on TradingView">Chart ↗</a>
 
 </span>
 </div>
@@ -226,165 +207,165 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class='alert-row'><strong>Apple</strong><span>Extension 2.8 ATR · RSI 88 elevated</span></div><div class='alert-row'><strong>Alphabet</strong><span>ATR pct 96</span></div><div class='alert-row'><strong>NVIDIA</strong><span>ATR pct 100</span></div><div class='alert-row'><strong>Tesla</strong><span>ATR pct 100</span></div><div class='alert-row'><strong>ASML</strong><span>ATR pct 100</span></div><div class='alert-row'><strong>Broadcom</strong><span>ATR pct 100</span></div>
 </section>
 <h2 style="color:var(--accent);margin-bottom:12px">🏭 Sector Breakdown</h2>
-<div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"><div class="card" style="border-left:3px solid #a78bfa"><div class="value" style="color:#a78bfa">+0.2%</div><div class="label">Consumer (3/5)</div></div><div class="card" style="border-left:3px solid #ef4444"><div class="value" style="color:#ef4444">+1.4%</div><div class="label">Energy (2/2)</div></div><div class="card" style="border-left:3px solid #22c55e"><div class="value" style="color:#22c55e">-0.1%</div><div class="label">Finance (2/5)</div></div><div class="card" style="border-left:3px solid #f59e0b"><div class="value" style="color:#f59e0b">-1.6%</div><div class="label">Healthcare (0/4)</div></div><div class="card" style="border-left:3px solid #6b7280"><div class="value" style="color:#6b7280">-3.3%</div><div class="label">Industrial (0/3)</div></div><div class="card" style="border-left:3px solid #ec4899"><div class="value" style="color:#ec4899">-1.1%</div><div class="label">Luxury (0/2)</div></div><div class="card" style="border-left:3px solid #38bdf8"><div class="value" style="color:#38bdf8">-1.0%</div><div class="label">Technology (3/9)</div></div></div>
+<div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"><div class="card" style="border-left:3px solid #a78bfa"><div class="value" style="color:#a78bfa">+0.2%</div><div class="label">Consumer (3/5)</div></div><div class="card" style="border-left:3px solid #ef4444"><div class="value" style="color:#ef4444">+1.4%</div><div class="label">Energy (2/2)</div></div><div class="card" style="border-left:3px solid #22c55e"><div class="value" style="color:#22c55e">-0.1%</div><div class="label">Finance (2/5)</div></div><div class="card" style="border-left:3px solid #f59e0b"><div class="value" style="color:#f59e0b">-1.6%</div><div class="label">Healthcare (0/4)</div></div><div class="card" style="border-left:3px solid #6b7280"><div class="value" style="color:#6b7280">-3.4%</div><div class="label">Industrial (0/3)</div></div><div class="card" style="border-left:3px solid #ec4899"><div class="value" style="color:#ec4899">-1.1%</div><div class="label">Luxury (0/2)</div></div><div class="card" style="border-left:3px solid #38bdf8"><div class="value" style="color:#38bdf8">-1.0%</div><div class="label">Technology (3/9)</div></div></div>
 <h2 style="color:var(--accent);margin:24px 0 12px">📋 Stock Leaderboard</h2>
 <div class="table-wrapper"><div style="overflow-x:auto">
 <table><thead><tr>
 <th>Stock</th><th>Curr.</th><th>Price</th><th>Change</th><th>Trend</th><th>Volatility</th><th>Day Range</th>
 </tr></thead><tbody><tr>
-            <td><strong>Coca-Cola</strong> <small style="color:var(--muted)">Consumer</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AKO" target="_blank" rel="noopener noreferrer" title="Open NYSE:KO on TradingView">📈 TV</a></td>
+            <td><strong>Coca-Cola</strong> <small style="color:var(--muted)">Consumer</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AKO" target="_blank" rel="noopener noreferrer" title="Open NYSE:KO on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">80.95</td>
-            <td style="color:#22c55e">▲ 0.62%</td>
+            <td class="price">80.99</td>
+            <td style="color:#22c55e">▲ 0.67%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>0.8%</td>
             <td style="color:var(--muted)">81.33 / 80.46</td>
         </tr><tr>
-            <td><strong>McDonald's</strong> <small style="color:var(--muted)">Consumer</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AMCD" target="_blank" rel="noopener noreferrer" title="Open NYSE:MCD on TradingView">📈 TV</a></td>
+            <td><strong>McDonald's</strong> <small style="color:var(--muted)">Consumer</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AMCD" target="_blank" rel="noopener noreferrer" title="Open NYSE:MCD on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">276.12</td>
+            <td class="price">276.13</td>
             <td style="color:#22c55e">▲ 0.42%</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>1.0%</td>
             <td style="color:var(--muted)">277.50 / 275.03</td>
         </tr><tr>
-            <td><strong>Nike</strong> <small style="color:var(--muted)">Consumer</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ANKE" target="_blank" rel="noopener noreferrer" title="Open NYSE:NKE on TradingView">📈 TV</a></td>
+            <td><strong>Nike</strong> <small style="color:var(--muted)">Consumer</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ANKE" target="_blank" rel="noopener noreferrer" title="Open NYSE:NKE on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">42.56</td>
-            <td style="color:#22c55e">▲ 1.30%</td>
+            <td class="price">42.59</td>
+            <td style="color:#22c55e">▲ 1.36%</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>1.0%</td>
             <td style="color:var(--muted)">42.77 / 41.90</td>
         </tr><tr>
-            <td><strong>Procter & Gamble</strong> <small style="color:var(--muted)">Consumer</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3APG" target="_blank" rel="noopener noreferrer" title="Open NYSE:PG on TradingView">📈 TV</a></td>
+            <td><strong>Procter & Gamble</strong> <small style="color:var(--muted)">Consumer</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3APG" target="_blank" rel="noopener noreferrer" title="Open NYSE:PG on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">142.10</td>
-            <td style="color:#ef4444">▼ 0.43%</td>
+            <td class="price">142.21</td>
+            <td style="color:#ef4444">▼ 0.35%</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>1.1%</td>
             <td style="color:var(--muted)">143.40 / 141.20</td>
         </tr><tr>
-            <td><strong>Walmart</strong> <small style="color:var(--muted)">Consumer</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AWMT" target="_blank" rel="noopener noreferrer" title="Open NYSE:WMT on TradingView">📈 TV</a></td>
+            <td><strong>Walmart</strong> <small style="color:var(--muted)">Consumer</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AWMT" target="_blank" rel="noopener noreferrer" title="Open NYSE:WMT on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">131.14</td>
-            <td style="color:#ef4444">▼ 1.00%</td>
+            <td class="price">131.19</td>
+            <td style="color:#ef4444">▼ 0.96%</td>
             <td><span style="color:#94a3b8">NEUTRAL</span></td>
             <td>1.0%</td>
             <td style="color:var(--muted)">133.95 / 130.94</td>
         </tr><tr>
-            <td><strong>Exxon Mobil</strong> <small style="color:var(--muted)">Energy</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AXOM" target="_blank" rel="noopener noreferrer" title="Open NYSE:XOM on TradingView">📈 TV</a></td>
+            <td><strong>Exxon Mobil</strong> <small style="color:var(--muted)">Energy</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AXOM" target="_blank" rel="noopener noreferrer" title="Open NYSE:XOM on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">156.22</td>
-            <td style="color:#22c55e">▲ 2.25%</td>
+            <td class="price">156.12</td>
+            <td style="color:#22c55e">▲ 2.19%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>1.3%</td>
             <td style="color:var(--muted)">156.52 / 153.00</td>
         </tr><tr>
-            <td><strong>Shell</strong> <small style="color:var(--muted)">Energy</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ASHEL" target="_blank" rel="noopener noreferrer" title="Open NYSE:SHEL on TradingView">📈 TV</a></td>
+            <td><strong>Shell</strong> <small style="color:var(--muted)">Energy</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ASHEL" target="_blank" rel="noopener noreferrer" title="Open NYSE:SHEL on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">GBP</small></td>
-            <td class="price">84.99</td>
-            <td style="color:#22c55e">▲ 0.57%</td>
+            <td class="price">85.00</td>
+            <td style="color:#22c55e">▲ 0.58%</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>1.1%</td>
             <td style="color:var(--muted)">85.19 / 84.33</td>
         </tr><tr>
-            <td><strong>Bank of America</strong> <small style="color:var(--muted)">Finance</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ABAC" target="_blank" rel="noopener noreferrer" title="Open NYSE:BAC on TradingView">📈 TV</a></td>
+            <td><strong>Bank of America</strong> <small style="color:var(--muted)">Finance</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ABAC" target="_blank" rel="noopener noreferrer" title="Open NYSE:BAC on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">49.48</td>
-            <td style="color:#ef4444">▼ 0.75%</td>
+            <td class="price">49.45</td>
+            <td style="color:#ef4444">▼ 0.81%</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>1.0%</td>
             <td style="color:var(--muted)">49.99 / 49.35</td>
         </tr><tr>
-            <td><strong>Goldman Sachs</strong> <small style="color:var(--muted)">Finance</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AGS" target="_blank" rel="noopener noreferrer" title="Open NYSE:GS on TradingView">📈 TV</a></td>
+            <td><strong>Goldman Sachs</strong> <small style="color:var(--muted)">Finance</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AGS" target="_blank" rel="noopener noreferrer" title="Open NYSE:GS on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">954.03</td>
-            <td style="color:#ef4444">▼ 1.54%</td>
+            <td class="price">952.64</td>
+            <td style="color:#ef4444">▼ 1.68%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>1.2%</td>
+            <td>1.3%</td>
             <td style="color:var(--muted)">959.32 / 941.61</td>
         </tr><tr>
-            <td><strong>JPMorgan Chase</strong> <small style="color:var(--muted)">Finance</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AJPM" target="_blank" rel="noopener noreferrer" title="Open NYSE:JPM on TradingView">📈 TV</a></td>
+            <td><strong>JPMorgan Chase</strong> <small style="color:var(--muted)">Finance</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AJPM" target="_blank" rel="noopener noreferrer" title="Open NYSE:JPM on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">297.93</td>
-            <td style="color:#ef4444">▼ 0.66%</td>
+            <td class="price">297.61</td>
+            <td style="color:#ef4444">▼ 0.77%</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>1.1%</td>
             <td style="color:var(--muted)">300.50 / 296.45</td>
         </tr><tr>
-            <td><strong>Mastercard</strong> <small style="color:var(--muted)">Finance</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AMA" target="_blank" rel="noopener noreferrer" title="Open NYSE:MA on TradingView">📈 TV</a></td>
+            <td><strong>Mastercard</strong> <small style="color:var(--muted)">Finance</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AMA" target="_blank" rel="noopener noreferrer" title="Open NYSE:MA on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">496.02</td>
-            <td style="color:#22c55e">▲ 1.24%</td>
+            <td class="price">496.40</td>
+            <td style="color:#22c55e">▲ 1.32%</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>1.3%</td>
             <td style="color:var(--muted)">502.27 / 494.68</td>
         </tr><tr>
-            <td><strong>Visa</strong> <small style="color:var(--muted)">Finance</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AV" target="_blank" rel="noopener noreferrer" title="Open NYSE:V on TradingView">📈 TV</a></td>
+            <td><strong>Visa</strong> <small style="color:var(--muted)">Finance</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AV" target="_blank" rel="noopener noreferrer" title="Open NYSE:V on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">327.10</td>
-            <td style="color:#22c55e">▲ 1.42%</td>
+            <td class="price">327.13</td>
+            <td style="color:#22c55e">▲ 1.43%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>1.2%</td>
             <td style="color:var(--muted)">328.99 / 323.84</td>
         </tr><tr>
-            <td><strong>Eli Lilly</strong> <small style="color:var(--muted)">Healthcare</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ALLY" target="_blank" rel="noopener noreferrer" title="Open NYSE:LLY on TradingView">📈 TV</a></td>
+            <td><strong>Eli Lilly</strong> <small style="color:var(--muted)">Healthcare</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ALLY" target="_blank" rel="noopener noreferrer" title="Open NYSE:LLY on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">1,000.80</td>
-            <td style="color:#ef4444">▼ 0.59%</td>
+            <td class="price">999.75</td>
+            <td style="color:#ef4444">▼ 0.69%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>2.1%</td>
             <td style="color:var(--muted)">1,014.38 / 998.71</td>
         </tr><tr>
-            <td><strong>Johnson & Johnson</strong> <small style="color:var(--muted)">Healthcare</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AJNJ" target="_blank" rel="noopener noreferrer" title="Open NYSE:JNJ on TradingView">📈 TV</a></td>
+            <td><strong>Johnson & Johnson</strong> <small style="color:var(--muted)">Healthcare</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AJNJ" target="_blank" rel="noopener noreferrer" title="Open NYSE:JNJ on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">228.12</td>
-            <td style="color:#ef4444">▼ 1.16%</td>
+            <td class="price">228.02</td>
+            <td style="color:#ef4444">▼ 1.20%</td>
             <td><span style="color:#94a3b8">NEUTRAL</span></td>
             <td>1.0%</td>
-            <td style="color:var(--muted)">232.13 / 228.05</td>
+            <td style="color:var(--muted)">232.13 / 227.95</td>
         </tr><tr>
-            <td><strong>Novo Nordisk</strong> <small style="color:var(--muted)">Healthcare</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3ANVO" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:NVO on TradingView">📈 TV</a></td>
+            <td><strong>Novo Nordisk</strong> <small style="color:var(--muted)">Healthcare</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3ANVO" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:NVO on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">DKK</small></td>
-            <td class="price">44.47</td>
-            <td style="color:#ef4444">▼ 2.91%</td>
+            <td class="price">44.48</td>
+            <td style="color:#ef4444">▼ 2.89%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>1.8%</td>
             <td style="color:var(--muted)">45.50 / 44.39</td>
         </tr><tr>
-            <td><strong>UnitedHealth</strong> <small style="color:var(--muted)">Healthcare</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AUNH" target="_blank" rel="noopener noreferrer" title="Open NYSE:UNH on TradingView">📈 TV</a></td>
+            <td><strong>UnitedHealth</strong> <small style="color:var(--muted)">Healthcare</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AUNH" target="_blank" rel="noopener noreferrer" title="Open NYSE:UNH on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">392.57</td>
-            <td style="color:#ef4444">▼ 1.63%</td>
+            <td class="price">392.67</td>
+            <td style="color:#ef4444">▼ 1.61%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>1.5%</td>
             <td style="color:var(--muted)">397.63 / 391.70</td>
         </tr><tr>
-            <td><strong>Boeing</strong> <small style="color:var(--muted)">Industrial</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ABA" target="_blank" rel="noopener noreferrer" title="Open NYSE:BA on TradingView">📈 TV</a></td>
+            <td><strong>Boeing</strong> <small style="color:var(--muted)">Industrial</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ABA" target="_blank" rel="noopener noreferrer" title="Open NYSE:BA on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">222.64</td>
-            <td style="color:#ef4444">▼ 2.87%</td>
+            <td class="price">222.37</td>
+            <td style="color:#ef4444">▼ 2.99%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>1.9%</td>
             <td style="color:var(--muted)">226.00 / 222.04</td>
         </tr><tr>
-            <td><strong>Caterpillar</strong> <small style="color:var(--muted)">Industrial</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ACAT" target="_blank" rel="noopener noreferrer" title="Open NYSE:CAT on TradingView">📈 TV</a></td>
+            <td><strong>Caterpillar</strong> <small style="color:var(--muted)">Industrial</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ACAT" target="_blank" rel="noopener noreferrer" title="Open NYSE:CAT on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">884.08</td>
-            <td style="color:#ef4444">▼ 3.93%</td>
+            <td class="price">882.46</td>
+            <td style="color:#ef4444">▼ 4.10%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>2.0%</td>
+            <td>2.1%</td>
             <td style="color:var(--muted)">899.73 / 880.21</td>
         </tr><tr>
-            <td><strong>GE Aerospace</strong> <small style="color:var(--muted)">Industrial</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AGE" target="_blank" rel="noopener noreferrer" title="Open NYSE:GE on TradingView">📈 TV</a></td>
+            <td><strong>GE Aerospace</strong> <small style="color:var(--muted)">Industrial</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AGE" target="_blank" rel="noopener noreferrer" title="Open NYSE:GE on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">282.29</td>
-            <td style="color:#ef4444">▼ 3.17%</td>
+            <td class="price">282.14</td>
+            <td style="color:#ef4444">▼ 3.22%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>2.0%</td>
             <td style="color:var(--muted)">288.31 / 281.77</td>
         </tr><tr>
-            <td><strong>Hermès</strong> <small style="color:var(--muted)">Luxury</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EURONEXT%3ARMS" target="_blank" rel="noopener noreferrer" title="Open EURONEXT:RMS on TradingView">📈 TV</a></td>
+            <td><strong>Hermès</strong> <small style="color:var(--muted)">Luxury</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EURONEXT%3ARMS" target="_blank" rel="noopener noreferrer" title="Open EURONEXT:RMS on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">EUR</small></td>
             <td class="price">1,575.50</td>
             <td style="color:#ef4444">▼ 1.13%</td>
@@ -392,7 +373,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td>1.9%</td>
             <td style="color:var(--muted)">1,598.00 / 1,571.00</td>
         </tr><tr>
-            <td><strong>LVMH</strong> <small style="color:var(--muted)">Luxury</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EURONEXT%3AMC" target="_blank" rel="noopener noreferrer" title="Open EURONEXT:MC on TradingView">📈 TV</a></td>
+            <td><strong>LVMH</strong> <small style="color:var(--muted)">Luxury</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EURONEXT%3AMC" target="_blank" rel="noopener noreferrer" title="Open EURONEXT:MC on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">EUR</small></td>
             <td class="price">455.60</td>
             <td style="color:#ef4444">▼ 1.14%</td>
@@ -400,76 +381,76 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td>1.6%</td>
             <td style="color:var(--muted)">459.80 / 452.80</td>
         </tr><tr>
-            <td><strong>ASML</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AASML" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:ASML on TradingView">📈 TV</a></td>
+            <td><strong>ASML</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AASML" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:ASML on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">EUR</small></td>
-            <td class="price">1,519.65</td>
-            <td style="color:#ef4444">▼ 4.09%</td>
+            <td class="price">1,520.02</td>
+            <td style="color:#ef4444">▼ 4.07%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>2.6%</td>
             <td style="color:var(--muted)">1,526.00 / 1,486.69</td>
         </tr><tr>
-            <td><strong>Alphabet</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AGOOGL" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:GOOGL on TradingView">📈 TV</a></td>
+            <td><strong>Alphabet</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AGOOGL" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:GOOGL on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">397.18</td>
-            <td style="color:#ef4444">▼ 0.97%</td>
+            <td class="price">396.65</td>
+            <td style="color:#ef4444">▼ 1.10%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>1.6%</td>
             <td style="color:var(--muted)">399.54 / 393.18</td>
         </tr><tr>
-            <td><strong>Amazon</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AAMZN" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:AMZN on TradingView">📈 TV</a></td>
+            <td><strong>Amazon</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AAMZN" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:AMZN on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">263.73</td>
-            <td style="color:#ef4444">▼ 1.31%</td>
+            <td class="price">263.25</td>
+            <td style="color:#ef4444">▼ 1.48%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>1.2%</td>
             <td style="color:var(--muted)">264.05 / 260.89</td>
         </tr><tr>
-            <td><strong>Apple</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AAAPL" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:AAPL on TradingView">📈 TV</a></td>
+            <td><strong>Apple</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AAAPL" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:AAPL on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">302.50</td>
-            <td style="color:#22c55e">▲ 1.44%</td>
+            <td class="price">302.44</td>
+            <td style="color:#22c55e">▲ 1.42%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>1.2%</td>
             <td style="color:var(--muted)">303.20 / 296.53</td>
         </tr><tr>
-            <td><strong>Broadcom</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AAVGO" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:AVGO on TradingView">📈 TV</a></td>
+            <td><strong>Broadcom</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AAVGO" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:AVGO on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">427.62</td>
-            <td style="color:#ef4444">▼ 2.77%</td>
+            <td class="price">427.98</td>
+            <td style="color:#ef4444">▼ 2.69%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>2.1%</td>
             <td style="color:var(--muted)">432.73 / 422.00</td>
         </tr><tr>
-            <td><strong>Meta</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AMETA" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:META on TradingView">📈 TV</a></td>
+            <td><strong>Meta</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AMETA" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:META on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">619.15</td>
-            <td style="color:#22c55e">▲ 0.12%</td>
+            <td class="price">619.88</td>
+            <td style="color:#22c55e">▲ 0.23%</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>1.4%</td>
-            <td style="color:var(--muted)">619.65 / 609.31</td>
+            <td style="color:var(--muted)">619.95 / 609.31</td>
         </tr><tr>
-            <td><strong>Microsoft</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AMSFT" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:MSFT on TradingView">📈 TV</a></td>
+            <td><strong>Microsoft</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AMSFT" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:MSFT on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">427.42</td>
-            <td style="color:#22c55e">▲ 4.39%</td>
+            <td class="price">427.96</td>
+            <td style="color:#22c55e">▲ 4.53%</td>
             <td><span style="color:#ef4444">BEARISH</span></td>
             <td>1.5%</td>
-            <td style="color:var(--muted)">427.77 / 412.92</td>
+            <td style="color:var(--muted)">428.16 / 412.92</td>
         </tr><tr>
-            <td><strong>NVIDIA</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3ANVDA" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:NVDA on TradingView">📈 TV</a></td>
+            <td><strong>NVIDIA</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3ANVDA" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:NVDA on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">230.25</td>
-            <td style="color:#ef4444">▼ 2.33%</td>
+            <td class="price">230.06</td>
+            <td style="color:#ef4444">▼ 2.41%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>2.1%</td>
             <td style="color:var(--muted)">230.40 / 224.25</td>
         </tr><tr>
-            <td><strong>Tesla</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3ATSLA" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:TSLA on TradingView">📈 TV</a></td>
+            <td><strong>Tesla</strong> <small style="color:var(--muted)">Technology</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3ATSLA" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:TSLA on TradingView">Chart ↗</a></td>
             <td><small style="color:var(--muted)">USD</small></td>
-            <td class="price">427.93</td>
-            <td style="color:#ef4444">▼ 3.47%</td>
+            <td class="price">428.31</td>
+            <td style="color:#ef4444">▼ 3.38%</td>
             <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>2.0%</td>
+            <td>1.9%</td>
             <td style="color:var(--muted)">434.66 / 423.43</td>
         </tr></tbody></table></div></div>
 
@@ -477,6 +458,6 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
   <a href="index.html" style="display:inline-block;padding:12px 24px;border:1px solid var(--border);border-radius:12px;color:var(--muted);text-decoration:none;font-size:.88em;font-weight:700;transition:all .15s">← Retour Dashboard</a>
 </div>
 <div class="footer">
-<p>📊 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260515-194529</p>
+<p>📊 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260515-195111</p>
 </div>
 </div></body></html>

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 from html import escape
+from tradingview_links import TV_LINK_CSS
 
 NAV_ITEMS = [
     ("Home", "index.html"),
@@ -63,6 +64,7 @@ body{
     linear-gradient(180deg,#070914 0%,#0a0f1d 48%,#070914 100%)!important;
   padding:0!important;
 }
+{TV_LINK_CSS}
 body:before{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
   background-image:linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px, transparent 1px);

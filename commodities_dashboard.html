@@ -58,6 +58,7 @@ body{
     linear-gradient(180deg,#070914 0%,#0a0f1d 48%,#070914 100%)!important;
   padding:0!important;
 }
+{TV_LINK_CSS}
 body:before{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
   background-image:linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px, transparent 1px);
@@ -87,14 +88,14 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header">
 <div class="title-emoji">🛢️</div>
 <h1>Atlas Nexus — Commodities</h1>
-<p>Real-time commodity futures tracking · Gold, Oil, Copper, Grains, Softs | 20260515-194506</p>
+<p>Real-time commodity futures tracking · Gold, Oil, Copper, Grains, Softs | 20260515-195048</p>
 </div>
 <div class="container">
 <div class="stats-grid">
 <div class="card"><div class="value" style="color:var(--accent)">15</div><div class="label">Commodities Tracked</div></div>
 <div class="card"><div class="value" style="color:var(--green)">4</div><div class="label">Up Today</div></div>
 <div class="card"><div class="value" style="color:var(--red)">11</div><div class="label">Down Today</div></div>
-<div class="card"><div class="value" style="color:var(--accent2)">-2.27%</div><div class="label">Avg Change</div></div>
+<div class="card"><div class="value" style="color:var(--accent2)">-2.26%</div><div class="label">Avg Change</div></div>
 <div class="card"><div class="value" style="color:var(--accent)">0.022%</div><div class="label">Avg Indic. Spread</div></div>
 </div>
 <div class="sentiment-banner" style="background:#7f1d1d;border:1px solid #fca5a5;border-radius:14px;padding:24px;margin-bottom:20px;text-align:center">
@@ -103,7 +104,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     <div style="font-size:2.2em;font-weight:800;color:#fca5a5;margin:4px 0">25%</div>
     <div style="color:var(--muted);font-size:.9em">confidence</div>
     <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;font-size:.85em">
-        <div><span style="color:var(--muted)">4/15 assets up</span><br><strong>27</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>-2.27</strong></div><div><span style="color:var(--muted)">9/15 bullish MA</span><br><strong>60</strong></div><div><span style="color:var(--muted)">10/15 elevated vol</span><br><strong>67</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>1.9</strong></div>
+        <div><span style="color:var(--muted)">4/15 assets up</span><br><strong>27</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>-2.26</strong></div><div><span style="color:var(--muted)">9/15 bullish MA</span><br><strong>60</strong></div><div><span style="color:var(--muted)">10/15 elevated vol</span><br><strong>67</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>1.9</strong></div>
     </div></div>
 
 <section class="momentum-scanner-v2 scanner hawkeye-scanner hawkeye-v4" aria-label="Hawkeye V4">
@@ -116,24 +117,24 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     .signal-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px;border:1px solid rgba(148,163,184,.16);border-radius:16px;background:rgba(255,255,255,.035);margin-top:9px}.signal-row:first-of-type{margin-top:0}.asset-name{display:inline;font-weight:900;color:var(--atlas-text,var(--text));line-height:1.15;margin-right:6px}
     .asset-tag{display:inline-flex;vertical-align:middle;padding:2px 7px;border-radius:999px;background:rgba(56,189,248,.10);border:1px solid rgba(56,189,248,.22);color:#bae6fd;font-size:.66rem;font-weight:900;text-transform:uppercase}.asset-meta{display:block;color:var(--atlas-muted,var(--muted));font-size:.74rem;margin-top:4px;line-height:1.35}
     .asset-levels{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}.asset-levels span{padding:4px 7px;border-radius:999px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.16)}.score-pill{display:inline-flex;align-items:center;justify-content:center;min-width:58px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent}
-    .tv-link{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:4px 8px;border-radius:999px;border:1px solid rgba(56,189,248,.26);background:rgba(56,189,248,.10);color:#bae6fd!important;text-decoration:none;font-size:.72rem;font-weight:900;white-space:nowrap;transition:all .15s}
-.tv-link:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.45);transform:translateY(-1px)}
+    .tv-link{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:5px 10px;border-radius:999px;border:1px solid rgba(56,189,248,.32);background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(124,92,255,.12));color:#d9f3ff!important;text-decoration:none;font-size:.76rem;font-weight:950;white-space:nowrap;transition:all .16s;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.tv-link:hover{background:linear-gradient(135deg,rgba(56,189,248,.24),rgba(124,92,255,.20));border-color:rgba(56,189,248,.58);transform:translateY(-1px);box-shadow:0 8px 24px rgba(56,189,248,.12),inset 0 1px 0 rgba(255,255,255,.10)}
     .score-hot{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}.score-risk{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}.score-warm{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}.score-muted{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}.momentum-empty{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}
     @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}}@media(max-width:520px){.hawkeye-scanner{padding:16px;border-radius:22px}.signal-row{display:block}.signal-row>div:last-child{text-align:left!important;margin-top:10px}}
   </style>
-  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension.</p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ 0 · 🦅 0 · 👁️ 5</span></div></div>
+  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension.</p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ 0 · 🦅 0 · 👁️ 6</span></div></div>
   <div class="scanner-board hawk-board"><div class="signal-card"><h3>📈 Bullish pressure (4)</h3><div class="signal-row hawk-row">
 <div>
 <span class="asset-name">Wheat</span>
 <span class="asset-tag">Bullish pressure</span>
 <span class="asset-meta">commodities · uptrend · bullish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">Reference price $634.25/USD/bushel</span>
-<span style="color:#c4b5fd">nROC5 +0.66</span>
+<span style="color:#bae6fd">Reference price $635.25/USD/bushel</span>
+<span style="color:#c4b5fd">nROC5 +0.69</span>
 <span style="color:#fbbf24">RSI 54</span>
 <span style="color:#fca5a5">Ext 0.5 ATR</span>
 <span style="color:#93c5fd">Range pct 88</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZW1%21" target="_blank" rel="noopener noreferrer" title="Open CBOT:ZW1! on TradingView">📈 TV</a>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZW1%21" target="_blank" rel="noopener noreferrer" title="Open CBOT:ZW1! on TradingView">Chart ↗</a>
 
 </span>
 </div>
@@ -148,12 +149,12 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-tag">Bullish pressure</span>
 <span class="asset-meta">commodities · uptrend · bullish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">Reference price $100.62/USD/barrel</span>
+<span style="color:#bae6fd">Reference price $100.65/USD/barrel</span>
 <span style="color:#c4b5fd">nROC5 +0.38</span>
 <span style="color:#fbbf24">RSI 55</span>
 <span style="color:#fca5a5">Ext 0.3 ATR</span>
 <span style="color:#93c5fd">Range pct 4</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ACL1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:CL1! on TradingView">📈 TV</a>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ACL1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:CL1! on TradingView">Chart ↗</a>
 
 </span>
 </div>
@@ -173,7 +174,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span style="color:#fbbf24">RSI 62</span>
 <span style="color:#fca5a5">Ext 0.2 ATR</span>
 <span style="color:#93c5fd">Range pct 90</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=ICEUS%3ASB1%21" target="_blank" rel="noopener noreferrer" title="Open ICEUS:SB1! on TradingView">📈 TV</a>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=ICEUS%3ASB1%21" target="_blank" rel="noopener noreferrer" title="Open ICEUS:SB1! on TradingView">Chart ↗</a>
 
 </span>
 </div>
@@ -188,12 +189,12 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-tag">Bullish pressure</span>
 <span class="asset-meta">commodities · uptrend · bullish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">Reference price $109.11/USD/barrel</span>
+<span style="color:#bae6fd">Reference price $109.10/USD/barrel</span>
 <span style="color:#c4b5fd">nROC5 +0.56</span>
 <span style="color:#fbbf24">RSI 51</span>
 <span style="color:#fca5a5">Ext 0.5 ATR</span>
 <span style="color:#93c5fd">Range pct 8</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ABRN1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:BRN1! on TradingView">📈 TV</a>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ABRN1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:BRN1! on TradingView">Chart ↗</a>
 
 </span>
 </div>
@@ -202,24 +203,44 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +45 · BZ=F</div>
 <div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
 </div>
-</div></div><div class="signal-card"><h3>📉 Bearish pressure (1)</h3><div class="signal-row hawk-row">
+</div></div><div class="signal-card"><h3>📉 Bearish pressure (2)</h3><div class="signal-row hawk-row">
 <div>
 <span class="asset-name">Gold</span>
 <span class="asset-tag">Bearish pressure</span>
 <span class="asset-meta">commodities · downtrend · bearish continuation</span>
 <span class="asset-levels">
-<span style="color:#bae6fd">Reference price $4,567.40/USD/oz</span>
+<span style="color:#bae6fd">Reference price $4,567.00/USD/oz</span>
 <span style="color:#c4b5fd">nROC5 -0.85</span>
 <span style="color:#fbbf24">RSI 42</span>
 <span style="color:#fca5a5">Ext 1.3 ATR</span>
 <span style="color:#93c5fd">Range pct 26</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3AGC1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:GC1! on TradingView">📈 TV</a>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3AGC1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:GC1! on TradingView">Chart ↗</a>
 
 </span>
 </div>
 <div style="text-align:right">
 <span class="score-pill score-warm">68/100</span>
 <div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -47 · GC=F</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+</div>
+</div><div class="signal-row hawk-row">
+<div>
+<span class="asset-name">Palladium</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">commodities · downtrend · breakdown pressure · extension warning</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $1,433.00/USD/oz</span>
+<span style="color:#c4b5fd">nROC5 -0.55</span>
+<span style="color:#fbbf24">RSI 45</span>
+<span style="color:#fca5a5">Ext 1.7 ATR</span>
+<span style="color:#93c5fd">Range pct 51</span>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=PA%3DF" target="_blank" rel="noopener noreferrer" title="Open PA=F on TradingView">Chart ↗</a>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">64/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -47 · PA=F</div>
 <div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
 </div>
 </div></div></div>
@@ -236,77 +257,77 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <table><thead><tr>
 <th>Commodity</th><th>Category</th><th>Price</th><th>Change</th><th>Spread</th><th>MA(5)</th><th>MA(20)</th><th>Trend</th><th>Volatility</th><th>Vol Ratio</th>
 </tr></thead><tbody><tr>
-            <td><strong>Gold</strong> <small style="color:var(--muted)">GC=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3AGC1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:GC1! on TradingView">📈 TV</a></td>
+            <td><strong>Gold</strong> <small style="color:var(--muted)">GC=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3AGC1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:GC1! on TradingView">Chart ↗</a></td>
             <td>Precious Metals</td>
-            <td class="price">4567.40 oz</td>
+            <td class="price">4567.00 oz</td>
             <td style="color:#ef4444">▼ 2.37%</td>
             <td><strong>0.1 (0.002%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>4667.90</td><td>4661.93</td>
+            <td>4667.82</td><td>4661.90</td>
             <td><span style="color:#94a3b8;font-weight:600">NEUTRAL</span></td>
             <td>1.1%</td>
             <td style="color:#f59e0b">18.9x</td>
         </tr><tr>
-            <td><strong>Silver</strong> <small style="color:var(--muted)">SI=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3ASI1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:SI1! on TradingView">📈 TV</a></td>
+            <td><strong>Silver</strong> <small style="color:var(--muted)">SI=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3ASI1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:SI1! on TradingView">Chart ↗</a></td>
             <td>Precious Metals</td>
-            <td class="price">77.64 oz</td>
-            <td style="color:#ef4444">▼ 8.56%</td>
+            <td class="price">77.75 oz</td>
+            <td style="color:#ef4444">▼ 8.44%</td>
             <td><strong>0.005 (0.006%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>84.41</td><td>78.03</td>
+            <td>84.43</td><td>78.03</td>
             <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
             <td>3.1%</td>
-            <td style="color:#f59e0b">13.1x</td>
+            <td style="color:#f59e0b">13.2x</td>
         </tr><tr>
-            <td><strong>Platinum</strong> <small style="color:var(--muted)">PL=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=PL%3DF" target="_blank" rel="noopener noreferrer" title="Open PL=F on TradingView">📈 TV</a></td>
+            <td><strong>Platinum</strong> <small style="color:var(--muted)">PL=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=PL%3DF" target="_blank" rel="noopener noreferrer" title="Open PL=F on TradingView">Chart ↗</a></td>
             <td>Precious Metals</td>
-            <td class="price">1994.70 oz</td>
+            <td class="price">1994.80 oz</td>
             <td style="color:#ef4444">▼ 4.26%</td>
             <td><strong>0.1 (0.005%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>2098.16</td><td>2026.60</td>
+            <td>2098.18</td><td>2026.60</td>
             <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
             <td>2.3%</td>
             <td style="color:#f59e0b">18.6x</td>
         </tr><tr>
-            <td><strong>Palladium</strong> <small style="color:var(--muted)">PA=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=PA%3DF" target="_blank" rel="noopener noreferrer" title="Open PA=F on TradingView">📈 TV</a></td>
+            <td><strong>Palladium</strong> <small style="color:var(--muted)">PA=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=PA%3DF" target="_blank" rel="noopener noreferrer" title="Open PA=F on TradingView">Chart ↗</a></td>
             <td>Precious Metals</td>
-            <td class="price">1433.50 oz</td>
-            <td style="color:#ef4444">▼ 1.59%</td>
+            <td class="price">1433.00 oz</td>
+            <td style="color:#ef4444">▼ 1.62%</td>
             <td><strong>0.5 (0.035%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>1484.12</td><td>1501.97</td>
+            <td>1484.02</td><td>1501.95</td>
             <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
             <td>2.2%</td>
             <td style="color:#f59e0b">19.9x</td>
         </tr><tr>
-            <td><strong>Crude Oil WTI</strong> <small style="color:var(--muted)">CL=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ACL1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:CL1! on TradingView">📈 TV</a></td>
+            <td><strong>Crude Oil WTI</strong> <small style="color:var(--muted)">CL=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ACL1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:CL1! on TradingView">Chart ↗</a></td>
             <td>Energy</td>
-            <td class="price">100.62 barrel</td>
-            <td style="color:#ef4444">▼ 0.54%</td>
+            <td class="price">100.65 barrel</td>
+            <td style="color:#ef4444">▼ 0.51%</td>
             <td><strong>0.01 (0.010%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>100.61</td><td>98.61</td>
+            <td>100.62</td><td>98.61</td>
             <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
             <td>2.9%</td>
             <td style="color:#64748b">0.5x</td>
         </tr><tr>
-            <td><strong>Brent Crude</strong> <small style="color:var(--muted)">BZ=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ABRN1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:BRN1! on TradingView">📈 TV</a></td>
+            <td><strong>Brent Crude</strong> <small style="color:var(--muted)">BZ=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ABRN1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:BRN1! on TradingView">Chart ↗</a></td>
             <td>Energy</td>
-            <td class="price">109.11 barrel</td>
-            <td style="color:#22c55e">▲ 3.21%</td>
+            <td class="price">109.10 barrel</td>
+            <td style="color:#22c55e">▲ 3.20%</td>
             <td><strong>0.01 (0.009%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
             <td>106.49</td><td>106.27</td>
             <td><span style="color:#94a3b8;font-weight:600">NEUTRAL</span></td>
             <td>3.4%</td>
             <td style="color:#64748b">0.5x</td>
         </tr><tr>
-            <td><strong>Natural Gas</strong> <small style="color:var(--muted)">NG=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ANG1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:NG1! on TradingView">📈 TV</a></td>
+            <td><strong>Natural Gas</strong> <small style="color:var(--muted)">NG=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ANG1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:NG1! on TradingView">Chart ↗</a></td>
             <td>Energy</td>
-            <td class="price">2.97 MMBtu</td>
-            <td style="color:#22c55e">▲ 2.59%</td>
+            <td class="price">2.96 MMBtu</td>
+            <td style="color:#22c55e">▲ 2.32%</td>
             <td><strong>0.001 (0.034%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>2.90</td><td>2.75</td>
+            <td>2.89</td><td>2.75</td>
             <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
-            <td>2.1%</td>
+            <td>2.0%</td>
             <td style="color:#64748b">0.9x</td>
         </tr><tr>
-            <td><strong>Copper</strong> <small style="color:var(--muted)">HG=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3AHG1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:HG1! on TradingView">📈 TV</a></td>
+            <td><strong>Copper</strong> <small style="color:var(--muted)">HG=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3AHG1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:HG1! on TradingView">Chart ↗</a></td>
             <td>Industrial Metals</td>
             <td class="price">6.30 lb</td>
             <td style="color:#ef4444">▼ 4.01%</td>
@@ -316,47 +337,47 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td>1.5%</td>
             <td style="color:#f59e0b">11.9x</td>
         </tr><tr>
-            <td><strong>Corn</strong> <small style="color:var(--muted)">ZC=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZC1%21" target="_blank" rel="noopener noreferrer" title="Open CBOT:ZC1! on TradingView">📈 TV</a></td>
+            <td><strong>Corn</strong> <small style="color:var(--muted)">ZC=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZC1%21" target="_blank" rel="noopener noreferrer" title="Open CBOT:ZC1! on TradingView">Chart ↗</a></td>
             <td>Agriculture</td>
-            <td class="price">456.00 bushel</td>
-            <td style="color:#22c55e">▲ 1.00%</td>
+            <td class="price">456.75 bushel</td>
+            <td style="color:#22c55e">▲ 1.16%</td>
             <td><strong>0.25 (0.055%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>460.40</td><td>459.95</td>
+            <td>460.55</td><td>459.99</td>
             <td><span style="color:#94a3b8;font-weight:600">NEUTRAL</span></td>
             <td>0.9%</td>
-            <td style="color:#f59e0b">3.1x</td>
+            <td style="color:#f59e0b">3.2x</td>
         </tr><tr>
-            <td><strong>Wheat</strong> <small style="color:var(--muted)">ZW=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZW1%21" target="_blank" rel="noopener noreferrer" title="Open CBOT:ZW1! on TradingView">📈 TV</a></td>
+            <td><strong>Wheat</strong> <small style="color:var(--muted)">ZW=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZW1%21" target="_blank" rel="noopener noreferrer" title="Open CBOT:ZW1! on TradingView">Chart ↗</a></td>
             <td>Agriculture</td>
-            <td class="price">634.25 bushel</td>
-            <td style="color:#ef4444">▼ 1.97%</td>
+            <td class="price">635.25 bushel</td>
+            <td style="color:#ef4444">▼ 1.82%</td>
             <td><strong>0.25 (0.039%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>646.70</td><td>623.80</td>
+            <td>646.90</td><td>623.85</td>
             <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
             <td>1.8%</td>
             <td style="color:#f59e0b">5.3x</td>
         </tr><tr>
-            <td><strong>Soybeans</strong> <small style="color:var(--muted)">ZS=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZS1%21" target="_blank" rel="noopener noreferrer" title="Open CBOT:ZS1! on TradingView">📈 TV</a></td>
+            <td><strong>Soybeans</strong> <small style="color:var(--muted)">ZS=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZS1%21" target="_blank" rel="noopener noreferrer" title="Open CBOT:ZS1! on TradingView">Chart ↗</a></td>
             <td>Agriculture</td>
-            <td class="price">1175.50 bushel</td>
-            <td style="color:#22c55e">▲ 0.09%</td>
+            <td class="price">1176.25 bushel</td>
+            <td style="color:#22c55e">▲ 0.15%</td>
             <td><strong>0.25 (0.021%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>1195.70</td><td>1183.12</td>
+            <td>1195.85</td><td>1183.16</td>
             <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
             <td>0.8%</td>
             <td style="color:#f59e0b">3.5x</td>
         </tr><tr>
-            <td><strong>Coffee</strong> <small style="color:var(--muted)">KC=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=ICEUS%3AKC1%21" target="_blank" rel="noopener noreferrer" title="Open ICEUS:KC1! on TradingView">📈 TV</a></td>
+            <td><strong>Coffee</strong> <small style="color:var(--muted)">KC=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=ICEUS%3AKC1%21" target="_blank" rel="noopener noreferrer" title="Open ICEUS:KC1! on TradingView">Chart ↗</a></td>
             <td>Softs</td>
-            <td class="price">266.00 lb</td>
-            <td style="color:#ef4444">▼ 9.66%</td>
+            <td class="price">265.75 lb</td>
+            <td style="color:#ef4444">▼ 9.75%</td>
             <td><strong>0.05 (0.019%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>290.02</td><td>298.34</td>
+            <td>289.97</td><td>298.32</td>
             <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
             <td>2.0%</td>
-            <td style="color:#f59e0b">13.2x</td>
+            <td style="color:#f59e0b">13.3x</td>
         </tr><tr>
-            <td><strong>Sugar</strong> <small style="color:var(--muted)">SB=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=ICEUS%3ASB1%21" target="_blank" rel="noopener noreferrer" title="Open ICEUS:SB1! on TradingView">📈 TV</a></td>
+            <td><strong>Sugar</strong> <small style="color:var(--muted)">SB=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=ICEUS%3ASB1%21" target="_blank" rel="noopener noreferrer" title="Open ICEUS:SB1! on TradingView">Chart ↗</a></td>
             <td>Softs</td>
             <td class="price">14.78 lb</td>
             <td style="color:#ef4444">▼ 1.40%</td>
@@ -366,7 +387,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td>1.6%</td>
             <td style="color:#64748b">0.7x</td>
         </tr><tr>
-            <td><strong>Cotton</strong> <small style="color:var(--muted)">CT=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=ICEUS%3ACT1%21" target="_blank" rel="noopener noreferrer" title="Open ICEUS:CT1! on TradingView">📈 TV</a></td>
+            <td><strong>Cotton</strong> <small style="color:var(--muted)">CT=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=ICEUS%3ACT1%21" target="_blank" rel="noopener noreferrer" title="Open ICEUS:CT1! on TradingView">Chart ↗</a></td>
             <td>Softs</td>
             <td class="price">80.01 lb</td>
             <td style="color:#ef4444">▼ 4.68%</td>
@@ -376,12 +397,12 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td>1.7%</td>
             <td style="color:#f59e0b">2.9x</td>
         </tr><tr>
-            <td><strong>Live Cattle</strong> <small style="color:var(--muted)">LE=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=LE%3DF" target="_blank" rel="noopener noreferrer" title="Open LE=F on TradingView">📈 TV</a></td>
+            <td><strong>Live Cattle</strong> <small style="color:var(--muted)">LE=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=LE%3DF" target="_blank" rel="noopener noreferrer" title="Open LE=F on TradingView">Chart ↗</a></td>
             <td>Livestock</td>
-            <td class="price">247.45 lb</td>
-            <td style="color:#ef4444">▼ 1.83%</td>
+            <td class="price">247.18 lb</td>
+            <td style="color:#ef4444">▼ 1.94%</td>
             <td><strong>0.025 (0.010%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
-            <td>249.88</td><td>250.88</td>
+            <td>249.83</td><td>250.86</td>
             <td><span style="color:#94a3b8;font-weight:600">NEUTRAL</span></td>
             <td>0.8%</td>
             <td style="color:#64748b">0.7x</td>
@@ -397,5 +418,5 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div style="margin-top:28px;text-align:center">
   <a href="index.html" style="display:inline-block;padding:12px 24px;border:1px solid var(--border);border-radius:12px;color:var(--muted);text-decoration:none;font-size:.88em;font-weight:700;transition:all .15s">← Retour Dashboard</a>
 </div>
-<div class="footer"><p>🛢️ Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260515-194506</p></div>
+<div class="footer"><p>🛢️ Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260515-195048</p></div>
 </div></body></html>

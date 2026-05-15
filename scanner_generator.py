@@ -80,10 +80,10 @@ def row_html(a: dict) -> str:
 {rel}
 </span>
 </div>
-<div style="text-align:right">
+<div class="score-box">
 <span class="score-pill {score_class(a['score'])}">{a['score']}/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net {a['net_pressure']:+d} · {escape(a['symbol'])}</div>
-<div style="font-size:.7em;color:{a['color']};margin-top:2px">{escape(a['label'])}</div>
+<div class="score-meta">Net {a['net_pressure']:+d} · {escape(a['symbol'])}</div>
+<div class="status-mini" style="color:{a['color']}">{escape(a['label']).replace("Active pressure", "Active")}</div>
 </div>
 </div>"""
 
@@ -169,7 +169,8 @@ def main(run_id: str | None = None):
 <div class="scanner-head">
 <div>
 <h2>🦅 Hawkeye V4 — Market Pressure Radar</h2>
-<p class="scanner-sub">Radar multi-actifs de pression, régime et momentum.</p>
+<p class="scanner-sub">Top bullish and bearish assets ranked by composite pressure score — built for quick manual chart inspection.</p>
+<div class="scanner-quicklegend"><span>60–74 Active</span><span>75+ Strong</span><span>90+ Extreme</span><span>Chart ↗ opens TradingView</span></div>
 </div>
 <div class="scanner-score"><div class="num">{len(analyses)}</div><div class="label">assets scanned</div></div>
 </div>

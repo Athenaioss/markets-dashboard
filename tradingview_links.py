@@ -84,7 +84,7 @@ def tradingview_url(symbol: str | None, source: str | None = "") -> str:
     return f"https://www.tradingview.com/chart/?symbol={quote(tv, safe='')}"
 
 
-def tradingview_link(symbol: str | None, source: str | None = "", label: str = "📈 TV") -> str:
+def tradingview_link(symbol: str | None, source: str | None = "", label: str = "Chart ↗") -> str:
     tv = tradingview_symbol(symbol, source)
     url = tradingview_url(symbol, source)
     title = f"Open {tv or symbol or 'asset'} on TradingView"
@@ -95,6 +95,6 @@ def tradingview_link(symbol: str | None, source: str | None = "", label: str = "
 
 
 TV_LINK_CSS = """
-.tv-link{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:4px 8px;border-radius:999px;border:1px solid rgba(56,189,248,.26);background:rgba(56,189,248,.10);color:#bae6fd!important;text-decoration:none;font-size:.72rem;font-weight:900;white-space:nowrap;transition:all .15s}
-.tv-link:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.45);transform:translateY(-1px)}
+.tv-link{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:5px 10px;border-radius:999px;border:1px solid rgba(56,189,248,.32);background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(124,92,255,.12));color:#d9f3ff!important;text-decoration:none;font-size:.76rem;font-weight:950;white-space:nowrap;transition:all .16s;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.tv-link:hover{background:linear-gradient(135deg,rgba(56,189,248,.24),rgba(124,92,255,.20));border-color:rgba(56,189,248,.58);transform:translateY(-1px);box-shadow:0 8px 24px rgba(56,189,248,.12),inset 0 1px 0 rgba(255,255,255,.10)}
 """.strip()

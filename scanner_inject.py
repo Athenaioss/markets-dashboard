@@ -16,6 +16,15 @@ def atomic_write(path: Path, content: str) -> None:
     tmp.replace(path)
 
 
+
+def _sync_hero_asset_count(html: str, scanner: str) -> str:
+    m = re.search(r'<div class="scanner-score"><div class="num">(\d+)</div>', scanner)
+    if not m:
+        return html
+    total = m.group(1)
+    html = re.sub(r'data-target="\d+">\d+</span> assets', f'data-target="{total}">{total}</span> assets', html, count=1)
+    return html
+
 def inject(html_path="index.html", run_id: str | None = None):
     from scanner_generator import main as gen_scanner
 
@@ -65,6 +74,7 @@ def inject(html_path="index.html", run_id: str | None = None):
     new_html = html[:end_search_start] + new_content + html[end_idx - len('</section>'):]
     if f'data-run-id="{run_id}"' not in scanner:
         raise RuntimeError(f"run_id validation failed after injection: {run_id}")
+    new_html = _sync_hero_asset_count(new_html, scanner)
     atomic_write(path, new_html)
     print(f"✅ Scanner injected ({len(new_content)} bytes)")
     return True
