@@ -1,0 +1,117 @@
+{
+  "run_id": "20260515-113139",
+  "generated": "20260515-113139",
+  "scoring": "Hawkeye V4 \u2014 market pressure radar /100",
+  "total": 103,
+  "distribution": {
+    "extreme": 0,
+    "strong": 0,
+    "active": 30,
+    "watch": 57,
+    "weak": 16,
+    "degraded": 0
+  },
+  "bullish_pressure": [
+    {
+      "name": "Corn",
+      "score": 71,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$469.00/USD/bushel"
+    },
+    {
+      "name": "Nikkei 225",
+      "score": 67,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "61,409.29 pts"
+    },
+    {
+      "name": "Wheat",
+      "score": 66,
+      "regime": "uptrend",
+      "family": "breakout pressure",
+      "reference_price": "$659.00/USD/bushel"
+    },
+    {
+      "name": "Sugar",
+      "score": 65,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$15.45/USD/lb"
+    },
+    {
+      "name": "KOSPI",
+      "score": 65,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "7,493.18 pts"
+    },
+    {
+      "name": "iShares Silver",
+      "score": 65,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$75.51"
+    },
+    {
+      "name": "Walmart",
+      "score": 64,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$132.46"
+    }
+  ],
+  "bearish_pressure": [
+    {
+      "name": "Procter & Gamble",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$142.71"
+    },
+    {
+      "name": "iShares 20+ Year Tr.",
+      "score": 66,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$84.92"
+    },
+    {
+      "name": "Palladium",
+      "score": 64,
+      "regime": "downtrend",
+      "family": "breakdown pressure",
+      "reference_price": "$1,427.50/USD/oz"
+    },
+    {
+      "name": "FTSE 100",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "10,224.28 pts"
+    },
+    {
+      "name": "BSE Sensex",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "75,350.46 pts"
+    },
+    {
+      "name": "ASX 200",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "8,630.80 pts"
+    },
+    {
+      "name": "LVMH",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac455.15"
+    }
+  ],
+  "degraded": []
+}
