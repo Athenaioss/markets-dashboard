@@ -1,0 +1,117 @@
+{
+  "run_id": "20260515-070115",
+  "generated": "20260515-070115",
+  "scoring": "Hawkeye V4 \u2014 market pressure radar /100",
+  "total": 100,
+  "distribution": {
+    "extreme": 0,
+    "strong": 0,
+    "active": 26,
+    "watch": 57,
+    "weak": 17,
+    "degraded": 0
+  },
+  "bullish_pressure": [
+    {
+      "name": "Corn",
+      "score": 71,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$470.75/USD/bushel"
+    },
+    {
+      "name": "Crude Oil WTI",
+      "score": 66,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$102.54/USD/barrel"
+    },
+    {
+      "name": "Wheat",
+      "score": 66,
+      "regime": "uptrend",
+      "family": "breakout pressure",
+      "reference_price": "$656.00/USD/bushel"
+    },
+    {
+      "name": "Soybeans",
+      "score": 66,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$1,195.50/USD/bushel"
+    },
+    {
+      "name": "Nikkei 225",
+      "score": 66,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "61,649.96 pts"
+    },
+    {
+      "name": "iShares Silver",
+      "score": 65,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$75.51"
+    },
+    {
+      "name": "Silver",
+      "score": 64,
+      "regime": "mixed",
+      "family": "mixed / no edge",
+      "reference_price": "$81.62/USD/oz"
+    }
+  ],
+  "bearish_pressure": [
+    {
+      "name": "Procter & Gamble",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$142.71"
+    },
+    {
+      "name": "LVMH",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac460.85"
+    },
+    {
+      "name": "iShares 20+ Year Tr.",
+      "score": 66,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$84.92"
+    },
+    {
+      "name": "ASX 200",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "8,636.00 pts"
+    },
+    {
+      "name": "Herm\u00e8s",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac1,593.50"
+    },
+    {
+      "name": "BSE Sensex",
+      "score": 62,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "75,755.71 pts"
+    },
+    {
+      "name": "Bank of America",
+      "score": 62,
+      "regime": "mixed",
+      "family": "mixed / no edge",
+      "reference_price": "$49.85"
+    }
+  ],
+  "degraded": []
+}
