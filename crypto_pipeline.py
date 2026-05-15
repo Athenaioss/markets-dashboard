@@ -33,6 +33,7 @@ import urllib.request
 import urllib.error
 from dashboard_theme import enhance_dashboard_html
 from sentiment import momentum_scanner_html, back_to_dashboard_html, unusual_activity_html
+from tradingview_links import tradingview_link
 
 # ════════════════════════════════════════════════════════════
 # CONFIGURATION
@@ -341,7 +342,7 @@ def export_html_dashboard(tokens: list, summary: dict, filename: str):
         
         rows += f"""
         <tr>
-            <td><strong>{t.get('symbol','?')}</strong> <small>{t.get('name','')[:20]}</small></td>
+            <td><strong>{t.get('symbol','?')}</strong> <small>{t.get('name','')[:20]}</small><br>{tradingview_link(t.get('symbol'), 'crypto')}</td>
             <td>{t.get('source','?')}</td>
             <td>${t.get('price_usd',0) or 0:.4f}</td>
             <td>${(t.get('market_cap',0) or 0)/1e6:.1f}M</td>

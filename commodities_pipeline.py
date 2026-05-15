@@ -14,6 +14,7 @@ import json, csv, urllib.request, os, sys, time, statistics
 from datetime import datetime
 from pathlib import Path
 from sentiment import compute_sentiment, hawk_eye_html, back_to_dashboard_html, unusual_activity_html
+from tradingview_links import tradingview_link
 from dashboard_theme import enhance_dashboard_html
 
 OUTPUT_DIR = Path("output")
@@ -216,7 +217,7 @@ def export_html(commodities, summary):
         vol_color = "#f59e0b" if c["vol_ratio"] > 2 else "#64748b"
         
         rows += f"""<tr>
-            <td><strong>{c['name']}</strong> <small style="color:var(--muted)">{c['symbol']}</small></td>
+            <td><strong>{c['name']}</strong> <small style="color:var(--muted)">{c['symbol']}</small><br>{tradingview_link(c.get('symbol'), 'commodities')}</td>
             <td>{c['category']}</td>
             <td class="price">{c['price']:.2f} {c['unit'].split('/')[-1] if '/' in c['unit'] else ''}</td>
             <td style="color:{color}">{arrow} {abs(c['change_pct']):.2f}%</td>

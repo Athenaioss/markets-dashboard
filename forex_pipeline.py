@@ -13,6 +13,7 @@ import json, csv, urllib.request, os, time, statistics
 from datetime import datetime
 from pathlib import Path
 from sentiment import compute_sentiment, hawk_eye_html, back_to_dashboard_html, unusual_activity_html
+from tradingview_links import tradingview_link
 from dashboard_theme import enhance_dashboard_html
 
 OUTPUT_DIR = Path("output")
@@ -153,7 +154,7 @@ def export_html(pairs):
         group_color = {"Major": "#818cf8", "Minor": "#38bdf8", "Exotic": "#f59e0b"}
         
         rows += f"""<tr>
-            <td><span style="color:{group_color.get(p['group'],'#94a3b8')};font-weight:600;margin-right:6px">◆</span><strong>{p['pair']}</strong></td>
+            <td><span style="color:{group_color.get(p['group'],'#94a3b8')};font-weight:600;margin-right:6px">◆</span><strong>{p['pair']}</strong><br>{tradingview_link(p.get('symbol'), 'forex')}</td>
             <td>{p['group']}</td>
             <td class="price">{p['price']:.5f}</td>
             <td style="color:{color}">{arrow} {abs(p['change_pct']):.3f}%</td>

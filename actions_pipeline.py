@@ -14,6 +14,7 @@ import json, csv, urllib.request, os, time, statistics
 from datetime import datetime
 from pathlib import Path
 from sentiment import compute_sentiment, hawk_eye_html, back_to_dashboard_html, unusual_activity_html
+from tradingview_links import tradingview_link
 from dashboard_theme import enhance_dashboard_html
 
 OUTPUT_DIR = Path("output")
@@ -158,7 +159,7 @@ def export_html(actions):
         color = "#22c55e" if s["change_pct"] > 0 else "#ef4444" if s["change_pct"] < 0 else "#6b7280"
         arrow = "▲" if s["change_pct"] > 0 else "▼" if s["change_pct"] < 0 else "-"
         rows += f"""<tr>
-            <td><strong>{s['name']}</strong> <small style="color:var(--muted)">{s['sector']}</small></td>
+            <td><strong>{s['name']}</strong> <small style="color:var(--muted)">{s['sector']}</small><br>{tradingview_link(s.get('symbol'), 'actions')}</td>
             <td><small style="color:var(--muted)">{s['currency']}</small></td>
             <td class="price">{s['price']:,.2f}</td>
             <td style="color:{color}">{arrow} {abs(s['change_pct']):.2f}%</td>

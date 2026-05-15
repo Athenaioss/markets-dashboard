@@ -14,6 +14,7 @@ import json, csv, urllib.request, os, time, statistics
 from datetime import datetime
 from pathlib import Path
 from sentiment import compute_sentiment, hawk_eye_html, back_to_dashboard_html, unusual_activity_html
+from tradingview_links import tradingview_link
 from dashboard_theme import enhance_dashboard_html
 
 OUTPUT_DIR = Path("output")
@@ -152,7 +153,7 @@ def export_html(etfs):
         arrow = "▲" if e["change_pct"] > 0 else "▼" if e["change_pct"] < 0 else "-"
         category_tag = f"""<span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">{e['category']}</span>"""
         rows += f"""<tr>
-            <td><strong>{e['name']}</strong> <small style="color:var(--muted)">{e['symbol']}</small></td>
+            <td><strong>{e['name']}</strong> <small style="color:var(--muted)">{e['symbol']}</small><br>{tradingview_link(e.get('symbol'), 'etf')}</td>
             <td>{category_tag}</td>
             <td class="price">${e['price']:,.2f}</td>
             <td style="color:{color}">{arrow} {abs(e['change_pct']):.2f}%</td>

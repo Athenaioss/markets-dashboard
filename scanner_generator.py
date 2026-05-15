@@ -14,6 +14,7 @@ from datetime import datetime
 from html import escape
 
 from hawkeye_core import analyze_assets, safe_price
+from tradingview_links import TV_LINK_CSS, tradingview_link
 
 OUTPUT_DIR = Path("output")
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -75,6 +76,7 @@ def row_html(a: dict) -> str:
 <span class="asset-meta">{escape(a.get('source',''))} · {escape(a['regime'])} · {escape(a['signal_family'])}{warning}</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ {escape(a['price_label'])}</span>
+{tradingview_link(a.get("symbol"), a.get("source", ""))}
 {rel}
 </span>
 </div>
