@@ -1,0 +1,16 @@
+name,symbol,category,price,change_pct,spread,spread_pct,spread_label,trend,volatility_20d,vol_ratio
+Gold,GC=F,Precious Metals,4617.6,-1.29,0.1,0.0022,0.1 (0.002%),NEUTRAL,1.02,14.76
+Silver,SI=F,Precious Metals,81.67,-3.82,0.005,0.0061,0.005 (0.006%),BULLISH,2.92,4.42
+Platinum,PL=F,Precious Metals,2032.3,-2.46,0.1,0.0049,0.1 (0.005%),BULLISH,2.23,14.03
+Palladium,PA=F,Precious Metals,1432.5,-1.65,0.5,0.0349,0.5 (0.035%),BEARISH,2.23,19.27
+Crude Oil WTI,CL=F,Energy,102.67,1.48,0.01,0.0097,0.01 (0.010%),BULLISH,2.93,0.01
+Brent Crude,BZ=F,Energy,107.19,1.39,0.01,0.0093,0.01 (0.009%),NEUTRAL,3.28,0.02
+Natural Gas,NG=F,Energy,2.934,1.38,0.001,0.0341,0.001 (0.034%),BULLISH,2.0,0.02
+Copper,HG=F,Industrial Metals,6.4215,-2.22,0.0005,0.0078,0.0005 (0.008%),BULLISH,1.41,4.64
+Corn,ZC=F,Agriculture,470.5,4.21,0.25,0.0531,0.25 (0.053%),BULLISH,1.08,0.36
+Wheat,ZW=F,Agriculture,658.75,1.82,0.25,0.038,0.25 (0.038%),BULLISH,1.81,0.41
+Soybeans,ZS=F,Agriculture,1197.25,1.94,0.25,0.0209,0.25 (0.021%),BULLISH,0.9,0.46
+Coffee,KC=F,Softs,274.9,-7.21,0.05,0.0182,0.05 (0.018%),BEARISH,1.96,0.0
+Sugar,SB=F,Softs,15.0,-2.47,0.01,0.0667,0.01 (0.067%),BULLISH,1.71,0.0
+Cotton,CT=F,Softs,83.33,-4.01,0.01,0.012,0.01 (0.012%),BULLISH,1.62,2.52
+Live Cattle,LE=F,Livestock,246.4,-2.53,0.025,0.0101,0.025 (0.010%),BEARISH,0.83,1.29
