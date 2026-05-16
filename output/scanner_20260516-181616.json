@@ -1,0 +1,117 @@
+{
+  "run_id": "20260516-181616",
+  "generated": "20260516-181616",
+  "scoring": "Hawkeye V4 \u2014 market pressure radar /100",
+  "total": 104,
+  "distribution": {
+    "extreme": 0,
+    "strong": 0,
+    "active": 30,
+    "watch": 63,
+    "weak": 11,
+    "degraded": 0
+  },
+  "bullish_pressure": [
+    {
+      "name": "Caterpillar",
+      "score": 73,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$888.31"
+    },
+    {
+      "name": "Energy Select",
+      "score": 70,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$59.44"
+    },
+    {
+      "name": "Walmart",
+      "score": 69,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$131.45"
+    },
+    {
+      "name": "iShares MSCI EM",
+      "score": 69,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$65.07"
+    },
+    {
+      "name": "Nikkei 225",
+      "score": 67,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "61,409.29 pts"
+    },
+    {
+      "name": "NVIDIA",
+      "score": 67,
+      "regime": "uptrend",
+      "family": "breakout pressure",
+      "reference_price": "$225.32"
+    },
+    {
+      "name": "Crude Oil WTI",
+      "score": 66,
+      "regime": "uptrend",
+      "family": "bullish continuation",
+      "reference_price": "$105.42/USD/barrel"
+    }
+  ],
+  "bearish_pressure": [
+    {
+      "name": "SPDR Gold",
+      "score": 74,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$417.29"
+    },
+    {
+      "name": "Herm\u00e8s",
+      "score": 70,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac1,575.50"
+    },
+    {
+      "name": "iShares Inv. Grade",
+      "score": 69,
+      "regime": "downtrend",
+      "family": "breakdown pressure",
+      "reference_price": "$107.86"
+    },
+    {
+      "name": "LVMH",
+      "score": 67,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "\u20ac455.60"
+    },
+    {
+      "name": "Gold",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "$4,555.80/USD/oz"
+    },
+    {
+      "name": "CAC 40",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "7,952.55 pts"
+    },
+    {
+      "name": "BSE Sensex",
+      "score": 63,
+      "regime": "downtrend",
+      "family": "bearish continuation",
+      "reference_price": "75,237.99 pts"
+    }
+  ],
+  "degraded": []
+}
