@@ -47,8 +47,8 @@ html{scroll-behavior:smooth}
   --atlas-border:rgba(0,0,0,.12);
   --atlas-border-strong:rgba(0,0,0,.18);
   --atlas-text:#0f172a;
-  --atlas-muted:#475569;
-  --atlas-faint:#64748b;
+  --atlas-muted:#1e293b;
+  --atlas-faint:#334155;
   --atlas-green:#16a34a;
   --atlas-red:#dc2626;
   --atlas-amber:#d97706;

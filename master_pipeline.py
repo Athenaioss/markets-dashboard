@@ -11,7 +11,7 @@ from datetime import datetime
 from pathlib import Path
 
 PIPELINES = [
-    ("../sprint4_pipeline.py", "Crypto"),
+    ("crypto_pipeline.py", "Crypto"),
     ("commodities_pipeline.py", "Commodities"),
     ("indices_pipeline.py", "Indices"),
     ("forex_pipeline.py", "Forex"),
