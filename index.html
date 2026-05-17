@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>🔮 Atlas Nexus — Markets Dashboard</title>
@@ -8,6 +8,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
+  --bg:#f8fafc;--bg2:#f1f5f9;--panel:#ffffff;--panel2:#e2e8f0;--glass:rgba(255,255,255,.82);
+  --border:rgba(0,0,0,.12);--border-strong:rgba(56,189,248,.46);
+  --text:#0f172a;--muted:#475569;--faint:#64748b;
+  --blue:#0284c7;--violet:#7c3aed;--amber:#d97706;--green:#16a34a;--emerald:#059669;--pink:#db2777;--red:#e11d48;
+  --shadow:0 8px 40px rgba(0,0,0,.10);--ring:0 0 0 1px rgba(0,0,0,.06) inset;
+}
+[data-theme="dark"]{
   --bg:#06070b;--bg2:#0a0d14;--panel:#0f121a;--panel2:#151a25;--glass:rgba(16,20,31,.72);
   --border:rgba(255,255,255,.085);--border-strong:rgba(125,92,255,.34);
   --text:#f7f8ff;--muted:#b4bdd0;--faint:#8b94aa;
@@ -19,14 +26,25 @@ html{scroll-behavior:smooth}
 body{
   font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   font-feature-settings:"cv01","ss03";background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;
+  transition:background .5s ease,color .4s ease;
+}
+[data-theme="dark"] body{
   background-image:
     radial-gradient(circle at 16% -8%,rgba(56,189,248,.24),transparent 32rem),
     radial-gradient(circle at 78% 4%,rgba(124,92,255,.25),transparent 34rem),
     radial-gradient(circle at 50% 112%,rgba(245,158,11,.16),transparent 36rem),
     linear-gradient(180deg,#05060a 0%,#090c13 48%,#06070b 100%);
 }
-body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.75),transparent 78%)}
-body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(120deg,transparent 0 42%,rgba(125,92,255,.07) 46%,transparent 52% 100%);animation:sheen 10s ease-in-out infinite alternate}@keyframes sheen{to{transform:translateX(8%)}}
+[data-theme="light"] body{
+  background-image:
+    radial-gradient(circle at 16% -8%,rgba(56,189,248,.10),transparent 32rem),
+    radial-gradient(circle at 78% 4%,rgba(124,92,255,.08),transparent 34rem),
+    radial-gradient(circle at 50% 112%,rgba(245,158,11,.06),transparent 36rem),
+    linear-gradient(180deg,#f8fafc 0%,#f1f5f9 48%,#e8ecf2 100%);
+}
+[data-theme="dark"] body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.75),transparent 78%)}
+[data-theme="dark"] body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(120deg,transparent 0 42%,rgba(125,92,255,.07) 46%,transparent 52% 100%);animation:sheen 10s ease-in-out infinite alternate}
+body:before,body:after{content:none}@keyframes sheen{to{transform:translateX(8%)}}
 a{color:inherit}.shell{width:min(1240px,calc(100% - 32px));margin:0 auto;padding:20px 0 38px}
 .topbar{position:sticky;top:14px;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;margin:4px 0 28px;padding:12px 14px;border:1px solid var(--border);background:rgba(7,9,14,.72);backdrop-filter:blur(22px);border-radius:22px;box-shadow:0 14px 60px rgba(0,0,0,.32),var(--ring)}
 .brand{display:flex;align-items:center;gap:10px;font-weight:850;letter-spacing:-.035em}.brand-mark{display:grid;place-items:center;width:36px;height:36px;border-radius:13px;background:linear-gradient(135deg,rgba(56,189,248,.22),rgba(124,92,255,.24));border:1px solid rgba(125,92,255,.32);box-shadow:0 0 32px rgba(124,92,255,.18)}
@@ -59,7 +77,56 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 
 /* ATLAS_REMOVE_DASHBOARD_CARD_ORBS_20260517 */
 .panel:before,.panel:hover:before{display:none!important;content:none!important;background:none!important;box-shadow:none!important;filter:none!important}
-</style></head><body><main class="shell"><header class="topbar"><div class="brand"><span class="brand-mark">🔮</span><span>Atlas Nexus</span></div><nav class="nav" aria-label="Dashboard navigation"><a class="active" href="#scanner">Scanner</a><a href="#dashboards">Markets</a><a href="https://github.com/AtlasNexusOps/markets-dashboard">GitHub</a></nav></header><section class="hero" aria-label="Atlas Nexus Markets overview"><div class="hero-main"><div class="eyebrow"><span class="live-dot"></span> Live multi-asset intelligence</div><div class="title-emoji">🔮</div><h1>Markets Command Deck</h1><p class="hero-sub">A client-facing market intelligence cockpit for crypto, stocks, ETFs, indices, forex and commodities — live widgets, generated dashboards, and a technical scanner built for fast signal reading.</p><div class="hero-cta"><a href="#scanner" class="btn btn-primary">⚡ Open Live Scanner</a><a href="#dashboards" class="btn">Browse dashboards</a></div></div><aside class="hero-side" aria-label="Key coverage metrics"><div class="metric-card wide"><div><div class="metric-label">Scanner coverage</div><div class="metric-value"><span class="count-up" data-target="99">99</span> assets</div></div><div class="status-line"><span class="live-dot"></span>Yahoo Finance OHLCV · live scoring</div></div><div class="metric-card"><div class="metric-label">Markets</div><div class="metric-value">6</div><div class="metric-copy">Crypto · Stocks · ETF · Indices · FX · Commodities</div></div><div class="metric-card"><div class="metric-label">Scoring engine</div><div class="metric-value">Hawkeye V4</div><div class="metric-copy">Pressure · Regime · Momentum · Extension</div></div></aside></section><section class="market-strip" aria-label="Live market ticker"><div class="ticker-wrap"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>{"symbols":[{"proName":"FOREXCOM:SPXUSD","title":"S&P 500"},{"proName":"FOREXCOM:NAS100","title":"Nasdaq"},{"proName":"BITSTAMP:BTCUSD","title":"BTC/USD"},{"proName":"BITSTAMP:ETHUSD","title":"ETH/USD"},{"proName":"TVC:GOLD","title":"Gold"},{"proName":"TVC:USOIL","title":"WTI Oil"},{"proName":"FOREXCOM:EURUSD","title":"EUR/USD"},{"proName":"NASDAQ:AAPL","title":"Apple"},{"proName":"NASDAQ:NVDA","title":"NVIDIA"},{"proName":"AMEX:SPY","title":"SPY"},{"proName":"NASDAQ:QQQ","title":"QQQ"},{"proName":"TVC:DXY","title":"DXY"}],"showSymbolLogo":true,"isTransparent":true,"displayMode":"adaptive","colorTheme":"dark","locale":"en"}</script></div></div></section><section id="scanner" class="scanner">
+/* ATLAS_THEME_TOGGLE_20260517 */
+.theme-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:var(--glass);cursor:pointer;font-size:.8em;font-weight:760;color:var(--muted);transition:all .2s;margin-left:6px}
+.theme-btn:hover{border-color:var(--border-strong);color:var(--text);background:var(--panel)}
+.theme-btn .icon-sun,.theme-btn .icon-moon{font-size:1.1em;line-height:1}
+[data-theme="light"] .theme-btn .icon-moon{display:inline}
+[data-theme="light"] .theme-btn .icon-sun{display:none}
+[data-theme="dark"] .theme-btn .icon-moon{display:none}
+[data-theme="dark"] .theme-btn .icon-sun{display:inline}
+/* Light mode overrides for dark-hardcoded colors */
+[data-theme="light"] .topbar{background:rgba(255,255,255,.78);box-shadow:0 4px 24px rgba(0,0,0,.06),var(--ring)}
+[data-theme="light"] .hero-main,[data-theme="light"] .hero-side,[data-theme="light"] .scanner,[data-theme="light"] .panel,[data-theme="light"] .market-strip{background:#fff;box-shadow:0 2px 16px rgba(0,0,0,.06),var(--ring)}
+[data-theme="light"] .hero-main:before{background:linear-gradient(135deg,rgba(0,0,0,.02),transparent 42%)}
+[data-theme="light"] .hero-main:after{opacity:.5}
+[data-theme="light"] .scanner{background:linear-gradient(135deg,#f8fafc,#f1f5ff 48%,#fffbeb)}[data-theme="light"] .scanner:before{opacity:.4}
+[data-theme="light"] .metric-card{background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.01));border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .metric-card.wide{background:linear-gradient(135deg,rgba(56,189,248,.06),rgba(124,92,255,.05),rgba(245,158,11,.03))}
+[data-theme="light"] .metric-value{color:#0f172a}
+[data-theme="light"] .metric-card.wide .metric-value{background:linear-gradient(90deg,#0f172a,#0284c7,#16a34a,#0f172a);background-size:220% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+[data-theme="light"] .btn{background:rgba(0,0,0,.04);color:#1e293b}
+[data-theme="light"] .btn:hover{background:rgba(0,0,0,.07);border-color:rgba(56,189,248,.4)}
+[data-theme="light"] .btn-primary{color:#fff;background:linear-gradient(135deg,#0284c7,#7c3aed);border-color:rgba(124,58,237,.3)}
+[data-theme="light"] .signal-card{background:rgba(0,0,0,.02);border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .signal-card h3{color:var(--text)}
+[data-theme="light"] .signal-row:hover{background:rgba(0,0,0,.03)}
+[data-theme="light"] .chip{background:rgba(0,0,0,.04);color:#1e40af}
+[data-theme="light"] .scanner-score{background:rgba(0,0,0,.03);border-color:rgba(56,189,248,.18)}
+[data-theme="light"] .scanner-quicklegend span{background:rgba(0,0,0,.04);color:#475569;border-color:rgba(0,0,0,.10)}
+[data-theme="light"] .tv-link{color:#1e40af!important;background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(124,92,255,.06));border-color:rgba(56,189,248,.22)}
+[data-theme="light"] .tv-link:hover{background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(124,92,255,.12));color:#1e3a8a!important}
+[data-theme="light"] .panel{background:linear-gradient(180deg,rgba(0,0,0,.015),rgba(0,0,0,.005))}
+[data-theme="light"] .panel .count{background:rgba(0,0,0,.04);color:#475569}
+[data-theme="light"] .panel:after{color:var(--muted);border-color:rgba(0,0,0,.08);background:rgba(0,0,0,.03)}
+[data-theme="light"] .panel:hover:after{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.22);color:#0284c7}
+[data-theme="light"] .section-label{color:#0f172a}
+[data-theme="light"] .scanner-sub{color:#475569!important}
+[data-theme="light"] .legend{border-top-color:rgba(0,0,0,.06)}
+[data-theme="light"] .legend span{color:#475569}
+[data-theme="light"] .metric-copy,[data-theme="light"] .score-meta,[data-theme="light"] .asset-meta{color:#64748b}
+[data-theme="light"] .asset-name{color:#0f172a}
+[data-theme="light"] .asset-tag{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.14);color:#0369a1}
+[data-theme="light"] .eyebrow{background:rgba(56,189,248,.06);border-color:rgba(56,189,248,.16);color:#0369a1}
+[data-theme="light"] .status-line{color:#16a34a}
+[data-theme="light"] footer a{color:#0284c7}
+[data-theme="light"] .nav a.active{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.22);box-shadow:inset 0 1px 0 rgba(0,0,0,.04)}
+[data-theme="light"] .nav a:hover{background:rgba(0,0,0,.04)}
+[data-theme="light"] .hero-sub,[data-theme="light"] .metric-copy{color:var(--muted)}
+[data-theme="light"] [style*="color:#bae6fd"]{color:#0369a1!important}
+[data-theme="light"] [style*="color:#f59e0b"]{color:#b45309!important}
+*,*::before,*::after{transition:background-color .4s ease,border-color .4s ease,color .4s ease,box-shadow .4s ease}
+</style></head><body><main class="shell"><header class="topbar"><div class="brand"><span class="brand-mark">🔮</span><span>Atlas Nexus</span></div><nav class="nav" aria-label="Dashboard navigation"><a class="active" href="#scanner">Scanner</a><a href="#dashboards">Markets</a><a href="https://github.com/AtlasNexusOps/markets-dashboard">GitHub</a><button class="theme-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light theme"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button></nav></header><section class="hero" aria-label="Atlas Nexus Markets overview"><div class="hero-main"><div class="eyebrow"><span class="live-dot"></span> Live multi-asset intelligence</div><div class="title-emoji">🔮</div><h1>Markets Command Deck</h1><p class="hero-sub">A client-facing market intelligence cockpit for crypto, stocks, ETFs, indices, forex and commodities — live widgets, generated dashboards, and a technical scanner built for fast signal reading.</p><div class="hero-cta"><a href="#scanner" class="btn btn-primary">⚡ Open Live Scanner</a><a href="#dashboards" class="btn">Browse dashboards</a></div></div><aside class="hero-side" aria-label="Key coverage metrics"><div class="metric-card wide"><div><div class="metric-label">Scanner coverage</div><div class="metric-value"><span class="count-up" data-target="99">99</span> assets</div></div><div class="status-line"><span class="live-dot"></span>Yahoo Finance OHLCV · live scoring</div></div><div class="metric-card"><div class="metric-label">Markets</div><div class="metric-value">6</div><div class="metric-copy">Crypto · Stocks · ETF · Indices · FX · Commodities</div></div><div class="metric-card"><div class="metric-label">Scoring engine</div><div class="metric-value">Hawkeye V4</div><div class="metric-copy">Pressure · Regime · Momentum · Extension</div></div></aside></section><section class="market-strip" aria-label="Live market ticker"><div class="ticker-wrap"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>{"symbols":[{"proName":"FOREXCOM:SPXUSD","title":"S&P 500"},{"proName":"FOREXCOM:NAS100","title":"Nasdaq"},{"proName":"BITSTAMP:BTCUSD","title":"BTC/USD"},{"proName":"BITSTAMP:ETHUSD","title":"ETH/USD"},{"proName":"TVC:GOLD","title":"Gold"},{"proName":"TVC:USOIL","title":"WTI Oil"},{"proName":"FOREXCOM:EURUSD","title":"EUR/USD"},{"proName":"NASDAQ:AAPL","title":"Apple"},{"proName":"NASDAQ:NVDA","title":"NVIDIA"},{"proName":"AMEX:SPY","title":"SPY"},{"proName":"NASDAQ:QQQ","title":"QQQ"},{"proName":"TVC:DXY","title":"DXY"}],"showSymbolLogo":true,"isTransparent":true,"displayMode":"adaptive","colorTheme":"light","locale":"en"}</script></div></div></section><section id="scanner" class="scanner">
 <style>
 .market-state{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:999px;border:1px solid rgba(148,163,184,.18);background:rgba(15,23,42,.56);font-size:.72rem;font-weight:950;text-transform:uppercase;letter-spacing:.035em;white-space:nowrap}
 .market-state:before{content:"";width:6px;height:6px;border-radius:999px;background:#94a3b8;box-shadow:0 0 12px rgba(148,163,184,.65)}
@@ -382,6 +449,20 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
       if (progress < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
+  });
+})();
+</script>
+<script>
+// Theme toggle
+(function(){
+  const html=document.documentElement;
+  const btn=document.getElementById('themeToggle');
+  const saved=localStorage.getItem('atlas-theme')||'light';
+  html.setAttribute('data-theme',saved);
+  btn.addEventListener('click',()=>{
+    const next=html.getAttribute('data-theme')==='dark'?'light':'dark';
+    html.setAttribute('data-theme',next);
+    localStorage.setItem('atlas-theme',next);
   });
 })();
 </script></main></body></html>
