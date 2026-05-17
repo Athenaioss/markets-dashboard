@@ -24,30 +24,32 @@ jobs:
         timeout-minutes: 10
 
       - name: Deploy to gh-pages
+        env:
+          REPO_URL: "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
         run: |
           set -e
           DEPLOY_DIR=$(mktemp -d)
-          echo "Deploy dir: $DEPLOY_DIR"
 
-          # Try to clone existing gh-pages to preserve live_prices.json
-          git clone --branch gh-pages --depth 1 \
-            "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" \
-            "$DEPLOY_DIR" 2>/dev/null || {
-            echo "No existing gh-pages branch — creating orphan"
+          # Try to clone existing gh-pages, or create orphan
+          if git clone --branch gh-pages --depth 1 "$REPO_URL" "$DEPLOY_DIR" 2>/dev/null; then
+            echo "Cloned existing gh-pages branch"
+          else
+            echo "Creating new orphan gh-pages branch"
             cd "$DEPLOY_DIR"
             git init
             git checkout --orphan gh-pages
-          }
+            git remote add origin "$REPO_URL"
+            cd - > /dev/null
+          fi
 
           cd "$DEPLOY_DIR"
+          # Ensure remote is set (clone already has it, init just added it)
+          git remote set-url origin "$REPO_URL" 2>/dev/null || git remote add origin "$REPO_URL"
 
-          # Copy all generated dashboard files from workspace
+          # Copy all generated dashboard files
           for f in crypto commodities indices forex actions etf; do
             src="$GITHUB_WORKSPACE/${f}_dashboard.html"
-            if [ -f "$src" ]; then
-              cp "$src" .
-              echo "  ✅ ${f}_dashboard.html"
-            fi
+            [ -f "$src" ] && cp "$src" . && echo "  ✅ ${f}_dashboard.html"
           done
           cp "$GITHUB_WORKSPACE/index.html" . && echo "  ✅ index.html"
           cp "$GITHUB_WORKSPACE/CNAME" . 2>/dev/null || true

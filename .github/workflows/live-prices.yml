@@ -2,7 +2,7 @@ name: Live Prices
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # every 5 minutes
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -24,24 +24,35 @@ jobs:
         timeout-minutes: 3
 
       - name: Deploy live_prices.json to gh-pages
+        env:
+          REPO_URL: "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
         run: |
-          # Clone existing gh-pages branch or create new
-          git fetch origin gh-pages 2>/dev/null || true
-          if git show-ref --verify refs/remotes/origin/gh-pages >/dev/null 2>&1; then
-            git checkout gh-pages
-            git reset --hard origin/gh-pages
+          set -e
+          DEPLOY_DIR=$(mktemp -d)
+
+          if git clone --branch gh-pages --depth 1 "$REPO_URL" "$DEPLOY_DIR" 2>/dev/null; then
+            echo "Cloned existing gh-pages"
           else
+            echo "Creating new orphan gh-pages"
+            cd "$DEPLOY_DIR"
+            git init
             git checkout --orphan gh-pages
-            git rm -rf . 2>/dev/null || true
+            git remote add origin "$REPO_URL"
+            cd - > /dev/null
           fi
 
-          # Copy updated live_prices.json
-          cp live_prices.json .
+          cd "$DEPLOY_DIR"
+          git remote set-url origin "$REPO_URL" 2>/dev/null || git remote add origin "$REPO_URL"
+          cp "$GITHUB_WORKSPACE/live_prices.json" . && echo "  ✅ live_prices.json"
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add live_prices.json
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
           TS=$(date -u +%Y%m%d-%H%M%S)
-          git commit -m "prices: ${TS}" || { echo "No changes"; exit 0; }
-          git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" gh-pages
-          echo "✅ Pushed live_prices.json to gh-pages"
+          git commit -m "prices: ${TS}"
+          git push --force origin gh-pages
+          echo "✅ Pushed live_prices.json"

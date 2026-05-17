@@ -5,7 +5,7 @@ Frontend polls live_prices.json from GitHub Pages.
 Designed to run as a cron job or systemd timer.
 """
 
-import json, urllib.request, time, subprocess, sys
+import json, os, urllib.request, time, subprocess, sys
 from datetime import datetime
 from pathlib import Path
 
@@ -60,17 +60,20 @@ def main():
     OUTPUT_FILE.write_text(json.dumps(all_prices, indent=2))
     print(f"  ✅ {len(all_prices)-1} prices → {OUTPUT_FILE}")
     
-    # Git commit + push
-    try:
-        subprocess.run(["git", "add", str(OUTPUT_FILE)], capture_output=True, timeout=10)
-        r = subprocess.run(
-            ["git", "commit", "-m", f"live prices {datetime.now().strftime('%H:%M')}"],
-            capture_output=True, timeout=10
-        )
-        subprocess.run(["git", "push"], capture_output=True, timeout=15)
-        print("  ✅ Pushed to GitHub")
-    except Exception as e:
-        print(f"  ⚠️ Git push failed: {e}")
+    # Git commit + push (skip in CI — handled by workflow)
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        print("  ⏭️ CI mode — skipping git push (handled by workflow)")
+    else:
+        try:
+            subprocess.run(["git", "add", str(OUTPUT_FILE)], capture_output=True, timeout=10)
+            r = subprocess.run(
+                ["git", "commit", "-m", f"live prices {datetime.now().strftime('%H:%M')}"],
+                capture_output=True, timeout=10
+            )
+            subprocess.run(["git", "push"], capture_output=True, timeout=15)
+            print("  ✅ Pushed to GitHub")
+        except Exception as e:
+            print(f"  ⚠️ Git push failed: {e}")
 
 if __name__ == "__main__":
     main()
