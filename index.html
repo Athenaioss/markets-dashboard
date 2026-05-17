@@ -85,46 +85,72 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 [data-theme="light"] .theme-btn .icon-sun{display:none}
 [data-theme="dark"] .theme-btn .icon-moon{display:none}
 [data-theme="dark"] .theme-btn .icon-sun{display:inline}
-/* Light mode overrides for dark-hardcoded colors */
-[data-theme="light"] .topbar{background:rgba(255,255,255,.78);box-shadow:0 4px 24px rgba(0,0,0,.06),var(--ring)}
-[data-theme="light"] .hero-main,[data-theme="light"] .hero-side,[data-theme="light"] .scanner,[data-theme="light"] .panel,[data-theme="light"] .market-strip{background:#fff;box-shadow:0 2px 16px rgba(0,0,0,.06),var(--ring)}
-[data-theme="light"] .hero-main:before{background:linear-gradient(135deg,rgba(0,0,0,.02),transparent 42%)}
-[data-theme="light"] .hero-main:after{opacity:.5}
-[data-theme="light"] .scanner{background:linear-gradient(135deg,#f8fafc,#f1f5ff 48%,#fffbeb)}[data-theme="light"] .scanner:before{opacity:.4}
-[data-theme="light"] .metric-card{background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.01));border-color:rgba(0,0,0,.08)}
-[data-theme="light"] .metric-card.wide{background:linear-gradient(135deg,rgba(56,189,248,.06),rgba(124,92,255,.05),rgba(245,158,11,.03))}
-[data-theme="light"] .metric-value{color:#0f172a}
-[data-theme="light"] .metric-card.wide .metric-value{background:linear-gradient(90deg,#0f172a,#0284c7,#16a34a,#0f172a);background-size:220% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-[data-theme="light"] .btn{background:rgba(0,0,0,.04);color:#1e293b}
-[data-theme="light"] .btn:hover{background:rgba(0,0,0,.07);border-color:rgba(56,189,248,.4)}
-[data-theme="light"] .btn-primary{color:#fff;background:linear-gradient(135deg,#0284c7,#7c3aed);border-color:rgba(124,58,237,.3)}
-[data-theme="light"] .signal-card{background:rgba(0,0,0,.02);border-color:rgba(0,0,0,.08)}
-[data-theme="light"] .signal-card h3{color:var(--text)}
-[data-theme="light"] .signal-row:hover{background:rgba(0,0,0,.03)}
-[data-theme="light"] .chip{background:rgba(0,0,0,.04);color:#1e40af}
-[data-theme="light"] .scanner-score{background:rgba(0,0,0,.03);border-color:rgba(56,189,248,.18)}
-[data-theme="light"] .scanner-quicklegend span{background:rgba(0,0,0,.04);color:#475569;border-color:rgba(0,0,0,.10)}
-[data-theme="light"] .tv-link{color:#1e40af!important;background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(124,92,255,.06));border-color:rgba(56,189,248,.22)}
-[data-theme="light"] .tv-link:hover{background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(124,92,255,.12));color:#1e3a8a!important}
-[data-theme="light"] .panel{background:linear-gradient(180deg,rgba(0,0,0,.015),rgba(0,0,0,.005))}
-[data-theme="light"] .panel .count{background:rgba(0,0,0,.04);color:#475569}
-[data-theme="light"] .panel:after{color:var(--muted);border-color:rgba(0,0,0,.08);background:rgba(0,0,0,.03)}
-[data-theme="light"] .panel:hover:after{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.22);color:#0284c7}
-[data-theme="light"] .section-label{color:#0f172a}
+/* Light mode: override all dark-hardcoded colors aggressively */
+[data-theme="light"] .topbar{background:rgba(255,255,255,.82)!important;box-shadow:0 4px 24px rgba(0,0,0,.06),var(--ring)!important}
+[data-theme="light"] .hero-main,[data-theme="light"] .hero-side,[data-theme="light"] .scanner,[data-theme="light"] .market-strip{background:#fff!important;box-shadow:0 2px 16px rgba(0,0,0,.06),var(--ring)!important}
+[data-theme="light"] .panel{background:#fff!important;box-shadow:0 2px 12px rgba(0,0,0,.05)!important}
+[data-theme="light"] .hero-main:before{background:linear-gradient(135deg,rgba(0,0,0,.02),transparent 42%)!important}
+[data-theme="light"] .hero-main:after{opacity:.45!important}
+[data-theme="light"] .scanner{background:linear-gradient(135deg,#f8fafc,#f1f5ff 48%,#fffbeb)!important}
+[data-theme="light"] .scanner:before{opacity:.35!important}
+[data-theme="light"] .scanner:after{opacity:.35!important}
+[data-theme="light"] .metric-card{background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.005))!important;border-color:rgba(0,0,0,.08)!important}
+[data-theme="light"] .metric-card.wide{background:linear-gradient(135deg,rgba(56,189,248,.06),rgba(124,92,255,.05),rgba(245,158,11,.03))!important}
+[data-theme="light"] .metric-value{color:#0f172a!important}
+[data-theme="light"] .metric-card.wide .metric-value{background:linear-gradient(90deg,#0f172a,#0284c7,#16a34a,#0f172a)!important;background-size:220% 100%!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important}
+[data-theme="light"] .btn{background:rgba(0,0,0,.04)!important;color:#1e293b!important}
+[data-theme="light"] .btn:hover{background:rgba(0,0,0,.07)!important;border-color:rgba(56,189,248,.4)!important}
+[data-theme="light"] .btn-primary{color:#fff!important;background:linear-gradient(135deg,#0284c7,#7c3aed)!important;border-color:rgba(124,58,237,.3)!important}
+[data-theme="light"] .signal-card{background:rgba(0,0,0,.02)!important;border-color:rgba(0,0,0,.08)!important}
+[data-theme="light"] .signal-card h3{color:var(--text)!important}
+[data-theme="light"] .signal-row:hover{background:rgba(0,0,0,.03)!important}
+[data-theme="light"] .chip{background:rgba(0,0,0,.04)!important;color:#1e40af!important}
+[data-theme="light"] .scanner-score{background:rgba(0,0,0,.03)!important;border-color:rgba(56,189,248,.18)!important}
+[data-theme="light"] .scanner-quicklegend span{background:rgba(0,0,0,.04)!important;color:#475569!important;border-color:rgba(0,0,0,.10)!important}
+[data-theme="light"] .tv-link{color:#1e40af!important;background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(124,92,255,.06))!important;border-color:rgba(56,189,248,.22)!important}
+[data-theme="light"] .tv-link:hover{background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(124,92,255,.12))!important;color:#1e3a8a!important}
+[data-theme="light"] .panel .count{background:rgba(0,0,0,.04)!important;color:#475569!important}
+[data-theme="light"] .panel:after{color:var(--muted)!important;border-color:rgba(0,0,0,.08)!important;background:rgba(0,0,0,.03)!important}
+[data-theme="light"] .panel:hover:after{background:rgba(56,189,248,.08)!important;border-color:rgba(56,189,248,.22)!important;color:#0284c7!important}
+[data-theme="light"] .section-label{color:#0f172a!important}
 [data-theme="light"] .scanner-sub{color:#475569!important}
-[data-theme="light"] .legend{border-top-color:rgba(0,0,0,.06)}
-[data-theme="light"] .legend span{color:#475569}
-[data-theme="light"] .metric-copy,[data-theme="light"] .score-meta,[data-theme="light"] .asset-meta{color:#64748b}
-[data-theme="light"] .asset-name{color:#0f172a}
-[data-theme="light"] .asset-tag{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.14);color:#0369a1}
-[data-theme="light"] .eyebrow{background:rgba(56,189,248,.06);border-color:rgba(56,189,248,.16);color:#0369a1}
-[data-theme="light"] .status-line{color:#16a34a}
-[data-theme="light"] footer a{color:#0284c7}
-[data-theme="light"] .nav a.active{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.22);box-shadow:inset 0 1px 0 rgba(0,0,0,.04)}
-[data-theme="light"] .nav a:hover{background:rgba(0,0,0,.04)}
-[data-theme="light"] .hero-sub,[data-theme="light"] .metric-copy{color:var(--muted)}
+[data-theme="light"] .legend{border-top-color:rgba(0,0,0,.06)!important}
+[data-theme="light"] .legend span{color:#475569!important;background:rgba(0,0,0,.03)!important;border-color:rgba(0,0,0,.08)!important}
+[data-theme="light"] .metric-copy,[data-theme="light"] .score-meta,[data-theme="light"] .asset-meta{color:#64748b!important}
+[data-theme="light"] .asset-name{color:#0f172a!important}
+[data-theme="light"] .asset-tag{background:rgba(56,189,248,.08)!important;border-color:rgba(56,189,248,.14)!important;color:#0369a1!important}
+[data-theme="light"] .eyebrow{background:rgba(56,189,248,.06)!important;border-color:rgba(56,189,248,.16)!important;color:#0369a1!important}
+[data-theme="light"] .status-line{color:#16a34a!important}
+[data-theme="light"] footer a{color:#0284c7!important}
+[data-theme="light"] .nav a.active{background:rgba(56,189,248,.08)!important;border-color:rgba(56,189,248,.22)!important;box-shadow:inset 0 1px 0 rgba(0,0,0,.04)!important}
+[data-theme="light"] .nav a:hover{background:rgba(0,0,0,.04)!important}
+[data-theme="light"] .hero-sub{color:var(--muted)!important}
 [data-theme="light"] [style*="color:#bae6fd"]{color:#0369a1!important}
 [data-theme="light"] [style*="color:#f59e0b"]{color:#b45309!important}
+[data-theme="light"] .score-pill{color:var(--text)!important}
+[data-theme="light"] .score-hot{background:rgba(22,163,74,.12)!important;color:#16a34a!important;border-color:rgba(22,163,74,.18)!important}
+[data-theme="light"] .score-risk{background:rgba(225,29,72,.10)!important;color:#e11d48!important;border-color:rgba(225,29,72,.16)!important}
+[data-theme="light"] .score-warm{background:rgba(217,119,6,.10)!important;color:#b45309!important;border-color:rgba(217,119,6,.16)!important}
+[data-theme="light"] .score-muted{background:rgba(71,85,105,.08)!important;color:#475569!important;border-color:rgba(71,85,105,.14)!important}
+[data-theme="light"] .demo-tag{color:#78350f!important}
+[data-theme="light"] .market-state{background:rgba(241,245,249,.9)!important;border-color:rgba(0,0,0,.12)!important;color:#475569!important}
+[data-theme="light"] .market-state:before{background:#94a3b8!important;box-shadow:0 0 8px rgba(148,163,184,.4)!important}
+[data-theme="light"] .market-state-open{color:#16a34a!important;border-color:rgba(22,163,74,.22)!important;background:rgba(22,163,74,.06)!important}
+[data-theme="light"] .market-state-open:before{background:#16a34a!important;box-shadow:0 0 10px rgba(22,163,74,.6)!important}
+[data-theme="light"] .market-state-pre-market{color:#b45309!important;border-color:rgba(217,119,6,.22)!important;background:rgba(217,119,6,.06)!important}
+[data-theme="light"] .market-state-pre-market:before{background:#d97706!important;box-shadow:0 0 10px rgba(217,119,6,.6)!important}
+[data-theme="light"] .market-state-closed{color:#e11d48!important;border-color:rgba(225,29,72,.22)!important;background:rgba(225,29,72,.06)!important}
+[data-theme="light"] .market-state-closed:before{background:#e11d48!important;box-shadow:0 0 10px rgba(225,29,72,.6)!important}
+[data-theme="light"] .session-led{background:rgba(0,0,0,.03)!important;border-color:rgba(0,0,0,.08)!important;color:#475569!important}
+[data-theme="light"] .session-led:before{background:#94a3b8!important}
+[data-theme="light"] .session-led.open{color:#16a34a!important;border-color:rgba(22,163,74,.18)!important;background:rgba(22,163,74,.05)!important}
+[data-theme="light"] .session-led.open:before{background:var(--green)!important;box-shadow:0 0 12px rgba(22,163,74,.6)!important}
+[data-theme="light"] .session-led.closed{color:#e11d48!important;border-color:rgba(225,29,72,.18)!important;background:rgba(225,29,72,.05)!important}
+[data-theme="light"] .session-led.closed:before{background:var(--red)!important;box-shadow:0 0 12px rgba(225,29,72,.6)!important}
+[data-theme="light"] .session-led.soon{color:#b45309!important;border-color:rgba(217,119,6,.18)!important;background:rgba(217,119,6,.05)!important}
+[data-theme="light"] .session-led.soon:before{background:var(--amber)!important;box-shadow:0 0 12px rgba(217,119,6,.6)!important}
+[data-theme="light"] .panel .desc{color:#475569!important}
+[data-theme="light"] .panel h2{color:#0f172a!important}
 *,*::before,*::after{transition:background-color .4s ease,border-color .4s ease,color .4s ease,box-shadow .4s ease}
 </style></head><body><main class="shell"><header class="topbar"><div class="brand"><span class="brand-mark">🔮</span><span>Atlas Nexus</span></div><nav class="nav" aria-label="Dashboard navigation"><a class="active" href="#scanner">Scanner</a><a href="#dashboards">Markets</a><a href="https://github.com/AtlasNexusOps/markets-dashboard">GitHub</a><button class="theme-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light theme"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button></nav></header><section class="hero" aria-label="Atlas Nexus Markets overview"><div class="hero-main"><div class="eyebrow"><span class="live-dot"></span> Live multi-asset intelligence</div><div class="title-emoji">🔮</div><h1>Markets Command Deck</h1><p class="hero-sub">A client-facing market intelligence cockpit for crypto, stocks, ETFs, indices, forex and commodities — live widgets, generated dashboards, and a technical scanner built for fast signal reading.</p><div class="hero-cta"><a href="#scanner" class="btn btn-primary">⚡ Open Live Scanner</a><a href="#dashboards" class="btn">Browse dashboards</a></div></div><aside class="hero-side" aria-label="Key coverage metrics"><div class="metric-card wide"><div><div class="metric-label">Scanner coverage</div><div class="metric-value"><span class="count-up" data-target="103">103</span> assets</div></div><div class="status-line"><span class="live-dot"></span>Yahoo Finance OHLCV · live scoring</div></div><div class="metric-card"><div class="metric-label">Markets</div><div class="metric-value">6</div><div class="metric-copy">Crypto · Stocks · ETF · Indices · FX · Commodities</div></div><div class="metric-card"><div class="metric-label">Scoring engine</div><div class="metric-value">Hawkeye V4</div><div class="metric-copy">Pressure · Regime · Momentum · Extension</div></div></aside></section><section class="market-strip" aria-label="Live market ticker"><div class="ticker-wrap"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>{"symbols":[{"proName":"FOREXCOM:SPXUSD","title":"S&P 500"},{"proName":"FOREXCOM:NAS100","title":"Nasdaq"},{"proName":"BITSTAMP:BTCUSD","title":"BTC/USD"},{"proName":"BITSTAMP:ETHUSD","title":"ETH/USD"},{"proName":"TVC:GOLD","title":"Gold"},{"proName":"TVC:USOIL","title":"WTI Oil"},{"proName":"FOREXCOM:EURUSD","title":"EUR/USD"},{"proName":"NASDAQ:AAPL","title":"Apple"},{"proName":"NASDAQ:NVDA","title":"NVIDIA"},{"proName":"AMEX:SPY","title":"SPY"},{"proName":"NASDAQ:QQQ","title":"QQQ"},{"proName":"TVC:DXY","title":"DXY"}],"showSymbolLogo":true,"isTransparent":true,"displayMode":"adaptive","colorTheme":"light","locale":"en"}</script></div></div></section><section id="scanner" class="scanner">
 <style>
