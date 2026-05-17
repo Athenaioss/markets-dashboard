@@ -63,7 +63,7 @@ def market_session(market: str, now: datetime | None = None) -> dict[str, str]:
             return {"state": "pre-market", "label": "Pre-market · listed markets"}
         return {"state": "closed", "label": "Closed · listed markets"}
     if key == "indices":
-        if is_weekday or utc_day == 6:
+        if is_weekday:
             return {"state": "open", "label": "Open · global/futures"}
         return {"state": "closed", "label": "Closed · weekend"}
     if key == "commodities":
