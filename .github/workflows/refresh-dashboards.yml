@@ -2,7 +2,7 @@ name: Refresh Dashboards
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # every 30 minutes
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -19,34 +19,33 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt 2>/dev/null || true
-
-      - name: Run master pipeline (all 6 dashboards + scanner)
+      - name: Run master pipeline
         run: python master_pipeline.py
         timeout-minutes: 10
 
-      - name: Deploy to gh-pages (merge with existing)
+      - name: Deploy to gh-pages
         run: |
-          # Fetch existing gh-pages or create clean orphan
-          git fetch origin gh-pages 2>/dev/null || true
-          DEPLOY_DIR=/tmp/gh-deploy
-          rm -rf "$DEPLOY_DIR"
-          mkdir -p "$DEPLOY_DIR"
+          set -e
+          DEPLOY_DIR=$(mktemp -d)
+          echo "Deploy dir: $DEPLOY_DIR"
 
-          if git show-ref --verify refs/remotes/origin/gh-pages >/dev/null 2>&1; then
-            # Clone existing gh-pages to preserve live_prices.json etc
-            git clone --branch gh-pages --depth 1 \
-              "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" \
-              "$DEPLOY_DIR" 2>&1 || true
-          fi
+          # Try to clone existing gh-pages to preserve live_prices.json
+          git clone --branch gh-pages --depth 1 \
+            "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" \
+            "$DEPLOY_DIR" 2>/dev/null || {
+            echo "No existing gh-pages branch — creating orphan"
+            cd "$DEPLOY_DIR"
+            git init
+            git checkout --orphan gh-pages
+          }
 
-          cd "$DEPLOY_DIR" 2>/dev/null || { mkdir -p "$DEPLOY_DIR" && cd "$DEPLOY_DIR" && git init && git checkout --orphan gh-pages; }
+          cd "$DEPLOY_DIR"
 
-          # Copy all generated dashboard files
+          # Copy all generated dashboard files from workspace
           for f in crypto commodities indices forex actions etf; do
-            if [ -f "$GITHUB_WORKSPACE/${f}_dashboard.html" ]; then
-              cp "$GITHUB_WORKSPACE/${f}_dashboard.html" .
+            src="$GITHUB_WORKSPACE/${f}_dashboard.html"
+            if [ -f "$src" ]; then
+              cp "$src" .
               echo "  ✅ ${f}_dashboard.html"
             fi
           done
@@ -56,8 +55,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
+          if git diff --cached --quiet; then
+            echo "No changes — skipping push"
+            exit 0
+          fi
           TS=$(date -u +%Y%m%d-%H%M%S)
-          git diff --cached --quiet && { echo "No changes"; exit 0; }
           git commit -m "dashboards: ${TS}"
-          git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" gh-pages
+          git push --force origin gh-pages
           echo "✅ Deployed to gh-pages"
