@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>💰 Atlas Nexus - ETF Dashboard</title>
@@ -81,7 +81,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 </style></head>
 <body>
 <nav class="atlas-nav" aria-label="Atlas Nexus dashboard navigation"><a class="atlas-brand" href="index.html"><span>🔮</span><span>Atlas Nexus</span></a><div class="atlas-links"><a href="index.html">Home</a><a href="crypto_dashboard.html">Crypto</a><a href="commodities_dashboard.html">Commodities</a><a href="indices_dashboard.html">Indices</a><a href="forex_dashboard.html">Forex</a><a href="actions_dashboard.html">Stocks</a><a class="active" href="etf_dashboard.html">ETF</a></div></nav>
-<div class="header">
+<div class="header"><div class="top-controls"><a href="index.html" class="back-link">Back to Dashboard</a><button class="theme-btn" id="themeToggle">Light/Dark</button></div>
 <div class="title-emoji">💰</div>
 <h1>Atlas Nexus - ETF Tracker</h1>
 <p>24 ETFs across 6 categories · Equity, Sectors, Bonds, International, Commodities & Thematic | 20260517-150801</p>
@@ -468,4 +468,5 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="footer">
 <p>💰 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260517-150801</p>
 </div>
-</div></body></html>
+</div><script>(function(){var h=document.documentElement;var b=document.getElementById("themeToggle");if(!b)return;h.setAttribute("data-theme",localStorage.getItem("atlas-theme")||"light");b.addEventListener("click",function(){var n=h.getAttribute("data-theme")==="dark"?"light":"dark";h.setAttribute("data-theme",n);localStorage.setItem("atlas-theme",n);});})();</script>
+</body></html>
