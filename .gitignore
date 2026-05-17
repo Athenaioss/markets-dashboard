@@ -2,3 +2,7 @@ __pycache__/
 output/
 *.log
 *.pyc
+
+# Generated dashboard files (deployed to gh-pages branch by CI)
+*_dashboard.html
+live_prices.json
