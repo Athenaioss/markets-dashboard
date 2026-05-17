@@ -5,41 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🪙 Atlas Nexus — Crypto Dashboard</title>
     <style>
-        :root {
-            --bg: #f8fafc; --bg-card: #ffffff; --bg-elevated: #f1f5f9;
-            --text: #0f172a; --text-dim: #64748b; --border: #e2e8f0;
-            --accent: #0284c7; --green: #16a34a; --red: #e11d48; --amber: #d97706;
-        }
-        [data-theme="dark"] {
-            --bg: #0f172a; --bg-card: #1e293b; --bg-elevated: #334155;
-            --text: #e2e8f0; --text-dim: #94a3b8; --border: #334155;
-            --accent: #38bdf8; --green: #22c55e; --red: #ef4444; --amber: #f59e0b;
-        }
-        body { background: var(--bg) !important; color: var(--text) !important; transition: background .4s ease, color .4s ease; }
-        .header { background: linear-gradient(135deg, var(--bg-card), var(--bg)) !important; border-color: var(--border) !important; }
-        .header h1 { color: var(--text) !important; }
-        .header p { color: var(--text-dim) !important; }
-        .card { background: var(--bg-card) !important; border-color: var(--border) !important; color: var(--text) !important; }
-        .card .label { color: var(--text-dim) !important; }
-        table { background: var(--bg-card) !important; }
-        th { background: var(--bg-elevated) !important; color: var(--accent) !important; }
-        td { border-bottom-color: var(--border) !important; color: var(--text) !important; }
-        tr:hover { background: var(--bg-elevated) !important; }
-        h2, h3 { color: var(--accent) !important; }
-        .badge-high { background: rgba(239,68,68,.15) !important; color: var(--red) !important; }
-        .badge-medium { background: rgba(245,158,11,.15) !important; color: var(--amber) !important; }
-        .badge-low { background: rgba(34,197,94,.15) !important; color: var(--green) !important; }
-        .badge-tier { background: rgba(56,189,248,.1) !important; color: var(--accent) !important; }
-        [data-theme="dark"] .badge-high { background: #7f1d1d !important; color: #fca5a5 !important; }
-        [data-theme="dark"] .badge-medium { background: #78350f !important; color: #fcd34d !important; }
-        [data-theme="dark"] .badge-low { background: #14532d !important; color: #86efac !important; }
-        [data-theme="dark"] .badge-tier { background: #1e3a5f !important; color: #93c5fd !important; }
-        .back-link { display: inline-flex; align-items: center; gap: 6px; margin-right: 12px; color: var(--accent); text-decoration: none; font-weight: 600; font-size: .9em; }
-        .back-link:hover { text-decoration: underline; }
-        .theme-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-dim); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: .85em; transition: all .2s; }
-        .theme-btn:hover { border-color: var(--accent); color: var(--text); }
-        .top-controls { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-        *, *::before, *::after { transition: background-color .4s ease, border-color .4s ease, color .4s ease; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0f172a; color: #e2e8f0; padding: 20px; }
         .header { text-align: center; padding: 30px; background: linear-gradient(135deg, #1e293b, #0f172a); border-radius: 12px; margin-bottom: 20px; border: 1px solid #334155; }
@@ -116,11 +81,78 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 @media(max-width:760px){.atlas-nav{align-items:flex-start;flex-direction:column;padding:12px 14px}.atlas-links{width:100%;overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;padding-bottom:3px}.atlas-links a{flex:0 0 auto}.header{width:min(100% - 22px,1240px)!important;margin:14px auto 18px!important;border-radius:24px!important}.container{width:min(100% - 22px,1240px)!important}.atlas-scroll-hint{display:block}.table-wrapper,div[style*="overflow-x"]{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}table{min-width:760px!important}.card,.stat-card{padding:17px!important}.section{grid-template-columns:1fr!important}.header h1{font-size:clamp(2rem,12vw,3.3rem)!important}}
 
 </style>
-<style>body:before{display:none!important}</style>
+<style>
+[data-theme="light"] body { background: #f8fafc !important; color: #0f172a !important; }
+[data-theme="light"] body:before { display: none !important; }
+[data-theme="light"] .atlas-nav { background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(248,250,252,.72)) !important; border-bottom-color: #e2e8f0 !important; }
+[data-theme="light"] .atlas-brand, [data-theme="light"] .atlas-links a { color: #0f172a !important; }
+[data-theme="light"] .atlas-links a { color: #475569 !important; }
+[data-theme="light"] .atlas-links a:hover, [data-theme="light"] .atlas-links a.active { color: #0f172a !important; border-color: rgba(2,132,199,.3) !important; background: rgba(2,132,199,.08) !important; }
+[data-theme="light"] .header { background: linear-gradient(135deg, #fff, #f8fafc), radial-gradient(circle at 88% 5%, rgba(2,132,199,.15), transparent 36%) !important; border-color: #e2e8f0 !important; box-shadow: 0 8px 32px rgba(0,0,0,.06), inset 0 1px 0 rgba(0,0,0,.03) !important; }
+[data-theme="light"] .header:before { opacity: .06 !important; }
+[data-theme="light"] .header h1 { background: linear-gradient(135deg, #0f172a, #0284c7, #7c3aed) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+[data-theme="light"] .header p, [data-theme="light"] .header .subtitle, [data-theme="light"] .atlas-page-subtitle { color: #475569 !important; }
+[data-theme="light"] h2, [data-theme="light"] .section-label { color: #0f172a !important; }
+[data-theme="light"] .card, [data-theme="light"] .stat-card { background: #fff !important; border-color: #e2e8f0 !important; box-shadow: 0 4px 16px rgba(0,0,0,.05), inset 0 1px 0 rgba(0,0,0,.02) !important; color: #0f172a !important; }
+[data-theme="light"] .card .label, [data-theme="light"] .stat-card .label { color: #64748b !important; }
+[data-theme="light"] .card .value, [data-theme="light"] .stat-card .value { color: #0f172a !important; }
+[data-theme="light"] table, [data-theme="light"] .table-wrapper { background: #fff !important; border-color: #e2e8f0 !important; box-shadow: 0 4px 16px rgba(0,0,0,.04) !important; }
+[data-theme="light"] th { background: #f1f5f9 !important; color: #0284c7 !important; border-bottom-color: #e2e8f0 !important; }
+[data-theme="light"] td { color: #0f172a !important; border-bottom-color: #e2e8f0 !important; }
+[data-theme="light"] td:first-child, [data-theme="light"] th:first-child { background: linear-gradient(90deg, #fff, #f8fafc) !important; }
+[data-theme="light"] tr:hover td { background: #f1f5f9 !important; }
+[data-theme="light"] td strong { color: #0f172a !important; }
+[data-theme="light"] .badge-high { background: rgba(239,68,68,.1) !important; color: #e11d48 !important; }
+[data-theme="light"] .badge-medium { background: rgba(245,158,11,.1) !important; color: #d97706 !important; }
+[data-theme="light"] .badge-low { background: rgba(34,197,94,.1) !important; color: #16a34a !important; }
+[data-theme="light"] .badge-tier { background: rgba(56,189,248,.08) !important; color: #0284c7 !important; }
+[data-theme="light"] .sentiment-banner { background: #fff !important; border-color: #e2e8f0 !important; box-shadow: inset 0 1px 0 rgba(0,0,0,.02) !important; }
+[data-theme="light"] .footer, [data-theme="light"] footer { color: #64748b !important; border-color: #e2e8f0 !important; background: #fff !important; }
+[data-theme="light"] .footer a, [data-theme="light"] footer a { color: #0284c7 !important; }
+[data-theme="light"] .live-badge { background: rgba(22,163,74,.08) !important; border-color: rgba(22,163,74,.18) !important; color: #16a34a !important; }
+[data-theme="light"] .market-state { background: rgba(241,245,249,.9) !important; border-color: rgba(0,0,0,.1) !important; color: #475569 !important; }
+[data-theme="light"] .market-state:before { background: #94a3b8 !important; }
+[data-theme="light"] .market-state-open { color: #16a34a !important; border-color: rgba(22,163,74,.2) !important; background: rgba(22,163,74,.06) !important; }
+[data-theme="light"] .market-state-open:before { background: #16a34a !important; }
+[data-theme="light"] .market-state-closed { color: #e11d48 !important; border-color: rgba(225,29,72,.2) !important; background: rgba(225,29,72,.06) !important; }
+[data-theme="light"] .market-state-closed:before { background: #e11d48 !important; }
+[data-theme="light"] .hawkeye-scanner { background: linear-gradient(135deg, #f8fafc, #f1f5ff 48%, #fffbeb) !important; border-color: rgba(2,132,199,.15) !important; box-shadow: 0 4px 20px rgba(0,0,0,.04), inset 0 1px 0 rgba(0,0,0,.03) !important; }
+[data-theme="light"] .hawkeye-scanner:before { opacity: .3 !important; }
+[data-theme="light"] .signal-card { background: #fff !important; border-color: #e2e8f0 !important; box-shadow: inset 0 1px 0 rgba(0,0,0,.02) !important; }
+[data-theme="light"] .signal-card h3 { color: #0f172a !important; }
+[data-theme="light"] .signal-row { background: rgba(0,0,0,.015) !important; border-color: #e2e8f0 !important; }
+[data-theme="light"] .signal-row:hover { background: rgba(0,0,0,.03) !important; }
+[data-theme="light"] .asset-name { color: #0f172a !important; }
+[data-theme="light"] .asset-tag { background: rgba(2,132,199,.08) !important; border-color: rgba(2,132,199,.18) !important; color: #0369a1 !important; }
+[data-theme="light"] .asset-meta { color: #64748b !important; }
+[data-theme="light"] .asset-levels span { background: rgba(0,0,0,.03) !important; border-color: rgba(0,0,0,.08) !important; color: #475569 !important; }
+[data-theme="light"] .tv-link { background: linear-gradient(135deg, rgba(2,132,199,.08), rgba(124,58,237,.06)) !important; border-color: rgba(2,132,199,.22) !important; color: #0369a1 !important; }
+[data-theme="light"] .tv-link:hover { background: linear-gradient(135deg, rgba(2,132,199,.16), rgba(124,58,237,.12)) !important; }
+[data-theme="light"] .tier-legend span { background: rgba(0,0,0,.03) !important; border-color: rgba(0,0,0,.08) !important; color: #475569 !important; }
+[data-theme="light"] .score-hot { color: #16a34a !important; background: rgba(22,163,74,.08) !important; border-color: rgba(22,163,74,.16) !important; }
+[data-theme="light"] .score-risk { color: #e11d48 !important; background: rgba(225,29,72,.08) !important; border-color: rgba(225,29,72,.16) !important; }
+[data-theme="light"] .score-warm { color: #d97706 !important; background: rgba(217,119,6,.08) !important; border-color: rgba(217,119,6,.16) !important; }
+[data-theme="light"] .score-muted { color: #475569 !important; background: rgba(71,85,105,.06) !important; border-color: rgba(71,85,105,.12) !important; }
+[data-theme="light"] .momentum-empty { background: #f8fafc !important; border-color: #e2e8f0 !important; color: #64748b !important; }
+[data-theme="light"] [style*="color:#bae6fd"] { color: #0369a1 !important; }
+[data-theme="light"] [style*="color:#c4b5fd"] { color: #7c3aed !important; }
+[data-theme="light"] [style*="color:#fbbf24"] { color: #b45309 !important; }
+[data-theme="light"] [style*="color:#fca5a5"] { color: #e11d48 !important; }
+[data-theme="light"] [style*="color:#93c5fd"] { color: #0369a1 !important; }
+[data-theme="light"] [style*="color:#86efac"] { color: #16a34a !important; }
+[data-theme="light"] [style*="color:#fcd34d"] { color: #b45309 !important; }
+.theme-btn { background: var(--atlas-panel); border: 1px solid var(--atlas-border); color: var(--atlas-muted); border-radius: 999px; padding: 6px 12px; cursor: pointer; font-size: .82em; font-weight: 800; margin-left: 6px; transition: all .2s; }
+.theme-btn:hover { border-color: var(--atlas-accent); color: var(--atlas-text); }
+[data-theme="light"] .theme-btn { background: #fff; border-color: #cbd5e1; color: #475569; }
+[data-theme="light"] .theme-btn:hover { border-color: #0284c7; color: #0f172a; }
+[data-theme="light"] .theme-icon-dark { display: inline; } [data-theme="light"] .theme-icon-light { display: none; }
+[data-theme="dark"] .theme-icon-dark { display: none; } [data-theme="dark"] .theme-icon-light { display: inline; }
+*, *::before, *::after { transition: background-color .4s ease, border-color .4s ease, color .4s ease, box-shadow .4s ease; }
+</style>
 </head>
 <body>
-<nav class="atlas-nav" aria-label="Atlas Nexus dashboard navigation"><a class="atlas-brand" href="index.html"><span>🔮</span><span>Atlas Nexus</span></a><div class="atlas-links"><a href="index.html">Home</a><a class="active" href="crypto_dashboard.html">Crypto</a><a href="commodities_dashboard.html">Commodities</a><a href="indices_dashboard.html">Indices</a><a href="forex_dashboard.html">Forex</a><a href="actions_dashboard.html">Stocks</a><a href="etf_dashboard.html">ETF</a></div></nav>
-    <div class="header"><div class="top-controls"><a href="index.html" class="back-link">Back to Dashboard</a><button class="theme-btn" id="themeToggle">Light/Dark</button></div>
+<nav class="atlas-nav" aria-label="Atlas Nexus dashboard navigation"><a class="atlas-brand" href="index.html"><span>🔮</span><span>Atlas Nexus</span></a><div class="atlas-links"><a href="index.html">Home</a><a class="active" href="crypto_dashboard.html">Crypto</a><a href="commodities_dashboard.html">Commodities</a><a href="indices_dashboard.html">Indices</a><a href="forex_dashboard.html">Forex</a><a href="actions_dashboard.html">Stocks</a><a href="etf_dashboard.html">ETF</a><button class="theme-btn" id="themeToggle" title="Toggle theme"><span class="theme-icon-light">☀️</span><span class="theme-icon-dark">🌙</span></button></div></nav>
+    <div class="header">
         <h1><span class="crypto-coin-emoji">🪙</span> Atlas Nexus — Crypto</h1>
     </div>
     
