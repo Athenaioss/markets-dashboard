@@ -91,17 +91,18 @@ def momentum_scanner_html(assets: list, top_n: int = 4, source: str = "") -> str
     return f"""
 <section class="momentum-scanner-v2 scanner hawkeye-scanner hawkeye-v4" aria-label="Hawkeye V4">
   <style>
-    .hawkeye-scanner{{margin:0 0 24px;padding:24px;border:1px solid rgba(56,189,248,.20);border-radius:28px;position:relative;overflow:hidden;text-align:left;background:linear-gradient(135deg,rgba(16,22,34,.92),rgba(18,14,33,.86) 48%,rgba(29,22,10,.76));box-shadow:0 22px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}}
-    .hawkeye-scanner:before{{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,rgba(56,189,248,.18),transparent 35%),radial-gradient(circle at 92% 14%,rgba(245,158,11,.12),transparent 28%);pointer-events:none}}.hawkeye-scanner>*{{position:relative}}
-    .scanner-head{{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}}.scanner-head h2{{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}}.scanner-sub{{margin:6px 0 0;color:var(--muted);font-size:.82rem;line-height:1.45}}
-    .scanner-head .tier-legend{{display:flex;gap:10px;flex-wrap:wrap;font-size:.74em;color:var(--muted)}}.scanner-head .tier-legend span{{padding:3px 8px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04)}}.scanner-board{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
-    .signal-card{{border:1px solid var(--atlas-border,var(--border));border-radius:22px;padding:14px;background:rgba(7,9,20,.38);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}}.signal-card h3{{margin:0 0 12px;color:var(--atlas-text,var(--text));font-size:.98rem;font-weight:950;letter-spacing:-.025em}}
-    .signal-row{{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px;border:1px solid rgba(148,163,184,.16);border-radius:16px;background:rgba(255,255,255,.035);margin-top:9px}}.signal-row:first-of-type{{margin-top:0}}.asset-name{{display:inline;font-weight:900;color:var(--atlas-text,var(--text));line-height:1.15;margin-right:6px}}
-    .asset-tag{{display:inline-flex;vertical-align:middle;padding:2px 7px;border-radius:999px;background:rgba(56,189,248,.10);border:1px solid rgba(56,189,248,.22);color:#bae6fd;font-size:.66rem;font-weight:900;text-transform:uppercase}}.asset-meta{{display:block;color:var(--atlas-muted,var(--muted));font-size:.74rem;margin-top:4px;line-height:1.35}}
-    .asset-levels{{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}}.asset-levels span{{padding:4px 7px;border-radius:999px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.16)}}.score-pill{{display:inline-flex;align-items:center;justify-content:center;min-width:58px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent}}
+    .hawkeye-scanner{{margin:0 0 24px;padding:24px;border:1px solid var(--hawkeye-border,rgba(56,189,248,.25));border-radius:28px;position:relative;overflow:hidden;text-align:left;background:var(--hawkeye-bg,linear-gradient(135deg,rgba(241,245,249,.95),rgba(248,250,252,.9) 48%,rgba(254,243,199,.5)));box-shadow:var(--atlas-shadow,0 8px 40px rgba(0,0,0,.08)),inset 0 1px 0 rgba(255,255,255,.06);transition:background .4s ease}}
+    .hawkeye-scanner:before{{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,color-mix(in srgb,var(--atlas-accent,#0284c7) 18%,transparent),transparent 35%),radial-gradient(circle at 92% 14%,color-mix(in srgb,var(--atlas-amber,#d97706) 12%,transparent),transparent 28%);pointer-events:none}}.hawkeye-scanner>*{{position:relative}}
+    .scanner-head{{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}}.scanner-head h2{{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}}.scanner-sub{{margin:6px 0 0;color:var(--atlas-muted,var(--muted));font-size:.82rem;line-height:1.45}}
+    .scanner-head .tier-legend{{display:flex;gap:10px;flex-wrap:wrap;font-size:.74em;color:var(--atlas-muted,var(--muted))}}.scanner-head .tier-legend span{{padding:3px 8px;border-radius:999px;border:1px solid var(--atlas-border);background:var(--atlas-panel-strong)}}.scanner-board{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
+    .signal-card{{border:1px solid var(--atlas-border);border-radius:22px;padding:14px;background:var(--signal-card-bg,var(--atlas-panel-strong));box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}}.signal-card h3{{margin:0 0 12px;color:var(--atlas-text,var(--text));font-size:.98rem;font-weight:950;letter-spacing:-.025em}}
+    .signal-row{{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--atlas-border);border-radius:16px;background:var(--signal-row-bg,var(--atlas-panel));margin-top:9px}}.signal-row:first-of-type{{margin-top:0}}.asset-name{{display:inline;font-weight:900;color:var(--atlas-text,var(--text));line-height:1.15;margin-right:6px}}
+    .asset-tag{{display:inline-flex;vertical-align:middle;padding:2px 7px;border-radius:999px;background:color-mix(in srgb,var(--atlas-accent,#0284c7) 10%,transparent);border:1px solid color-mix(in srgb,var(--atlas-accent,#0284c7) 22%,transparent);color:var(--atlas-accent,#0284c7);font-size:.66rem;font-weight:900;text-transform:uppercase}}.asset-meta{{display:block;color:var(--atlas-muted,var(--muted));font-size:.74rem;margin-top:4px;line-height:1.35}}
+    .asset-levels{{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}}.asset-levels span{{padding:4px 7px;border-radius:999px;background:var(--atlas-panel-strong);border:1px solid var(--atlas-border);color:var(--atlas-muted)}}
+    .score-pill{{display:inline-flex;align-items:center;justify-content:center;min-width:58px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent;color:var(--atlas-text)}}
     {MARKET_STATE_CSS}
     {TV_LINK_CSS}
-    .score-hot{{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}}.score-risk{{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}}.score-warm{{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}}.score-muted{{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}}.momentum-empty{{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}}
+    .score-hot{{color:var(--atlas-green);background:color-mix(in srgb,var(--atlas-green) 13%,transparent);border-color:color-mix(in srgb,var(--atlas-green) 22%,transparent)}}.score-risk{{color:var(--atlas-red);background:color-mix(in srgb,var(--atlas-red) 12%,transparent);border-color:color-mix(in srgb,var(--atlas-red) 22%,transparent)}}.score-warm{{color:var(--atlas-amber);background:color-mix(in srgb,var(--atlas-amber) 14%,transparent);border-color:color-mix(in srgb,var(--atlas-amber) 22%,transparent)}}.score-muted{{color:var(--atlas-muted);background:var(--atlas-panel-strong);border-color:var(--atlas-border)}}.momentum-empty{{padding:16px;border:1px dashed var(--atlas-border);border-radius:18px;color:var(--atlas-muted,var(--muted));background:var(--atlas-panel-strong)}}
     @media(max-width:860px){{.scanner-head{{display:block}}.scanner-board{{grid-template-columns:1fr}}}}@media(max-width:520px){{.hawkeye-scanner{{padding:16px;border-radius:22px}}.signal-row{{display:block}}.signal-row>div:last-child{{text-align:left!important;margin-top:10px}}}}
   </style>
   <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension. Market state: {header_state}</p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ {extreme} · 🦅 {strong} · 👁️ {active}</span></div></div>
@@ -114,10 +115,7 @@ def hawk_eye_html(assets: list, top_n: int = 4, source: str = "") -> str:
 
 
 def back_to_dashboard_html() -> str:
-    return """
-<div style="margin-top:28px;text-align:center">
-  <a href="index.html" style="display:inline-block;padding:12px 24px;border:1px solid var(--border);border-radius:12px;color:var(--muted);text-decoration:none;font-size:.88em;font-weight:700;transition:all .15s">← Retour Dashboard</a>
-</div>"""
+    return ""  # Removed per user request — nav already has Home link
 
 
 def unusual_activity_html(assets: list) -> str:
@@ -144,19 +142,19 @@ def unusual_activity_html(assets: list) -> str:
     return f"""
 <section class="unusual-activity">
 <style>
-.unusual-activity{{position:relative;overflow:hidden;margin:0 0 24px;padding:20px;border:1px solid rgba(245,158,11,.26);border-radius:26px;background:linear-gradient(135deg,rgba(245,158,11,.13),rgba(15,23,42,.72) 52%,rgba(239,68,68,.08));box-shadow:0 22px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}}
-.unusual-activity:before{{content:"";position:absolute;right:-80px;top:-95px;width:230px;height:230px;border-radius:999px;background:radial-gradient(circle,rgba(245,158,11,.20),transparent 62%);pointer-events:none}}
+.unusual-activity{{position:relative;overflow:hidden;margin:0 0 24px;padding:20px;border:1px solid var(--unusual-border,rgba(245,158,11,.26));border-radius:26px;background:var(--unusual-bg,linear-gradient(135deg,rgba(245,158,11,.08),rgba(255,255,255,.9) 52%,rgba(239,68,68,.04)));box-shadow:var(--atlas-shadow,0 8px 40px rgba(0,0,0,.08)),inset 0 1px 0 rgba(255,255,255,.06);transition:background .4s ease}}
+.unusual-activity:before{{content:"";position:absolute;right:-80px;top:-95px;width:230px;height:230px;border-radius:999px;background:radial-gradient(circle,var(--atlas-amber,rgba(245,158,11,.20)),transparent 62%);pointer-events:none}}
 .unusual-activity>*{{position:relative}}
 .unusual-head{{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}}
 .unusual-head h2{{margin:0!important;color:var(--atlas-text,var(--text))!important;font-size:1.08rem!important;font-weight:950!important;letter-spacing:-.035em!important}}
 .unusual-head p{{margin:6px 0 0;color:var(--atlas-muted,var(--muted));font-size:.83rem;line-height:1.45}}
-.unusual-count{{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border-radius:14px;border:1px solid rgba(245,158,11,.28);background:rgba(245,158,11,.12);color:#fde68a;font-weight:950}}
+.unusual-count{{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border-radius:14px;border:1px solid var(--atlas-amber,rgba(245,158,11,.28));background:color-mix(in srgb,var(--atlas-amber,#d97706) 14%,transparent);color:var(--atlas-amber,#d97706);font-weight:950}}
 .unusual-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}}
-.unusual-card{{display:flex;flex-direction:column;gap:10px;padding:13px;border:1px solid rgba(148,163,184,.16);border-radius:18px;background:rgba(7,9,20,.38)}}
+.unusual-card{{display:flex;flex-direction:column;gap:10px;padding:13px;border:1px solid var(--atlas-border);border-radius:18px;background:var(--unusual-card-bg,var(--atlas-panel-strong))}}
 .unusual-main strong{{display:block;color:var(--atlas-text,var(--text));font-weight:950;line-height:1.15}}
 .unusual-main small{{display:block;margin-top:4px;color:var(--atlas-muted,var(--muted));font-size:.72rem;line-height:1.35}}
 .unusual-flags{{display:flex;gap:6px;flex-wrap:wrap}}
-.unusual-flags span{{padding:4px 7px;border-radius:999px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.20);color:#fde68a;font-size:.70rem;font-weight:850;white-space:nowrap}}
+.unusual-flags span{{padding:4px 7px;border-radius:999px;background:color-mix(in srgb,var(--atlas-amber,#d97706) 14%,transparent);border:1px solid color-mix(in srgb,var(--atlas-amber,#d97706) 24%,transparent);color:var(--atlas-amber,#d97706);font-size:.70rem;font-weight:850;white-space:nowrap}}
 @media(max-width:560px){{.unusual-head{{display:block}}.unusual-count{{margin-top:10px}}}}
 </style>
 <div class="unusual-head"><div><h2>🚨 Unusual market pressure</h2><p>Extension, volatility or RSI readings that deserve manual chart inspection.</p></div><div class="unusual-count">{len(alerts[:6])}</div></div>
