@@ -65,15 +65,15 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 .market-state:before{content:"";width:6px;height:6px;border-radius:999px;background:#94a3b8;box-shadow:0 0 12px rgba(148,163,184,.65)}
 .market-state-open{color:#bbf7d0;border-color:rgba(34,197,94,.24);background:rgba(34,197,94,.09)}
 .market-state-open:before{background:#22c55e;box-shadow:0 0 14px rgba(34,197,94,.9)}
-.market-state-clos{color:#fde68a;border-color:rgba(245,158,11,.26);background:rgba(245,158,11,.09)}
-.market-state-clos:before{background:#f59e0b;box-shadow:0 0 14px rgba(245,158,11,.85)}
+.market-state-pre-market{color:#fde68a;border-color:rgba(245,158,11,.26);background:rgba(245,158,11,.09)}
+.market-state-pre-market:before{background:#f59e0b;box-shadow:0 0 14px rgba(245,158,11,.85)}
 .market-state-closed{color:#fecaca;border-color:rgba(251,113,133,.26);background:rgba(251,113,133,.09)}
 .market-state-closed:before{background:#fb7185;box-shadow:0 0 14px rgba(251,113,133,.85)}
 </style>
 <div class="scanner-head">
 <div>
 <h2>🦅 Hawkeye V4 — Market Pressure Radar</h2>
-<p class="scanner-sub">Top bullish and bearish assets ranked by composite pressure score — built for quick manual chart inspection. Each slot shows indicative market state: Ouvert, Clos, or Fermé.</p>
+<p class="scanner-sub">Top bullish and bearish assets ranked by composite pressure score — built for quick manual chart inspection. Each slot shows indicative market state: Open, Closed, or Pre-market.</p>
 <div class="scanner-quicklegend"><span>60–74 Active</span><span>75+ Strong</span><span>90+ Extreme</span><span>Chart ↗ opens TradingView</span></div>
 </div>
 <div class="scanner-score"><div class="num">103</div><div class="label">assets scanned</div></div>
@@ -86,7 +86,7 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-meta">actions · uptrend · bullish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ $888.31</span>
-<span class="market-state market-state-closed" data-market="stocks" data-market-state>Fermé · US</span>
+<span class="market-state market-state-closed" data-market="stocks" data-market-state>Closed · US</span>
 <a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ACAT" target="_blank" rel="noopener noreferrer" title="Open NYSE:CAT on TradingView">Chart ↗</a>
 
 </span>
@@ -103,7 +103,7 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-meta">etf · uptrend · bullish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ $59.44</span>
-<span class="market-state market-state-closed" data-market="etf" data-market-state>Fermé · US</span>
+<span class="market-state market-state-closed" data-market="etf" data-market-state>Closed · US</span>
 <a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AMEX%3AXLE" target="_blank" rel="noopener noreferrer" title="Open AMEX:XLE on TradingView">Chart ↗</a>
 
 </span>
@@ -120,7 +120,7 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-meta">actions · uptrend · bullish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ $131.45</span>
-<span class="market-state market-state-closed" data-market="stocks" data-market-state>Fermé · US</span>
+<span class="market-state market-state-closed" data-market="stocks" data-market-state>Closed · US</span>
 <a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AWMT" target="_blank" rel="noopener noreferrer" title="Open NYSE:WMT on TradingView">Chart ↗</a>
 
 </span>
@@ -137,7 +137,7 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-meta">etf · uptrend · bullish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ $65.07</span>
-<span class="market-state market-state-closed" data-market="etf" data-market-state>Fermé · US</span>
+<span class="market-state market-state-closed" data-market="etf" data-market-state>Closed · US</span>
 <a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EEM" target="_blank" rel="noopener noreferrer" title="Open EEM on TradingView">Chart ↗</a>
 
 </span>
@@ -154,7 +154,7 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-meta">indices · uptrend · bullish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ 61,409.29 pts</span>
-<span class="market-state market-state-open" data-market="indices" data-market-state>Ouvert · global/futures</span>
+<span class="market-state market-state-open" data-market="indices" data-market-state>Open · global/futures</span>
 <a class="tv-link" href="https://www.tradingview.com/chart/?symbol=TSE%3ANI225" target="_blank" rel="noopener noreferrer" title="Open TSE:NI225 on TradingView">Chart ↗</a>
 
 </span>
@@ -171,7 +171,7 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-meta">actions · uptrend · breakout pressure · extension warning</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ $225.32</span>
-<span class="market-state market-state-closed" data-market="stocks" data-market-state>Fermé · US</span>
+<span class="market-state market-state-closed" data-market="stocks" data-market-state>Closed · US</span>
 <a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3ANVDA" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:NVDA on TradingView">Chart ↗</a>
 
 </span>
@@ -188,7 +188,7 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-meta">commodities · uptrend · bullish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ $14.78/USD/lb</span>
-<span class="market-state market-state-closed" data-market="commodities" data-market-state>Fermé · CFD</span>
+<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
 <a class="tv-link" href="https://www.tradingview.com/chart/?symbol=ICEUS%3ASB1%21" target="_blank" rel="noopener noreferrer" title="Open ICEUS:SB1! on TradingView">Chart ↗</a>
 
 </span>
@@ -206,7 +206,7 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-meta">etf · downtrend · bearish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ $417.29</span>
-<span class="market-state market-state-closed" data-market="etf" data-market-state>Fermé · US</span>
+<span class="market-state market-state-closed" data-market="etf" data-market-state>Closed · US</span>
 <a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AMEX%3AGLD" target="_blank" rel="noopener noreferrer" title="Open AMEX:GLD on TradingView">Chart ↗</a>
 
 </span>
@@ -223,7 +223,7 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-meta">actions · downtrend · bearish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ €1,575.50</span>
-<span class="market-state market-state-closed" data-market="stocks" data-market-state>Fermé · US</span>
+<span class="market-state market-state-closed" data-market="stocks" data-market-state>Closed · US</span>
 <a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EURONEXT%3ARMS" target="_blank" rel="noopener noreferrer" title="Open EURONEXT:RMS on TradingView">Chart ↗</a>
 
 </span>
@@ -240,7 +240,7 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-meta">etf · downtrend · breakdown pressure · extension warning</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ $107.86</span>
-<span class="market-state market-state-closed" data-market="etf" data-market-state>Fermé · US</span>
+<span class="market-state market-state-closed" data-market="etf" data-market-state>Closed · US</span>
 <a class="tv-link" href="https://www.tradingview.com/chart/?symbol=LQD" target="_blank" rel="noopener noreferrer" title="Open LQD on TradingView">Chart ↗</a>
 
 </span>
@@ -257,7 +257,7 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-meta">commodities · downtrend · bearish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ $4,561.90/USD/oz</span>
-<span class="market-state market-state-closed" data-market="commodities" data-market-state>Fermé · CFD</span>
+<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
 <a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3AGC1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:GC1! on TradingView">Chart ↗</a>
 
 </span>
@@ -274,7 +274,7 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-meta">actions · downtrend · bearish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ €455.60</span>
-<span class="market-state market-state-closed" data-market="stocks" data-market-state>Fermé · US</span>
+<span class="market-state market-state-closed" data-market="stocks" data-market-state>Closed · US</span>
 <a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EURONEXT%3AMC" target="_blank" rel="noopener noreferrer" title="Open EURONEXT:MC on TradingView">Chart ↗</a>
 
 </span>
@@ -291,7 +291,7 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-meta">commodities · downtrend · breakdown pressure · extension warning</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ $1,426.30/USD/oz</span>
-<span class="market-state market-state-closed" data-market="commodities" data-market-state>Fermé · CFD</span>
+<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
 <a class="tv-link" href="https://www.tradingview.com/chart/?symbol=PA%3DF" target="_blank" rel="noopener noreferrer" title="Open PA=F on TradingView">Chart ↗</a>
 
 </span>
@@ -308,7 +308,7 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span class="asset-meta">indices · downtrend · bearish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ 7,952.55 pts</span>
-<span class="market-state market-state-open" data-market="indices" data-market-state>Ouvert · global/futures</span>
+<span class="market-state market-state-open" data-market="indices" data-market-state>Open · global/futures</span>
 <a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EURONEXT%3APX1" target="_blank" rel="noopener noreferrer" title="Open EURONEXT:PX1 on TradingView">Chart ↗</a>
 
 </span>
@@ -323,7 +323,7 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 </div>
 <div class="legend">
 <span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90-100 Extreme pressure</span>
-<span class="demo-tag">Updated 17/05/2026 15:01 CEST</span>
+<span class="demo-tag">Updated 17/05/2026 15:07 CEST</span>
 </div>
 </section><section id="dashboards" aria-label="Live dashboards"><div class="section-head"><div><div class="section-label">Live Dashboards</div><div class="section-kicker">Six live boards, refreshed for the current market context.</div></div></div><div class="grid"><a href="crypto_dashboard.html" class="panel crypto" data-market="crypto"><div class="emoji">🪙</div><h2>Crypto</h2><div class="desc">BTC, ETH, SOL & liquid majors · 24/7 momentum</div><span class="count">24/7 market</span><span class="session-led open" data-session-label>OPEN · 24/7</span></a><a href="commodities_dashboard.html" class="panel commodities" data-market="commodities"><div class="emoji">🛢️</div><h2>Commodities</h2><div class="desc">Gold, Silver, Oil, Copper, Grains · CFD/extended context</div><span class="count">15 assets</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="indices_dashboard.html" class="panel indices" data-market="indices"><div class="emoji">🌍</div><h2>Indices</h2><div class="desc">S&P 500, Nasdaq, DAX, CAC, Nikkei · global risk pulse</div><span class="count">16 indices</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="forex_dashboard.html" class="panel forex" data-market="forex"><div class="emoji">💱</div><h2>Forex</h2><div class="desc">EURUSD, GBPJPY, AUDUSD · majors, crosses and exotics</div><span class="count">19 pairs</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="actions_dashboard.html" class="panel actions" data-market="stocks"><div class="emoji">🏛️</div><h2>Stocks</h2><div class="desc">Mega-cap tech, luxury, banks, defensives · equity momentum</div><span class="count">30 stocks</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="etf_dashboard.html" class="panel etf" data-market="etf"><div class="emoji">💼</div><h2>ETF</h2><div class="desc">SPY, QQQ, GLD, TLT, ARKK · themes and cross-asset exposure</div><span class="count">24 ETFs</span><span class="session-led soon" data-session-label>SESSION</span></a></div></section><footer><p>🔮 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance + TradingView · Open source</p><p><a href="https://github.com/AtlasNexusOps/markets-dashboard">github.com/AtlasNexusOps/markets-dashboard</a></p></footer><script>
 (() => {

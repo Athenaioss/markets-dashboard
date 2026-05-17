@@ -172,7 +172,7 @@ def main(run_id: str | None = None):
 <div class="scanner-head">
 <div>
 <h2>🦅 Hawkeye V4 — Market Pressure Radar</h2>
-<p class="scanner-sub">Top bullish and bearish assets ranked by composite pressure score — built for quick manual chart inspection. Each slot shows indicative market state: Ouvert, Clos, or Fermé.</p>
+<p class="scanner-sub">Top bullish and bearish assets ranked by composite pressure score — built for quick manual chart inspection. Each slot shows indicative market state: Open, Closed, or Pre-market.</p>
 <div class="scanner-quicklegend"><span>60–74 Active</span><span>75+ Strong</span><span>90+ Extreme</span><span>Chart ↗ opens TradingView</span></div>
 </div>
 <div class="scanner-score"><div class="num">{len(analyses)}</div><div class="label">assets scanned</div></div>

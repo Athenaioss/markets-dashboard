@@ -88,7 +88,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header">
 <div class="title-emoji">🛢️</div>
 <h1>Atlas Nexus — Commodities</h1>
-<p>Real-time commodity futures tracking · Gold, Oil, Copper, Grains, Softs | 20260517-150016</p>
+<p>Real-time commodity futures tracking · Gold, Oil, Copper, Grains, Softs | 20260517-150724</p>
 </div>
 <div class="container">
 <div class="stats-grid">
@@ -122,8 +122,8 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 .market-state:before{content:"";width:6px;height:6px;border-radius:999px;background:#94a3b8;box-shadow:0 0 12px rgba(148,163,184,.65)}
 .market-state-open{color:#bbf7d0;border-color:rgba(34,197,94,.24);background:rgba(34,197,94,.09)}
 .market-state-open:before{background:#22c55e;box-shadow:0 0 14px rgba(34,197,94,.9)}
-.market-state-clos{color:#fde68a;border-color:rgba(245,158,11,.26);background:rgba(245,158,11,.09)}
-.market-state-clos:before{background:#f59e0b;box-shadow:0 0 14px rgba(245,158,11,.85)}
+.market-state-pre-market{color:#fde68a;border-color:rgba(245,158,11,.26);background:rgba(245,158,11,.09)}
+.market-state-pre-market:before{background:#f59e0b;box-shadow:0 0 14px rgba(245,158,11,.85)}
 .market-state-closed{color:#fecaca;border-color:rgba(251,113,133,.26);background:rgba(251,113,133,.09)}
 .market-state-closed:before{background:#fb7185;box-shadow:0 0 14px rgba(251,113,133,.85)}
 
@@ -132,7 +132,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     .score-hot{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}.score-risk{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}.score-warm{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}.score-muted{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}.momentum-empty{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}
     @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}}@media(max-width:520px){.hawkeye-scanner{padding:16px;border-radius:22px}.signal-row{display:block}.signal-row>div:last-child{text-align:left!important;margin-top:10px}}
   </style>
-  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension. Market state: <span class="market-state market-state-closed" data-market="commodities" data-market-state>Fermé · CFD</span></p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ 0 · 🦅 0 · 👁️ 6</span></div></div>
+  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension. Market state: <span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span></p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ 0 · 🦅 0 · 👁️ 6</span></div></div>
   <div class="scanner-board hawk-board"><div class="signal-card"><h3>📈 Bullish pressure (4)</h3><div class="signal-row hawk-row">
 <div>
 <span class="asset-name">Sugar</span>
@@ -140,7 +140,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-meta">commodities · uptrend · bullish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">Reference price $14.78/USD/lb</span>
-<span class="market-state market-state-closed" data-market="commodities" data-market-state>Fermé · CFD</span>
+<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
 <span style="color:#c4b5fd">nROC5 +0.09</span>
 <span style="color:#fbbf24">RSI 62</span>
 <span style="color:#fca5a5">Ext 0.2 ATR</span>
@@ -161,7 +161,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-meta">commodities · uptrend · bullish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">Reference price $635.75/USD/bushel</span>
-<span class="market-state market-state-closed" data-market="commodities" data-market-state>Fermé · CFD</span>
+<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
 <span style="color:#c4b5fd">nROC5 +0.70</span>
 <span style="color:#fbbf24">RSI 54</span>
 <span style="color:#fca5a5">Ext 0.6 ATR</span>
@@ -182,7 +182,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-meta">commodities · uptrend · bullish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">Reference price $101.02/USD/barrel</span>
-<span class="market-state market-state-closed" data-market="commodities" data-market-state>Fermé · CFD</span>
+<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
 <span style="color:#c4b5fd">nROC5 +0.41</span>
 <span style="color:#fbbf24">RSI 56</span>
 <span style="color:#fca5a5">Ext 0.3 ATR</span>
@@ -203,7 +203,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-meta">commodities · uptrend · bullish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">Reference price $109.26/USD/barrel</span>
-<span class="market-state market-state-closed" data-market="commodities" data-market-state>Fermé · CFD</span>
+<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
 <span style="color:#c4b5fd">nROC5 +0.57</span>
 <span style="color:#fbbf24">RSI 51</span>
 <span style="color:#fca5a5">Ext 0.6 ATR</span>
@@ -224,7 +224,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-meta">commodities · downtrend · bearish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">Reference price $4,561.90/USD/oz</span>
-<span class="market-state market-state-closed" data-market="commodities" data-market-state>Fermé · CFD</span>
+<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
 <span style="color:#c4b5fd">nROC5 -0.88</span>
 <span style="color:#fbbf24">RSI 42</span>
 <span style="color:#fca5a5">Ext 1.4 ATR</span>
@@ -245,7 +245,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-meta">commodities · downtrend · breakdown pressure · extension warning</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">Reference price $1,426.30/USD/oz</span>
-<span class="market-state market-state-closed" data-market="commodities" data-market-state>Fermé · CFD</span>
+<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
 <span style="color:#c4b5fd">nROC5 -0.62</span>
 <span style="color:#fbbf24">RSI 45</span>
 <span style="color:#fca5a5">Ext 1.9 ATR</span>
@@ -424,5 +424,5 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div style="margin-top:28px;text-align:center">
   <a href="index.html" style="display:inline-block;padding:12px 24px;border:1px solid var(--border);border-radius:12px;color:var(--muted);text-decoration:none;font-size:.88em;font-weight:700;transition:all .15s">← Retour Dashboard</a>
 </div>
-<div class="footer"><p>🛢️ Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260517-150016</p></div>
+<div class="footer"><p>🛢️ Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260517-150724</p></div>
 </div></body></html>

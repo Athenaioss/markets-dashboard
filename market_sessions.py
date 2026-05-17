@@ -40,9 +40,9 @@ def market_session(market: str, now: datetime | None = None) -> dict[str, str]:
     """Return compact indicative session state for a market family.
 
     States:
-    - open: market is open / 24-7 / futures-global session active
-    - clos: cash market is closed but an extended/CFD context may exist
-    - closed: market is closed for the weekend or unavailable window
+    - open: regular/open market or continuous market is active.
+    - pre-market: regular cash market is not open yet, but pre-market / extended context exists.
+    - closed: market is outside the useful session window.
     """
     now = now or datetime.now(timezone.utc)
     key = {"actions": "stocks", "stock": "stocks", "fx": "forex"}.get((market or "").lower(), (market or "").lower())
@@ -51,24 +51,25 @@ def market_session(market: str, now: datetime | None = None) -> dict[str, str]:
     utc_day = now.astimezone(timezone.utc).weekday()
 
     if key == "crypto":
-        return {"state": "open", "label": "Ouvert · 24/7"}
+        return {"state": "open", "label": "Open · 24/7"}
     if key == "forex":
-        return {"state": "open", "label": "Ouvert · FX"} if _forex_open(now) else {"state": "closed", "label": "Fermé · FX"}
+        return {"state": "open", "label": "Open · FX"} if _forex_open(now) else {"state": "closed", "label": "Closed · FX"}
     if key in {"stocks", "etf"}:
+        # US cash session: 14:30–21:00 UTC. Pre-market: 09:00–14:30 UTC.
         if is_weekday and _in_range(minutes, 14 * 60 + 30, 21 * 60):
-            return {"state": "open", "label": "Ouvert · US cash"}
-        if is_weekday and (_in_range(minutes, 9 * 60, 14 * 60 + 30) or _in_range(minutes, 21 * 60, 24 * 60)):
-            return {"state": "clos", "label": "Clos · hors séance"}
-        return {"state": "closed", "label": "Fermé · US"}
+            return {"state": "open", "label": "Open · US cash"}
+        if is_weekday and _in_range(minutes, 9 * 60, 14 * 60 + 30):
+            return {"state": "pre-market", "label": "Pre-market · US"}
+        return {"state": "closed", "label": "Closed · US"}
     if key == "indices":
         if is_weekday or utc_day == 6:
-            return {"state": "open", "label": "Ouvert · global/futures"}
-        return {"state": "closed", "label": "Fermé · weekend"}
+            return {"state": "open", "label": "Open · global/futures"}
+        return {"state": "closed", "label": "Closed · weekend"}
     if key == "commodities":
         if _forex_open(now):
-            return {"state": "clos", "label": "Clos · CFD/extended"}
-        return {"state": "closed", "label": "Fermé · CFD"}
-    return {"state": "closed", "label": "Fermé"}
+            return {"state": "open", "label": "Open · futures/CFD"}
+        return {"state": "closed", "label": "Closed · futures/CFD"}
+    return {"state": "closed", "label": "Closed"}
 
 
 def market_session_badge(market: str, now: datetime | None = None, *, attr: str = "data-market-state") -> str:
@@ -84,8 +85,8 @@ MARKET_STATE_CSS = """
 .market-state:before{content:"";width:6px;height:6px;border-radius:999px;background:#94a3b8;box-shadow:0 0 12px rgba(148,163,184,.65)}
 .market-state-open{color:#bbf7d0;border-color:rgba(34,197,94,.24);background:rgba(34,197,94,.09)}
 .market-state-open:before{background:#22c55e;box-shadow:0 0 14px rgba(34,197,94,.9)}
-.market-state-clos{color:#fde68a;border-color:rgba(245,158,11,.26);background:rgba(245,158,11,.09)}
-.market-state-clos:before{background:#f59e0b;box-shadow:0 0 14px rgba(245,158,11,.85)}
+.market-state-pre-market{color:#fde68a;border-color:rgba(245,158,11,.26);background:rgba(245,158,11,.09)}
+.market-state-pre-market:before{background:#f59e0b;box-shadow:0 0 14px rgba(245,158,11,.85)}
 .market-state-closed{color:#fecaca;border-color:rgba(251,113,133,.26);background:rgba(251,113,133,.09)}
 .market-state-closed:before{background:#fb7185;box-shadow:0 0 14px rgba(251,113,133,.85)}
 """
