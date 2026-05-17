@@ -120,9 +120,11 @@ def degraded_card(rows: list[dict]) -> str:
 
 
 def main(run_id: str | None = None):
-    generated_at = datetime.now().astimezone()
+    from datetime import timezone, timedelta
+    cest = timezone(timedelta(hours=2))
+    generated_at = datetime.now(cest)
     NOW = generated_at.strftime("%Y%m%d-%H%M%S")
-    UPDATED_AT_LABEL = generated_at.strftime("%d/%m/%Y %H:%M %Z")
+    UPDATED_AT_LABEL = generated_at.strftime("%d/%m/%Y %H:%M CEST")
     run_id = run_id or NOW
     print("🦅 Hawkeye V4 — Market Pressure Radar")
     print("-" * 50)
