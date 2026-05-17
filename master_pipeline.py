@@ -97,6 +97,8 @@ h1{{font-size:3em;font-weight:800;background:linear-gradient(135deg,#38bdf8,#818
 .footer{{margin-top:40px;color:var(--muted);font-size:.85em}}
 @media(max-width:800px){{.grid{{grid-template-columns:repeat(2,1fr)}}}}
 @media(max-width:500px){{.grid{{grid-template-columns:1fr}}}}
+/* ATLAS_REMOVE_DASHBOARD_CARD_ORBS_20260517 */
+.panel:before,.panel:hover:before{{display:none!important;content:none!important;background:none!important;box-shadow:none!important;filter:none!important}}
 </style></head>
 <body>
 <div class="container">
