@@ -14,6 +14,7 @@ from datetime import datetime
 from html import escape
 
 from hawkeye_core import analyze_assets, safe_price
+from market_sessions import MARKET_STATE_CSS, market_session_badge
 from tradingview_links import TV_LINK_CSS, tradingview_link
 
 OUTPUT_DIR = Path("output")
@@ -76,6 +77,7 @@ def row_html(a: dict) -> str:
 <span class="asset-meta">{escape(a.get('source',''))} · {escape(a['regime'])} · {escape(a['signal_family'])}{warning}</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">🎟️ {escape(a['price_label'])}</span>
+{market_session_badge(market)}
 {tradingview_link(a.get("symbol"), a.get("source", ""))}
 {rel}
 </span>
@@ -166,10 +168,11 @@ def main(run_id: str | None = None):
 
     scanner_html = f"""<!-- 🦅 Hawkeye V4 — run_id:{escape(run_id)} — {NOW} -->
 <section id="scanner" class="scanner hawkeye-v4" data-run-id="{escape(run_id)}">
+<style>{MARKET_STATE_CSS}</style>
 <div class="scanner-head">
 <div>
 <h2>🦅 Hawkeye V4 — Market Pressure Radar</h2>
-<p class="scanner-sub">Top bullish and bearish assets ranked by composite pressure score — built for quick manual chart inspection.</p>
+<p class="scanner-sub">Top bullish and bearish assets ranked by composite pressure score — built for quick manual chart inspection. Each slot shows indicative market state: Ouvert, Clos, or Fermé.</p>
 <div class="scanner-quicklegend"><span>60–74 Active</span><span>75+ Strong</span><span>90+ Extreme</span><span>Chart ↗ opens TradingView</span></div>
 </div>
 <div class="scanner-score"><div class="num">{len(analyses)}</div><div class="label">assets scanned</div></div>

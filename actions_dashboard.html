@@ -84,7 +84,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header">
 <div class="title-emoji">📊</div>
 <h1>Atlas Nexus - Global Stocks</h1>
-<p>30 major stocks across 7 sectors · Technology, Finance, Healthcare, Consumer, Industrial, Energy, Luxury | 20260517-144546</p>
+<p>30 major stocks across 7 sectors · Technology, Finance, Healthcare, Consumer, Industrial, Energy, Luxury | 20260517-145325</p>
 </div>
 <div class="container">
 <div class="stats-grid">
@@ -112,12 +112,22 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
     .signal-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px;border:1px solid rgba(148,163,184,.16);border-radius:16px;background:rgba(255,255,255,.035);margin-top:9px}.signal-row:first-of-type{margin-top:0}.asset-name{display:inline;font-weight:900;color:var(--atlas-text,var(--text));line-height:1.15;margin-right:6px}
     .asset-tag{display:inline-flex;vertical-align:middle;padding:2px 7px;border-radius:999px;background:rgba(56,189,248,.10);border:1px solid rgba(56,189,248,.22);color:#bae6fd;font-size:.66rem;font-weight:900;text-transform:uppercase}.asset-meta{display:block;color:var(--atlas-muted,var(--muted));font-size:.74rem;margin-top:4px;line-height:1.35}
     .asset-levels{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}.asset-levels span{padding:4px 7px;border-radius:999px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.16)}.score-pill{display:inline-flex;align-items:center;justify-content:center;min-width:58px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent}
+    
+.market-state{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:999px;border:1px solid rgba(148,163,184,.18);background:rgba(15,23,42,.56);font-size:.72rem;font-weight:950;text-transform:uppercase;letter-spacing:.035em;white-space:nowrap}
+.market-state:before{content:"";width:6px;height:6px;border-radius:999px;background:#94a3b8;box-shadow:0 0 12px rgba(148,163,184,.65)}
+.market-state-open{color:#bbf7d0;border-color:rgba(34,197,94,.24);background:rgba(34,197,94,.09)}
+.market-state-open:before{background:#22c55e;box-shadow:0 0 14px rgba(34,197,94,.9)}
+.market-state-clos{color:#fde68a;border-color:rgba(245,158,11,.26);background:rgba(245,158,11,.09)}
+.market-state-clos:before{background:#f59e0b;box-shadow:0 0 14px rgba(245,158,11,.85)}
+.market-state-closed{color:#fecaca;border-color:rgba(251,113,133,.26);background:rgba(251,113,133,.09)}
+.market-state-closed:before{background:#fb7185;box-shadow:0 0 14px rgba(251,113,133,.85)}
+
     .tv-link{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:5px 10px;border-radius:999px;border:1px solid rgba(56,189,248,.32);background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(124,92,255,.12));color:#d9f3ff!important;text-decoration:none;font-size:.76rem;font-weight:950;white-space:nowrap;transition:all .16s;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
 .tv-link:hover{background:linear-gradient(135deg,rgba(56,189,248,.24),rgba(124,92,255,.20));border-color:rgba(56,189,248,.58);transform:translateY(-1px);box-shadow:0 8px 24px rgba(56,189,248,.12),inset 0 1px 0 rgba(255,255,255,.10)}
     .score-hot{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}.score-risk{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}.score-warm{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}.score-muted{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}.momentum-empty{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}
     @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}}@media(max-width:520px){.hawkeye-scanner{padding:16px;border-radius:22px}.signal-row{display:block}.signal-row>div:last-child{text-align:left!important;margin-top:10px}}
   </style>
-  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension.</p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ 0 · 🦅 0 · 👁️ 9</span></div></div>
+  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension. Market state: <span class="market-state market-state-closed" data-market="stocks" data-market-state>Fermé · US</span></p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ 0 · 🦅 0 · 👁️ 9</span></div></div>
   <div class="scanner-board hawk-board"><div class="signal-card"><h3>📈 Bullish pressure (4)</h3><div class="signal-row hawk-row">
 <div>
 <span class="asset-name">Caterpillar</span>
@@ -125,6 +135,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-meta">actions · uptrend · bullish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">Reference price $888.31</span>
+<span class="market-state market-state-closed" data-market="stocks" data-market-state>Fermé · US</span>
 <span style="color:#c4b5fd">nROC5 -0.13</span>
 <span style="color:#fbbf24">RSI 60</span>
 <span style="color:#fca5a5">Ext 0.6 ATR</span>
@@ -145,6 +156,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-meta">actions · uptrend · bullish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">Reference price $131.45</span>
+<span class="market-state market-state-closed" data-market="stocks" data-market-state>Fermé · US</span>
 <span style="color:#c4b5fd">nROC5 +0.17</span>
 <span style="color:#fbbf24">RSI 62</span>
 <span style="color:#fca5a5">Ext 0.7 ATR</span>
@@ -165,6 +177,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-meta">actions · uptrend · breakout pressure · extension warning</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">Reference price $225.32</span>
+<span class="market-state market-state-closed" data-market="stocks" data-market-state>Fermé · US</span>
 <span style="color:#c4b5fd">nROC5 +0.58</span>
 <span style="color:#fbbf24">RSI 56</span>
 <span style="color:#fca5a5">Ext 1.7 ATR</span>
@@ -185,6 +198,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-meta">actions · uptrend · bullish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">Reference price €1,501.81</span>
+<span class="market-state market-state-closed" data-market="stocks" data-market-state>Fermé · US</span>
 <span style="color:#c4b5fd">nROC5 -0.58</span>
 <span style="color:#fbbf24">RSI 55</span>
 <span style="color:#fca5a5">Ext 0.1 ATR</span>
@@ -205,6 +219,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-meta">actions · downtrend · bearish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">Reference price €1,575.50</span>
+<span class="market-state market-state-closed" data-market="stocks" data-market-state>Fermé · US</span>
 <span style="color:#c4b5fd">nROC5 -0.75</span>
 <span style="color:#fbbf24">RSI 40</span>
 <span style="color:#fca5a5">Ext 1.2 ATR</span>
@@ -225,6 +240,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-meta">actions · downtrend · bearish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">Reference price €455.60</span>
+<span class="market-state market-state-closed" data-market="stocks" data-market-state>Fermé · US</span>
 <span style="color:#c4b5fd">nROC5 -0.56</span>
 <span style="color:#fbbf24">RSI 43</span>
 <span style="color:#fca5a5">Ext 0.6 ATR</span>
@@ -245,6 +261,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <span class="asset-meta">actions · downtrend · bearish continuation</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">Reference price $494.20</span>
+<span class="market-state market-state-closed" data-market="stocks" data-market-state>Fermé · US</span>
 <span style="color:#c4b5fd">nROC5 -0.04</span>
 <span style="color:#fbbf24">RSI 44</span>
 <span style="color:#fca5a5">Ext 0.4 ATR</span>
@@ -518,6 +535,6 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
   <a href="index.html" style="display:inline-block;padding:12px 24px;border:1px solid var(--border);border-radius:12px;color:var(--muted);text-decoration:none;font-size:.88em;font-weight:700;transition:all .15s">← Retour Dashboard</a>
 </div>
 <div class="footer">
-<p>📊 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260517-144546</p>
+<p>📊 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260517-145325</p>
 </div>
 </div></body></html>

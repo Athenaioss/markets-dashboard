@@ -11,6 +11,7 @@ from html import escape
 import statistics
 
 from hawkeye_core import analyze_assets, num as _num, safe_price, asset_name, asset_symbol
+from market_sessions import MARKET_STATE_CSS, market_session_badge
 from tradingview_links import TV_LINK_CSS, tradingview_link
 
 
@@ -50,6 +51,7 @@ def _row(a: dict, source: str = "") -> str:
 <span class="asset-meta">{escape(source or a.get('source') or 'market')} · {escape(a['regime'])} · {escape(a['signal_family'])}{warning}</span>
 <span class="asset-levels">
 <span style="color:#bae6fd">Reference price {escape(a['price_label'])}</span>
+{market_session_badge(source or a.get("source", ""))}
 <span style="color:#c4b5fd">nROC5 {a['nroc5']:+.2f}</span>
 <span style="color:#fbbf24">RSI {a['rsi']}</span>
 <span style="color:#fca5a5">Ext {ext:.1f} ATR</span>
@@ -85,6 +87,7 @@ def momentum_scanner_html(assets: list, top_n: int = 4, source: str = "") -> str
     extreme = sum(1 for a in analyses if a["score"] >= 90)
     strong = sum(1 for a in analyses if 75 <= a["score"] < 90)
     active = sum(1 for a in analyses if 60 <= a["score"] < 75)
+    header_state = market_session_badge(source or (assets[0].get("source", "") if assets else ""))
     return f"""
 <section class="momentum-scanner-v2 scanner hawkeye-scanner hawkeye-v4" aria-label="Hawkeye V4">
   <style>
@@ -96,11 +99,12 @@ def momentum_scanner_html(assets: list, top_n: int = 4, source: str = "") -> str
     .signal-row{{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px;border:1px solid rgba(148,163,184,.16);border-radius:16px;background:rgba(255,255,255,.035);margin-top:9px}}.signal-row:first-of-type{{margin-top:0}}.asset-name{{display:inline;font-weight:900;color:var(--atlas-text,var(--text));line-height:1.15;margin-right:6px}}
     .asset-tag{{display:inline-flex;vertical-align:middle;padding:2px 7px;border-radius:999px;background:rgba(56,189,248,.10);border:1px solid rgba(56,189,248,.22);color:#bae6fd;font-size:.66rem;font-weight:900;text-transform:uppercase}}.asset-meta{{display:block;color:var(--atlas-muted,var(--muted));font-size:.74rem;margin-top:4px;line-height:1.35}}
     .asset-levels{{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}}.asset-levels span{{padding:4px 7px;border-radius:999px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.16)}}.score-pill{{display:inline-flex;align-items:center;justify-content:center;min-width:58px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent}}
+    {MARKET_STATE_CSS}
     {TV_LINK_CSS}
     .score-hot{{color:#bbf7d0;background:rgba(34,197,94,.13);border-color:rgba(34,197,94,.22)}}.score-risk{{color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.22)}}.score-warm{{color:#ffd699;background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.22)}}.score-muted{{color:#cbd5e1;background:rgba(100,116,139,.10);border-color:rgba(100,116,139,.18)}}.momentum-empty{{padding:16px;border:1px dashed var(--atlas-border,var(--border));border-radius:18px;color:var(--atlas-muted,var(--muted));background:rgba(255,255,255,.025)}}
     @media(max-width:860px){{.scanner-head{{display:block}}.scanner-board{{grid-template-columns:1fr}}}}@media(max-width:520px){{.hawkeye-scanner{{padding:16px;border-radius:22px}}.signal-row{{display:block}}.signal-row>div:last-child{{text-align:left!important;margin-top:10px}}}}
   </style>
-  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension.</p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ {extreme} · 🦅 {strong} · 👁️ {active}</span></div></div>
+  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension. Market state: {header_state}</p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ {extreme} · 🦅 {strong} · 👁️ {active}</span></div></div>
   <div class="scanner-board hawk-board">{_card('Bullish pressure', '📈', bullish, 'No active bullish pressure')}{_card('Bearish pressure', '📉', bearish, 'No active bearish pressure')}</div>
 </section>"""
 
