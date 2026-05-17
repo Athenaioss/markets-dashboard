@@ -19,9 +19,6 @@ from tradingview_links import TV_LINK_CSS, tradingview_link
 
 OUTPUT_DIR = Path("output")
 OUTPUT_DIR.mkdir(exist_ok=True)
-GENERATED_AT = datetime.now().astimezone()
-NOW = GENERATED_AT.strftime("%Y%m%d-%H%M%S")
-UPDATED_AT_LABEL = GENERATED_AT.strftime("%d/%m/%Y %H:%M %Z")
 
 
 def atomic_write(path: Path, content: str) -> None:
@@ -123,6 +120,9 @@ def degraded_card(rows: list[dict]) -> str:
 
 
 def main(run_id: str | None = None):
+    generated_at = datetime.now().astimezone()
+    NOW = generated_at.strftime("%Y%m%d-%H%M%S")
+    UPDATED_AT_LABEL = generated_at.strftime("%d/%m/%Y %H:%M %Z")
     run_id = run_id or NOW
     print("🦅 Hawkeye V4 — Market Pressure Radar")
     print("-" * 50)
