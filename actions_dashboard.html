@@ -4,43 +4,7 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>📊 Atlas Nexus - Stocks Dashboard</title>
 <style>
-    <style id="theme-vars">
-        :root {
-            --bg: #f8fafc; --bg-card: #ffffff; --bg-elevated: #f1f5f9;
-            --text: #0f172a; --text-dim: #64748b; --border: #e2e8f0;
-            --accent: #0284c7; --green: #16a34a; --red: #e11d48; --amber: #d97706;
-        }
-        [data-theme="dark"] {
-            --bg: #0f172a; --bg-card: #1e293b; --bg-elevated: #334155;
-            --text: #e2e8f0; --text-dim: #94a3b8; --border: #334155;
-            --accent: #38bdf8; --green: #22c55e; --red: #ef4444; --amber: #f59e0b;
-        }
-        body { background: var(--bg); color: var(--text); transition: background .4s ease, color .4s ease; }
-        .header { background: linear-gradient(135deg, var(--bg-card), var(--bg)); border-color: var(--border); }
-        .header h1 { color: var(--text); }
-        .header p { color: var(--text-dim); }
-        .card { background: var(--bg-card); border-color: var(--border); color: var(--text); }
-        .card .label { color: var(--text-dim); }
-        table { background: var(--bg-card); }
-        th { background: var(--bg-elevated); color: var(--accent); }
-        td { border-bottom-color: var(--border); color: var(--text); }
-        tr:hover { background: var(--bg-elevated); }
-        h2, h3 { color: var(--accent); }
-        .badge-high { background: rgba(239,68,68,.15); color: var(--red); }
-        .badge-medium { background: rgba(245,158,11,.15); color: var(--amber); }
-        .badge-low { background: rgba(34,197,94,.15); color: var(--green); }
-        .badge-tier { background: rgba(56,189,248,.1); color: var(--accent); }
-        [data-theme="dark"] .badge-high { background: #7f1d1d; color: #fca5a5; }
-        [data-theme="dark"] .badge-medium { background: #78350f; color: #fcd34d; }
-        [data-theme="dark"] .badge-low { background: #14532d; color: #86efac; }
-        [data-theme="dark"] .badge-tier { background: #1e3a5f; color: #93c5fd; }
-        .back-link { display: inline-flex; align-items: center; gap: 6px; margin-right: 12px; color: var(--accent); text-decoration: none; font-weight: 600; font-size: .9em; }
-        .back-link:hover { text-decoration: underline; }
-        .theme-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-dim); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: .85em; transition: all .2s; }
-        .theme-btn:hover { border-color: var(--accent); color: var(--text); }
-        .top-controls { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-        *, *::before, *::after { transition: background-color .4s ease, border-color .4s ease, color .4s ease; }
-    </style>:root{--bg:#080b16;--card:#0f1420;--border:#1a2040;--accent:#22c55e;--accent2:#4ade80;--green:#22c55e;--red:#ef4444;--text:#e2e8f0;--muted:#64748b}
+:root{--bg:#080b16;--card:#0f1420;--border:#1a2040;--accent:#22c55e;--accent2:#4ade80;--green:#22c55e;--red:#ef4444;--text:#e2e8f0;--muted:#64748b}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;background-image:radial-gradient(ellipse at 30% 0%,rgba(34,197,94,.06) 0%,transparent 50%)}
 .header{text-align:center;padding:40px 20px 30px;border-bottom:1px solid var(--border)}
@@ -129,7 +93,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header"><div class="top-controls"><a href="index.html" class="back-link">Back to Dashboard</a><button class="theme-btn" id="themeToggle">Light/Dark</button></div>
 <div class="title-emoji">📊</div>
 <h1>Atlas Nexus - Global Stocks</h1>
-<p>30 major stocks across 7 sectors · Technology, Finance, Healthcare, Consumer, Industrial, Energy, Luxury | 20260517-183122</p>
+<p>30 major stocks across 7 sectors · Technology, Finance, Healthcare, Consumer, Industrial, Energy, Luxury | 20260517-152111</p>
 </div>
 <div class="container">
 <div class="stats-grid">
@@ -149,43 +113,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 
 <section class="momentum-scanner-v2 scanner hawkeye-scanner hawkeye-v4" aria-label="Hawkeye V4">
   <style>
-    <style id="theme-vars">
-        :root {
-            --bg: #f8fafc; --bg-card: #ffffff; --bg-elevated: #f1f5f9;
-            --text: #0f172a; --text-dim: #64748b; --border: #e2e8f0;
-            --accent: #0284c7; --green: #16a34a; --red: #e11d48; --amber: #d97706;
-        }
-        [data-theme="dark"] {
-            --bg: #0f172a; --bg-card: #1e293b; --bg-elevated: #334155;
-            --text: #e2e8f0; --text-dim: #94a3b8; --border: #334155;
-            --accent: #38bdf8; --green: #22c55e; --red: #ef4444; --amber: #f59e0b;
-        }
-        body { background: var(--bg); color: var(--text); transition: background .4s ease, color .4s ease; }
-        .header { background: linear-gradient(135deg, var(--bg-card), var(--bg)); border-color: var(--border); }
-        .header h1 { color: var(--text); }
-        .header p { color: var(--text-dim); }
-        .card { background: var(--bg-card); border-color: var(--border); color: var(--text); }
-        .card .label { color: var(--text-dim); }
-        table { background: var(--bg-card); }
-        th { background: var(--bg-elevated); color: var(--accent); }
-        td { border-bottom-color: var(--border); color: var(--text); }
-        tr:hover { background: var(--bg-elevated); }
-        h2, h3 { color: var(--accent); }
-        .badge-high { background: rgba(239,68,68,.15); color: var(--red); }
-        .badge-medium { background: rgba(245,158,11,.15); color: var(--amber); }
-        .badge-low { background: rgba(34,197,94,.15); color: var(--green); }
-        .badge-tier { background: rgba(56,189,248,.1); color: var(--accent); }
-        [data-theme="dark"] .badge-high { background: #7f1d1d; color: #fca5a5; }
-        [data-theme="dark"] .badge-medium { background: #78350f; color: #fcd34d; }
-        [data-theme="dark"] .badge-low { background: #14532d; color: #86efac; }
-        [data-theme="dark"] .badge-tier { background: #1e3a5f; color: #93c5fd; }
-        .back-link { display: inline-flex; align-items: center; gap: 6px; margin-right: 12px; color: var(--accent); text-decoration: none; font-weight: 600; font-size: .9em; }
-        .back-link:hover { text-decoration: underline; }
-        .theme-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-dim); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: .85em; transition: all .2s; }
-        .theme-btn:hover { border-color: var(--accent); color: var(--text); }
-        .top-controls { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-        *, *::before, *::after { transition: background-color .4s ease, border-color .4s ease, color .4s ease; }
-    </style>    .hawkeye-scanner{margin:0 0 24px;padding:24px;border:1px solid rgba(56,189,248,.20);border-radius:28px;position:relative;overflow:hidden;text-align:left;background:linear-gradient(135deg,rgba(16,22,34,.92),rgba(18,14,33,.86) 48%,rgba(29,22,10,.76));box-shadow:0 22px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}
+    .hawkeye-scanner{margin:0 0 24px;padding:24px;border:1px solid rgba(56,189,248,.20);border-radius:28px;position:relative;overflow:hidden;text-align:left;background:linear-gradient(135deg,rgba(16,22,34,.92),rgba(18,14,33,.86) 48%,rgba(29,22,10,.76));box-shadow:0 22px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}
     .hawkeye-scanner:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,rgba(56,189,248,.18),transparent 35%),radial-gradient(circle at 92% 14%,rgba(245,158,11,.12),transparent 28%);pointer-events:none}.hawkeye-scanner>*{position:relative}
     .scanner-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}.scanner-head h2{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}.scanner-sub{margin:6px 0 0;color:var(--muted);font-size:.82rem;line-height:1.45}
     .scanner-head .tier-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:.74em;color:var(--muted)}.scanner-head .tier-legend span{padding:3px 8px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04)}.scanner-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
@@ -361,43 +289,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 
 <section class="unusual-activity">
 <style>
-    <style id="theme-vars">
-        :root {
-            --bg: #f8fafc; --bg-card: #ffffff; --bg-elevated: #f1f5f9;
-            --text: #0f172a; --text-dim: #64748b; --border: #e2e8f0;
-            --accent: #0284c7; --green: #16a34a; --red: #e11d48; --amber: #d97706;
-        }
-        [data-theme="dark"] {
-            --bg: #0f172a; --bg-card: #1e293b; --bg-elevated: #334155;
-            --text: #e2e8f0; --text-dim: #94a3b8; --border: #334155;
-            --accent: #38bdf8; --green: #22c55e; --red: #ef4444; --amber: #f59e0b;
-        }
-        body { background: var(--bg); color: var(--text); transition: background .4s ease, color .4s ease; }
-        .header { background: linear-gradient(135deg, var(--bg-card), var(--bg)); border-color: var(--border); }
-        .header h1 { color: var(--text); }
-        .header p { color: var(--text-dim); }
-        .card { background: var(--bg-card); border-color: var(--border); color: var(--text); }
-        .card .label { color: var(--text-dim); }
-        table { background: var(--bg-card); }
-        th { background: var(--bg-elevated); color: var(--accent); }
-        td { border-bottom-color: var(--border); color: var(--text); }
-        tr:hover { background: var(--bg-elevated); }
-        h2, h3 { color: var(--accent); }
-        .badge-high { background: rgba(239,68,68,.15); color: var(--red); }
-        .badge-medium { background: rgba(245,158,11,.15); color: var(--amber); }
-        .badge-low { background: rgba(34,197,94,.15); color: var(--green); }
-        .badge-tier { background: rgba(56,189,248,.1); color: var(--accent); }
-        [data-theme="dark"] .badge-high { background: #7f1d1d; color: #fca5a5; }
-        [data-theme="dark"] .badge-medium { background: #78350f; color: #fcd34d; }
-        [data-theme="dark"] .badge-low { background: #14532d; color: #86efac; }
-        [data-theme="dark"] .badge-tier { background: #1e3a5f; color: #93c5fd; }
-        .back-link { display: inline-flex; align-items: center; gap: 6px; margin-right: 12px; color: var(--accent); text-decoration: none; font-weight: 600; font-size: .9em; }
-        .back-link:hover { text-decoration: underline; }
-        .theme-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-dim); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: .85em; transition: all .2s; }
-        .theme-btn:hover { border-color: var(--accent); color: var(--text); }
-        .top-controls { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-        *, *::before, *::after { transition: background-color .4s ease, border-color .4s ease, color .4s ease; }
-    </style>.unusual-activity{position:relative;overflow:hidden;margin:0 0 24px;padding:20px;border:1px solid rgba(245,158,11,.26);border-radius:26px;background:linear-gradient(135deg,rgba(245,158,11,.13),rgba(15,23,42,.72) 52%,rgba(239,68,68,.08));box-shadow:0 22px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}
+.unusual-activity{position:relative;overflow:hidden;margin:0 0 24px;padding:20px;border:1px solid rgba(245,158,11,.26);border-radius:26px;background:linear-gradient(135deg,rgba(245,158,11,.13),rgba(15,23,42,.72) 52%,rgba(239,68,68,.08));box-shadow:0 22px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}
 .unusual-activity:before{content:"";position:absolute;right:-80px;top:-95px;width:230px;height:230px;border-radius:999px;background:radial-gradient(circle,rgba(245,158,11,.20),transparent 62%);pointer-events:none}
 .unusual-activity>*{position:relative}
 .unusual-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
@@ -685,7 +577,7 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
   <a href="index.html" style="display:inline-block;padding:12px 24px;border:1px solid var(--border);border-radius:12px;color:var(--muted);text-decoration:none;font-size:.88em;font-weight:700;transition:all .15s">← Retour Dashboard</a>
 </div>
 <div class="footer">
-<p>📊 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260517-183122</p>
+<p>📊 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260517-152111</p>
 </div>
 </div><script>(function(){var h=document.documentElement;var b=document.getElementById("themeToggle");if(!b)return;h.setAttribute("data-theme",localStorage.getItem("atlas-theme")||"light");b.addEventListener("click",function(){var n=h.getAttribute("data-theme")==="dark"?"light":"dark";h.setAttribute("data-theme",n);localStorage.setItem("atlas-theme",n);});})();</script>
 </body></html>
