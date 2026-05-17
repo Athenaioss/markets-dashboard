@@ -134,12 +134,33 @@ def unusual_activity_html(assets: list) -> str:
             alerts.append((a, flags))
     if not alerts:
         return ""
-    rows = "".join(f"<div class='alert-row'><strong>{escape(a['name'])}</strong><span>{escape(' · '.join(flags))}</span></div>" for a, flags in alerts[:6])
+    rows = ""
+    for a, flags in alerts[:6]:
+        chips = "".join(f"<span>{escape(flag)}</span>" for flag in flags[:4])
+        rows += f"""<div class='unusual-card'>
+  <div class='unusual-main'><strong>{escape(a['name'])}</strong><small>{escape(a.get('symbol') or '')} · {escape(a.get('regime') or 'market')} · Manual chart check required</small></div>
+  <div class='unusual-flags'>{chips}</div>
+</div>"""
     return f"""
-<section class="unusual-activity" style="margin:0 0 24px;padding:18px;border:1px solid rgba(245,158,11,.28);border-radius:20px;background:rgba(245,158,11,.06)">
-<h2 style="margin:0 0 10px;font-size:1.05rem">🚨 Unusual market pressure</h2>
-<p style="margin:0 0 12px;color:var(--muted);font-size:.84rem">Extension, volatility or RSI readings that require manual chart inspection.</p>
-{rows}
+<section class="unusual-activity">
+<style>
+.unusual-activity{{position:relative;overflow:hidden;margin:0 0 24px;padding:20px;border:1px solid rgba(245,158,11,.26);border-radius:26px;background:linear-gradient(135deg,rgba(245,158,11,.13),rgba(15,23,42,.72) 52%,rgba(239,68,68,.08));box-shadow:0 22px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}}
+.unusual-activity:before{{content:"";position:absolute;right:-80px;top:-95px;width:230px;height:230px;border-radius:999px;background:radial-gradient(circle,rgba(245,158,11,.20),transparent 62%);pointer-events:none}}
+.unusual-activity>*{{position:relative}}
+.unusual-head{{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}}
+.unusual-head h2{{margin:0!important;color:var(--atlas-text,var(--text))!important;font-size:1.08rem!important;font-weight:950!important;letter-spacing:-.035em!important}}
+.unusual-head p{{margin:6px 0 0;color:var(--atlas-muted,var(--muted));font-size:.83rem;line-height:1.45}}
+.unusual-count{{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border-radius:14px;border:1px solid rgba(245,158,11,.28);background:rgba(245,158,11,.12);color:#fde68a;font-weight:950}}
+.unusual-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}}
+.unusual-card{{display:flex;flex-direction:column;gap:10px;padding:13px;border:1px solid rgba(148,163,184,.16);border-radius:18px;background:rgba(7,9,20,.38)}}
+.unusual-main strong{{display:block;color:var(--atlas-text,var(--text));font-weight:950;line-height:1.15}}
+.unusual-main small{{display:block;margin-top:4px;color:var(--atlas-muted,var(--muted));font-size:.72rem;line-height:1.35}}
+.unusual-flags{{display:flex;gap:6px;flex-wrap:wrap}}
+.unusual-flags span{{padding:4px 7px;border-radius:999px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.20);color:#fde68a;font-size:.70rem;font-weight:850;white-space:nowrap}}
+@media(max-width:560px){{.unusual-head{{display:block}}.unusual-count{{margin-top:10px}}}}
+</style>
+<div class="unusual-head"><div><h2>🚨 Unusual market pressure</h2><p>Extension, volatility or RSI readings that deserve manual chart inspection.</p></div><div class="unusual-count">{len(alerts[:6])}</div></div>
+<div class="unusual-grid">{rows}</div>
 </section>"""
 
 

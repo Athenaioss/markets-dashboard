@@ -55,12 +55,13 @@ def market_session(market: str, now: datetime | None = None) -> dict[str, str]:
     if key == "forex":
         return {"state": "open", "label": "Open · FX"} if _forex_open(now) else {"state": "closed", "label": "Closed · FX"}
     if key in {"stocks", "etf"}:
-        # US cash session: 14:30–21:00 UTC. Pre-market: 09:00–14:30 UTC.
+        # The dashboard mixes US and European listings/ETFs. Use a neutral
+        # basket label instead of implying the whole board is US cash only.
         if is_weekday and _in_range(minutes, 14 * 60 + 30, 21 * 60):
-            return {"state": "open", "label": "Open · US cash"}
+            return {"state": "open", "label": "Open · listed markets"}
         if is_weekday and _in_range(minutes, 9 * 60, 14 * 60 + 30):
-            return {"state": "pre-market", "label": "Pre-market · US"}
-        return {"state": "closed", "label": "Closed · US"}
+            return {"state": "pre-market", "label": "Pre-market · listed markets"}
+        return {"state": "closed", "label": "Closed · listed markets"}
     if key == "indices":
         if is_weekday or utc_day == 6:
             return {"state": "open", "label": "Open · global/futures"}
