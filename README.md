@@ -5,7 +5,7 @@
 
 Live multi-asset market dashboards built as a static GitHub Pages site with automated data refreshes.
 
-**Live demo:** https://atlasnexusops.github.io/markets-dashboard/
+**Live demo:** https://atlasnexus.tech/markets-dashboard/
 
 ## What it is
 
