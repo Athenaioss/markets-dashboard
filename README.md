@@ -1,6 +1,6 @@
 # Atlas Nexus — Markets Dashboard
 
-[![CI](https://github.com/AtlasNexusOps/markets-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/AtlasNexusOps/markets-dashboard/actions) [![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/AtlasNexusTech/markets-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/AtlasNexusTech/markets-dashboard/actions) [![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](https://opensource.org/licenses/MIT)
 
 
 Live multi-asset market dashboards built as a static GitHub Pages site with automated data refreshes.
