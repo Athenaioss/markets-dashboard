@@ -152,6 +152,29 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 [data-theme="light"] .panel .desc{color:#475569!important}
 [data-theme="light"] .panel h2{color:#0f172a!important}
 *,*::before,*::after{transition:background-color .4s ease,border-color .4s ease,color .4s ease,box-shadow .4s ease}
+
+/* === ATLAS UPGRADE 2026-05-20 === */
+.nav-pills{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 24px}
+.nav-pills a{text-decoration:none;padding:8px 18px;border-radius:999px;font-size:.9em;font-weight:600;color:var(--muted);border:1px solid var(--border);transition:all .25s}
+.nav-pills a:hover,.nav-pills a.active{color:var(--text);border-color:rgba(56,189,248,.34);background:rgba(56,189,248,.10)}
+.heatmap-wrap{border-radius:24px;overflow:hidden;margin:0 0 28px;border:1px solid var(--border);background:var(--panel)}
+.widget-panel{border-radius:24px;overflow:hidden;margin:0 0 24px;border:1px solid var(--border);background:var(--panel);padding:8px}
+.news-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px;margin:0 0 12px;transition:all .2s;display:block}
+.news-card:hover{border-color:var(--border-strong);transform:translateY(-2px)}
+.news-card h4{font-size:1em;margin:0 0 6px;line-height:1.4;color:var(--text)}
+.news-card .source{font-size:.78em;color:var(--faint)}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.fear-greed-widget{text-align:center;padding:28px 18px;background:linear-gradient(135deg,var(--panel),var(--panel2));border-radius:24px;border:1px solid var(--border);margin:0 0 24px}
+.fg-value{font-size:3.5em;font-weight:800;letter-spacing:-.03em}
+.fg-extreme-fear{color:#ea580c}.fg-fear{color:#f59e0b}.fg-neutral{color:#eab308}.fg-greed{color:#84cc16}.fg-extreme-greed{color:#22c55e}
+.overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:0 0 24px}
+.overview-card{border-radius:20px;border:1px solid var(--border);padding:18px;background:var(--panel)}
+.overview-card .oc-label{font-size:.78em;color:var(--faint);text-transform:uppercase;letter-spacing:.05em}
+.timestamp-bar{text-align:center;font-size:.78em;color:var(--faint);padding:8px;margin:18px 0;border-top:1px solid var(--border)}
+.widget-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 24px}
+@media(max-width:768px){.widget-row{grid-template-columns:1fr}.news-grid{grid-template-columns:1fr}.overview-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.overview-grid{grid-template-columns:1fr}}
+
 </style></head><body><main class="shell"><header class="topbar"><div class="brand"><span class="brand-mark">🔮</span><span>Atlas Nexus</span></div><nav class="nav" aria-label="Dashboard navigation"><a class="active" href="#scanner">Scanner</a><a href="#dashboards">Markets</a><a href="https://github.com/AtlasNexusTech/markets-dashboard">GitHub</a><button class="theme-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light theme"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button></nav></header><section class="hero" aria-label="Atlas Nexus Markets overview"><div class="hero-main"><div class="eyebrow"><span class="live-dot"></span> Live multi-asset intelligence</div><div class="title-emoji">🔮</div><h1>Markets Command Deck</h1><p class="hero-sub">A client-facing market intelligence cockpit for crypto, stocks, ETFs, indices, forex and commodities — live widgets, generated dashboards, and a technical scanner built for fast signal reading.</p><div class="hero-cta"><a href="#scanner" class="btn btn-primary">⚡ Open Live Scanner</a><a href="#dashboards" class="btn">Browse dashboards</a></div></div><aside class="hero-side" aria-label="Key coverage metrics"><div class="metric-card wide"><div><div class="metric-label">Scanner coverage</div><div class="metric-value"><span class="count-up" data-target="103">103</span> assets</div></div><div class="status-line"><span class="live-dot"></span>Yahoo Finance OHLCV · live scoring</div></div><div class="metric-card"><div class="metric-label">Markets</div><div class="metric-value">6</div><div class="metric-copy">Crypto · Stocks · ETF · Indices · FX · Commodities</div></div><div class="metric-card"><div class="metric-label">Scoring engine</div><div class="metric-value">Hawkeye V4</div><div class="metric-copy">Pressure · Regime · Momentum · Extension</div></div></aside></section><section class="market-strip" aria-label="Live market ticker"><div class="ticker-wrap"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>{"symbols":[{"proName":"FOREXCOM:SPXUSD","title":"S&P 500"},{"proName":"FOREXCOM:NAS100","title":"Nasdaq"},{"proName":"BITSTAMP:BTCUSD","title":"BTC/USD"},{"proName":"BITSTAMP:ETHUSD","title":"ETH/USD"},{"proName":"TVC:GOLD","title":"Gold"},{"proName":"TVC:USOIL","title":"WTI Oil"},{"proName":"FOREXCOM:EURUSD","title":"EUR/USD"},{"proName":"NASDAQ:AAPL","title":"Apple"},{"proName":"NASDAQ:NVDA","title":"NVIDIA"},{"proName":"AMEX:SPY","title":"SPY"},{"proName":"NASDAQ:QQQ","title":"QQQ"},{"proName":"TVC:DXY","title":"DXY"}],"showSymbolLogo":true,"isTransparent":true,"displayMode":"adaptive","colorTheme":"light","locale":"en"}</script></div></div></section><section id="scanner" class="scanner">
 <style>
 .market-state{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:999px;border:1px solid rgba(148,163,184,.18);background:rgba(15,23,42,.56);font-size:.72rem;font-weight:950;text-transform:uppercase;letter-spacing:.035em;white-space:nowrap}
@@ -418,7 +441,145 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line
 <span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90-100 Extreme pressure</span>
 <span class="demo-tag">Updated 17/05/2026 20:31 CEST</span>
 </div>
-</section><section id="dashboards" aria-label="Live dashboards"><div class="section-head"><div><div class="section-label">Live Dashboards</div><div class="section-kicker">Six live boards, refreshed for the current market context.</div></div></div><div class="grid"><a href="crypto_dashboard.html" class="panel crypto" data-market="crypto"><div class="emoji">🪙</div><h2>Crypto</h2><div class="desc">BTC, ETH, SOL & liquid majors · 24/7 momentum</div><span class="count">24/7 market</span><span class="session-led open" data-session-label>OPEN · 24/7</span></a><a href="commodities_dashboard.html" class="panel commodities" data-market="commodities"><div class="emoji">🛢️</div><h2>Commodities</h2><div class="desc">Gold, Silver, Oil, Copper, Grains · CFD/extended context</div><span class="count">15 assets</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="indices_dashboard.html" class="panel indices" data-market="indices"><div class="emoji">🌍</div><h2>Indices</h2><div class="desc">S&P 500, Nasdaq, DAX, CAC, Nikkei · global risk pulse</div><span class="count">16 indices</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="forex_dashboard.html" class="panel forex" data-market="forex"><div class="emoji">💱</div><h2>Forex</h2><div class="desc">EURUSD, GBPJPY, AUDUSD · majors, crosses and exotics</div><span class="count">19 pairs</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="actions_dashboard.html" class="panel actions" data-market="stocks"><div class="emoji">🏛️</div><h2>Stocks</h2><div class="desc">Mega-cap tech, luxury, banks, defensives · equity momentum</div><span class="count">30 stocks</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="etf_dashboard.html" class="panel etf" data-market="etf"><div class="emoji">💼</div><h2>ETF</h2><div class="desc">SPY, QQQ, GLD, TLT, ARKK · themes and cross-asset exposure</div><span class="count">24 ETFs</span><span class="session-led soon" data-session-label>SESSION</span></a></div></section><footer><p>🔮 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance + TradingView · Open source</p><p><a href="https://github.com/AtlasNexusTech/markets-dashboard">github.com/AtlasNexusTech/markets-dashboard</a></p></footer><script>
+</section><section id="dashboards" aria-label="Live dashboards"><div class="section-head"><div><div class="section-label">Live Dashboards</div><div class="section-kicker">Six live boards, refreshed for the current market context.</div></div></div><div class="grid"><a href="crypto_dashboard.html" class="panel crypto" data-market="crypto"><div class="emoji">🪙</div><h2>Crypto</h2><div class="desc">BTC, ETH, SOL & liquid majors · 24/7 momentum</div><span class="count">24/7 market</span><span class="session-led open" data-session-label>OPEN · 24/7</span></a><a href="commodities_dashboard.html" class="panel commodities" data-market="commodities"><div class="emoji">🛢️</div><h2>Commodities</h2><div class="desc">Gold, Silver, Oil, Copper, Grains · CFD/extended context</div><span class="count">15 assets</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="indices_dashboard.html" class="panel indices" data-market="indices"><div class="emoji">🌍</div><h2>Indices</h2><div class="desc">S&P 500, Nasdaq, DAX, CAC, Nikkei · global risk pulse</div><span class="count">16 indices</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="forex_dashboard.html" class="panel forex" data-market="forex"><div class="emoji">💱</div><h2>Forex</h2><div class="desc">EURUSD, GBPJPY, AUDUSD · majors, crosses and exotics</div><span class="count">19 pairs</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="actions_dashboard.html" class="panel actions" data-market="stocks"><div class="emoji">🏛️</div><h2>Stocks</h2><div class="desc">Mega-cap tech, luxury, banks, defensives · equity momentum</div><span class="count">30 stocks</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="etf_dashboard.html" class="panel etf" data-market="etf"><div class="emoji">💼</div><h2>ETF</h2><div class="desc">SPY, QQQ, GLD, TLT, ARKK · themes and cross-asset exposure</div><span class="count">24 ETFs</span><span class="session-led soon" data-session-label>SESSION</span></a></div></section>
+<div class="shell-section">
+  <h2 class="section-label" style="font-size:1.4em;font-weight:700;margin:28px 0 14px;">Vue d'ensemble</h2>
+  <div class="overview-grid">
+    <div class="overview-card">
+      <span class="oc-label">S&amp;P 500</span>
+      <div class="tradingview-widget-container" style="height:60px;margin:8px 0">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+        {"symbol":"SP:SPX","width":"100%","colorTheme":"dark","isTransparent":true,"locale":"fr"}
+        </script>
+      </div>
+    </div>
+    <div class="overview-card">
+      <span class="oc-label">NASDAQ 100</span>
+      <div class="tradingview-widget-container" style="height:60px;margin:8px 0">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+        {"symbol":"NASDAQ:NDX","width":"100%","colorTheme":"dark","isTransparent":true,"locale":"fr"}
+        </script>
+      </div>
+    </div>
+    <div class="overview-card">
+      <span class="oc-label">Bitcoin</span>
+      <div class="tradingview-widget-container" style="height:60px;margin:8px 0">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+        {"symbol":"BITSTAMP:BTCUSD","width":"100%","colorTheme":"dark","isTransparent":true,"locale":"fr"}
+        </script>
+      </div>
+    </div>
+    <div class="overview-card">
+      <span class="oc-label">Or (XAU/USD)</span>
+      <div class="tradingview-widget-container" style="height:60px;margin:8px 0">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+        {"symbol":"OANDA:XAUUSD","width":"100%","colorTheme":"dark","isTransparent":true,"locale":"fr"}
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="shell-section">
+  <h2 class="section-label" style="font-size:1.4em;font-weight:700;margin:28px 0 14px;">Heatmap Actions US</h2>
+  <div class="heatmap-wrap">
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+      {"exchanges":[],"dataSource":"SPX500","grouping":"sector","blockSize":"market_cap_basic","blockColor":"change","locale":"fr","symbolUrl":"","colorTheme":"dark","hasTopBar":true,"isDataSetEnabled":true,"isZoomEnabled":true,"hasSymbolTooltip":true,"isMonoSize":false,"width":"100%","height":"420"}
+      </script>
+    </div>
+  </div>
+</div>
+
+<div class="widget-row">
+  <div>
+    <h2 class="section-label" style="font-size:1.2em;font-weight:700;margin:0 0 14px;">Forex Cross Rates</h2>
+    <div class="widget-panel">
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
+        {"currencies":["EUR","USD","JPY","GBP","CHF","AUD","CAD","NZD"],"isTransparent":true,"colorTheme":"dark","locale":"fr","width":"100%","height":"340"}
+        </script>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h2 class="section-label" style="font-size:1.2em;font-weight:700;margin:0 0 14px;">Calendrier Economique</h2>
+    <div class="widget-panel">
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+        {"colorTheme":"dark","isTransparent":true,"width":"100%","height":"340","locale":"fr","importanceFilter":"0,1","countryFilter":"US,EU,JP,CN,GB,CH,CA"}
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="widget-row">
+  <div>
+    <h2 class="section-label" style="font-size:1.2em;font-weight:700;margin:0 0 14px;">Crypto Fear &amp; Greed</h2>
+    <div class="fear-greed-widget" id="fear-greed-widget">
+      <div style="font-size:.85em;color:var(--faint);text-transform:uppercase;letter-spacing:.05em">Chargement...</div>
+      <div class="fg-value fg-neutral" id="fg-value">--</div>
+      <div style="font-size:1.1em;font-weight:600" id="fg-label">Index Fear &amp; Greed</div>
+      <div style="font-size:.75em;color:var(--faint);margin-top:8px" id="fg-updated"></div>
+    </div>
+  </div>
+  <div>
+    <h2 class="section-label" style="font-size:1.2em;font-weight:700;margin:0 0 14px;">Actualites Finance</h2>
+    <div id="news-container" class="news-grid">
+      <div class="news-card"><h4>Chargement des actualites...</h4><span class="source">Google News</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="timestamp-bar">
+  Derniere mise a jour : <span id="last-update">--</span> &middot; Rafraichi automatiquement &middot; 
+  <a href="https://github.com/AtlasNexusTech/markets-dashboard" style="color:var(--blue)">Source</a>
+</div>
+
+<script>
+// Crypto Fear & Greed Index
+fetch("https://api.alternative.me/fng/?limit=1")
+  .then(function(r){return r.json()})
+  .then(function(d){
+    var val=parseInt(d.data[0].value),cls=d.data[0].value_classification;
+    var ts=new Date(parseInt(d.data[0].timestamp)*1000);
+    var el=document.getElementById("fg-value");
+    el.textContent=val;el.className="fg-value";
+    if(val<=25)el.classList.add("fg-extreme-fear");
+    else if(val<=45)el.classList.add("fg-fear");
+    else if(val<=55)el.classList.add("fg-neutral");
+    else if(val<=75)el.classList.add("fg-greed");
+    else el.classList.add("fg-extreme-greed");
+    document.getElementById("fg-label").textContent=cls;
+    document.getElementById("fg-updated").textContent=ts.toLocaleString("fr-FR");
+  })
+  .catch(function(){document.getElementById("fg-value").textContent="N/A"});
+
+// News feed via rss2json
+var newsContainer=document.getElementById("news-container");
+newsContainer.innerHTML='<div class="news-card"><h4>Chargement...</h4></div>';
+fetch("https://api.rss2json.com/v1/api.json?rss_url=https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx6TVdZU0FtVnVHZ0pWVXlnQVAB?hl=fr&gl=FR&ceid=FR:fr")
+  .then(function(r){return r.json()})
+  .then(function(d){
+    newsContainer.innerHTML=d.items.slice(0,8).map(function(item){
+      return "<a href=\""+item.link+"\" target=\"_blank\" class=\"news-card\" style=\"text-decoration:none;color:inherit\"><h4>"+item.title+"</h4><span class=\"source\">"+new Date(item.pubDate).toLocaleDateString("fr-FR")+"</span></a>";
+    }).join("");
+  })
+  .catch(function(){newsContainer.innerHTML='<div class="news-card"><h4>Actualites indisponibles</h4></div>'});
+
+// Timestamp
+document.getElementById("last-update").textContent=new Date().toLocaleString("fr-FR");
+</script>
+
+<footer><p>🔮 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance + TradingView · Open source</p><p><a href="https://github.com/AtlasNexusTech/markets-dashboard">github.com/AtlasNexusTech/markets-dashboard</a></p></footer><script>
 (() => {
   const minutesUtc = d => d.getUTCHours() * 60 + d.getUTCMinutes();
   const inRange = (m, start, end) => m >= start && m < end;
