@@ -1,655 +1,507 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>🔮 Atlas Nexus — Markets Dashboard</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#f8fafc;--bg2:#f1f5f9;--panel:#ffffff;--panel2:#e2e8f0;--glass:rgba(255,255,255,.82);
-  --border:rgba(0,0,0,.12);--border-strong:rgba(56,189,248,.46);
-  --text:#0f172a;--muted:#475569;--faint:#64748b;
-  --blue:#0284c7;--violet:#7c3aed;--amber:#d97706;--green:#16a34a;--emerald:#059669;--pink:#db2777;--red:#e11d48;
-  --shadow:0 8px 40px rgba(0,0,0,.10);--ring:0 0 0 1px rgba(0,0,0,.06) inset;
-}
-[data-theme="dark"]{
-  --bg:#06070b;--bg2:#0a0d14;--panel:#0f121a;--panel2:#151a25;--glass:rgba(16,20,31,.72);
-  --border:rgba(255,255,255,.085);--border-strong:rgba(125,92,255,.34);
-  --text:#f7f8ff;--muted:#b4bdd0;--faint:#8b94aa;
-  --blue:#38bdf8;--violet:#7c5cff;--amber:#f59e0b;--green:#22c55e;--emerald:#10b981;--pink:#ec4899;--red:#fb7185;
-  --shadow:0 28px 90px rgba(0,0,0,.44);--ring:0 0 0 1px rgba(255,255,255,.06) inset;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  font-feature-settings:"cv01","ss03";background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;
-  transition:background .5s ease,color .4s ease;
-}
-[data-theme="dark"] body{
-  background-image:
-    radial-gradient(circle at 16% -8%,rgba(56,189,248,.24),transparent 32rem),
-    radial-gradient(circle at 78% 4%,rgba(124,92,255,.25),transparent 34rem),
-    radial-gradient(circle at 50% 112%,rgba(245,158,11,.16),transparent 36rem),
-    linear-gradient(180deg,#05060a 0%,#090c13 48%,#06070b 100%);
-}
-[data-theme="light"] body{
-  background-image:
-    radial-gradient(circle at 16% -8%,rgba(56,189,248,.10),transparent 32rem),
-    radial-gradient(circle at 78% 4%,rgba(124,92,255,.08),transparent 34rem),
-    radial-gradient(circle at 50% 112%,rgba(245,158,11,.06),transparent 36rem),
-    linear-gradient(180deg,#f8fafc 0%,#f1f5f9 48%,#e8ecf2 100%);
-}
-[data-theme="dark"] body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.75),transparent 78%)}
-[data-theme="dark"] body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(120deg,transparent 0 42%,rgba(125,92,255,.07) 46%,transparent 52% 100%);animation:sheen 10s ease-in-out infinite alternate}
-body:before,body:after{content:none}@keyframes sheen{to{transform:translateX(8%)}}
-a{color:inherit}.shell{width:min(1240px,calc(100% - 32px));margin:0 auto;padding:20px 0 38px}
-.topbar{position:sticky;top:14px;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;margin:4px 0 28px;padding:12px 14px;border:1px solid var(--border);background:rgba(7,9,14,.72);backdrop-filter:blur(22px);border-radius:22px;box-shadow:0 14px 60px rgba(0,0,0,.32),var(--ring)}
-.brand{display:flex;align-items:center;gap:10px;font-weight:850;letter-spacing:-.035em}.brand-mark{display:grid;place-items:center;width:36px;height:36px;border-radius:13px;background:linear-gradient(135deg,rgba(56,189,248,.22),rgba(124,92,255,.24));border:1px solid rgba(125,92,255,.32);box-shadow:0 0 32px rgba(124,92,255,.18)}
-.nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.nav a{text-decoration:none;color:var(--muted);font-size:.82em;font-weight:760;padding:8px 11px;border-radius:999px;border:1px solid transparent}.nav a:hover{color:var(--text);border-color:var(--border);background:rgba(255,255,255,.055)}
-.hero{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(320px,.88fr);gap:22px;align-items:stretch;margin-bottom:22px}.hero-main,.hero-side,.market-strip,.scanner,.panel{border:1px solid var(--border);background:linear-gradient(180deg,rgba(18,22,33,.86),rgba(10,13,20,.88));box-shadow:var(--shadow),var(--ring);backdrop-filter:blur(18px)}
-.hero-main{position:relative;overflow:hidden;border-radius:30px;padding:38px}.hero-main:after{content:"";position:absolute;right:-92px;top:-110px;width:350px;height:350px;border-radius:999px;background:radial-gradient(circle,rgba(56,189,248,.28),rgba(124,92,255,.18) 38%,transparent 66%);filter:blur(2px)}.hero-main:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.06),transparent 42%);pointer-events:none}
-.eyebrow{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;background:rgba(56,189,248,.095);border:1px solid rgba(56,189,248,.24);padding:7px 13px;border-radius:999px;font-size:.76em;color:#b9ecff;font-weight:850;letter-spacing:.095em;text-transform:uppercase}.live-dot{width:8px;height:8px;background:var(--green);border-radius:50%;display:inline-block;box-shadow:0 0 18px rgba(34,197,94,.9);animation:pulse 2s infinite}@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.82)}}@keyframes accelerateGlow{0%{transform:translateY(0) scale(1);filter:drop-shadow(0 0 0 rgba(56,189,248,0));letter-spacing:-.04em}45%{transform:translateY(-1px) scale(1.025);filter:drop-shadow(0 0 14px rgba(56,189,248,.45));letter-spacing:-.02em}100%{transform:translateY(0) scale(1);filter:drop-shadow(0 0 0 rgba(56,189,248,0));letter-spacing:-.04em}}@keyframes scoreSweep{0%{background-position:0% 50%}100%{background-position:220% 50%}}
-.title-emoji{position:relative;z-index:1;font-size:3em;line-height:1;margin:18px 0 4px;filter:drop-shadow(0 0 22px rgba(124,92,255,.46))}h1{position:relative;z-index:1;font-size:clamp(2.8rem,6vw,5.7rem);line-height:.89;font-weight:650;letter-spacing:-.075em;background:linear-gradient(135deg,#f8fbff 0%,#9ee7ff 26%,#a797ff 52%,#ffd38a 78%,#71f2a2 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-wrap:balance}.hero-sub{position:relative;z-index:1;color:var(--muted);font-size:1.06em;margin-top:18px;max-width:760px;line-height:1.68}.hero-cta{position:relative;z-index:1;display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:13px;font-size:.9em;font-weight:850;text-decoration:none;transition:.18s;border:1px solid var(--border);background:rgba(255,255,255,.045);color:#edf2ff}.btn-primary{background:linear-gradient(135deg,rgba(56,189,248,.24),rgba(124,92,255,.30));border-color:rgba(125,92,255,.46);box-shadow:0 12px 34px rgba(124,92,255,.16)}.btn:hover{transform:translateY(-2px);border-color:rgba(125,211,252,.62);background:rgba(255,255,255,.075)}
-.hero-side{border-radius:30px;padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.metric-card{border:1px solid var(--border);background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.035));border-radius:20px;padding:16px;min-height:116px;display:flex;flex-direction:column;justify-content:space-between}.metric-card.wide{grid-column:1/-1;min-height:118px;background:linear-gradient(135deg,rgba(56,189,248,.12),rgba(124,92,255,.12),rgba(245,158,11,.07))}.metric-label{color:var(--faint);font-size:.74em;font-weight:850;text-transform:uppercase;letter-spacing:.09em}.metric-value{font-size:2em;font-weight:780;letter-spacing:-.045em;color:#f8fbff}.metric-card.wide .metric-value{display:inline-block;background:linear-gradient(90deg,#f8fafc,#7dd3fc,#4ade80,#f8fafc);background-size:220% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:accelerateGlow 1.65s cubic-bezier(.2,.8,.2,1) infinite,scoreSweep 2.4s linear infinite}.metric-copy{color:var(--muted);font-size:.82em;line-height:1.45}.status-line{display:flex;align-items:center;gap:8px;color:#8df6ad;font-size:.82em;font-weight:800}
-.market-strip{border-radius:22px;overflow:hidden;margin:0 0 22px}.ticker-wrap{padding:0}.tradingview-widget-container{background:transparent;overflow:hidden}.ticker-wrap .tradingview-widget-container{height:54px;padding-inline:8px}
-.scanner{margin:0 0 22px;padding:24px;border-color:rgba(56,189,248,.20);border-radius:28px;position:relative;overflow:hidden;text-align:left;background:linear-gradient(135deg,rgba(16,22,34,.92),rgba(18,14,33,.86) 48%,rgba(29,22,10,.76))}.scanner:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,rgba(56,189,248,.18),transparent 35%),radial-gradient(circle at 92% 14%,rgba(245,158,11,.12),transparent 28%);pointer-events:none}.scanner>*{position:relative}.scanner-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;flex-wrap:wrap;margin-bottom:4px}.scanner-head h2{font-size:1.6em;color:var(--text);letter-spacing:-.035em;font-weight:700}.scanner-head>div>p{color:var(--muted);font-size:.9em;margin-top:8px;line-height:1.5}.formula{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.chip{padding:8px 12px;border:1px solid var(--border);background:rgba(255,255,255,.055);border-radius:999px;font-size:.8em;font-weight:850;color:#cfefff}.scanner-score{min-width:168px;text-align:center;padding:16px 18px;border-radius:22px;background:rgba(255,255,255,.06);border:1px solid rgba(56,189,248,.22)}.scanner-score .num{display:inline-block;font-size:2.5em;line-height:1;font-weight:850;color:#38bdf8;text-shadow:0 0 26px rgba(56,189,248,.28);background:linear-gradient(90deg,#7dd3fc,#f8fafc,#4ade80,#7dd3fc);background-size:240% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:accelerateGlow 1.35s cubic-bezier(.2,.8,.2,1) infinite,scoreSweep 2.2s linear infinite}.scanner-score .label{color:var(--muted);font-size:.78em;margin-top:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:800}.count-up{font-variant-numeric:tabular-nums}.scanner-board{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.signal-card{background:rgba(255,255,255,.055);border:1px solid var(--border);border-radius:22px;padding:16px;overflow:hidden}.signal-card h3{font-size:1em;margin-bottom:10px;letter-spacing:-.02em}.signal-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:start;padding:13px 0;border-top:1px solid rgba(255,255,255,.07)}.signal-row:first-of-type{border-top:0}.asset-name{display:block;color:var(--text);font-weight:760;letter-spacing:-.015em}.asset-tag{display:inline-flex;margin:6px 6px 0 0;padding:3px 7px;border-radius:999px;background:rgba(125,92,255,.18);color:#d9d2ff;font-size:.68em;font-weight:850}.asset-meta{display:inline;color:var(--faint);font-size:.74em}.asset-levels{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px;font-size:.78em;font-weight:760}.score-pill{display:inline-grid;place-items:center;min-width:34px;height:30px;padding:0 8px;border-radius:10px;font-weight:850}.score-hot{background:rgba(34,197,94,.16);color:#9ff5ba;border:1px solid rgba(34,197,94,.22)}.score-risk{background:rgba(251,113,133,.14);color:#ffc0ca;border:1px solid rgba(251,113,133,.22)}.score-warm{background:rgba(245,158,11,.16);color:#ffd699;border:1px solid rgba(245,158,11,.22)}.score-muted{background:rgba(100,116,139,.12);color:#cbd5e1;border:1px solid rgba(100,116,139,.20)}.legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;color:var(--muted);font-size:.78em}.legend span{border:1px solid var(--border);background:rgba(255,255,255,.04);border-radius:999px;padding:7px 10px}.demo-tag{color:#ffe0a3!important}
-.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin:30px 0 14px}.section-label{color:#eff6ff;font-size:1.06em;font-weight:850;letter-spacing:-.035em}.section-kicker{color:var(--muted);font-size:.86em}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.panel{position:relative;overflow:hidden;border-radius:24px;padding:24px;text-align:left;text-decoration:none;color:var(--text);transition:all .2s;min-height:176px;background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.034))}.panel:before{content:"";position:absolute;inset:auto -42px -76px auto;width:180px;height:180px;border-radius:999px;background:var(--glow);opacity:.14;transition:.2s;filter:blur(2px)}.panel:after{content:"Open board →";position:absolute;right:18px;top:18px;color:var(--faint);font-size:.78em;font-weight:800;opacity:0;transform:translateY(-3px);transition:.2s}.panel:hover{transform:translateY(-5px);border-color:color-mix(in srgb,var(--glow) 58%,white 0%);box-shadow:0 22px 80px rgba(0,0,0,.46),0 0 0 1px color-mix(in srgb,var(--glow) 32%,transparent) inset}.panel:hover:before{opacity:.24;transform:scale(1.08)}.panel:hover:after{opacity:1;transform:translateY(0)}.panel .emoji{font-size:2.35em;margin-bottom:14px;filter:drop-shadow(0 0 18px color-mix(in srgb,var(--glow) 35%,transparent))}.panel h2{font-size:1.28em;margin-bottom:8px;letter-spacing:-.035em;font-weight:760}.panel .desc{color:var(--muted);font-size:.9em;line-height:1.5;max-width:92%}.panel .count{display:inline-flex;margin-top:16px;color:#dbeafe;font-size:.76em;font-weight:850;border:1px solid var(--border);border-radius:999px;padding:6px 9px;background:rgba(255,255,255,.055)}.session-led{display:inline-flex;align-items:center;gap:7px;margin-top:12px;padding:7px 10px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.045);color:var(--muted);font-size:.72em;font-weight:850;text-transform:uppercase;letter-spacing:.055em}.session-led:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--faint);box-shadow:0 0 16px rgba(139,148,170,.45)}.asset-session{margin-top:6px;padding:5px 8px;font-size:.64em;white-space:nowrap}
-.session-led.open{color:#b8f7c9;border-color:rgba(34,197,94,.22);background:rgba(34,197,94,.075)}
-.session-led.open:before{background:var(--green);box-shadow:0 0 18px rgba(34,197,94,.95)}.session-led.closed{color:#ffc4cd;border-color:rgba(251,113,133,.24);background:rgba(251,113,133,.075)}.session-led.closed:before{background:var(--red);box-shadow:0 0 18px rgba(251,113,133,.95)}.session-led.soon{color:#ffe2a8;border-color:rgba(245,158,11,.24);background:rgba(245,158,11,.075)}.session-led.soon:before{background:var(--amber);box-shadow:0 0 18px rgba(245,158,11,.95)}.crypto{--glow:#38bdf8}.commodities{--glow:#f59e0b}.indices{--glow:#8b5cf6}.forex{--glow:#22c55e}.actions{--glow:#4ade80}.etf{--glow:#ec4899}
-footer{margin-top:34px;color:var(--muted);font-size:.85em;text-align:center;line-height:1.75}footer a{color:#7dd3fc;text-decoration:none}footer a:hover{text-decoration:underline}
-@media(max-width:980px){.hero{grid-template-columns:1fr}.scanner-board,.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:680px){.shell{width:min(100% - 22px,1240px);padding-top:12px}.topbar{align-items:flex-start;flex-direction:column;top:8px}.hero-main{padding:24px;border-radius:24px}.hero-side{grid-template-columns:1fr;border-radius:24px}.scanner-board,.grid{grid-template-columns:1fr!important}.scanner-head{display:block}.scanner-score{margin-top:16px;text-align:left}.metric-value{font-size:1.7em}h1{font-size:clamp(2.45rem,17vw,4rem)}}
-
-/* ATLAS_UIUX_PASS_20260515 */
-.nav a.active{color:var(--text);border-color:rgba(56,189,248,.34);background:rgba(56,189,248,.10);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
-.market-strip{margin:4px 0 28px;border-radius:24px;border-color:rgba(56,189,248,.14)}
-.scanner{margin:0 0 34px;padding:28px;border-radius:30px}.scanner-head{margin-bottom:14px}.scanner-head h2{font-size:1.72em}.scanner-sub{max-width:760px;color:#cbd5e1!important}.scanner-quicklegend{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.scanner-quicklegend span{padding:6px 10px;border-radius:999px;border:1px solid rgba(148,163,184,.16);background:rgba(255,255,255,.045);color:#dbeafe;font-size:.76em;font-weight:850}.scanner-score{box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
-.signal-card{padding:18px;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.038));border-color:rgba(148,163,184,.14)}.signal-card h3{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:1.04em;margin-bottom:12px}.signal-row{padding:14px 0;gap:14px;transition:background .16s,border-color .16s}.signal-row:hover{background:rgba(255,255,255,.035);border-radius:16px;padding-inline:10px}.asset-name{font-size:1.01rem;font-weight:850}.asset-tag{background:rgba(56,189,248,.10);border:1px solid rgba(56,189,248,.18);color:#bfdbfe}.asset-meta{color:#aebad0;font-size:.78em}.asset-levels{font-size:.8em;align-items:center}.tv-link{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:5px 10px;border-radius:999px;border:1px solid rgba(56,189,248,.32);background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(124,92,255,.12));color:#d9f3ff!important;text-decoration:none;font-size:.76rem;font-weight:950;white-space:nowrap;transition:all .16s;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}.tv-link:hover{background:linear-gradient(135deg,rgba(56,189,248,.24),rgba(124,92,255,.20));border-color:rgba(56,189,248,.58);transform:translateY(-1px);box-shadow:0 8px 24px rgba(56,189,248,.12),inset 0 1px 0 rgba(255,255,255,.10)}.score-box{text-align:right;min-width:86px}.score-meta{font-size:.74em;color:#aebad0;margin-top:4px;white-space:nowrap}.status-mini{font-size:.72em;margin-top:3px;font-weight:850}.score-pill{min-width:64px;height:32px;border-radius:999px}.legend{margin-top:18px;padding-top:12px;border-top:1px solid rgba(255,255,255,.07)}.legend span{color:#d4deee}.panel{padding-bottom:54px}.panel:after{content:"Open dashboard →";top:auto;bottom:18px;right:20px;opacity:.82;transform:none;color:#dbeafe;border:1px solid rgba(255,255,255,.10);border-radius:999px;padding:6px 10px;background:rgba(255,255,255,.055)}.panel:hover:after{opacity:1;background:rgba(56,189,248,.12);border-color:rgba(56,189,248,.32)}.panel .desc{color:#c0cadc}.section-head{margin-top:38px}
-@media(max-width:680px){.scanner{padding:20px}.signal-row{grid-template-columns:1fr}.score-box{text-align:left;margin-top:8px}.scanner-quicklegend span{font-size:.72em}.panel{min-height:190px}}
-
-
-/* ATLAS_SESSION_BADGE_RESTORE_20260516 */
-.panel .session-led{position:absolute;left:24px;bottom:18px;margin-top:0}.panel .count+.session-led{margin-left:8px}.panel:after{bottom:18px}.panel{padding-bottom:84px}
-@media(max-width:680px){.panel .session-led{left:20px;bottom:18px}.panel{padding-bottom:86px}}
-
-
-/* ATLAS_REMOVE_DASHBOARD_CARD_ORBS_20260517 */
-.panel:before,.panel:hover:before{display:none!important;content:none!important;background:none!important;box-shadow:none!important;filter:none!important}
-/* ATLAS_THEME_TOGGLE_20260517 */
-.theme-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:var(--glass);cursor:pointer;font-size:.8em;font-weight:760;color:var(--muted);transition:all .2s;margin-left:6px}
-.theme-btn:hover{border-color:var(--border-strong);color:var(--text);background:var(--panel)}
-.theme-btn .icon-sun,.theme-btn .icon-moon{font-size:1.1em;line-height:1}
-[data-theme="light"] .theme-btn .icon-moon{display:inline}
-[data-theme="light"] .theme-btn .icon-sun{display:none}
-[data-theme="dark"] .theme-btn .icon-moon{display:none}
-[data-theme="dark"] .theme-btn .icon-sun{display:inline}
-/* Light mode: override all dark-hardcoded colors aggressively */
-[data-theme="light"] .topbar{background:rgba(255,255,255,.82)!important;box-shadow:0 4px 24px rgba(0,0,0,.06),var(--ring)!important}
-[data-theme="light"] .hero-main,[data-theme="light"] .hero-side,[data-theme="light"] .scanner,[data-theme="light"] .market-strip{background:#fff!important;box-shadow:0 2px 16px rgba(0,0,0,.06),var(--ring)!important}
-[data-theme="light"] .panel{background:#fff!important;box-shadow:0 2px 12px rgba(0,0,0,.05)!important}
-[data-theme="light"] .hero-main:before{background:linear-gradient(135deg,rgba(0,0,0,.02),transparent 42%)!important}
-[data-theme="light"] .hero-main:after{opacity:.45!important}
-[data-theme="light"] .scanner{background:linear-gradient(135deg,#f8fafc,#f1f5ff 48%,#fffbeb)!important}
-[data-theme="light"] .scanner:before{opacity:.35!important}
-[data-theme="light"] .scanner:after{opacity:.35!important}
-[data-theme="light"] .metric-card{background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.005))!important;border-color:rgba(0,0,0,.08)!important}
-[data-theme="light"] .metric-card.wide{background:linear-gradient(135deg,rgba(56,189,248,.06),rgba(124,92,255,.05),rgba(245,158,11,.03))!important}
-[data-theme="light"] .metric-value{color:#0f172a!important}
-[data-theme="light"] .metric-card.wide .metric-value{background:linear-gradient(90deg,#0f172a,#0284c7,#16a34a,#0f172a)!important;background-size:220% 100%!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important}
-[data-theme="light"] .btn{background:rgba(0,0,0,.04)!important;color:#1e293b!important}
-[data-theme="light"] .btn:hover{background:rgba(0,0,0,.07)!important;border-color:rgba(56,189,248,.4)!important}
-[data-theme="light"] .btn-primary{color:#fff!important;background:linear-gradient(135deg,#0284c7,#7c3aed)!important;border-color:rgba(124,58,237,.3)!important}
-[data-theme="light"] .signal-card{background:rgba(0,0,0,.02)!important;border-color:rgba(0,0,0,.08)!important}
-[data-theme="light"] .signal-card h3{color:var(--text)!important}
-[data-theme="light"] .signal-row:hover{background:rgba(0,0,0,.03)!important}
-[data-theme="light"] .chip{background:rgba(0,0,0,.04)!important;color:#1e40af!important}
-[data-theme="light"] .scanner-score{background:rgba(0,0,0,.03)!important;border-color:rgba(56,189,248,.18)!important}
-[data-theme="light"] .scanner-quicklegend span{background:rgba(0,0,0,.04)!important;color:#475569!important;border-color:rgba(0,0,0,.10)!important}
-[data-theme="light"] .tv-link{color:#1e40af!important;background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(124,92,255,.06))!important;border-color:rgba(56,189,248,.22)!important}
-[data-theme="light"] .tv-link:hover{background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(124,92,255,.12))!important;color:#1e3a8a!important}
-[data-theme="light"] .panel .count{background:rgba(0,0,0,.04)!important;color:#475569!important}
-[data-theme="light"] .panel:after{color:var(--muted)!important;border-color:rgba(0,0,0,.08)!important;background:rgba(0,0,0,.03)!important}
-[data-theme="light"] .panel:hover:after{background:rgba(56,189,248,.08)!important;border-color:rgba(56,189,248,.22)!important;color:#0284c7!important}
-[data-theme="light"] .section-label{color:#0f172a!important}
-[data-theme="light"] .scanner-sub{color:#475569!important}
-[data-theme="light"] .legend{border-top-color:rgba(0,0,0,.06)!important}
-[data-theme="light"] .legend span{color:#475569!important;background:rgba(0,0,0,.03)!important;border-color:rgba(0,0,0,.08)!important}
-[data-theme="light"] .metric-copy,[data-theme="light"] .score-meta,[data-theme="light"] .asset-meta{color:#64748b!important}
-[data-theme="light"] .asset-name{color:#0f172a!important}
-[data-theme="light"] .asset-tag{background:rgba(56,189,248,.08)!important;border-color:rgba(56,189,248,.14)!important;color:#0369a1!important}
-[data-theme="light"] .eyebrow{background:rgba(56,189,248,.06)!important;border-color:rgba(56,189,248,.16)!important;color:#0369a1!important}
-[data-theme="light"] .status-line{color:#16a34a!important}
-[data-theme="light"] footer a{color:#0284c7!important}
-[data-theme="light"] .nav a.active{background:rgba(56,189,248,.08)!important;border-color:rgba(56,189,248,.22)!important;box-shadow:inset 0 1px 0 rgba(0,0,0,.04)!important}
-[data-theme="light"] .nav a:hover{background:rgba(0,0,0,.04)!important}
-[data-theme="light"] .hero-sub{color:var(--muted)!important}
-[data-theme="light"] [style*="color:#bae6fd"]{color:#0369a1!important}
-[data-theme="light"] [style*="color:#f59e0b"]{color:#b45309!important}
-[data-theme="light"] .score-pill{color:var(--text)!important}
-[data-theme="light"] .score-hot{background:rgba(22,163,74,.12)!important;color:#16a34a!important;border-color:rgba(22,163,74,.18)!important}
-[data-theme="light"] .score-risk{background:rgba(225,29,72,.10)!important;color:#e11d48!important;border-color:rgba(225,29,72,.16)!important}
-[data-theme="light"] .score-warm{background:rgba(217,119,6,.10)!important;color:#b45309!important;border-color:rgba(217,119,6,.16)!important}
-[data-theme="light"] .score-muted{background:rgba(71,85,105,.08)!important;color:#475569!important;border-color:rgba(71,85,105,.14)!important}
-[data-theme="light"] .demo-tag{color:#78350f!important}
-[data-theme="light"] .market-state{background:rgba(241,245,249,.9)!important;border-color:rgba(0,0,0,.12)!important;color:#475569!important}
-[data-theme="light"] .market-state:before{background:#94a3b8!important;box-shadow:0 0 8px rgba(148,163,184,.4)!important}
-[data-theme="light"] .market-state-open{color:#16a34a!important;border-color:rgba(22,163,74,.22)!important;background:rgba(22,163,74,.06)!important}
-[data-theme="light"] .market-state-open:before{background:#16a34a!important;box-shadow:0 0 10px rgba(22,163,74,.6)!important}
-[data-theme="light"] .market-state-pre-market{color:#b45309!important;border-color:rgba(217,119,6,.22)!important;background:rgba(217,119,6,.06)!important}
-[data-theme="light"] .market-state-pre-market:before{background:#d97706!important;box-shadow:0 0 10px rgba(217,119,6,.6)!important}
-[data-theme="light"] .market-state-closed{color:#e11d48!important;border-color:rgba(225,29,72,.22)!important;background:rgba(225,29,72,.06)!important}
-[data-theme="light"] .market-state-closed:before{background:#e11d48!important;box-shadow:0 0 10px rgba(225,29,72,.6)!important}
-[data-theme="light"] .session-led{background:rgba(0,0,0,.03)!important;border-color:rgba(0,0,0,.08)!important;color:#475569!important}
-[data-theme="light"] .session-led:before{background:#94a3b8!important}
-[data-theme="light"] .session-led.open{color:#16a34a!important;border-color:rgba(22,163,74,.18)!important;background:rgba(22,163,74,.05)!important}
-[data-theme="light"] .session-led.open:before{background:var(--green)!important;box-shadow:0 0 12px rgba(22,163,74,.6)!important}
-[data-theme="light"] .session-led.closed{color:#e11d48!important;border-color:rgba(225,29,72,.18)!important;background:rgba(225,29,72,.05)!important}
-[data-theme="light"] .session-led.closed:before{background:var(--red)!important;box-shadow:0 0 12px rgba(225,29,72,.6)!important}
-[data-theme="light"] .session-led.soon{color:#b45309!important;border-color:rgba(217,119,6,.18)!important;background:rgba(217,119,6,.05)!important}
-[data-theme="light"] .session-led.soon:before{background:var(--amber)!important;box-shadow:0 0 12px rgba(217,119,6,.6)!important}
-[data-theme="light"] .panel .desc{color:#475569!important}
-[data-theme="light"] .panel h2{color:#0f172a!important}
-*,*::before,*::after{transition:background-color .4s ease,border-color .4s ease,color .4s ease,box-shadow .4s ease}
-
-/* === ATLAS UPGRADE 2026-05-20 === */
-.nav-pills{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 24px}
-.nav-pills a{text-decoration:none;padding:8px 18px;border-radius:999px;font-size:.9em;font-weight:600;color:var(--muted);border:1px solid var(--border);transition:all .25s}
-.nav-pills a:hover,.nav-pills a.active{color:var(--text);border-color:rgba(56,189,248,.34);background:rgba(56,189,248,.10)}
-.heatmap-wrap{border-radius:24px;overflow:hidden;margin:0 0 28px;border:1px solid var(--border);background:var(--panel)}
-.widget-panel{border-radius:24px;overflow:hidden;margin:0 0 24px;border:1px solid var(--border);background:var(--panel);padding:8px}
-.news-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px;margin:0 0 12px;transition:all .2s;display:block}
-.news-card:hover{border-color:var(--border-strong);transform:translateY(-2px)}
-.news-card h4{font-size:1em;margin:0 0 6px;line-height:1.4;color:var(--text)}
-.news-card .source{font-size:.78em;color:var(--faint)}
-.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
-.fear-greed-widget{text-align:center;padding:28px 18px;background:linear-gradient(135deg,var(--panel),var(--panel2));border-radius:24px;border:1px solid var(--border);margin:0 0 24px}
-.fg-value{font-size:3.5em;font-weight:800;letter-spacing:-.03em}
-.fg-extreme-fear{color:#ea580c}.fg-fear{color:#f59e0b}.fg-neutral{color:#eab308}.fg-greed{color:#84cc16}.fg-extreme-greed{color:#22c55e}
-.overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:0 0 24px}
-.overview-card{border-radius:20px;border:1px solid var(--border);padding:18px;background:var(--panel)}
-.overview-card .oc-label{font-size:.78em;color:var(--faint);text-transform:uppercase;letter-spacing:.05em}
-.timestamp-bar{text-align:center;font-size:.78em;color:var(--faint);padding:8px;margin:18px 0;border-top:1px solid var(--border)}
-.widget-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 24px}
-@media(max-width:768px){.widget-row{grid-template-columns:1fr}.news-grid{grid-template-columns:1fr}.overview-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.overview-grid{grid-template-columns:1fr}}
-
-</style></head><body><main class="shell"><header class="topbar"><div class="brand"><span class="brand-mark">🔮</span><span>Atlas Nexus</span></div><nav class="nav" aria-label="Dashboard navigation"><a class="active" href="#scanner">Scanner</a><a href="#dashboards">Markets</a><a href="https://github.com/AtlasNexusTech/markets-dashboard">GitHub</a><button class="theme-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light theme"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button></nav></header><section class="hero" aria-label="Atlas Nexus Markets overview"><div class="hero-main"><div class="eyebrow"><span class="live-dot"></span> Live multi-asset intelligence</div><div class="title-emoji">🔮</div><h1>Markets Command Deck</h1><p class="hero-sub">A client-facing market intelligence cockpit for crypto, stocks, ETFs, indices, forex and commodities — live widgets, generated dashboards, and a technical scanner built for fast signal reading.</p><div class="hero-cta"><a href="#scanner" class="btn btn-primary">⚡ Open Live Scanner</a><a href="#dashboards" class="btn">Browse dashboards</a></div></div><aside class="hero-side" aria-label="Key coverage metrics"><div class="metric-card wide"><div><div class="metric-label">Scanner coverage</div><div class="metric-value"><span class="count-up" data-target="103">103</span> assets</div></div><div class="status-line"><span class="live-dot"></span>Yahoo Finance OHLCV · live scoring</div></div><div class="metric-card"><div class="metric-label">Markets</div><div class="metric-value">6</div><div class="metric-copy">Crypto · Stocks · ETF · Indices · FX · Commodities</div></div><div class="metric-card"><div class="metric-label">Scoring engine</div><div class="metric-value">Hawkeye V4</div><div class="metric-copy">Pressure · Regime · Momentum · Extension</div></div></aside></section><section class="market-strip" aria-label="Live market ticker"><div class="ticker-wrap"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>{"symbols":[{"proName":"FOREXCOM:SPXUSD","title":"S&P 500"},{"proName":"FOREXCOM:NAS100","title":"Nasdaq"},{"proName":"BITSTAMP:BTCUSD","title":"BTC/USD"},{"proName":"BITSTAMP:ETHUSD","title":"ETH/USD"},{"proName":"TVC:GOLD","title":"Gold"},{"proName":"TVC:USOIL","title":"WTI Oil"},{"proName":"FOREXCOM:EURUSD","title":"EUR/USD"},{"proName":"NASDAQ:AAPL","title":"Apple"},{"proName":"NASDAQ:NVDA","title":"NVIDIA"},{"proName":"AMEX:SPY","title":"SPY"},{"proName":"NASDAQ:QQQ","title":"QQQ"},{"proName":"TVC:DXY","title":"DXY"}],"showSymbolLogo":true,"isTransparent":true,"displayMode":"adaptive","colorTheme":"light","locale":"en"}</script></div></div></section><section id="scanner" class="scanner">
-<style>
-.market-state{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:999px;border:1px solid rgba(148,163,184,.18);background:rgba(15,23,42,.56);font-size:.72rem;font-weight:950;text-transform:uppercase;letter-spacing:.035em;white-space:nowrap}
-.market-state:before{content:"";width:6px;height:6px;border-radius:999px;background:#94a3b8;box-shadow:0 0 12px rgba(148,163,184,.65)}
-.market-state-open{color:#bbf7d0;border-color:rgba(34,197,94,.24);background:rgba(34,197,94,.09)}
-.market-state-open:before{background:#22c55e;box-shadow:0 0 14px rgba(34,197,94,.9)}
-.market-state-pre-market{color:#fde68a;border-color:rgba(245,158,11,.26);background:rgba(245,158,11,.09)}
-.market-state-pre-market:before{background:#f59e0b;box-shadow:0 0 14px rgba(245,158,11,.85)}
-.market-state-closed{color:#fecaca;border-color:rgba(251,113,133,.26);background:rgba(251,113,133,.09)}
-.market-state-closed:before{background:#fb7185;box-shadow:0 0 14px rgba(251,113,133,.85)}
-</style>
-<div class="scanner-head">
-<div>
-<h2>🦅 Hawkeye V4 — Market Pressure Radar</h2>
-<p class="scanner-sub">Top bullish and bearish assets ranked by composite pressure score — built for quick manual chart inspection. Each slot shows indicative market state: Open, Closed, or Pre-market.</p>
-<div class="scanner-quicklegend"><span>60–74 Active</span><span>75+ Strong</span><span>90+ Extreme</span><span>Chart ↗ opens TradingView</span></div>
-</div>
-<div class="scanner-score"><div class="num">103</div><div class="label">assets scanned</div></div>
-</div>
-<div class="scanner-board" style="grid-template-columns:repeat(2,1fr)">
-<div class="signal-card"><h3>📈 Bullish pressure (7)</h3><div class="signal-row" data-market="stocks">
-<div>
-<span class="asset-name">Caterpillar</span>
-<span class="asset-tag">Bullish pressure</span>
-<span class="asset-meta">actions · uptrend · bullish continuation</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $888.31</span>
-<span class="market-state market-state-closed" data-market="stocks" data-market-state>Closed · listed markets</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3ACAT" target="_blank" rel="noopener noreferrer" title="Open NYSE:CAT on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div class="score-box">
-<span class="score-pill score-warm">73/100</span>
-<div class="score-meta">Net +46 · CAT</div>
-<div class="status-mini" style="color:#f59e0b">👁️ Active</div>
-</div>
-</div><div class="signal-row" data-market="etf">
-<div>
-<span class="asset-name">Energy Select</span>
-<span class="asset-tag">Bullish pressure</span>
-<span class="asset-meta">etf · uptrend · bullish continuation</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $59.44</span>
-<span class="market-state market-state-closed" data-market="etf" data-market-state>Closed · listed markets</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AMEX%3AXLE" target="_blank" rel="noopener noreferrer" title="Open AMEX:XLE on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div class="score-box">
-<span class="score-pill score-warm">70/100</span>
-<div class="score-meta">Net +49 · XLE</div>
-<div class="status-mini" style="color:#f59e0b">👁️ Active</div>
-</div>
-</div><div class="signal-row" data-market="stocks">
-<div>
-<span class="asset-name">Walmart</span>
-<span class="asset-tag">Bullish pressure</span>
-<span class="asset-meta">actions · uptrend · bullish continuation</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $131.45</span>
-<span class="market-state market-state-closed" data-market="stocks" data-market-state>Closed · listed markets</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYSE%3AWMT" target="_blank" rel="noopener noreferrer" title="Open NYSE:WMT on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div class="score-box">
-<span class="score-pill score-warm">69/100</span>
-<div class="score-meta">Net +42 · WMT</div>
-<div class="status-mini" style="color:#f59e0b">👁️ Active</div>
-</div>
-</div><div class="signal-row" data-market="etf">
-<div>
-<span class="asset-name">iShares MSCI EM</span>
-<span class="asset-tag">Bullish pressure</span>
-<span class="asset-meta">etf · uptrend · bullish continuation</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $65.07</span>
-<span class="market-state market-state-closed" data-market="etf" data-market-state>Closed · listed markets</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EEM" target="_blank" rel="noopener noreferrer" title="Open EEM on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div class="score-box">
-<span class="score-pill score-warm">69/100</span>
-<div class="score-meta">Net +38 · EEM</div>
-<div class="status-mini" style="color:#f59e0b">👁️ Active</div>
-</div>
-</div><div class="signal-row" data-market="indices">
-<div>
-<span class="asset-name">Nikkei 225</span>
-<span class="asset-tag">Bullish pressure</span>
-<span class="asset-meta">indices · uptrend · bullish continuation</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ 61,409.29 pts</span>
-<span class="market-state market-state-open" data-market="indices" data-market-state>Open · global/futures</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=TSE%3ANI225" target="_blank" rel="noopener noreferrer" title="Open TSE:NI225 on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div class="score-box">
-<span class="score-pill score-warm">67/100</span>
-<div class="score-meta">Net +46 · ^N225</div>
-<div class="status-mini" style="color:#f59e0b">👁️ Active</div>
-</div>
-</div><div class="signal-row" data-market="stocks">
-<div>
-<span class="asset-name">NVIDIA</span>
-<span class="asset-tag">Bullish pressure</span>
-<span class="asset-meta">actions · uptrend · breakout pressure · extension warning</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $225.32</span>
-<span class="market-state market-state-closed" data-market="stocks" data-market-state>Closed · listed markets</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3ANVDA" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:NVDA on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div class="score-box">
-<span class="score-pill score-warm">67/100</span>
-<div class="score-meta">Net +47 · NVDA</div>
-<div class="status-mini" style="color:#f59e0b">👁️ Active</div>
-</div>
-</div><div class="signal-row" data-market="commodities">
-<div>
-<span class="asset-name">Sugar</span>
-<span class="asset-tag">Bullish pressure</span>
-<span class="asset-meta">commodities · uptrend · bullish continuation</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $14.78/USD/lb</span>
-<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=ICEUS%3ASB1%21" target="_blank" rel="noopener noreferrer" title="Open ICEUS:SB1! on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div class="score-box">
-<span class="score-pill score-warm">66/100</span>
-<div class="score-meta">Net +46 · SB=F</div>
-<div class="status-mini" style="color:#f59e0b">👁️ Active</div>
-</div>
-</div></div>
-<div class="signal-card"><h3>📉 Bearish pressure (7)</h3><div class="signal-row" data-market="etf">
-<div>
-<span class="asset-name">SPDR Gold</span>
-<span class="asset-tag">Bearish pressure</span>
-<span class="asset-meta">etf · downtrend · bearish continuation</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $417.29</span>
-<span class="market-state market-state-closed" data-market="etf" data-market-state>Closed · listed markets</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AMEX%3AGLD" target="_blank" rel="noopener noreferrer" title="Open AMEX:GLD on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div class="score-box">
-<span class="score-pill score-warm">74/100</span>
-<div class="score-meta">Net -47 · GLD</div>
-<div class="status-mini" style="color:#f59e0b">👁️ Active</div>
-</div>
-</div><div class="signal-row" data-market="stocks">
-<div>
-<span class="asset-name">Hermès</span>
-<span class="asset-tag">Bearish pressure</span>
-<span class="asset-meta">actions · downtrend · bearish continuation</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ €1,575.50</span>
-<span class="market-state market-state-closed" data-market="stocks" data-market-state>Closed · listed markets</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EURONEXT%3ARMS" target="_blank" rel="noopener noreferrer" title="Open EURONEXT:RMS on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div class="score-box">
-<span class="score-pill score-warm">70/100</span>
-<div class="score-meta">Net -43 · RMS.PA</div>
-<div class="status-mini" style="color:#f59e0b">👁️ Active</div>
-</div>
-</div><div class="signal-row" data-market="etf">
-<div>
-<span class="asset-name">iShares Inv. Grade</span>
-<span class="asset-tag">Bearish pressure</span>
-<span class="asset-meta">etf · downtrend · breakdown pressure · extension warning</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $107.86</span>
-<span class="market-state market-state-closed" data-market="etf" data-market-state>Closed · listed markets</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=LQD" target="_blank" rel="noopener noreferrer" title="Open LQD on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div class="score-box">
-<span class="score-pill score-warm">69/100</span>
-<div class="score-meta">Net -49 · LQD</div>
-<div class="status-mini" style="color:#f59e0b">👁️ Active</div>
-</div>
-</div><div class="signal-row" data-market="commodities">
-<div>
-<span class="asset-name">Gold</span>
-<span class="asset-tag">Bearish pressure</span>
-<span class="asset-meta">commodities · downtrend · bearish continuation</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $4,561.90/USD/oz</span>
-<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3AGC1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:GC1! on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div class="score-box">
-<span class="score-pill score-warm">68/100</span>
-<div class="score-meta">Net -47 · GC=F</div>
-<div class="status-mini" style="color:#f59e0b">👁️ Active</div>
-</div>
-</div><div class="signal-row" data-market="stocks">
-<div>
-<span class="asset-name">LVMH</span>
-<span class="asset-tag">Bearish pressure</span>
-<span class="asset-meta">actions · downtrend · bearish continuation</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ €455.60</span>
-<span class="market-state market-state-closed" data-market="stocks" data-market-state>Closed · listed markets</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EURONEXT%3AMC" target="_blank" rel="noopener noreferrer" title="Open EURONEXT:MC on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div class="score-box">
-<span class="score-pill score-warm">67/100</span>
-<div class="score-meta">Net -46 · MC.PA</div>
-<div class="status-mini" style="color:#f59e0b">👁️ Active</div>
-</div>
-</div><div class="signal-row" data-market="commodities">
-<div>
-<span class="asset-name">Palladium</span>
-<span class="asset-tag">Bearish pressure</span>
-<span class="asset-meta">commodities · downtrend · breakdown pressure · extension warning</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ $1,426.30/USD/oz</span>
-<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=PA%3DF" target="_blank" rel="noopener noreferrer" title="Open PA=F on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div class="score-box">
-<span class="score-pill score-warm">64/100</span>
-<div class="score-meta">Net -47 · PA=F</div>
-<div class="status-mini" style="color:#f59e0b">👁️ Active</div>
-</div>
-</div><div class="signal-row" data-market="indices">
-<div>
-<span class="asset-name">CAC 40</span>
-<span class="asset-tag">Bearish pressure</span>
-<span class="asset-meta">indices · downtrend · bearish continuation</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">🎟️ 7,952.55 pts</span>
-<span class="market-state market-state-open" data-market="indices" data-market-state>Open · global/futures</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EURONEXT%3APX1" target="_blank" rel="noopener noreferrer" title="Open EURONEXT:PX1 on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div class="score-box">
-<span class="score-pill score-warm">63/100</span>
-<div class="score-meta">Net -47 · ^FCHI</div>
-<div class="status-mini" style="color:#f59e0b">👁️ Active</div>
-</div>
-</div></div>
-
-</div>
-<div class="legend">
-<span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90-100 Extreme pressure</span>
-<span class="demo-tag">Updated 17/05/2026 20:31 CEST</span>
-</div>
-</section><section id="dashboards" aria-label="Live dashboards"><div class="section-head"><div><div class="section-label">Live Dashboards</div><div class="section-kicker">Six live boards, refreshed for the current market context.</div></div></div><div class="grid"><a href="crypto_dashboard.html" class="panel crypto" data-market="crypto"><div class="emoji">🪙</div><h2>Crypto</h2><div class="desc">BTC, ETH, SOL & liquid majors · 24/7 momentum</div><span class="count">24/7 market</span><span class="session-led open" data-session-label>OPEN · 24/7</span></a><a href="commodities_dashboard.html" class="panel commodities" data-market="commodities"><div class="emoji">🛢️</div><h2>Commodities</h2><div class="desc">Gold, Silver, Oil, Copper, Grains · CFD/extended context</div><span class="count">15 assets</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="indices_dashboard.html" class="panel indices" data-market="indices"><div class="emoji">🌍</div><h2>Indices</h2><div class="desc">S&P 500, Nasdaq, DAX, CAC, Nikkei · global risk pulse</div><span class="count">16 indices</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="forex_dashboard.html" class="panel forex" data-market="forex"><div class="emoji">💱</div><h2>Forex</h2><div class="desc">EURUSD, GBPJPY, AUDUSD · majors, crosses and exotics</div><span class="count">19 pairs</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="actions_dashboard.html" class="panel actions" data-market="stocks"><div class="emoji">🏛️</div><h2>Stocks</h2><div class="desc">Mega-cap tech, luxury, banks, defensives · equity momentum</div><span class="count">30 stocks</span><span class="session-led soon" data-session-label>SESSION</span></a><a href="etf_dashboard.html" class="panel etf" data-market="etf"><div class="emoji">💼</div><h2>ETF</h2><div class="desc">SPY, QQQ, GLD, TLT, ARKK · themes and cross-asset exposure</div><span class="count">24 ETFs</span><span class="session-led soon" data-session-label>SESSION</span></a></div></section>
-<div class="shell-section">
-  <h2 class="section-label" style="font-size:1.4em;font-weight:700;margin:28px 0 14px;">Vue d'ensemble</h2>
-  <div class="overview-grid">
-    <div class="overview-card">
-      <span class="oc-label">S&amp;P 500</span>
-      <div class="tradingview-widget-container" style="height:60px;margin:8px 0">
-        <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-        {"symbol":"SP:SPX","width":"100%","colorTheme":"dark","isTransparent":true,"locale":"fr"}
-        </script>
-      </div>
-    </div>
-    <div class="overview-card">
-      <span class="oc-label">NASDAQ 100</span>
-      <div class="tradingview-widget-container" style="height:60px;margin:8px 0">
-        <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-        {"symbol":"NASDAQ:NDX","width":"100%","colorTheme":"dark","isTransparent":true,"locale":"fr"}
-        </script>
-      </div>
-    </div>
-    <div class="overview-card">
-      <span class="oc-label">Bitcoin</span>
-      <div class="tradingview-widget-container" style="height:60px;margin:8px 0">
-        <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-        {"symbol":"BITSTAMP:BTCUSD","width":"100%","colorTheme":"dark","isTransparent":true,"locale":"fr"}
-        </script>
-      </div>
-    </div>
-    <div class="overview-card">
-      <span class="oc-label">Or (XAU/USD)</span>
-      <div class="tradingview-widget-container" style="height:60px;margin:8px 0">
-        <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-        {"symbol":"OANDA:XAUUSD","width":"100%","colorTheme":"dark","isTransparent":true,"locale":"fr"}
-        </script>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="shell-section">
-  <h2 class="section-label" style="font-size:1.4em;font-weight:700;margin:28px 0 14px;">Heatmap Actions US</h2>
-  <div class="heatmap-wrap">
-    <div class="tradingview-widget-container">
-      <div class="tradingview-widget-container__widget"></div>
-      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
-      {"exchanges":[],"dataSource":"SPX500","grouping":"sector","blockSize":"market_cap_basic","blockColor":"change","locale":"fr","symbolUrl":"","colorTheme":"dark","hasTopBar":true,"isDataSetEnabled":true,"isZoomEnabled":true,"hasSymbolTooltip":true,"isMonoSize":false,"width":"100%","height":"420"}
-      </script>
-    </div>
-  </div>
-</div>
-
-<div class="widget-row">
-  <div>
-    <h2 class="section-label" style="font-size:1.2em;font-weight:700;margin:0 0 14px;">Forex Cross Rates</h2>
-    <div class="widget-panel">
-      <div class="tradingview-widget-container">
-        <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
-        {"currencies":["EUR","USD","JPY","GBP","CHF","AUD","CAD","NZD"],"isTransparent":true,"colorTheme":"dark","locale":"fr","width":"100%","height":"340"}
-        </script>
-      </div>
-    </div>
-  </div>
-  <div>
-    <h2 class="section-label" style="font-size:1.2em;font-weight:700;margin:0 0 14px;">Calendrier Economique</h2>
-    <div class="widget-panel">
-      <div class="tradingview-widget-container">
-        <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
-        {"colorTheme":"dark","isTransparent":true,"width":"100%","height":"340","locale":"fr","importanceFilter":"0,1","countryFilter":"US,EU,JP,CN,GB,CH,CA"}
-        </script>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="widget-row">
-  <div>
-    <h2 class="section-label" style="font-size:1.2em;font-weight:700;margin:0 0 14px;">Crypto Fear &amp; Greed</h2>
-    <div class="fear-greed-widget" id="fear-greed-widget">
-      <div style="font-size:.85em;color:var(--faint);text-transform:uppercase;letter-spacing:.05em">Chargement...</div>
-      <div class="fg-value fg-neutral" id="fg-value">--</div>
-      <div style="font-size:1.1em;font-weight:600" id="fg-label">Index Fear &amp; Greed</div>
-      <div style="font-size:.75em;color:var(--faint);margin-top:8px" id="fg-updated"></div>
-    </div>
-  </div>
-  <div>
-    <h2 class="section-label" style="font-size:1.2em;font-weight:700;margin:0 0 14px;">Actualites Finance</h2>
-    <div id="news-container" class="news-grid">
-      <div class="news-card"><h4>Chargement des actualites...</h4><span class="source">Google News</span></div>
-    </div>
-  </div>
-</div>
-
-<div class="timestamp-bar">
-  Derniere mise a jour : <span id="last-update">--</span> &middot; Rafraichi automatiquement &middot; 
-  <a href="https://github.com/AtlasNexusTech/markets-dashboard" style="color:var(--blue)">Source</a>
-</div>
-
-<script>
-// Crypto Fear & Greed Index
-fetch("https://api.alternative.me/fng/?limit=1")
-  .then(function(r){return r.json()})
-  .then(function(d){
-    var val=parseInt(d.data[0].value),cls=d.data[0].value_classification;
-    var ts=new Date(parseInt(d.data[0].timestamp)*1000);
-    var el=document.getElementById("fg-value");
-    el.textContent=val;el.className="fg-value";
-    if(val<=25)el.classList.add("fg-extreme-fear");
-    else if(val<=45)el.classList.add("fg-fear");
-    else if(val<=55)el.classList.add("fg-neutral");
-    else if(val<=75)el.classList.add("fg-greed");
-    else el.classList.add("fg-extreme-greed");
-    document.getElementById("fg-label").textContent=cls;
-    document.getElementById("fg-updated").textContent=ts.toLocaleString("fr-FR");
-  })
-  .catch(function(){document.getElementById("fg-value").textContent="N/A"});
-
-// News feed via rss2json
-var newsContainer=document.getElementById("news-container");
-newsContainer.innerHTML='<div class="news-card"><h4>Chargement...</h4></div>';
-fetch("https://api.rss2json.com/v1/api.json?rss_url=https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx6TVdZU0FtVnVHZ0pWVXlnQVAB?hl=fr&gl=FR&ceid=FR:fr")
-  .then(function(r){return r.json()})
-  .then(function(d){
-    newsContainer.innerHTML=d.items.slice(0,8).map(function(item){
-      return "<a href=\""+item.link+"\" target=\"_blank\" class=\"news-card\" style=\"text-decoration:none;color:inherit\"><h4>"+item.title+"</h4><span class=\"source\">"+new Date(item.pubDate).toLocaleDateString("fr-FR")+"</span></a>";
-    }).join("");
-  })
-  .catch(function(){newsContainer.innerHTML='<div class="news-card"><h4>Actualites indisponibles</h4></div>'});
-
-// Timestamp
-document.getElementById("last-update").textContent=new Date().toLocaleString("fr-FR");
-</script>
-
-<footer><p>🔮 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance + TradingView · Open source</p><p><a href="https://github.com/AtlasNexusTech/markets-dashboard">github.com/AtlasNexusTech/markets-dashboard</a></p></footer><script>
-(() => {
-  const minutesUtc = d => d.getUTCHours() * 60 + d.getUTCMinutes();
-  const inRange = (m, start, end) => m >= start && m < end;
-  const weekday = d => d.getUTCDay() >= 1 && d.getUTCDay() <= 5;
-  const isForexOpen = d => {
-    const day = d.getUTCDay();
-    const m = minutesUtc(d);
-    return (day > 1 && day < 5) || (day === 1) || (day === 5 && m < 22 * 60) || (day === 0 && m >= 22 * 60);
-  };
-  const sessionState = (market, now = new Date()) => {
-    const m = minutesUtc(now);
-    const isWeekday = weekday(now);
-    if (market === 'crypto') return {state:'open', label:'OPEN · 24/7'};
-    if (market === 'forex') return isForexOpen(now) ? {state:'open', label:'OPEN · FX'} : {state:'closed', label:'CLOSED · FX'};
-    if (market === 'stocks' || market === 'etf') {
-      if (isWeekday && inRange(m, 14 * 60 + 30, 21 * 60)) return {state:'open', label:'OPEN · LISTED MARKETS'};
-      if (isWeekday && inRange(m, 9 * 60, 14 * 60 + 30)) return {state:'soon', label:'PRE-MARKET · LISTED MARKETS'};
-      return {state:'closed', label:'CLOSED · LISTED MARKETS'};
-    }
-    if (market === 'indices') {
-      if (isWeekday || now.getUTCDay() === 0) return {state:'open', label:'OPEN · global/futures'};
-      return {state:'closed', label:'CLOSED · weekend'};
-    }
-    if (market === 'commodities') {
-      if (isForexOpen(now)) return {state:'soon', label:'EXTENDED · CFD'};
-      return {state:'closed', label:'CLOSED · CFD'};
-    }
-    return {state:'closed', label:'CLOSED'};
-  };
-  const applyMarketSessions = () => {
-    document.querySelectorAll('[data-market]').forEach(card => {
-      const led = card.querySelector('[data-session-label]');
-      if (!led) return;
-      const {state, label} = sessionState(card.dataset.market);
-      led.classList.remove('open', 'closed', 'soon');
-      led.classList.add(state);
-      led.textContent = label;
-      led.title = 'Approximate market session based on UTC exchange hours';
-    });
-  };
-  applyMarketSessions();
-  setInterval(applyMarketSessions, 60000);
-})();
-
-(() => {
-  const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
-  document.querySelectorAll('.count-up[data-target]').forEach(el => {
-    const target = Number(el.dataset.target || 0);
-    const duration = 950;
-    const start = performance.now();
-    const tick = now => {
-      const progress = Math.min((now - start) / duration, 1);
-      el.textContent = Math.round(easeOutCubic(progress) * target).toLocaleString('en-US');
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  });
-})();
-</script>
-<script>
-// Theme toggle
-(function(){
-  const html=document.documentElement;
-  const btn=document.getElementById('themeToggle');
-  const saved=localStorage.getItem('atlas-theme')||'light';
-  html.setAttribute('data-theme',saved);
-  btn.addEventListener('click',()=>{
-    const next=html.getAttribute('data-theme')==='dark'?'light':'dark';
-    html.setAttribute('data-theme',next);
-    localStorage.setItem('atlas-theme',next);
-  });
-})();
-</script></main></body></html>
+     1|<!DOCTYPE html>
+     2|<html lang="en" class="scroll-smooth">
+     3|<head>
+     4|<meta charset="UTF-8">
+     5|<meta name="viewport" content="width=device-width, initial-scale=1.0">
+     6|<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+     7|<title>Markets Dashboard — Atlas Nexus</title>
+     8|<link rel="canonical" href="https://atlasnexus.tech/markets-dashboard/">
+     9|<meta name="description" content="Live multi-asset market intelligence cockpit — crypto, stocks, ETFs, indices, forex, commodities. Hawkeye V4 scanner, TradingView widgets, Fear & Greed Index.">
+    10|
+    11|<script src="https://cdn.tailwindcss.com"></script>
+    12|<link rel="preconnect" href="https://fonts.googleapis.com">
+    13|<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    14|<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200;0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;1,6..12,200;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700&display=swap" rel="stylesheet">
+    15|
+    16|<script>
+    17|tailwind.config = {
+    18|  darkMode: 'class',
+    19|  theme: {
+    20|    extend: {
+    21|      fontFamily: {
+    22|        display: ['Rubik', 'sans-serif'],
+    23|        body: ['Nunito Sans', 'sans-serif'],
+    24|      },
+    25|      colors: {
+    26|        primary: '#2563EB', 'primary-dark': '#1D4ED8', secondary: '#3B82F6',
+    27|        accent: '#059669', 'accent-dark': '#047857',
+    28|        surface: '#F8FAFC', muted: '#F1F5FD', border: '#E4ECFC', foreground: '#0F172A',
+    29|        'dark-surface': '#0B1120', 'dark-card': '#111827', 'dark-elevated': '#1A2235',
+    30|        'dark-border': '#1E293B', 'dark-muted': '#334155', 'dark-foreground': '#F1F5F9', 'dark-dim': '#94A3B8',
+    31|      }
+    32|    }
+    33|  }
+    34|}
+    35|</script>
+    36|
+    37|<style>
+    38|  /* ── Core design system (matching index.html) ── */
+    39|  .hero-title { font-size: clamp(3.2rem, 9vw, 5.5rem); font-weight: 900; letter-spacing: -0.055em; line-height: 1.05; overflow: visible; }
+    40|  .gradient-text { background: linear-gradient(135deg, #2563EB 0%, #059669 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    41|  .glow-word { position: relative; display: inline-block; overflow: visible; padding: .035em .02em .13em .02em; margin: -.035em -.02em -.07em -.02em; background: linear-gradient(110deg, #0F172A 0%, #2563EB 32%, #7C3AED 56%, #059669 82%, #0F172A 100%); background-size: 240% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: agenticGlow 3.8s ease-in-out infinite; }
+    42|  @keyframes agenticGlow { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    43|  .dark .glow-word { background: linear-gradient(110deg, #60A5FA 0%, #818CF8 28%, #C084FC 52%, #34D399 78%, #60A5FA 100%); background-size: 240% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation-name: agenticGlowDark; }
+    44|  @keyframes agenticGlowDark { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    45|  .hero-orb { position: absolute; inset: auto 4% 8% auto; width: min(34vw, 360px); height: min(34vw, 360px); border-radius: 999px; background: radial-gradient(circle at 35% 35%, rgba(37,99,235,.22), rgba(5,150,105,.12) 38%, transparent 68%); filter: blur(2px); pointer-events: none; }
+    46|  .section-title { font-size: clamp(1.8rem, 4.5vw, 2.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; position: relative; padding-bottom: 0.5rem; }
+    47|  .section-title::after { content: ""; position: absolute; bottom: 0; left: 0; width: 3rem; height: 3px; border-radius: 2px; background: linear-gradient(90deg, #2563EB, #059669); }
+    48|  .dark .section-title::after { background: linear-gradient(90deg, #60A5FA, #34D399); }
+    49|
+    50|  /* ── Cards ── */
+    51|  .card-hover { transition: all 250ms ease; }
+    52|  .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 32px -6px rgba(37,99,235,0.1); border-color: #2563EB; }
+    53|  .market-card { background: linear-gradient(145deg, #ffffff 0%, #f7fbff 52%, #eef8ff 100%); border-color: rgba(37,99,235,.22)!important; box-shadow: 0 18px 52px -34px rgba(37,99,235,.55); }
+    54|  .market-card:hover { box-shadow: 0 22px 70px -32px rgba(37,99,235,.65); }
+    55|  .dark .market-card { background: #111827!important; border-color: rgba(37,99,235,.28)!important; box-shadow: 0 18px 52px -34px rgba(37,99,235,.45); }
+    56|  .agentic-card { position: relative; overflow: hidden; border-color: rgba(37,99,235,.28)!important; box-shadow: 0 18px 60px -28px rgba(37,99,235,.55); }
+    57|  .agentic-card::before { content: ""; position: absolute; inset: -1px; background: radial-gradient(circle at 15% 0%, rgba(37,99,235,.13), transparent 38%), radial-gradient(circle at 95% 20%, rgba(5,150,105,.10), transparent 34%); pointer-events: none; }
+    58|  .agentic-card > * { position: relative; }
+    59|
+    60|  /* ── Scroll Reveal ── */
+    61|  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+    62|  .reveal.visible { opacity: 1; transform: translateY(0); }
+    63|  .reveal-delay-1 { transition-delay: 0.05s; } .reveal-delay-2 { transition-delay: 0.12s; } .reveal-delay-3 { transition-delay: 0.19s; } .reveal-delay-4 { transition-delay: 0.26s; }
+    64|
+    65|  /* ── Hero stagger ── */
+    66|  .hero-stagger > * { opacity: 0; transform: translateY(30px); animation: heroFadeIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    67|  .hero-stagger > *:nth-child(1) { animation-delay: 0.1s; } .hero-stagger > *:nth-child(2) { animation-delay: 0.25s; } .hero-stagger > *:nth-child(3) { animation-delay: 0.40s; } .hero-stagger > *:nth-child(4) { animation-delay: 0.55s; }
+    68|  @keyframes heroFadeIn { to { opacity: 1; transform: translateY(0); } }
+    69|
+    70|  /* ── Dashboard-specific ── */
+    71|  .live-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 18px rgba(34,197,94,.9); animation: pulse 2s infinite; }
+    72|  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .55; transform: scale(.82); } }
+    73|  .metric-value { font-size: 2em; font-weight: 780; letter-spacing: -0.045em; font-variant-numeric: tabular-nums; }
+    74|
+    75|  /* Signal cards */
+    76|  .signal-card { border-radius: 22px; padding: 18px; transition: all .2s; }
+    77|  .signal-row { padding: 14px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; transition: .16s; border-bottom: 1px solid rgba(0,0,0,.05); }
+    78|  .dark .signal-row { border-bottom-color: rgba(255,255,255,.05); }
+    79|  .signal-row:last-child { border-bottom: none; }
+    80|  .signal-row:hover { background: rgba(0,0,0,.02); border-radius: 16px; padding-inline: 10px; }
+    81|  .dark .signal-row:hover { background: rgba(255,255,255,.035); }
+    82|
+    83|  .score-pill { min-width: 54px; height: 26px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-size: .74em; font-weight: 850; }
+    84|  .score-hot { background: rgba(22,163,74,.12); color: #16a34a; border: 1px solid rgba(22,163,74,.18); }
+    85|  .score-warm { background: rgba(217,119,6,.10); color: #d97706; border: 1px solid rgba(217,119,6,.16); }
+    86|  .dark .score-warm { background: rgba(217,119,6,.10); color: #f59e0b; border-color: rgba(217,119,6,.16); }
+    87|  .dark .score-hot { background: rgba(22,163,74,.12); color: #22c55e; border-color: rgba(22,163,74,.18); }
+    88|
+    89|  .chip { padding: 8px 12px; border: 1px solid rgba(148,163,184,.16); background: rgba(0,0,0,.04); border-radius: 999px; font-size: .8em; font-weight: 850; color: #1e40af; }
+    90|  .dark .chip { background: rgba(255,255,255,.045); color: #dbeafe; border-color: rgba(148,163,184,.16); }
+    91|
+    92|  .tv-link { display: inline-flex; align-items: center; gap: 3px; padding: 3px 7px; border-radius: 999px; border: 1px solid rgba(37,99,235,.22); background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(124,92,255,.06)); color: #1e40af!important; text-decoration: none; font-size: .68rem; font-weight: 900; white-space: nowrap; transition: all .16s; }
+    93|  .tv-link:hover { background: linear-gradient(135deg, rgba(37,99,235,.16), rgba(124,92,255,.12)); color: #1e3a8a!important; border-color: rgba(37,99,235,.4); transform: translateY(-1px); }
+    94|  .dark .tv-link { color: #d9f3ff!important; background: linear-gradient(135deg, rgba(56,189,248,.14), rgba(124,92,255,.12)); border-color: rgba(56,189,248,.32); box-shadow: inset 0 1px 0 rgba(255,255,255,.06); }
+    95|  .dark .tv-link:hover { background: linear-gradient(135deg, rgba(56,189,248,.24), rgba(124,92,255,.20)); border-color: rgba(56,189,248,.58); box-shadow: 0 8px 24px rgba(56,189,248,.12), inset 0 1px 0 rgba(255,255,255,.10); }
+    96|
+    97|  .market-state { display: inline-flex; align-items: center; gap: 3px; padding: 2px 5px; border-radius: 999px; border: 1px solid rgba(0,0,0,.12); background: rgba(241,245,249,.9); font-size: .66rem; font-weight: 900; text-transform: uppercase; letter-spacing: .025em; white-space: nowrap; color: #475569; }
+    98|  .market-state:before { content: ""; width: 6px; height: 6px; border-radius: 999px; background: #94a3b8; box-shadow: 0 0 8px rgba(148,163,184,.4); }
+    99|  .market-state-open { color: #16a34a!important; border-color: rgba(22,163,74,.22)!important; background: rgba(22,163,74,.06)!important; }
+   100|  .market-state-open:before { background: #16a34a!important; box-shadow: 0 0 10px rgba(22,163,74,.6)!important; }
+   101|  .market-state-closed { color: #e11d48!important; border-color: rgba(225,29,72,.18)!important; background: rgba(225,29,72,.06)!important; }
+   102|  .market-state-closed:before { background: #e11d48!important; box-shadow: 0 0 10px rgba(225,29,72,.6)!important; }
+   103|  .dark .market-state { background: rgba(15,23,42,.56)!important; border-color: rgba(148,163,184,.18)!important; color: #94a3b8!important; }
+   104|  .dark .market-state:before { background: #94a3b8!important; box-shadow: 0 0 12px rgba(148,163,184,.65)!important; }
+   105|  .dark .market-state-open { color: #bbf7d0!important; border-color: rgba(34,197,94,.24)!important; background: rgba(34,197,94,.09)!important; }
+   106|  .dark .market-state-open:before { background: #22c55e!important; box-shadow: 0 0 14px rgba(34,197,94,.9)!important; }
+   107|  .dark .market-state-closed { color: #fecaca!important; border-color: rgba(251,113,133,.26)!important; background: rgba(251,113,133,.09)!important; }
+   108|  .dark .market-state-closed:before { background: #fb7185!important; box-shadow: 0 0 14px rgba(251,113,133,.85)!important; }
+   109|
+   110|  .session-led { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 999px; font-size: .65em; font-weight: 850; text-transform: uppercase; letter-spacing: .04em; border: 1px solid rgba(0,0,0,.08); background: rgba(0,0,0,.03); color: #64748b; }
+   111|  .session-led:before { content: ""; width: 7px; height: 7px; border-radius: 999px; background: #94a3b8; }
+   112|  .session-led.open { color: #16a34a; border-color: rgba(22,163,74,.18); background: rgba(22,163,74,.05); }
+   113|  .session-led.open:before { background: #22c55e; box-shadow: 0 0 12px rgba(34,197,94,.6); }
+   114|  .session-led.closed { color: #e11d48; border-color: rgba(225,29,72,.18); background: rgba(225,29,72,.05); }
+   115|  .session-led.closed:before { background: #fb7185; box-shadow: 0 0 12px rgba(251,113,133,.6); }
+   116|  .session-led.soon { color: #b45309; border-color: rgba(217,119,6,.18); background: rgba(217,119,6,.05); }
+   117|  .session-led.soon:before { background: #f59e0b; box-shadow: 0 0 12px rgba(245,158,11,.6); }
+   118|  .dark .session-led { background: rgba(255,255,255,.045)!important; border-color: rgba(148,163,184,.18)!important; color: #94a3b8!important; }
+   119|  .dark .session-led.open { color: #bbf7d0!important; border-color: rgba(34,197,94,.24)!important; background: rgba(34,197,94,.09)!important; }
+   120|  .dark .session-led.open:before { background: #22c55e!important; box-shadow: 0 0 18px rgba(34,197,94,.95)!important; }
+   121|  .dark .session-led.closed { color: #fecaca!important; border-color: rgba(251,113,133,.24)!important; background: rgba(251,113,133,.09)!important; }
+   122|  .dark .session-led.closed:before { background: #fb7185!important; box-shadow: 0 0 18px rgba(251,113,133,.95)!important; }
+   123|  .dark .session-led.soon { color: #fde68a!important; border-color: rgba(245,158,11,.24)!important; background: rgba(245,158,11,.09)!important; }
+   124|  .dark .session-led.soon:before { background: #f59e0b!important; box-shadow: 0 0 18px rgba(245,158,11,.95)!important; }
+   125|
+   126|  .legend { margin-top: 18px; padding-top: 12px; border-top: 1px solid rgba(0,0,0,.06); display: flex; flex-wrap: wrap; gap: 10px; }
+   127|  .legend span { padding: 6px 10px; border-radius: 999px; background: rgba(0,0,0,.03); border: 1px solid rgba(0,0,0,.08); color: #475569; font-size: .76em; font-weight: 850; }
+   128|  .dark .legend { border-top-color: rgba(255,255,255,.07); }
+   129|  .dark .legend span { color: #d4deee; background: rgba(255,255,255,.045); border-color: rgba(148,163,184,.12); }
+   130|
+   131|  *,*::before,*::after{transition:background-color .4s ease,border-color .4s ease,color .4s ease,box-shadow .4s ease}
+   132|
+   133|  @media(max-width:768px){
+   134|    .scanner-board{grid-template-columns:1fr!important}
+   135|    .hero-grid{grid-template-columns:1fr!important}
+   136|  }
+   137|</style>
+   138|</head>
+   139|<body class="bg-surface dark:bg-dark-surface text-foreground dark:text-dark-foreground font-body antialiased">
+   140|
+   141|<!-- SVG defs — chain logos + market icons -->
+   142|<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+   143|  <defs>
+   144|    <linearGradient id="sol-grad-top" x1="374" y1="329.9" x2="99.1" y2="194.3" gradientUnits="userSpaceOnUse">
+   145|      <stop stop-color="#00FFA3"/><stop offset="1" stop-color="#DC1FFF"/>
+   146|    </linearGradient>
+   147|    <linearGradient id="sol-grad-mid" x1="374" y1="95.8" x2="99.1" y2="-39.9" gradientUnits="userSpaceOnUse">
+   148|      <stop stop-color="#00FFA3"/><stop offset="1" stop-color="#DC1FFF"/>
+   149|    </linearGradient>
+   150|    <linearGradient id="sol-grad-bot" x1="374" y1="213.3" x2="99.1" y2="77.6" gradientUnits="userSpaceOnUse">
+   151|      <stop stop-color="#00FFA3"/><stop offset="1" stop-color="#DC1FFF"/>
+   152|    </linearGradient>
+   153|    <linearGradient id="celo-gold" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+   154|      <stop stop-color="#FCFF52"/><stop offset="1" stop-color="#E5C800"/>
+   155|    </linearGradient>
+   156|  </defs>
+   157|</svg>
+   158|
+   159|<!-- ════════════ NAV ════════════ -->
+   160|<nav class="sticky top-0 z-30 bg-white/80 dark:bg-dark-card/80 backdrop-blur-xl border-b border-border dark:border-dark-border">
+   161|  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+   162|    <a href="/" class="flex items-center gap-2.5 font-display font-bold text-lg text-foreground dark:text-dark-foreground no-underline">
+   163|      <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none"><defs><linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#6366F1"/></linearGradient></defs><circle cx="16" cy="16" r="14" fill="url(#logo-grad)" opacity=".15"/><path d="M10 22V10l6 8 6-8v12" stroke="url(#logo-grad)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   164|      <span>Atlas Nexus</span>
+   165|    </a>
+   166|    <div class="flex items-center gap-1 sm:gap-3 text-sm font-semibold">
+   167|      <a href="#scanner" class="text-slate-600 dark:text-dark-dim hover:text-primary dark:hover:text-white px-2 sm:px-3 py-1.5 rounded-full transition-colors">Scanner</a>
+   168|      <a href="#dashboards" class="text-slate-600 dark:text-dark-dim hover:text-primary dark:hover:text-white px-2 sm:px-3 py-1.5 rounded-full transition-colors">Markets</a>
+   169|      <a href="https://github.com/AtlasNexusTech/markets-dashboard" class="text-slate-600 dark:text-dark-dim hover:text-primary dark:hover:text-white px-2 sm:px-3 py-1.5 rounded-full transition-colors hidden sm:inline">GitHub</a>
+   170|      <button id="theme-toggle" class="w-10 h-10 rounded-full border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/5 backdrop-blur-xl flex items-center justify-center hover:bg-white dark:hover:bg-white/10 transition-all shadow-sm shadow-black/5 dark:shadow-lg dark:shadow-black/20 text-slate-500 dark:text-slate-300 ml-1" aria-label="Toggle dark mode">
+   171|        <svg class="w-4 h-4 rotate-0 scale-100 transition-transform duration-300 dark:-rotate-90 dark:scale-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+   172|        <svg class="absolute w-4 h-4 rotate-90 scale-0 transition-transform duration-300 dark:rotate-0 dark:scale-100" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+   173|      </button>
+   174|    </div>
+   175|  </div>
+   176|</nav>
+   177|
+   178|<main class="max-w-6xl mx-auto px-4 sm:px-6">
+   179|
+   180|<!-- ════════════ HERO ════════════ -->
+   181|<section class="py-16 sm:py-24 relative overflow-hidden min-h-[80vh]" aria-label="Markets overview">
+   182|  <canvas id="antigravity-canvas" class="absolute inset-0 w-full h-full z-0 pointer-events-none" aria-hidden="true"></canvas>
+   183|  <div class="hero-orb"></div>
+   184|  <div class="relative z-10">
+   185|    <div class="max-w-4xl hero-stagger mb-12">
+   186|      <p class="text-accent dark:text-green-400 font-semibold tracking-widest uppercase text-xs mb-3">Live Market Intelligence</p>
+   187|      <h1 class="hero-title text-foreground dark:text-dark-foreground mb-8">
+   188|        <span class="glow-word">Markets</span><br><span class="glow-word">Command</span><br><span class="glow-word">Deck</span>
+   189|      </h1>
+   190|      <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+   191|        Multi-asset intelligence cockpit for crypto, stocks, ETFs, indices, forex and commodities — live widgets, generated dashboards, and a technical scanner built for fast signal reading.
+   192|      </p>
+   193|      <div class="flex gap-3 flex-wrap mt-8">
+   194|        <a href="#scanner" class="bg-primary text-white px-7 py-3.5 rounded-full text-base font-semibold hover:bg-primary-dark inline-flex items-center gap-2 font-display">
+   195|          Open Live Scanner
+   196|          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+   197|        </a>
+   198|        <a href="#dashboards" class="border-2 border-border dark:border-dark-border text-slate-700 dark:text-dark-foreground px-7 py-3.5 rounded-full text-base font-semibold hover:border-primary dark:hover:border-blue-500 font-display">
+   199|          Browse Dashboards
+   200|        </a>
+   201|      </div>
+   202|    </div>
+   203|
+   204|    <!-- Metrics row -->
+   205|    <div class="grid sm:grid-cols-3 gap-5 mb-6">
+   206|      <div class="reveal reveal-delay-1 market-card rounded-2xl p-6 border">
+   207|        <p class="text-xs font-extrabold uppercase tracking-widest text-slate-400 dark:text-dark-dim mb-1">Scanner Coverage</p>
+   208|        <div class="metric-value font-display text-foreground dark:text-dark-foreground">
+   209|          <span class="count-up gradient-text" data-target="100">100</span> assets
+   210|        </div>
+   211|        <div class="flex items-center gap-2 mt-2 text-xs font-bold text-accent dark:text-green-400">
+   212|          <span class="live-dot"></span> Yahoo Finance · live scoring
+   213|        </div>
+   214|      </div>
+   215|      <div class="reveal reveal-delay-2 bg-white dark:bg-dark-card rounded-2xl p-6 border border-border dark:border-dark-border flex flex-col justify-between">
+   216|        <p class="text-xs font-extrabold uppercase tracking-widest text-slate-400 dark:text-dark-dim">Markets Covered</p>
+   217|        <div class="metric-value font-display text-foreground dark:text-dark-foreground mt-1">6</div>
+   218|        <p class="text-sm text-slate-500 dark:text-dark-dim mt-1">Crypto · Stocks · ETF · Indices · FX · Commodities</p>
+   219|      </div>
+   220|      <div class="reveal reveal-delay-3 bg-white dark:bg-dark-card rounded-2xl p-6 border border-border dark:border-dark-border flex flex-col justify-between">
+   221|        <p class="text-xs font-extrabold uppercase tracking-widest text-slate-400 dark:text-dark-dim">Scoring Engine</p>
+   222|        <div class="metric-value font-display text-foreground dark:text-dark-foreground mt-1">Hawkeye V4</div>
+   223|        <p class="text-sm text-slate-500 dark:text-dark-dim mt-1">Pressure · Regime · Momentum · Extension</p>
+   224|      </div>
+   225|    </div>
+   226|
+   227|    <!-- S&P 500 + Nasdaq widgets -->
+   228|    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+   229|      <div class="reveal reveal-delay-1 bg-white dark:bg-dark-card rounded-2xl p-5 border border-border dark:border-dark-border">
+   230|        <p class="text-xs font-extrabold uppercase tracking-widest text-slate-400 dark:text-dark-dim">S&P 500</p>
+   231|        <div class="text-2xl font-extrabold font-display text-foreground dark:text-dark-foreground mt-2" id="spx-price">--</div>
+   232|        <div class="text-sm font-bold mt-0.5" id="spx-change">--</div>
+   233|        <div class="text-[10px] text-slate-400 dark:text-dark-dim mt-1" id="spx-time">Fetching...</div>
+   234|      </div>
+   235|      <div class="reveal reveal-delay-2 bg-white dark:bg-dark-card rounded-2xl p-5 border border-border dark:border-dark-border">
+   236|        <p class="text-xs font-extrabold uppercase tracking-widest text-slate-400 dark:text-dark-dim">Nasdaq</p>
+   237|        <div class="text-2xl font-extrabold font-display text-foreground dark:text-dark-foreground mt-2" id="ndx-price">--</div>
+   238|        <div class="text-sm font-bold mt-0.5" id="ndx-change">--</div>
+   239|        <div class="text-[10px] text-slate-400 dark:text-dark-dim mt-1" id="ndx-time">Fetching...</div>
+   240|      </div>
+   241|      <!-- Fear & Greed inline -->
+   242|      <div class="reveal reveal-delay-3 sm:col-span-1 col-span-2 bg-white dark:bg-dark-card rounded-2xl p-5 border border-border dark:border-dark-border relative overflow-hidden">
+   243|        <div class="absolute inset-0 bg-gradient-radial from-amber-500/5 via-transparent to-transparent pointer-events-none"></div>
+   244|        <p class="text-xs font-extrabold uppercase tracking-widest text-slate-400 dark:text-dark-dim mb-3 relative">Crypto Fear & Greed</p>
+   245|        <div class="relative flex items-center gap-4">
+   246|          <div class="relative w-[72px] h-[72px] shrink-0">
+   247|            <svg viewBox="0 0 100 100" class="w-full h-full -rotate-90">
+   248|              <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(0,0,0,.06)" stroke-width="8"/>
+   249|              <circle cx="50" cy="50" r="42" fill="none" stroke-width="8" stroke-linecap="round" id="fng-gauge-fill"/>
+   250|            </svg>
+   251|            <div class="absolute inset-0 flex flex-col items-center justify-center">
+   252|              <div class="text-lg font-extrabold font-display" id="fng-value">--</div>
+   253|            </div>
+   254|          </div>
+   255|          <div class="min-w-0 flex-1">
+   256|            <div class="font-display font-bold text-foreground dark:text-dark-foreground text-sm" id="fng-classification">Loading...</div>
+   257|            <div class="text-[10px] text-slate-400 dark:text-dark-dim mt-0.5" id="fng-timestamp">Updated: --</div>
+   258|            <div class="h-1.5 rounded-full bg-slate-100 dark:bg-white/5 mt-2 overflow-hidden">
+   259|              <div class="h-full rounded-full transition-all duration-500" id="fng-meter-fill" style="width:50%"></div>
+   260|            </div>
+   261|            <div class="flex justify-between text-[9px] text-slate-400 dark:text-dark-dim mt-0.5"><span>Fear</span><span>Neutral</span><span>Greed</span></div>
+   262|          </div>
+   263|        </div>
+   264|      </div>
+   265|    </div>
+   266|  </div>
+   267|</section>
+   268|
+   269|<!-- ════════════ MARKET TICKER ════════════ -->
+   270|<section class="reveal reveal-delay-1 mb-12 rounded-2xl overflow-hidden border border-border dark:border-dark-border bg-white dark:bg-dark-card">
+   271|  <div class="tradingview-widget-container h-[54px]">
+   272|    <div class="tradingview-widget-container__widget"></div>
+   273|    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+   274|{"symbols":[{"proName":"FOREXCOM:SPXUSD","title":"S&P 500"},{"proName":"FOREXCOM:NAS100","title":"Nasdaq"},{"proName":"BITSTAMP:BTCUSD","title":"BTC/USD"},{"proName":"BITSTAMP:ETHUSD","title":"ETH/USD"},{"proName":"TVC:GOLD","title":"Gold"},{"proName":"TVC:USOIL","title":"WTI Oil"},{"proName":"FOREXCOM:EURUSD","title":"EUR/USD"},{"proName":"NASDAQ:AAPL","title":"Apple"},{"proName":"NASDAQ:NVDA","title":"NVIDIA"},{"proName":"AMEX:SPY","title":"SPY"},{"proName":"NASDAQ:QQQ","title":"QQQ"},{"proName":"TVC:DXY","title":"DXY"}],"showSymbolLogo":true,"isTransparent":true,"displayMode":"adaptive","colorTheme":"dark","locale":"en"}
+   275|    </script>
+   276|  </div>
+   277|</section>
+   278|
+   279|<!-- ════════════ SCANNER ════════════ -->
+   280|<section id="scanner" class="reveal reveal-delay-1 mb-12">
+   281|  <div class="reveal">
+   282|    <p class="text-accent dark:text-green-400 font-semibold tracking-widest uppercase text-xs mb-3">Live Scanner</p>
+   283|    <h2 class="section-title text-foreground dark:text-dark-foreground mb-2 font-display">Hawkeye V4 — Market Pressure Radar</h2>
+   284|    <p class="text-slate-500 dark:text-dark-dim text-sm max-w-2xl mb-8">Top bullish and bearish assets ranked by composite pressure score — built for quick manual chart inspection. Each slot shows indicative market state.</p>
+   285|  </div>
+   286|
+   287|  <div class="flex gap-2 flex-wrap mb-6">
+   288|    <span class="chip">60–74 Active</span><span class="chip">75+ Strong</span><span class="chip">90+ Extreme</span><span class="chip">Chart ↗ TradingView</span>
+   289|    <span class="chip !bg-primary/10 dark:!bg-primary/20 !text-primary dark:!text-blue-300 !border-primary/20">100 assets scanned</span>
+   290|  </div>
+   291|
+   292|  <div class="scanner-board grid grid-cols-2 gap-5">
+   293|    <!-- BULLISH -->
+   294|    <div class="reveal reveal-delay-1 signal-card bg-white dark:bg-dark-card border border-border dark:border-dark-border rounded-2xl">
+   295|      <h3 class="font-display font-bold text-foreground dark:text-dark-foreground text-base flex items-center justify-between gap-2 mb-1 px-4 pt-4">
+   296|        Bullish pressure
+   297|        <span class="text-xs font-bold text-accent dark:text-green-400 bg-accent/10 dark:bg-green-400/10 px-2 py-0.5 rounded-full">7 assets</span>
+   298|      </h3>
+   299|      <div class="px-4 pb-4">
+   300|        <div class="signal-row" data-market="commodities"><div><span class="font-extrabold text-foreground dark:text-dark-foreground text-sm">Soybeans</span> <span class="text-[10px] font-bold text-accent dark:text-green-400 bg-accent/10 px-1.5 py-0.5 rounded-full ml-1">Bullish</span> <span class="block text-[11px] text-slate-400 dark:text-dark-dim mt-1">commodities · uptrend</span><span class="block text-[11px] mt-0.5"><span class="text-blue-600 dark:text-blue-300">$1,207.75</span> <span class="market-state market-state-open">Open · Futures</span> <a class="tv-link ml-1" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZS1%21" target="_blank">Chart ↗</a></span></div><div class="text-right min-w-[80px]"><span class="score-pill score-warm">70/100</span><div class="text-[11px] text-slate-400 dark:text-dark-dim mt-1">Net +46</div><div class="text-[10px] font-bold text-amber-500 mt-0.5">Active</div></div></div>
+   301|        <div class="signal-row" data-market="etf"><div><span class="font-extrabold text-foreground dark:text-dark-foreground text-sm">SPDR Dow Jones</span> <span class="text-[10px] font-bold text-accent dark:text-green-400 bg-accent/10 px-1.5 py-0.5 rounded-full ml-1">Bullish</span> <span class="block text-[11px] text-slate-400 dark:text-dark-dim mt-1">etf · uptrend</span><span class="block text-[11px] mt-0.5"><span class="text-blue-600 dark:text-blue-300">$493.98</span> <span class="market-state market-state-closed">Closed</span> <a class="tv-link ml-1" href="https://www.tradingview.com/chart/?symbol=AMEX%3ADIA" target="_blank">Chart ↗</a></span></div><div class="text-right min-w-[80px]"><span class="score-pill score-warm">69/100</span><div class="text-[11px] text-slate-400 dark:text-dark-dim mt-1">Net +42</div><div class="text-[10px] font-bold text-amber-500 mt-0.5">Active</div></div></div>
+   302|        <div class="signal-row" data-market="etf"><div><span class="font-extrabold text-foreground dark:text-dark-foreground text-sm">Invesco QQQ</span> <span class="text-[10px] font-bold text-accent dark:text-green-400 bg-accent/10 px-1.5 py-0.5 rounded-full ml-1">Bullish</span> <span class="block text-[11px] text-slate-400 dark:text-dark-dim mt-1">etf · uptrend</span><span class="block text-[11px] mt-0.5"><span class="text-blue-600 dark:text-blue-300">$701.53</span> <span class="market-state market-state-closed">Closed</span> <a class="tv-link ml-1" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AQQQ" target="_blank">Chart ↗</a></span></div><div class="text-right min-w-[80px]"><span class="score-pill score-warm">68/100</span><div class="text-[11px] text-slate-400 dark:text-dark-dim mt-1">Net +41</div><div class="text-[10px] font-bold text-amber-500 mt-0.5">Active</div></div></div>
+   303|        <div class="signal-row" data-market="etf"><div><span class="font-extrabold text-foreground dark:text-dark-foreground text-sm">Technology Select</span> <span class="text-[10px] font-bold text-accent dark:text-green-400 bg-accent/10 px-1.5 py-0.5 rounded-full ml-1">Bullish</span> <span class="block text-[11px] text-slate-400 dark:text-dark-dim mt-1">etf · uptrend</span><span class="block text-[11px] mt-0.5"><span class="text-blue-600 dark:text-blue-300">$173.24</span> <span class="market-state market-state-closed">Closed</span> <a class="tv-link ml-1" href="https://www.tradingview.com/chart/?symbol=AMEX%3AXLK" target="_blank">Chart ↗</a></span></div><div class="text-right min-w-[80px]"><span class="score-pill score-warm">68/100</span><div class="text-[11px] text-slate-400 dark:text-dark-dim mt-1">Net +41</div><div class="text-[10px] font-bold text-amber-500 mt-0.5">Active</div></div></div>
+   304|        <div class="signal-row" data-market="indices"><div><span class="font-extrabold text-foreground dark:text-dark-foreground text-sm">Shanghai Comp</span> <span class="text-[10px] font-bold text-accent dark:text-green-400 bg-accent/10 px-1.5 py-0.5 rounded-full ml-1">Bullish</span> <span class="block text-[11px] text-slate-400 dark:text-dark-dim mt-1">indices · uptrend</span><span class="block text-[11px] mt-0.5"><span class="text-blue-600 dark:text-blue-300">4,167.46 pts</span> <span class="market-state market-state-open">Open</span> <a class="tv-link ml-1" href="https://www.tradingview.com/chart/?symbol=000001.SS" target="_blank">Chart ↗</a></span></div><div class="text-right min-w-[80px]"><span class="score-pill score-warm">67/100</span><div class="text-[11px] text-slate-400 dark:text-dark-dim mt-1">Net +42</div><div class="text-[10px] font-bold text-amber-500 mt-0.5">Active</div></div></div>
+   305|        <div class="signal-row" data-market="stocks"><div><span class="font-extrabold text-foreground dark:text-dark-foreground text-sm">NVIDIA</span> <span class="text-[10px] font-bold text-accent dark:text-green-400 bg-accent/10 px-1.5 py-0.5 rounded-full ml-1">Bullish</span> <span class="block text-[11px] text-slate-400 dark:text-dark-dim mt-1">actions · uptrend</span><span class="block text-[11px] mt-0.5"><span class="text-blue-600 dark:text-blue-300">$220.61</span> <span class="market-state market-state-closed">Closed</span> <a class="tv-link ml-1" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3ANVDA" target="_blank">Chart ↗</a></span></div><div class="text-right min-w-[80px]"><span class="score-pill score-warm">67/100</span><div class="text-[11px] text-slate-400 dark:text-dark-dim mt-1">Net +46</div><div class="text-[10px] font-bold text-amber-500 mt-0.5">Active</div></div></div>
+   306|        <div class="signal-row" data-market="etf"><div><span class="font-extrabold text-foreground dark:text-dark-foreground text-sm">Vanguard Total Market</span> <span class="text-[10px] font-bold text-accent dark:text-green-400 bg-accent/10 px-1.5 py-0.5 rounded-full ml-1">Bullish</span> <span class="block text-[11px] text-slate-400 dark:text-dark-dim mt-1">etf · uptrend</span><span class="block text-[11px] mt-0.5"><span class="text-blue-600 dark:text-blue-300">$360.06</span> <span class="market-state market-state-closed">Closed</span> <a class="tv-link ml-1" href="https://www.tradingview.com/chart/?symbol=VTI" target="_blank">Chart ↗</a></span></div><div class="text-right min-w-[80px]"><span class="score-pill score-warm">67/100</span><div class="text-[11px] text-slate-400 dark:text-dark-dim mt-1">Net +46</div><div class="text-[10px] font-bold text-amber-500 mt-0.5">Active</div></div></div>
+   307|      </div>
+   308|    </div>
+   309|
+   310|    <!-- BEARISH -->
+   311|    <div class="reveal reveal-delay-2 signal-card bg-white dark:bg-dark-card border border-border dark:border-dark-border rounded-2xl">
+   312|      <h3 class="font-display font-bold text-foreground dark:text-dark-foreground text-base flex items-center justify-between gap-2 mb-1 px-4 pt-4">
+   313|        Bearish pressure
+   314|        <span class="text-xs font-bold text-red-500 bg-red-500/10 px-2 py-0.5 rounded-full">7 assets</span>
+   315|      </h3>
+   316|      <div class="px-4 pb-4">
+   317|        <div class="signal-row" data-market="indices"><div><span class="font-extrabold text-foreground dark:text-dark-foreground text-sm">CAC 40</span> <span class="text-[10px] font-bold text-red-400 bg-red-400/10 px-1.5 py-0.5 rounded-full ml-1">Bearish</span> <span class="block text-[11px] text-slate-400 dark:text-dark-dim mt-1">indices · downtrend</span><span class="block text-[11px] mt-0.5"><span class="text-blue-600 dark:text-blue-300">7,981.76 pts</span> <span class="market-state market-state-open">Open</span> <a class="tv-link ml-1" href="https://www.tradingview.com/chart/?symbol=EURONEXT%3APX1" target="_blank">Chart ↗</a></span></div><div class="text-right min-w-[80px]"><span class="score-pill score-warm">67/100</span><div class="text-[11px] text-slate-400 dark:text-dark-dim mt-1">Net -46</div><div class="text-[10px] font-bold text-amber-500 mt-0.5">Active</div></div></div>
+   318|        <div class="signal-row" data-market="stocks"><div><span class="font-extrabold text-foreground dark:text-dark-foreground text-sm">McDonald's</span> <span class="text-[10px] font-bold text-red-400 bg-red-400/10 px-1.5 py-0.5 rounded-full ml-1">Bearish</span> <span class="block text-[11px] text-slate-400 dark:text-dark-dim mt-1">actions · downtrend</span><span class="block text-[11px] mt-0.5"><span class="text-blue-600 dark:text-blue-300">$280.80</span> <span class="market-state market-state-closed">Closed</span> <a class="tv-link ml-1" href="https://www.tradingview.com/chart/?symbol=NYSE%3AMCD" target="_blank">Chart ↗</a></span></div><div class="text-right min-w-[80px]"><span class="score-pill score-warm">67/100</span><div class="text-[11px] text-slate-400 dark:text-dark-dim mt-1">Net -46</div><div class="text-[10px] font-bold text-amber-500 mt-0.5">Active</div></div></div>
+   319|        <div class="signal-row" data-market="etf"><div><span class="font-extrabold text-foreground dark:text-dark-foreground text-sm">iShares High Yield</span> <span class="text-[10px] font-bold text-red-400 bg-red-400/10 px-1.5 py-0.5 rounded-full ml-1">Bearish</span> <span class="block text-[11px] text-slate-400 dark:text-dark-dim mt-1">etf · breakdown</span><span class="block text-[11px] mt-0.5"><span class="text-blue-600 dark:text-blue-300">$79.35</span> <span class="market-state market-state-closed">Closed</span> <a class="tv-link ml-1" href="https://www.tradingview.com/chart/?symbol=HYG" target="_blank">Chart ↗</a></span></div><div class="text-right min-w-[80px]"><span class="score-pill score-warm">67/100</span><div class="text-[11px] text-slate-400 dark:text-dark-dim mt-1">Net -47</div><div class="text-[10px] font-bold text-amber-500 mt-0.5">Active</div></div></div>
+   320|        <div class="signal-row" data-market="stocks"><div><span class="font-extrabold text-foreground dark:text-dark-foreground text-sm">Nike</span> <span class="text-[10px] font-bold text-red-400 bg-red-400/10 px-1.5 py-0.5 rounded-full ml-1">Bearish</span> <span class="block text-[11px] text-slate-400 dark:text-dark-dim mt-1">actions · downtrend</span><span class="block text-[11px] mt-0.5"><span class="text-blue-600 dark:text-blue-300">$42.42</span> <span class="market-state market-state-closed">Closed</span> <a class="tv-link ml-1" href="https://www.tradingview.com/chart/?symbol=NYSE%3ANKE" target="_blank">Chart ↗</a></span></div><div class="text-right min-w-[80px]"><span class="score-pill score-warm">66/100</span><div class="text-[11px] text-slate-400 dark:text-dark-dim mt-1">Net -39</div><div class="text-[10px] font-bold text-amber-500 mt-0.5">Active</div></div></div>
+   321|        <div class="signal-row" data-market="stocks"><div><span class="font-extrabold text-foreground dark:text-dark-foreground text-sm">Bank of America</span> <span class="text-[10px] font-bold text-red-400 bg-red-400/10 px-1.5 py-0.5 rounded-full ml-1">Bearish</span> <span class="block text-[11px] text-slate-400 dark:text-dark-dim mt-1">actions · mixed</span><span class="block text-[11px] mt-0.5"><span class="text-blue-600 dark:text-blue-300">$50.70</span> <span class="market-state market-state-closed">Closed</span> <a class="tv-link ml-1" href="https://www.tradingview.com/chart/?symbol=NYSE%3ABAC" target="_blank">Chart ↗</a></span></div><div class="text-right min-w-[80px]"><span class="score-pill score-warm">64/100</span><div class="text-[11px] text-slate-400 dark:text-dark-dim mt-1">Net -32</div><div class="text-[10px] font-bold text-amber-500 mt-0.5">Active</div></div></div>
+   322|        <div class="signal-row" data-market="stocks"><div><span class="font-extrabold text-foreground dark:text-dark-foreground text-sm">Mastercard</span> <span class="text-[10px] font-bold text-red-400 bg-red-400/10 px-1.5 py-0.5 rounded-full ml-1">Bearish</span> <span class="block text-[11px] text-slate-400 dark:text-dark-dim mt-1">actions · downtrend</span><span class="block text-[11px] mt-0.5"><span class="text-blue-600 dark:text-blue-300">$499.70</span> <span class="market-state market-state-closed">Closed</span> <a class="tv-link ml-1" href="https://www.tradingview.com/chart/?symbol=NYSE%3AMA" target="_blank">Chart ↗</a></span></div><div class="text-right min-w-[80px]"><span class="score-pill score-warm">63/100</span><div class="text-[11px] text-slate-400 dark:text-dark-dim mt-1">Net -42</div><div class="text-[10px] font-bold text-amber-500 mt-0.5">Active</div></div></div>
+   323|        <div class="signal-row" data-market="etf"><div><span class="font-extrabold text-foreground dark:text-dark-foreground text-sm">SPDR Gold</span> <span class="text-[10px] font-bold text-red-400 bg-red-400/10 px-1.5 py-0.5 rounded-full ml-1">Bearish</span> <span class="block text-[11px] text-slate-400 dark:text-dark-dim mt-1">etf · breakdown</span><span class="block text-[11px] mt-0.5"><span class="text-blue-600 dark:text-blue-300">$411.50</span> <span class="market-state market-state-closed">Closed</span> <a class="tv-link ml-1" href="https://www.tradingview.com/chart/?symbol=AMEX%3AGLD" target="_blank">Chart ↗</a></span></div><div class="text-right min-w-[80px]"><span class="score-pill score-warm">63/100</span><div class="text-[11px] text-slate-400 dark:text-dark-dim mt-1">Net -49</div><div class="text-[10px] font-bold text-amber-500 mt-0.5">Active</div></div></div>
+   324|      </div>
+   325|    </div>
+   326|  </div>
+   327|
+   328|  <div class="legend mt-4">
+   329|    <span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active</span><span>75-89 Strong</span><span>90-100 Extreme</span>
+   330|    <span class="!bg-amber-100 dark:!bg-amber-500/10 !text-amber-800 dark:!text-amber-300 !border-amber-200 dark:!border-amber-500/20">Updated 20/05/2026 07:32 CEST</span>
+   331|  </div>
+   332|</section>
+   333|
+   334|<!-- ════════════ HEATMAP ════════════ -->
+   335|<section class="reveal reveal-delay-1 mb-12">
+   336|  <div class="reveal mb-6">
+   337|    <h2 class="section-title text-foreground dark:text-dark-foreground font-display">Stock Market Heatmap</h2>
+   338|  </div>
+   339|  <div class="bg-white dark:bg-dark-card rounded-2xl border border-border dark:border-dark-border overflow-hidden min-h-[400px]">
+   340|    <div class="tradingview-widget-container">
+   341|      <div class="tradingview-widget-container__widget"></div>
+   342|      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+   343|{"exchanges":[],"dataSource":"SPX500","grouping":"sector","blockSize":"market_cap_basic","blockColor":"change","locale":"en","symbolUrl":"","colorTheme":"dark","hasTopBar":true,"isDataSetEnabled":true,"isZoomEnabled":true,"hasSymbolTooltip":true,"isMonoSize":false,"width":"100%","height":"450"}
+   344|      </script>
+   345|    </div>
+   346|  </div>
+   347|</section>
+   348|
+   349|<!-- ════════════ ECONOMIC CALENDAR ════════════ -->
+   350|<section class="reveal reveal-delay-2 mb-12">
+   351|  <div class="reveal mb-6">
+   352|    <h2 class="section-title text-foreground dark:text-dark-foreground font-display">Economic Calendar</h2>
+   353|  </div>
+   354|  <div class="bg-white dark:bg-dark-card rounded-2xl border border-border dark:border-dark-border overflow-hidden min-h-[500px]">
+   355|    <div class="tradingview-widget-container">
+   356|      <div class="tradingview-widget-container__widget"></div>
+   357|      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+   358|{"colorTheme":"dark","isTransparent":true,"width":"100%","height":"550","locale":"en","importanceFilter":"-1,0,1","countryFilter":"ar,au,br,ca,cn,fr,de,in,id,it,jp,kr,mx,ru,sa,za,tr,gb,us,eu"}
+   359|      </script>
+   360|    </div>
+   361|  </div>
+   362|</section>
+   363|
+   364|<!-- ════════════ LIVE DASHBOARDS ════════════ -->
+   365|<section id="dashboards" class="py-12 sm:py-20" aria-label="Live dashboards">
+   366|  <div class="reveal">
+   367|    <p class="text-accent dark:text-green-400 font-semibold tracking-widest uppercase text-xs mb-3">Live Dashboards</p>
+   368|    <h2 class="section-title text-foreground dark:text-dark-foreground mb-12 font-display">Six markets, one cockpit</h2>
+   369|  </div>
+   370|  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+   371|    <!-- Crypto -->
+   372|    <a href="crypto_dashboard.html" class="reveal reveal-delay-1 card-hover market-card rounded-2xl p-8 border border-border flex flex-col" data-market="crypto">
+   373|      <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-6 text-2xl">
+   374|        🪙
+   375|      </div>
+   376|      <h3 class="text-xl font-bold text-foreground dark:text-dark-foreground mb-2 font-display">Crypto</h3>
+   377|      <p class="text-slate-600 dark:text-dark-dim text-sm leading-relaxed mb-4">BTC, ETH, SOL & liquid majors · 24/7 momentum</p>
+   378|      <div class="flex flex-wrap gap-2 mb-4">
+   379|        <span class="px-3 py-1 bg-accent/5 text-accent text-xs font-medium rounded-full">24/7</span>
+   380|        <span class="px-3 py-1 bg-accent/5 text-accent text-xs font-medium rounded-full">Top 15</span>
+   381|      </div>
+   382|      <div class="flex gap-2 mt-auto">
+   383|        <span class="text-primary dark:text-blue-400 text-sm font-semibold">Live dashboard →</span>
+   384|        <span class="session-led open ml-auto" data-session-label>OPEN</span>
+   385|      </div>
+   386|    </a>
+   387|    <!-- Commodities -->
+   388|    <a href="commodities_dashboard.html" class="reveal reveal-delay-1 card-hover bg-white dark:bg-dark-card rounded-2xl p-8 border border-border dark:border-dark-border flex flex-col" data-market="commodities" style="border-color:rgba(245,158,11,.28)!important;box-shadow:0 18px 52px -34px rgba(245,158,11,.45);">
+   389|      <div class="w-12 h-12 bg-amber-500/10 rounded-xl flex items-center justify-center mb-6 text-2xl">
+   390|        🛢️
+   391|      </div>
+   392|      <h3 class="text-xl font-bold text-foreground dark:text-dark-foreground mb-2 font-display">Commodities</h3>
+   393|      <p class="text-slate-600 dark:text-dark-dim text-sm leading-relaxed mb-4">Gold, Silver, Oil, Copper, Grains · CFD/extended context</p>
+   394|      <div class="flex flex-wrap gap-2 mb-4">
+   395|        <span class="px-3 py-1 bg-amber-500/5 text-amber-700 dark:text-amber-300 text-xs font-medium rounded-full">15 assets</span>
+   396|      </div>
+   397|      <div class="flex gap-2 mt-auto">
+   398|        <span class="text-primary dark:text-blue-400 text-sm font-semibold">Live dashboard →</span>
+   399|        <span class="session-led soon ml-auto" data-session-label>SESSION</span>
+   400|      </div>
+   401|    </a>
+   402|    <!-- Indices -->
+   403|    <a href="indices_dashboard.html" class="reveal reveal-delay-2 card-hover bg-white dark:bg-dark-card rounded-2xl p-8 border border-border dark:border-dark-border flex flex-col" data-market="indices" style="border-color:rgba(124,58,237,.28)!important;box-shadow:0 18px 52px -34px rgba(124,58,237,.45);">
+   404|      <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 text-2xl">
+   405|        🌍
+   406|      </div>
+   407|      <h3 class="text-xl font-bold text-foreground dark:text-dark-foreground mb-2 font-display">Indices</h3>
+   408|      <p class="text-slate-600 dark:text-dark-dim text-sm leading-relaxed mb-4">S&P 500, Nasdaq, DAX, CAC, Nikkei · global risk pulse</p>
+   409|      <div class="flex flex-wrap gap-2 mb-4">
+   410|        <span class="px-3 py-1 bg-purple-500/5 text-purple-700 dark:text-purple-300 text-xs font-medium rounded-full">16 indices</span>
+   411|      </div>
+   412|      <div class="flex gap-2 mt-auto">
+   413|        <span class="text-primary dark:text-blue-400 text-sm font-semibold">Live dashboard →</span>
+   414|        <span class="session-led soon ml-auto" data-session-label>SESSION</span>
+   415|      </div>
+   416|    </a>
+   417|    <!-- Forex -->
+   418|    <a href="forex_dashboard.html" class="reveal reveal-delay-2 card-hover bg-white dark:bg-dark-card rounded-2xl p-8 border border-border dark:border-dark-border flex flex-col" data-market="forex" style="border-color:rgba(14,165,233,.28)!important;box-shadow:0 18px 52px -34px rgba(14,165,233,.45);">
+   419|      <div class="w-12 h-12 bg-sky-500/10 rounded-xl flex items-center justify-center mb-6 text-2xl">
+   420|        💱
+   421|      </div>
+   422|      <h3 class="text-xl font-bold text-foreground dark:text-dark-foreground mb-2 font-display">Forex</h3>
+   423|      <p class="text-slate-600 dark:text-dark-dim text-sm leading-relaxed mb-4">EURUSD, GBPJPY, AUDUSD · majors, crosses and exotics</p>
+   424|      <div class="flex flex-wrap gap-2 mb-4">
+   425|        <span class="px-3 py-1 bg-sky-500/5 text-sky-700 dark:text-sky-300 text-xs font-medium rounded-full">19 pairs</span>
+   426|      </div>
+   427|      <div class="flex gap-2 mt-auto">
+   428|        <span class="text-primary dark:text-blue-400 text-sm font-semibold">Live dashboard →</span>
+   429|        <span class="session-led soon ml-auto" data-session-label>SESSION</span>
+   430|      </div>
+   431|    </a>
+   432|    <!-- Stocks -->
+   433|    <a href="actions_dashboard.html" class="reveal reveal-delay-3 card-hover bg-white dark:bg-dark-card rounded-2xl p-8 border border-border dark:border-dark-border flex flex-col" data-market="stocks" style="border-color:rgba(16,185,129,.28)!important;box-shadow:0 18px 52px -34px rgba(16,185,129,.45);">
+   434|      <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-6 text-2xl">
+   435|        🏛️
+   436|      </div>
+   437|      <h3 class="text-xl font-bold text-foreground dark:text-dark-foreground mb-2 font-display">Stocks</h3>
+   438|      <p class="text-slate-600 dark:text-dark-dim text-sm leading-relaxed mb-4">Mega-cap tech, luxury, banks, defensives · equity momentum</p>
+   439|      <div class="flex flex-wrap gap-2 mb-4">
+   440|        <span class="px-3 py-1 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 text-xs font-medium rounded-full">30 stocks</span>
+   441|      </div>
+   442|      <div class="flex gap-2 mt-auto">
+   443|        <span class="text-primary dark:text-blue-400 text-sm font-semibold">Live dashboard →</span>
+   444|        <span class="session-led soon ml-auto" data-session-label>SESSION</span>
+   445|      </div>
+   446|    </a>
+   447|    <!-- ETF -->
+   448|    <a href="etf_dashboard.html" class="reveal reveal-delay-3 card-hover bg-white dark:bg-dark-card rounded-2xl p-8 border border-border dark:border-dark-border flex flex-col" data-market="etf" style="border-color:rgba(236,72,153,.28)!important;box-shadow:0 18px 52px -34px rgba(236,72,153,.45);">
+   449|      <div class="w-12 h-12 bg-pink-500/10 rounded-xl flex items-center justify-center mb-6 text-2xl">
+   450|        💼
+   451|      </div>
+   452|      <h3 class="text-xl font-bold text-foreground dark:text-dark-foreground mb-2 font-display">ETF</h3>
+   453|      <p class="text-slate-600 dark:text-dark-dim text-sm leading-relaxed mb-4">SPY, QQQ, IWM, sector & thematic · institutional flow mapping</p>
+   454|      <div class="flex flex-wrap gap-2 mb-4">
+   455|        <span class="px-3 py-1 bg-pink-500/5 text-pink-700 dark:text-pink-300 text-xs font-medium rounded-full">18 ETFs</span>
+   456|      </div>
+   457|      <div class="flex gap-2 mt-auto">
+   458|        <span class="text-primary dark:text-blue-400 text-sm font-semibold">Live dashboard →</span>
+   459|        <span class="session-led soon ml-auto" data-session-label>SESSION</span>
+   460|      </div>
+   461|    </a>
+   462|  </div>
+   463|</section>
+   464|
+   465|<!-- ════════════ FOOTER ════════════ -->
+   466|<footer class="text-center text-sm text-slate-500 dark:text-dark-dim py-8 border-t border-border dark:border-dark-border">
+   467|  <p><a href="/" class="text-primary dark:text-blue-400 font-semibold hover:underline">Atlas Nexus</a> · <a href="https://github.com/AtlasNexusTech/markets-dashboard" class="text-primary dark:text-blue-400 font-semibold hover:underline">GitHub</a> · Built with TradingView & Yahoo Finance</p>
+   468|</footer>
+   469|
+   470|</main>
+   471|
+   472|<!-- ════════════ Antigravity Canvas JS ════════════ -->
+   473|<script>
+   474|(function(){const c=document.getElementById("antigravity-canvas");if(!c)return;const x=c.getContext("2d");let W,H,P=[];const N=55,D=140,R=200,F=.015,S=["circle","triangle","diamond","hexagon"],L=[{r:37,g:99,b:235},{r:5,g:150,b:105},{r:124,g:58,b:237}],M={x:-1e3,y:-1e3,tx:-1e3,ty:-1e3};function rz(){const r=c.parentElement.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);W=r.width||window.innerWidth;H=r.height||window.innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+"px";c.style.height=H+"px";x.setTransform(d,0,0,d,0,0)}function cp(){const l=L[Math.floor(Math.random()*L.length)];return{x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,size:3+Math.random()*9,opacity:.08+Math.random()*.14,shape:S[Math.floor(Math.random()*S.length)],color:l,phase:Math.random()*Math.PI*2,speed:.003+Math.random()*.007,amplitude:.2+Math.random()*.8,rotation:Math.random()*Math.PI*2,rotSpeed:(Math.random()-.5)*.004}}function ds(p){const{x,y,size:s,shape:h,color:l,opacity:o,rotation:r}=p;x.save();x.translate(x,y);x.rotate(r);x.globalAlpha=o;x.fillStyle=`rgba(${l.r},${l.g},${l.b},1)`;x.strokeStyle=`rgba(${l.r},${l.g},${l.b},1)`;x.lineWidth=.6;switch(h){case"circle":x.beginPath();x.arc(0,0,s/2,0,Math.PI*2);x.fill();break;case"triangle":x.beginPath();x.moveTo(0,-s/1.8);x.lineTo(s/2,s/2.5);x.lineTo(-s/2,s/2.5);x.closePath();x.fill();break;case"diamond":x.beginPath();x.moveTo(0,-s/1.8);x.lineTo(s/2.2,0);x.lineTo(0,s/1.8);x.lineTo(-s/2.2,0);x.closePath();x.fill();break;case"hexagon":x.beginPath();for(let i=0;i<6;i++){const a=Math.PI/3*i-Math.PI/6,k=s/2.2;i===0?x.moveTo(Math.cos(a)*k,Math.sin(a)*k):x.lineTo(Math.cos(a)*k,Math.sin(a)*k)}x.closePath();x.fill()}x.restore()}function dc(){for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const a=P[i],b=P[j],dx=a.x-b.x,dy=a.y-b.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<D){const dA=Math.hypot(a.x-M.x,a.y-M.y),dB=Math.hypot(b.x-M.x,b.y-M.y),nm=Math.max(0,1-Math.min(dA,dB)/160),alpha=(1-dist/D)*.15*(1+nm*... [truncated]
+   475|</script>
+   476|
+   477|<!-- ════════════ JS: Market Sessions ════════════ -->
+   478|<script>
+   479|(()=>{const A=d=>d.getUTCHours()*60+d.getUTCMinutes(),B=(d,s,e)=>d>=s&&d<e,C=d=>d.getUTCDay()>=1&&d.getUTCDay()<=5,D=d=>{const e=d.getUTCDay(),m=A(d);return(e>1&&e<5)||e===1||(e===5&&m<1320)||(e===0&&m>=1320)},E=(m,n=new Date)=>{const u=A(n),w=C(n);if(m==='crypto')return{state:'open',label:'OPEN \u00b7 24/7'};if(m==='forex')return D(n)?{state:'open',label:'OPEN \u00b7 FX'}:{state:'closed',label:'CLOSED \u00b7 FX'};if(m==='stocks'||m==='etf'){if(w&&B(u,870,1260))return{state:'open',label:'OPEN \u00b7 LISTED'};if(w&&B(u,540,870))return{state:'soon',label:'PRE-MARKET'};return{state:'closed',label:'CLOSED'}}if(m==='indices')return(w||n.getUTCDay()===0)?{state:'open',label:'OPEN \u00b7 global'}:{state:'closed',label:'CLOSED'};if(m==='commodities')return D(n)?{state:'soon',label:'EXTENDED'}:{state:'closed',label:'CLOSED'};return{state:'closed',label:'CLOSED'}};const F=()=>{document.querySelectorAll('[data-market]').forEach(c=>{const l=c.querySelector('[data-session-label]');if(!l)return;const{state:s,label:b}=E(c.dataset.market);l.classList.remove('open','closed','soon');l.classList.add(s);l.textContent=b;l.title='Approximate market session (UTC exchange hours)'})};F();setInterval(F,6e4)})();
+   480|</script>
+   481|
+   482|<!-- ════════════ JS: Count-up ════════════ -->
+   483|<script>
+   484|(()=>{const e=t=>1-Math.pow(1-t,3);document.querySelectorAll('.count-up[data-target]').forEach(el=>{const t=Number(el.dataset.target||0),d=950,s=performance.now();(function n(r){const o=Math.min((r-s)/d,1);el.textContent=Math.round(e(o)*t).toLocaleString('en-US');if(o<1)requestAnimationFrame(n)})(s)})})();
+   485|</script>
+   486|
+   487|<!-- ════════════ JS: Dark mode toggle ════════════ -->
+   488|<script>
+   489|(()=>{const h=document.documentElement,t=document.getElementById('theme-toggle'),s=localStorage.getItem('atlasnexus-theme')||'light';if(s==='dark')h.classList.add('dark');h.setAttribute('data-theme',h.classList.contains('dark')?'dark':'light');t.addEventListener('click',()=>{h.classList.toggle('dark');const n=h.classList.contains('dark')?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('atlasnexus-theme',n)})})();
+   490|</script>
+   491|
+   492|<!-- ════════════ JS: Scroll reveal ════════════ -->
+   493|<script>
+   494|(()=>{new IntersectionObserver(e=>{e.forEach(n=>{if(n.isIntersecting){n.target.classList.add('visible');n.target.style.opacity='';n.target.style.transform=''}})},{threshold:0.1}).observe(document.querySelector('.reveal'));document.querySelectorAll('.reveal').forEach(el=>{new IntersectionObserver(e=>{e.forEach(n=>{if(n.isIntersecting){n.target.classList.add('visible')}})},{threshold:0.1}).observe(el)})})();
+   495|</script>
+   496|
+   497|<!-- ════════════ JS: Yahoo Index Widgets ════════════ -->
+   498|<script>
+   499|(function(){const B='https://query1.finance.yahoo.com/v8/finance/chart/';async function F(s){try{const r=await fetch(B+s+'?interval=1d&range=2d'),d=await r.json(),m=d.chart.result[0].meta,p=m.regularMarketPrice,c=m.previousClose||m.chartPreviousClose,h=p-c;return{price:p,change:h,changePct:(h/c)*100,time:new Date(m.regularMarketTime*1e3)}}catch(e){return null}}function P(p){return p>=1e3?p.toLocaleString('en-US',{maximumFractionDigits:0}):p.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}function U(iP,iC,iT,d){if(!d){document.getElementById(iP).textContent='Error';return}document.getElementById(iP).textContent=P(d.price);const s=d.change>=0?'+':'',c=d.change>=0?'text-accent dark:text-green-400':'text-red-500 dark:text-red-400',el=document.getElementById(iC);el.textContent=s+d.change.toFixed(2)+' ('+s+d.changePct.toFixed(2)+'%)';el.className='text-sm font-bold mt-0.5 '+c;document.getElementById(iT).textContent='Updated: '+d.time.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}async function R(){const[a,b]=await Promise.all([F('%5EGSPC'),F('%5EIXIC')]);U('spx-price','spx-change','spx-time',a);U('ndx-price','ndx-change','ndx-time',b)}R();setInterval(R,6e4)})();
+   500|</script>
+   501|
+   502|<!-- ════════════ JS: Fear & Greed Index ════════════ -->
+   503|<script>
+   504|(function(){const A='https://api.alternative.me/fng/?limit=1',K={'Extreme Fear':{color:'#e11d48'},Fear:{color:'#f97316'},Neutral:{color:'#eab308'},Greed:{color:'#84cc16'},'Extreme Greed':{color:'#22c55e'}},C=2*Math.PI*42;async function F(){try{const r=await fetch(A),d=await r.json(),e=d.data[0];return{value:parseInt(e.value),classification:e.value_classification,timestamp:new Date(parseInt(e.timestamp)*1e3)}}catch(e){return null}}function U(d){const g=document.getElementById('fng-gauge-fill'),v=document.getElementById('fng-value'),cl=document.getElementById('fng-classification'),t=document.getElementById('fng-timestamp'),m=document.getElementById('fng-meter-fill');if(!d){if(v)v.textContent='Error';return}const p=d.value/100,o=C*(1-p),i=K[d.classification]||K['Neutral'];if(g){g.setAttribute('stroke-dasharray',C);g.setAttribute('stroke-dashoffset',o);g.setAttribute('stroke',i.color)}if(v){v.textContent=d.value;v.style.color=i.color}if(cl){cl.textContent=d.classification;cl.style.color=i.color}if(m){m.style.width=d.value+'%';m.style.background=i.color}if(t)t.textContent='Updated: '+d.timestamp.toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})}F().then(U);setInterval(()=>F().then(U),9e5)})();
+   505|</script>
+   506|</body>
+   507|</html>
