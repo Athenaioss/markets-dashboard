@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🪙 Atlas Nexus — Crypto Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0f172a; color: #e2e8f0; padding: 20px; }
+        .header { text-align: center; padding: 30px; background: linear-gradient(135deg, #1e293b, #0f172a); border-radius: 12px; margin-bottom: 20px; border: 1px solid #334155; }
+        .header h1 { font-size: 2em; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .crypto-coin-emoji { background: none !important; -webkit-background-clip: initial !important; background-clip: initial !important; -webkit-text-fill-color: initial !important; color: initial !important; display: inline-block; }
+        .header p { color: #94a3b8; margin-top: 8px; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px; text-align: center; }
+        .card .value { font-size: 2em; font-weight: bold; }
+        .card .label { color: #94a3b8; font-size: 0.9em; margin-top: 5px; }
+        .up { color: #22c55e; } .down { color: #ef4444; }
+        table { width: 100%; border-collapse: collapse; background: #1e293b; border-radius: 10px; overflow: hidden; }
+        th { background: #334155; padding: 12px; text-align: left; font-weight: 600; color: #38bdf8; }
+        td { padding: 10px 12px; border-bottom: 1px solid #1e293b; }
+        tr:hover { background: #334155; }
+        .badge { padding: 3px 8px; border-radius: 12px; font-size: 0.8em; font-weight: 600; }
+        .badge-high { background: #7f1d1d; color: #fca5a5; }
+        .badge-medium { background: #78350f; color: #fcd34d; }
+        .badge-low { background: #14532d; color: #86efac; }
+        .badge-tier { background: #1e3a5f; color: #93c5fd; }
+        .gainer { color: #22c55e; } .loser { color: #ef4444; }
+        h2 { margin: 20px 0 10px; color: #38bdf8; }
+        .section { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) { .section { grid-template-columns: 1fr; } }
+    
+/* ATLAS_PREMIUM_DASHBOARD_THEME_V1 — DUAL THEME (light default + dark toggle) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+html{scroll-behavior:smooth}
+*{box-sizing:border-box}
+/* ── LIGHT THEME (default) ── */
+:root{
+  --atlas-bg:#f8fafc;
+  --atlas-panel:#ffffff;
+  --atlas-panel-strong:#f1f5f9;
+  --atlas-border:rgba(0,0,0,.12);
+  --atlas-border-strong:rgba(0,0,0,.18);
+  --atlas-text:#0f172a;
+  --atlas-muted:#1e293b;
+  --atlas-faint:#334155;
+  --atlas-green:#16a34a;
+  --atlas-red:#dc2626;
+  --atlas-amber:#d97706;
+  --atlas-accent:var(--accent,#0284c7);
+  --atlas-accent2:var(--accent2,#7c3aed);
+  --atlas-card-bg:rgba(255,255,255,.95);
+  --atlas-card-border:rgba(0,0,0,.08);
+  --atlas-shadow:0 8px 40px rgba(0,0,0,.08);
+  --atlas-th-bg:rgba(248,250,252,.98);
+  --atlas-td-color:#1e293b;
+  --atlas-nav-bg:linear-gradient(180deg,rgba(248,250,252,.95),rgba(248,250,252,.75));
+  --atlas-nav-border:rgba(0,0,0,.08);
+  --atlas-body-bg:linear-gradient(180deg,#f8fafc 0%,#f1f5f9 48%,#f8fafc 100%);
+  --atlas-grid-line:rgba(0,0,0,.04);
+  --atlas-grid-line2:rgba(0,0,0,.03);
+  --atlas-hero-bg:linear-gradient(135deg,rgba(255,255,255,.95),rgba(241,245,249,.9)),radial-gradient(circle at 88% 5%,color-mix(in srgb,var(--atlas-accent) 15%,transparent),transparent 36%);
+  --atlas-hero-shadow:0 8px 40px rgba(0,0,0,.06),inset 0 1px 0 rgba(0,0,0,.04);
+  --atlas-card-gradient:linear-gradient(180deg,rgba(255,255,255,.95),rgba(241,245,249,.9));
+  --atlas-card-inset:inset 0 1px 0 rgba(255,255,255,.8);
+  --unusual-bg:linear-gradient(135deg,rgba(245,158,11,.08),rgba(255,255,255,.9) 52%,rgba(239,68,68,.04));
+  --unusual-border:rgba(245,158,11,.26);
+  --unusual-card-bg:rgba(255,255,255,.7);
+  --hawkeye-bg:linear-gradient(135deg,rgba(241,245,249,.95),rgba(248,250,252,.9) 48%,rgba(254,243,199,.5));
+  --hawkeye-border:rgba(56,189,248,.25);
+  --signal-card-bg:rgba(255,255,255,.7);
+  --signal-row-bg:rgba(248,250,252,.7);
+}
+/* ── DARK THEME ── */
+[data-theme="dark"]{
+  --atlas-bg:#070914;
+  --atlas-panel:rgba(15,20,32,.74);
+  --atlas-panel-strong:rgba(18,24,38,.92);
+  --atlas-border:rgba(148,163,184,.16);
+  --atlas-border-strong:rgba(255,255,255,.14);
+  --atlas-text:#f8fafc;
+  --atlas-muted:#b6c2d6;
+  --atlas-faint:#8290a6;
+  --atlas-green:#22c55e;
+  --atlas-red:#ef4444;
+  --atlas-amber:#f59e0b;
+  --atlas-accent:#38bdf8;
+  --atlas-accent2:#818cf8;
+  --atlas-card-bg:rgba(255,255,255,.04);
+  --atlas-card-border:rgba(148,163,184,.16);
+  --atlas-shadow:0 18px 55px rgba(0,0,0,.22);
+  --atlas-th-bg:rgba(12,18,30,.94);
+  --atlas-td-color:#dbeafe;
+  --atlas-nav-bg:linear-gradient(180deg,rgba(7,9,20,.92),rgba(7,9,20,.62));
+  --atlas-nav-border:rgba(148,163,184,.16);
+  --atlas-body-bg:radial-gradient(circle at 14% -10%,color-mix(in srgb,var(--atlas-accent) 22%,transparent),transparent 34%),radial-gradient(circle at 90% 6%,color-mix(in srgb,var(--atlas-accent2) 18%,transparent),transparent 30%),linear-gradient(180deg,#070914 0%,#0a0f1d 48%,#070914 100%);
+  --atlas-grid-line:rgba(255,255,255,.035);
+  --atlas-grid-line2:rgba(255,255,255,.028);
+  --atlas-hero-bg:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.035)),radial-gradient(circle at 88% 5%,color-mix(in srgb,var(--atlas-accent) 28%,transparent),transparent 36%);
+  --atlas-hero-shadow:0 30px 90px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.08);
+  --atlas-card-gradient:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));
+  --atlas-card-inset:inset 0 1px 0 rgba(255,255,255,.06);
+  --unusual-bg:linear-gradient(135deg,rgba(245,158,11,.13),rgba(15,23,42,.72) 52%,rgba(239,68,68,.08));
+  --unusual-border:rgba(245,158,11,.26);
+  --unusual-card-bg:rgba(7,9,20,.38);
+  --hawkeye-bg:linear-gradient(135deg,rgba(16,22,34,.92),rgba(18,14,33,.86) 48%,rgba(29,22,10,.76));
+  --hawkeye-border:rgba(56,189,248,.20);
+  --signal-card-bg:rgba(7,9,20,.38);
+  --signal-row-bg:rgba(255,255,255,.035);
+}
+
+/* ── THEME TOGGLE BUTTON ── */
+.theme-toggle-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:999px;border:1px solid var(--atlas-border);background:var(--atlas-panel);cursor:pointer;font-size:.78em;font-weight:700;color:var(--atlas-muted);transition:all .2s;margin-left:4px;white-space:nowrap}
+.theme-toggle-btn:hover{border-color:var(--atlas-accent);color:var(--atlas-text)}
+[data-theme="light"] .icon-moon{display:none}
+[data-theme="dark"] .icon-sun{display:none}
+
+/* ── BODY ── */
+body{
+  font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;
+  min-height:100vh;
+  color:var(--atlas-text)!important;
+  background:var(--atlas-body-bg)!important;
+  padding:0!important;
+  transition:background .5s ease,color .4s ease;
+}
+{TV_LINK_CSS}
+[data-theme="dark"] body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--atlas-grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--atlas-grid-line2) 1px,transparent 1px);
+  background-size:42px 42px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.7),transparent 72%);
+}
+[data-theme="light"] body:before{display:none!important}
+
+/* ── NAV ── */
+.atlas-nav{
+  position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:14px min(28px,5vw);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  background:var(--atlas-nav-bg)!important;border-bottom:1px solid var(--atlas-nav-border);
+  transition:background .4s ease,border-color .4s ease;
+}
+.atlas-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--atlas-text);font-weight:900;letter-spacing:-.04em}.atlas-brand span:first-child{filter:drop-shadow(0 0 18px color-mix(in srgb,var(--atlas-accent) 50%,transparent))}.atlas-links{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.atlas-links a{color:var(--atlas-muted);text-decoration:none;font-size:.78rem;font-weight:800;padding:8px 10px;border:1px solid transparent;border-radius:999px;transition:.18s}.atlas-links a:hover,.atlas-links a.active{color:var(--atlas-text);border-color:color-mix(in srgb,var(--atlas-accent) 34%,transparent);background:color-mix(in srgb,var(--atlas-accent) 13%,transparent)}
+
+/* ── HEADER ── */
+.header{
+  max-width:1240px;margin:22px auto 22px!important;padding:34px min(34px,5vw)!important;text-align:left!important;
+  border:1px solid var(--atlas-border)!important;border-radius:30px!important;overflow:hidden;position:relative;
+  background:var(--atlas-hero-bg)!important;
+  box-shadow:var(--atlas-hero-shadow);
+  transition:background .5s ease,box-shadow .5s ease;
+}
+.header:before{content:"";position:absolute;inset:auto -70px -120px auto;width:320px;height:320px;border-radius:999px;background:var(--atlas-accent);opacity:.13;filter:blur(12px)}
+.title-emoji{font-size:3.1rem!important;line-height:1!important;margin-bottom:12px!important}.header h1{font-size:clamp(2rem,5vw,4.2rem)!important;line-height:.98!important;letter-spacing:-.075em!important;font-weight:900!important;margin:0 0 12px!important;background:linear-gradient(135deg,var(--atlas-accent),var(--atlas-accent2))!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important}.header p,.header .subtitle{color:var(--atlas-muted)!important;max-width:780px!important;font-size:1rem!important;line-height:1.65!important}.atlas-page-subtitle{margin-top:8px;color:var(--atlas-muted)!important}.live-badge{border-radius:999px!important;border:1px solid color-mix(in srgb,var(--atlas-green) 24%,transparent)!important;background:rgba(34,197,94,.10)!important;color:var(--atlas-green)!important;padding:7px 11px!important;font-size:.78rem!important;font-weight:850!important}
+[data-theme="dark"] .live-badge{color:#bbf7d0!important}
+
+/* ── CONTAINER & CARDS ── */
+.container{width:min(1240px,calc(100% - 28px))!important;max-width:1240px!important;margin:0 auto!important;padding:0 0 28px!important}.cards,.stats-grid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))!important;gap:14px!important;margin:0 0 22px!important}.card,.stat-card{position:relative;overflow:hidden;background:var(--atlas-card-gradient)!important;border:1px solid var(--atlas-card-border)!important;border-radius:22px!important;padding:20px!important;text-align:left!important;box-shadow:var(--atlas-shadow),var(--atlas-card-inset);transition:transform .18s,border-color .18s,background .4s ease}.card:hover,.stat-card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--atlas-accent) 45%,transparent)!important}.card .value,.stat-card .value{font-size:clamp(1.65rem,4vw,2.5rem)!important;font-weight:900!important;letter-spacing:-.06em!important;color:var(--atlas-text)!important}.card .label,.stat-card .label{color:var(--atlas-muted)!important;font-size:.78rem!important;font-weight:800!important;text-transform:uppercase!important;letter-spacing:.06em!important;margin-top:8px!important}
+
+/* ── TABLES ── */
+h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:-.04em!important;font-weight:900!important;margin:28px 0 12px!important}.table-wrapper,table{box-shadow:var(--atlas-shadow)}.table-wrapper{background:var(--atlas-panel)!important;border:1px solid var(--atlas-border)!important;border-radius:24px!important;overflow:hidden!important;margin-bottom:24px!important}table{width:100%!important;border-collapse:separate!important;border-spacing:0!important;background:var(--atlas-panel)!important;border:1px solid var(--atlas-border)!important;border-radius:22px!important;overflow:hidden!important;font-size:.9rem!important}th{position:sticky;top:58px;z-index:3;background:var(--atlas-th-bg)!important;color:var(--atlas-accent)!important;border-bottom:1px solid var(--atlas-border)!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-size:.72rem!important;font-weight:900!important;padding:13px 14px!important;white-space:nowrap!important}td{padding:13px 14px!important;border-bottom:1px solid var(--atlas-border)!important;color:var(--atlas-td-color)!important;vertical-align:middle!important}tr:hover td{background:var(--atlas-panel-strong)!important}td:first-child,th:first-child{position:sticky;left:0;background:var(--atlas-th-bg)!important;z-index:4}td strong{color:var(--atlas-text)!important}.badge,.live-badge{white-space:nowrap}.badge{border-radius:999px!important;padding:5px 9px!important;font-size:.72rem!important;font-weight:900!important;color:var(--atlas-text)!important}
+
+[data-theme="dark"] .badge{color:#cbd5e1!important}
+[data-theme="dark"] td strong{color:#f8fafc!important}
+[data-theme="dark"] td{color:#dbeafe!important}
+[data-theme="dark"] th{background:rgba(12,18,30,.94)!important}
+[data-theme="dark"] td:first-child, [data-theme="dark"] th:first-child{background:linear-gradient(90deg,rgba(12,18,30,.98),rgba(12,18,30,.92))!important}
+[data-theme="dark"] tr:hover td{background:rgba(255,255,255,.045)!important}
+
+.sentiment-banner{border-radius:24px!important;margin:0 0 22px!important;background:var(--atlas-panel)!important;border:1px solid var(--atlas-border)!important;box-shadow:var(--atlas-shadow)}.footer,footer{width:min(1240px,calc(100% - 28px));margin:26px auto!important;padding:22px!important;color:var(--atlas-muted)!important;text-align:center!important;border:1px solid var(--atlas-border)!important;border-radius:24px!important}
+
+/* ATLAS_LEADERBOARD_TABLE_REPAIR_20260517 */
+.table-wrapper{overflow:hidden!important}
+.table-wrapper>div,div[style*="overflow-x"]{max-width:100%!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}
+.table-wrapper table{min-width:860px!important;width:max-content!important;max-width:none!important;border-collapse:separate!important}
+.table-wrapper th,.table-wrapper td{white-space:nowrap!important}
+.table-wrapper td:first-child,.table-wrapper th:first-child{position:static!important;left:auto!important;z-index:auto!important;background:transparent!important}
+.table-wrapper td:first-child strong{white-space:nowrap!important}
+
+@media(max-width:760px){.atlas-nav{align-items:flex-start;flex-direction:column;padding:12px 14px}.atlas-links{width:100%;overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;padding-bottom:3px}.atlas-links a{flex:0 0 auto}.header{width:min(100% - 22px,1240px)!important;margin:14px auto 18px!important;border-radius:24px!important}.container{width:min(100% - 22px,1240px)!important}.atlas-scroll-hint{display:block}.table-wrapper,div[style*="overflow-x"]{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}table{min-width:760px!important}.card,.stat-card{padding:17px!important}.section{grid-template-columns:1fr!important}.header h1{font-size:clamp(2rem,12vw,3.3rem)!important}}
+
+</style>
+<style>body:before{display:none!important}</style>
+</head>
+<body>
+<nav class="atlas-nav" aria-label="Atlas Nexus dashboard navigation"><a class="atlas-brand" href="index.html"><span>🔮</span><span>Atlas Nexus</span></a><div class="atlas-links"><a href="index.html">Home</a><a class="active" href="crypto_dashboard.html">Crypto</a><a href="commodities_dashboard.html">Commodities</a><a href="indices_dashboard.html">Indices</a><a href="forex_dashboard.html">Forex</a><a href="actions_dashboard.html">Stocks</a><a href="etf_dashboard.html">ETF</a><button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button></div></nav>
+    <div class="header">
+        <h1><span class="crypto-coin-emoji">🪙</span> Atlas Nexus — Crypto</h1>
+    </div>
+    
+    <div class="cards">
+        <div class="card">
+            <div class="value" style="color:#38bdf8">103</div>
+            <div class="label">Tokens Analyzed</div>
+        </div>
+        <div class="card">
+            <div class="value" style="color:#22c55e">43</div>
+            <div class="label">Tokens Up (24h)</div>
+        </div>
+        <div class="card">
+            <div class="value" style="color:#ef4444">4</div>
+            <div class="label">Tokens Down (24h)</div>
+        </div>
+        <div class="card">
+            <div class="value" style="color:#f59e0b">1.35%</div>
+            <div class="label">Avg 24h Change</div>
+        </div>
+    </div>
+    
+    
+<section class="momentum-scanner-v2 scanner hawkeye-scanner hawkeye-v4" aria-label="Hawkeye V4">
+  <style>
+    .hawkeye-scanner{margin:0 0 24px;padding:24px;border:1px solid var(--hawkeye-border,rgba(56,189,248,.25));border-radius:28px;position:relative;overflow:hidden;text-align:left;background:var(--hawkeye-bg,linear-gradient(135deg,rgba(241,245,249,.95),rgba(248,250,252,.9) 48%,rgba(254,243,199,.5)));box-shadow:var(--atlas-shadow,0 8px 40px rgba(0,0,0,.08)),inset 0 1px 0 rgba(255,255,255,.06);transition:background .4s ease}
+    .hawkeye-scanner:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,color-mix(in srgb,var(--atlas-accent,#0284c7) 18%,transparent),transparent 35%),radial-gradient(circle at 92% 14%,color-mix(in srgb,var(--atlas-amber,#d97706) 12%,transparent),transparent 28%);pointer-events:none}.hawkeye-scanner>*{position:relative}
+    .scanner-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}.scanner-head h2{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}.scanner-sub{margin:6px 0 0;color:var(--atlas-muted,var(--muted));font-size:.82rem;line-height:1.45}
+    .scanner-head .tier-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:.74em;color:var(--atlas-muted,var(--muted))}.scanner-head .tier-legend span{padding:3px 8px;border-radius:999px;border:1px solid var(--atlas-border);background:var(--atlas-panel-strong)}.scanner-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .signal-card{border:1px solid var(--atlas-border);border-radius:22px;padding:14px;background:var(--signal-card-bg,var(--atlas-panel-strong));box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}.signal-card h3{margin:0 0 12px;color:var(--atlas-text,var(--text));font-size:.98rem;font-weight:950;letter-spacing:-.025em}
+    .signal-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--atlas-border);border-radius:16px;background:var(--signal-row-bg,var(--atlas-panel));margin-top:9px}.signal-row:first-of-type{margin-top:0}.asset-name{display:inline;font-weight:900;color:var(--atlas-text,var(--text));line-height:1.15;margin-right:6px}
+    .asset-tag{display:inline-flex;vertical-align:middle;padding:2px 7px;border-radius:999px;background:color-mix(in srgb,var(--atlas-accent,#0284c7) 10%,transparent);border:1px solid color-mix(in srgb,var(--atlas-accent,#0284c7) 22%,transparent);color:var(--atlas-accent,#0284c7);font-size:.66rem;font-weight:900;text-transform:uppercase}.asset-meta{display:block;color:var(--atlas-muted,var(--muted));font-size:.74rem;margin-top:4px;line-height:1.35}
+    .asset-levels{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}.asset-levels span{padding:4px 7px;border-radius:999px;background:var(--atlas-panel-strong);border:1px solid var(--atlas-border);color:var(--atlas-muted)}
+    .score-pill{display:inline-flex;align-items:center;justify-content:center;min-width:58px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent;color:var(--atlas-text)}
+    
+.market-state{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:999px;border:1px solid rgba(148,163,184,.18);background:rgba(15,23,42,.56);font-size:.72rem;font-weight:950;text-transform:uppercase;letter-spacing:.035em;white-space:nowrap}
+.market-state:before{content:"";width:6px;height:6px;border-radius:999px;background:#94a3b8;box-shadow:0 0 12px rgba(148,163,184,.65)}
+.market-state-open{color:#bbf7d0;border-color:rgba(34,197,94,.24);background:rgba(34,197,94,.09)}
+.market-state-open:before{background:#22c55e;box-shadow:0 0 14px rgba(34,197,94,.9)}
+.market-state-pre-market{color:#fde68a;border-color:rgba(245,158,11,.26);background:rgba(245,158,11,.09)}
+.market-state-pre-market:before{background:#f59e0b;box-shadow:0 0 14px rgba(245,158,11,.85)}
+.market-state-closed{color:#fecaca;border-color:rgba(251,113,133,.26);background:rgba(251,113,133,.09)}
+.market-state-closed:before{background:#fb7185;box-shadow:0 0 14px rgba(251,113,133,.85)}
+
+    .tv-link{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:5px 10px;border-radius:999px;border:1px solid rgba(56,189,248,.32);background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(124,92,255,.12));color:#d9f3ff!important;text-decoration:none;font-size:.76rem;font-weight:950;white-space:nowrap;transition:all .16s;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.tv-link:hover{background:linear-gradient(135deg,rgba(56,189,248,.24),rgba(124,92,255,.20));border-color:rgba(56,189,248,.58);transform:translateY(-1px);box-shadow:0 8px 24px rgba(56,189,248,.12),inset 0 1px 0 rgba(255,255,255,.10)}
+    .score-hot{color:var(--atlas-green);background:color-mix(in srgb,var(--atlas-green) 13%,transparent);border-color:color-mix(in srgb,var(--atlas-green) 22%,transparent)}.score-risk{color:var(--atlas-red);background:color-mix(in srgb,var(--atlas-red) 12%,transparent);border-color:color-mix(in srgb,var(--atlas-red) 22%,transparent)}.score-warm{color:var(--atlas-amber);background:color-mix(in srgb,var(--atlas-amber) 14%,transparent);border-color:color-mix(in srgb,var(--atlas-amber) 22%,transparent)}.score-muted{color:var(--atlas-muted);background:var(--atlas-panel-strong);border-color:var(--atlas-border)}.momentum-empty{padding:16px;border:1px dashed var(--atlas-border);border-radius:18px;color:var(--atlas-muted,var(--muted));background:var(--atlas-panel-strong)}
+    @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}}@media(max-width:520px){.hawkeye-scanner{padding:16px;border-radius:22px}.signal-row{display:block}.signal-row>div:last-child{text-align:left!important;margin-top:10px}}
+  </style>
+  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension. Market state: <span class="market-state market-state-open" data-market="crypto" data-market-state>Open · 24/7</span></p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ 0 · 🦅 0 · 👁️ 9</span></div></div>
+  <div class="scanner-board hawk-board"><div class="signal-card"><h3>📈 Bullish pressure (4)</h3><div class="signal-row hawk-row">
+<div>
+<span class="asset-name">BNB</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">crypto · uptrend · bullish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $660.40</span>
+<span class="market-state market-state-open" data-market="crypto" data-market-state>Open · 24/7</span>
+<span style="color:#c4b5fd">nROC5 +0.08</span>
+<span style="color:#fbbf24">RSI 65</span>
+<span style="color:#fca5a5">Ext 0.2 ATR</span>
+<span style="color:#93c5fd">Range pct 81</span>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ABNBUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:BNBUSDT on TradingView">Chart ↗</a>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">62/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +42 · BNB</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+</div>
+</div><div class="signal-row hawk-row">
+<div>
+<span class="asset-name">XRP</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">crypto · uptrend · bullish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $1.36</span>
+<span class="market-state market-state-open" data-market="crypto" data-market-state>Open · 24/7</span>
+<span style="color:#c4b5fd">nROC5 +0.03</span>
+<span style="color:#fbbf24">RSI 65</span>
+<span style="color:#fca5a5">Ext 0.2 ATR</span>
+<span style="color:#93c5fd">Range pct 52</span>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AXRPUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:XRPUSDT on TradingView">Chart ↗</a>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">62/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +42 · XRP</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+</div>
+</div><div class="signal-row hawk-row">
+<div>
+<span class="asset-name">Figure Heloc</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">crypto · uptrend · bullish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $1.03</span>
+<span class="market-state market-state-open" data-market="crypto" data-market-state>Open · 24/7</span>
+<span style="color:#c4b5fd">nROC5 +0.00</span>
+<span style="color:#fbbf24">RSI 62</span>
+<span style="color:#fca5a5">Ext 0.1 ATR</span>
+<span style="color:#93c5fd">Range pct 45</span>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AFIGRHELOCUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:FIGRHELOCUSDT on TradingView">Chart ↗</a>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">62/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +42 · FIGR_HELOC</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+</div>
+</div><div class="signal-row hawk-row">
+<div>
+<span class="asset-name">Zcash</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">crypto · uptrend · bullish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $645.05</span>
+<span class="market-state market-state-open" data-market="crypto" data-market-state>Open · 24/7</span>
+<span style="color:#c4b5fd">nROC5 +0.26</span>
+<span style="color:#fbbf24">RSI 56</span>
+<span style="color:#fca5a5">Ext 0.8 ATR</span>
+<span style="color:#93c5fd">Range pct 49</span>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AZECUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:ZECUSDT on TradingView">Chart ↗</a>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">62/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +42 · ZEC</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+</div>
+</div></div><div class="signal-card"><h3>📉 Bearish pressure (0)</h3><div class="momentum-empty">No active bearish pressure</div></div></div>
+</section>
+    
+<section class="unusual-activity">
+<style>
+.unusual-activity{position:relative;overflow:hidden;margin:0 0 24px;padding:20px;border:1px solid var(--unusual-border,rgba(245,158,11,.26));border-radius:26px;background:var(--unusual-bg,linear-gradient(135deg,rgba(245,158,11,.08),rgba(255,255,255,.9) 52%,rgba(239,68,68,.04)));box-shadow:var(--atlas-shadow,0 8px 40px rgba(0,0,0,.08)),inset 0 1px 0 rgba(255,255,255,.06);transition:background .4s ease}
+.unusual-activity:before{content:"";position:absolute;right:-80px;top:-95px;width:230px;height:230px;border-radius:999px;background:radial-gradient(circle,var(--atlas-amber,rgba(245,158,11,.20)),transparent 62%);pointer-events:none}
+.unusual-activity>*{position:relative}
+.unusual-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+.unusual-head h2{margin:0!important;color:var(--atlas-text,var(--text))!important;font-size:1.08rem!important;font-weight:950!important;letter-spacing:-.035em!important}
+.unusual-head p{margin:6px 0 0;color:var(--atlas-muted,var(--muted));font-size:.83rem;line-height:1.45}
+.unusual-count{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border-radius:14px;border:1px solid var(--atlas-amber,rgba(245,158,11,.28));background:color-mix(in srgb,var(--atlas-amber,#d97706) 14%,transparent);color:var(--atlas-amber,#d97706);font-weight:950}
+.unusual-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.unusual-card{display:flex;flex-direction:column;gap:10px;padding:13px;border:1px solid var(--atlas-border);border-radius:18px;background:var(--unusual-card-bg,var(--atlas-panel-strong))}
+.unusual-main strong{display:block;color:var(--atlas-text,var(--text));font-weight:950;line-height:1.15}
+.unusual-main small{display:block;margin-top:4px;color:var(--atlas-muted,var(--muted));font-size:.72rem;line-height:1.35}
+.unusual-flags{display:flex;gap:6px;flex-wrap:wrap}
+.unusual-flags span{padding:4px 7px;border-radius:999px;background:color-mix(in srgb,var(--atlas-amber,#d97706) 14%,transparent);border:1px solid color-mix(in srgb,var(--atlas-amber,#d97706) 24%,transparent);color:var(--atlas-amber,#d97706);font-size:.70rem;font-weight:850;white-space:nowrap}
+@media(max-width:560px){.unusual-head{display:block}.unusual-count{margin-top:10px}}
+</style>
+<div class="unusual-head"><div><h2>🚨 Unusual market pressure</h2><p>Extension, volatility or RSI readings that deserve manual chart inspection.</p></div><div class="unusual-count">6</div></div>
+<div class="unusual-grid"><div class='unusual-card'>
+  <div class='unusual-main'><strong>Hyperliquid</strong><small>HYPE · uptrend · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>RSI 79 elevated</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>USDS</strong><small>USDS · mixed · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 100</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>LEO Token</strong><small>LEO · uptrend · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 92</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>Stellar</strong><small>XLM · uptrend · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 95</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>Rain</strong><small>RAIN · uptrend · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 92</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>Cronos</strong><small>CRO · uptrend · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 98</span></div>
+</div></div>
+</section>
+    
+    <h2>📊 Token Leaderboard</h2>
+    <div style="overflow-x: auto;">
+    <table>
+        <thead>
+            <tr>
+                <th>Token</th><th>Source</th><th>Price</th><th>Market Cap</th><th>24h Δ</th><th>Volatility</th><th>Tier</th><th>Momentum</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><strong>BTC</strong> <small>Bitcoin</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ABTCUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:BTCUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$76487.0000</td>
+            <td>$1531813.6M</td>
+            <td style="color:#22c55e">▲ 1.36%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td><strong>ETH</strong> <small>Ethereum</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AETHUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:ETHUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$2099.7500</td>
+            <td>$253124.9M</td>
+            <td style="color:#22c55e">▲ 2.05%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>-0.3</td>
+        </tr>
+        <tr>
+            <td><strong>USDT</strong> <small>Tether</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AUSDTUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:USDTUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.9988</td>
+            <td>$189494.5M</td>
+            <td style="color:#ef4444">▼ -0.00%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>-0.0</td>
+        </tr>
+        <tr>
+            <td><strong>BNB</strong> <small>BNB</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ABNBUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:BNBUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$655.9200</td>
+            <td>$88354.3M</td>
+            <td style="color:#22c55e">▲ 1.44%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>1.1</td>
+        </tr>
+        <tr>
+            <td><strong>XRP</strong> <small>XRP</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AXRPUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:XRPUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$1.3500</td>
+            <td>$83462.0M</td>
+            <td style="color:#22c55e">▲ 0.92%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>-1.3</td>
+        </tr>
+        <tr>
+            <td><strong>USDC</strong> <small>USDC</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AUSDCUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:USDCUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.9998</td>
+            <td>$76412.9M</td>
+            <td style="color:#22c55e">▲ 0.00%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td><strong>SOL</strong> <small>Solana</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ASOLUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:SOLUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$85.4200</td>
+            <td>$49345.7M</td>
+            <td style="color:#22c55e">▲ 1.61%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>0.5</td>
+        </tr>
+        <tr>
+            <td><strong>TRX</strong> <small>TRON</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ATRXUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:TRXUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.3652</td>
+            <td>$34628.1M</td>
+            <td style="color:#22c55e">▲ 1.63%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>1.9</td>
+        </tr>
+        <tr>
+            <td><strong>FIGR_HELOC</strong> <small>Figure Heloc</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AFIGRHELOCUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:FIGRHELOCUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$1.0300</td>
+            <td>$18622.2M</td>
+            <td style="color:#ef4444">▼ -0.14%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>-0.4</td>
+        </tr>
+        <tr>
+            <td><strong>DOGE</strong> <small>Dogecoin</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ADOGEUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:DOGEUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.1021</td>
+            <td>$15750.1M</td>
+            <td style="color:#22c55e">▲ 1.11%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>-2.5</td>
+        </tr>
+        <tr>
+            <td><strong>HYPE</strong> <small>Hyperliquid</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AHYPEUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:HYPEUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$63.8700</td>
+            <td>$15240.0M</td>
+            <td style="color:#22c55e">▲ 11.18%</td>
+            <td><span class="badge badge-high">HIGH</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>25.5</td>
+        </tr>
+        <tr>
+            <td><strong>USDS</strong> <small>USDS</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AUSDSUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:USDSUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.9997</td>
+            <td>$11134.8M</td>
+            <td style="color:#22c55e">▲ 0.00%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td><strong>ZEC</strong> <small>Zcash</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AZECUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:ZECUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$663.2900</td>
+            <td>$11036.5M</td>
+            <td style="color:#22c55e">▲ 9.72%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">LARGE_CAP</span></td>
+            <td>17.4</td>
+        </tr>
+        <tr>
+            <td><strong>LEO</strong> <small>LEO Token</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ALEOUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:LEOUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$10.0300</td>
+            <td>$9238.9M</td>
+            <td style="color:#22c55e">▲ 1.02%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.4</td>
+        </tr>
+        <tr>
+            <td><strong>ADA</strong> <small>Cardano</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AADAUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:ADAUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.2429</td>
+            <td>$8985.8M</td>
+            <td style="color:#22c55e">▲ 0.43%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-1.7</td>
+        </tr>
+        <tr>
+            <td><strong>XMR</strong> <small>Monero</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AXMRUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:XMRUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$390.2600</td>
+            <td>$7192.3M</td>
+            <td style="color:#22c55e">▲ 3.32%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>1.5</td>
+        </tr>
+        <tr>
+            <td><strong>BCH</strong> <small>Bitcoin Cash</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ABCHUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:BCHUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$350.0100</td>
+            <td>$7019.1M</td>
+            <td style="color:#22c55e">▲ 0.46%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-5.7</td>
+        </tr>
+        <tr>
+            <td><strong>LINK</strong> <small>Chainlink</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ALINKUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:LINKUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$9.4400</td>
+            <td>$6859.1M</td>
+            <td style="color:#22c55e">▲ 1.53%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.2</td>
+        </tr>
+        <tr>
+            <td><strong>WBT</strong> <small>WhiteBIT Coin</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AWBTUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:WBTUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$56.4300</td>
+            <td>$6676.7M</td>
+            <td style="color:#22c55e">▲ 1.36%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.1</td>
+        </tr>
+        <tr>
+            <td><strong>CC</strong> <small>Canton</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ACCUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:CCUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.1667</td>
+            <td>$6432.2M</td>
+            <td style="color:#22c55e">▲ 5.35%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>6.6</td>
+        </tr>
+        <tr>
+            <td><strong>XLM</strong> <small>Stellar</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AXLMUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:XLMUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.1470</td>
+            <td>$4911.6M</td>
+            <td style="color:#22c55e">▲ 1.50%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.1</td>
+        </tr>
+        <tr>
+            <td><strong>USD1</strong> <small>USD1</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AUSD1USDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:USD1USDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.9990</td>
+            <td>$4781.8M</td>
+            <td style="color:#ef4444">▼ -0.01%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.1</td>
+        </tr>
+        <tr>
+            <td><strong>TON</strong> <small>Toncoin</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ATONUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:TONUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$1.7400</td>
+            <td>$4696.2M</td>
+            <td style="color:#ef4444">▼ -1.10%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-4.6</td>
+        </tr>
+        <tr>
+            <td><strong>USDE</strong> <small>Ethena USDe</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AUSDEUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:USDEUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.9986</td>
+            <td>$4446.2M</td>
+            <td style="color:#ef4444">▼ -0.04%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.1</td>
+        </tr>
+        <tr>
+            <td><strong>DAI</strong> <small>Dai</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ADAIUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:DAIUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.9995</td>
+            <td>$4358.4M</td>
+            <td style="color:#ef4444">▼ -0.01%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.0</td>
+        </tr>
+        <tr>
+            <td><strong>SUI</strong> <small>Sui</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ASUIUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:SUIUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$1.0470</td>
+            <td>$4190.4M</td>
+            <td style="color:#22c55e">▲ 0.88%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.2</td>
+        </tr>
+        <tr>
+            <td><strong>LTC</strong> <small>Litecoin</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ALTCUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:LTCUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$52.7500</td>
+            <td>$4076.2M</td>
+            <td style="color:#ef4444">▼ -0.18%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-2.4</td>
+        </tr>
+        <tr>
+            <td><strong>AVAX</strong> <small>Avalanche</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AAVAXUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:AVAXUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$9.2300</td>
+            <td>$3985.2M</td>
+            <td style="color:#22c55e">▲ 1.16%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.4</td>
+        </tr>
+        <tr>
+            <td><strong>HBAR</strong> <small>Hedera</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AHBARUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:HBARUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.0887</td>
+            <td>$3848.8M</td>
+            <td style="color:#22c55e">▲ 1.40%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.1</td>
+        </tr>
+        <tr>
+            <td><strong>M</strong> <small>MemeCore</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AMUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:MUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$2.9100</td>
+            <td>$3790.2M</td>
+            <td style="color:#22c55e">▲ 1.87%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-2.2</td>
+        </tr>
+        <tr>
+            <td><strong>PYUSD</strong> <small>PayPal USD</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3APYUSDUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:PYUSDUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.9998</td>
+            <td>$3614.6M</td>
+            <td style="color:#ef4444">▼ -0.00%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td><strong>RAIN</strong> <small>Rain</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ARAINUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:RAINUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.0074</td>
+            <td>$3553.6M</td>
+            <td style="color:#22c55e">▲ 1.34%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.3</td>
+        </tr>
+        <tr>
+            <td><strong>SHIB</strong> <small>Shiba Inu</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ASHIBUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:SHIBUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.0000</td>
+            <td>$3289.9M</td>
+            <td style="color:#ef4444">▼ -0.01%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-1.5</td>
+        </tr>
+        <tr>
+            <td><strong>NEAR</strong> <small>NEAR Protocol</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ANEARUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:NEARUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$2.4100</td>
+            <td>$3142.6M</td>
+            <td style="color:#22c55e">▲ 7.54%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>27.9</td>
+        </tr>
+        <tr>
+            <td><strong>CRO</strong> <small>Cronos</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ACROUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:CROUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.0690</td>
+            <td>$3089.0M</td>
+            <td style="color:#22c55e">▲ 0.12%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-1.1</td>
+        </tr>
+        <tr>
+            <td><strong>USYC</strong> <small>Circle USYC</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AUSYCUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:USYCUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$1.1300</td>
+            <td>$2999.4M</td>
+            <td style="color:#ef4444">▼ -0.00%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.1</td>
+        </tr>
+        <tr>
+            <td><strong>USDG</strong> <small>Global Dollar</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AUSDGUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:USDGUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.9998</td>
+            <td>$2748.1M</td>
+            <td style="color:#22c55e">▲ 0.01%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td><strong>XAUT</strong> <small>Tether Gold</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AXAUTUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:XAUTUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$4504.8500</td>
+            <td>$2670.5M</td>
+            <td style="color:#22c55e">▲ 0.12%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.2</td>
+        </tr>
+        <tr>
+            <td><strong>TAO</strong> <small>Bittensor</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ATAOUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:TAOUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$277.0000</td>
+            <td>$2650.7M</td>
+            <td style="color:#22c55e">▲ 1.85%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>1.9</td>
+        </tr>
+        <tr>
+            <td><strong>BUIDL</strong> <small>BlackRock USD Instit</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ABUIDLUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:BUIDLUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$1.0000</td>
+            <td>$2511.8M</td>
+            <td style="color:#6b7280">— 0.00%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td><strong>MNT</strong> <small>Mantle</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AMNTUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:MNTUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.6549</td>
+            <td>$2162.4M</td>
+            <td style="color:#22c55e">▲ 1.41%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>1.7</td>
+        </tr>
+        <tr>
+            <td><strong>UNI</strong> <small>Uniswap</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AUNIUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:UNIUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$3.3900</td>
+            <td>$2155.8M</td>
+            <td style="color:#ef4444">▼ -0.11%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-1.9</td>
+        </tr>
+        <tr>
+            <td><strong>ONDO</strong> <small>Ondo</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AONDOUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:ONDOUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.4430</td>
+            <td>$2152.2M</td>
+            <td style="color:#22c55e">▲ 7.25%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>14.8</td>
+        </tr>
+        <tr>
+            <td><strong>USDY</strong> <small>Ondo US Dollar Yield</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AUSDYUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:USDYUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$1.1300</td>
+            <td>$2141.5M</td>
+            <td style="color:#ef4444">▼ -0.05%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.1</td>
+        </tr>
+        <tr>
+            <td><strong>DOT</strong> <small>Polkadot</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ADOTUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:DOTUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$1.2600</td>
+            <td>$2126.8M</td>
+            <td style="color:#22c55e">▲ 1.85%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.8</td>
+        </tr>
+        <tr>
+            <td><strong>PAXG</strong> <small>PAX Gold</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3APAXGUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:PAXGUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$4518.9500</td>
+            <td>$2125.2M</td>
+            <td style="color:#22c55e">▲ 0.35%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.1</td>
+        </tr>
+        <tr>
+            <td><strong>WLFI</strong> <small>World Liberty Financ</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AWLFIUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:WLFIUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.0615</td>
+            <td>$1954.9M</td>
+            <td style="color:#ef4444">▼ -0.55%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>0.5</td>
+        </tr>
+        <tr>
+            <td><strong>ASTER</strong> <small>Aster</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AASTERUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:ASTERUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.7140</td>
+            <td>$1830.4M</td>
+            <td style="color:#22c55e">▲ 5.41%</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>6.4</td>
+        </tr>
+        <tr>
+            <td><strong>HTX</strong> <small>HTX DAO</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AHTXUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:HTXUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.0000</td>
+            <td>$1820.2M</td>
+            <td style="color:#22c55e">▲ 0.74%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>1.4</td>
+        </tr>
+        <tr>
+            <td><strong>USDF</strong> <small>Falcon USD</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BINANCE%3AUSDFUSDT" target="_blank" rel="noopener noreferrer" title="Open BINANCE:USDFUSDT on TradingView">Chart ↗</a></td>
+            <td>coingecko</td>
+            <td>$0.9966</td>
+            <td>$1778.7M</td>
+            <td style="color:#ef4444">▼ -0.06%</td>
+            <td><span class="badge badge-low">LOW</span></td>
+            <td><span class="badge badge-tier">MID_CAP</span></td>
+            <td>-0.1</td>
+        </tr></tbody>
+    </table>
+    </div>
+    
+
+    
+<script>
+// Dual theme toggle with localStorage
+(function(){var h=document.documentElement;var b=document.getElementById('themeToggle');var s=localStorage.getItem('atlas-theme')||'light';h.setAttribute('data-theme',s);b.addEventListener('click',function(){var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('atlas-theme',n)})})();
+</script>
+</body>
+</html>

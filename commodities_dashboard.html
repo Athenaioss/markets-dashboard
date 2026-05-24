@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>🛢️ Atlas Nexus — Commodities Dashboard</title>
+<style>
+:root{--bg:#080b16;--card:#0f1420;--border:#1a2040;--accent:#f59e0b;--accent2:#f97316;--green:#22c55e;--red:#ef4444;--text:#e2e8f0;--muted:#64748b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;background-image:radial-gradient(ellipse at 30% 0%,rgba(245,158,11,0.06) 0%,transparent 50%)}
+.header{text-align:center;padding:40px 20px 30px;border-bottom:1px solid var(--border)}
+.title-emoji{font-size:2.8em;margin-bottom:0;line-height:1}
+.header h1{font-size:2.4em;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header p{color:var(--muted);margin-top:8px}
+.container{max-width:1300px;margin:0 auto;padding:20px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;text-align:center}
+.card .value{font-size:1.5em;font-weight:800}
+.card .label{color:var(--muted);margin-top:4px}
+.table-wrapper{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:24px}
+table{width:100%;border-collapse:collapse;font-size:.92em}
+th{background:rgba(15,20,40,.6);padding:14px 16px;text-align:left;font-weight:600;color:var(--accent);font-size:.82em;text-transform:uppercase}
+td{padding:12px 16px;border-bottom:1px solid rgba(26,32,64,.5)}
+tr:hover{background:rgba(245,158,11,.03)}
+.gainers-losers{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.gl-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+.gl-card h3{margin-bottom:14px;color:var(--accent)}
+.gl-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(26,32,64,.4)}
+.price{font-weight:600;font-variant-numeric:tabular-nums}
+.footer{text-align:center;padding:30px;color:var(--muted);border-top:1px solid var(--border)}
+@media(max-width:768px){.gainers-losers{grid-template-columns:1fr}}
+
+/* ATLAS_PREMIUM_DASHBOARD_THEME_V1 — DUAL THEME (light default + dark toggle) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+html{scroll-behavior:smooth}
+*{box-sizing:border-box}
+/* ── LIGHT THEME (default) ── */
+:root{
+  --atlas-bg:#f8fafc;
+  --atlas-panel:#ffffff;
+  --atlas-panel-strong:#f1f5f9;
+  --atlas-border:rgba(0,0,0,.12);
+  --atlas-border-strong:rgba(0,0,0,.18);
+  --atlas-text:#0f172a;
+  --atlas-muted:#1e293b;
+  --atlas-faint:#334155;
+  --atlas-green:#16a34a;
+  --atlas-red:#dc2626;
+  --atlas-amber:#d97706;
+  --atlas-accent:var(--accent,#0284c7);
+  --atlas-accent2:var(--accent2,#7c3aed);
+  --atlas-card-bg:rgba(255,255,255,.95);
+  --atlas-card-border:rgba(0,0,0,.08);
+  --atlas-shadow:0 8px 40px rgba(0,0,0,.08);
+  --atlas-th-bg:rgba(248,250,252,.98);
+  --atlas-td-color:#1e293b;
+  --atlas-nav-bg:linear-gradient(180deg,rgba(248,250,252,.95),rgba(248,250,252,.75));
+  --atlas-nav-border:rgba(0,0,0,.08);
+  --atlas-body-bg:linear-gradient(180deg,#f8fafc 0%,#f1f5f9 48%,#f8fafc 100%);
+  --atlas-grid-line:rgba(0,0,0,.04);
+  --atlas-grid-line2:rgba(0,0,0,.03);
+  --atlas-hero-bg:linear-gradient(135deg,rgba(255,255,255,.95),rgba(241,245,249,.9)),radial-gradient(circle at 88% 5%,color-mix(in srgb,var(--atlas-accent) 15%,transparent),transparent 36%);
+  --atlas-hero-shadow:0 8px 40px rgba(0,0,0,.06),inset 0 1px 0 rgba(0,0,0,.04);
+  --atlas-card-gradient:linear-gradient(180deg,rgba(255,255,255,.95),rgba(241,245,249,.9));
+  --atlas-card-inset:inset 0 1px 0 rgba(255,255,255,.8);
+  --unusual-bg:linear-gradient(135deg,rgba(245,158,11,.08),rgba(255,255,255,.9) 52%,rgba(239,68,68,.04));
+  --unusual-border:rgba(245,158,11,.26);
+  --unusual-card-bg:rgba(255,255,255,.7);
+  --hawkeye-bg:linear-gradient(135deg,rgba(241,245,249,.95),rgba(248,250,252,.9) 48%,rgba(254,243,199,.5));
+  --hawkeye-border:rgba(56,189,248,.25);
+  --signal-card-bg:rgba(255,255,255,.7);
+  --signal-row-bg:rgba(248,250,252,.7);
+}
+/* ── DARK THEME ── */
+[data-theme="dark"]{
+  --atlas-bg:#070914;
+  --atlas-panel:rgba(15,20,32,.74);
+  --atlas-panel-strong:rgba(18,24,38,.92);
+  --atlas-border:rgba(148,163,184,.16);
+  --atlas-border-strong:rgba(255,255,255,.14);
+  --atlas-text:#f8fafc;
+  --atlas-muted:#b6c2d6;
+  --atlas-faint:#8290a6;
+  --atlas-green:#22c55e;
+  --atlas-red:#ef4444;
+  --atlas-amber:#f59e0b;
+  --atlas-accent:#f59e0b;
+  --atlas-accent2:#f97316;
+  --atlas-card-bg:rgba(255,255,255,.04);
+  --atlas-card-border:rgba(148,163,184,.16);
+  --atlas-shadow:0 18px 55px rgba(0,0,0,.22);
+  --atlas-th-bg:rgba(12,18,30,.94);
+  --atlas-td-color:#dbeafe;
+  --atlas-nav-bg:linear-gradient(180deg,rgba(7,9,20,.92),rgba(7,9,20,.62));
+  --atlas-nav-border:rgba(148,163,184,.16);
+  --atlas-body-bg:radial-gradient(circle at 14% -10%,color-mix(in srgb,var(--atlas-accent) 22%,transparent),transparent 34%),radial-gradient(circle at 90% 6%,color-mix(in srgb,var(--atlas-accent2) 18%,transparent),transparent 30%),linear-gradient(180deg,#070914 0%,#0a0f1d 48%,#070914 100%);
+  --atlas-grid-line:rgba(255,255,255,.035);
+  --atlas-grid-line2:rgba(255,255,255,.028);
+  --atlas-hero-bg:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.035)),radial-gradient(circle at 88% 5%,color-mix(in srgb,var(--atlas-accent) 28%,transparent),transparent 36%);
+  --atlas-hero-shadow:0 30px 90px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.08);
+  --atlas-card-gradient:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));
+  --atlas-card-inset:inset 0 1px 0 rgba(255,255,255,.06);
+  --unusual-bg:linear-gradient(135deg,rgba(245,158,11,.13),rgba(15,23,42,.72) 52%,rgba(239,68,68,.08));
+  --unusual-border:rgba(245,158,11,.26);
+  --unusual-card-bg:rgba(7,9,20,.38);
+  --hawkeye-bg:linear-gradient(135deg,rgba(16,22,34,.92),rgba(18,14,33,.86) 48%,rgba(29,22,10,.76));
+  --hawkeye-border:rgba(56,189,248,.20);
+  --signal-card-bg:rgba(7,9,20,.38);
+  --signal-row-bg:rgba(255,255,255,.035);
+}
+
+/* ── THEME TOGGLE BUTTON ── */
+.theme-toggle-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:999px;border:1px solid var(--atlas-border);background:var(--atlas-panel);cursor:pointer;font-size:.78em;font-weight:700;color:var(--atlas-muted);transition:all .2s;margin-left:4px;white-space:nowrap}
+.theme-toggle-btn:hover{border-color:var(--atlas-accent);color:var(--atlas-text)}
+[data-theme="light"] .icon-moon{display:none}
+[data-theme="dark"] .icon-sun{display:none}
+
+/* ── BODY ── */
+body{
+  font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;
+  min-height:100vh;
+  color:var(--atlas-text)!important;
+  background:var(--atlas-body-bg)!important;
+  padding:0!important;
+  transition:background .5s ease,color .4s ease;
+}
+{TV_LINK_CSS}
+[data-theme="dark"] body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--atlas-grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--atlas-grid-line2) 1px,transparent 1px);
+  background-size:42px 42px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.7),transparent 72%);
+}
+[data-theme="light"] body:before{display:none!important}
+
+/* ── NAV ── */
+.atlas-nav{
+  position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:14px min(28px,5vw);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  background:var(--atlas-nav-bg)!important;border-bottom:1px solid var(--atlas-nav-border);
+  transition:background .4s ease,border-color .4s ease;
+}
+.atlas-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--atlas-text);font-weight:900;letter-spacing:-.04em}.atlas-brand span:first-child{filter:drop-shadow(0 0 18px color-mix(in srgb,var(--atlas-accent) 50%,transparent))}.atlas-links{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.atlas-links a{color:var(--atlas-muted);text-decoration:none;font-size:.78rem;font-weight:800;padding:8px 10px;border:1px solid transparent;border-radius:999px;transition:.18s}.atlas-links a:hover,.atlas-links a.active{color:var(--atlas-text);border-color:color-mix(in srgb,var(--atlas-accent) 34%,transparent);background:color-mix(in srgb,var(--atlas-accent) 13%,transparent)}
+
+/* ── HEADER ── */
+.header{
+  max-width:1240px;margin:22px auto 22px!important;padding:34px min(34px,5vw)!important;text-align:left!important;
+  border:1px solid var(--atlas-border)!important;border-radius:30px!important;overflow:hidden;position:relative;
+  background:var(--atlas-hero-bg)!important;
+  box-shadow:var(--atlas-hero-shadow);
+  transition:background .5s ease,box-shadow .5s ease;
+}
+.header:before{content:"";position:absolute;inset:auto -70px -120px auto;width:320px;height:320px;border-radius:999px;background:var(--atlas-accent);opacity:.13;filter:blur(12px)}
+.title-emoji{font-size:3.1rem!important;line-height:1!important;margin-bottom:12px!important}.header h1{font-size:clamp(2rem,5vw,4.2rem)!important;line-height:.98!important;letter-spacing:-.075em!important;font-weight:900!important;margin:0 0 12px!important;background:linear-gradient(135deg,var(--atlas-accent),var(--atlas-accent2))!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important}.header p,.header .subtitle{color:var(--atlas-muted)!important;max-width:780px!important;font-size:1rem!important;line-height:1.65!important}.atlas-page-subtitle{margin-top:8px;color:var(--atlas-muted)!important}.live-badge{border-radius:999px!important;border:1px solid color-mix(in srgb,var(--atlas-green) 24%,transparent)!important;background:rgba(34,197,94,.10)!important;color:var(--atlas-green)!important;padding:7px 11px!important;font-size:.78rem!important;font-weight:850!important}
+[data-theme="dark"] .live-badge{color:#bbf7d0!important}
+
+/* ── CONTAINER & CARDS ── */
+.container{width:min(1240px,calc(100% - 28px))!important;max-width:1240px!important;margin:0 auto!important;padding:0 0 28px!important}.cards,.stats-grid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))!important;gap:14px!important;margin:0 0 22px!important}.card,.stat-card{position:relative;overflow:hidden;background:var(--atlas-card-gradient)!important;border:1px solid var(--atlas-card-border)!important;border-radius:22px!important;padding:20px!important;text-align:left!important;box-shadow:var(--atlas-shadow),var(--atlas-card-inset);transition:transform .18s,border-color .18s,background .4s ease}.card:hover,.stat-card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--atlas-accent) 45%,transparent)!important}.card .value,.stat-card .value{font-size:clamp(1.65rem,4vw,2.5rem)!important;font-weight:900!important;letter-spacing:-.06em!important;color:var(--atlas-text)!important}.card .label,.stat-card .label{color:var(--atlas-muted)!important;font-size:.78rem!important;font-weight:800!important;text-transform:uppercase!important;letter-spacing:.06em!important;margin-top:8px!important}
+
+/* ── TABLES ── */
+h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:-.04em!important;font-weight:900!important;margin:28px 0 12px!important}.table-wrapper,table{box-shadow:var(--atlas-shadow)}.table-wrapper{background:var(--atlas-panel)!important;border:1px solid var(--atlas-border)!important;border-radius:24px!important;overflow:hidden!important;margin-bottom:24px!important}table{width:100%!important;border-collapse:separate!important;border-spacing:0!important;background:var(--atlas-panel)!important;border:1px solid var(--atlas-border)!important;border-radius:22px!important;overflow:hidden!important;font-size:.9rem!important}th{position:sticky;top:58px;z-index:3;background:var(--atlas-th-bg)!important;color:var(--atlas-accent)!important;border-bottom:1px solid var(--atlas-border)!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-size:.72rem!important;font-weight:900!important;padding:13px 14px!important;white-space:nowrap!important}td{padding:13px 14px!important;border-bottom:1px solid var(--atlas-border)!important;color:var(--atlas-td-color)!important;vertical-align:middle!important}tr:hover td{background:var(--atlas-panel-strong)!important}td:first-child,th:first-child{position:sticky;left:0;background:var(--atlas-th-bg)!important;z-index:4}td strong{color:var(--atlas-text)!important}.badge,.live-badge{white-space:nowrap}.badge{border-radius:999px!important;padding:5px 9px!important;font-size:.72rem!important;font-weight:900!important;color:var(--atlas-text)!important}
+
+[data-theme="dark"] .badge{color:#cbd5e1!important}
+[data-theme="dark"] td strong{color:#f8fafc!important}
+[data-theme="dark"] td{color:#dbeafe!important}
+[data-theme="dark"] th{background:rgba(12,18,30,.94)!important}
+[data-theme="dark"] td:first-child, [data-theme="dark"] th:first-child{background:linear-gradient(90deg,rgba(12,18,30,.98),rgba(12,18,30,.92))!important}
+[data-theme="dark"] tr:hover td{background:rgba(255,255,255,.045)!important}
+
+.sentiment-banner{border-radius:24px!important;margin:0 0 22px!important;background:var(--atlas-panel)!important;border:1px solid var(--atlas-border)!important;box-shadow:var(--atlas-shadow)}.footer,footer{width:min(1240px,calc(100% - 28px));margin:26px auto!important;padding:22px!important;color:var(--atlas-muted)!important;text-align:center!important;border:1px solid var(--atlas-border)!important;border-radius:24px!important}
+
+/* ATLAS_LEADERBOARD_TABLE_REPAIR_20260517 */
+.table-wrapper{overflow:hidden!important}
+.table-wrapper>div,div[style*="overflow-x"]{max-width:100%!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}
+.table-wrapper table{min-width:860px!important;width:max-content!important;max-width:none!important;border-collapse:separate!important}
+.table-wrapper th,.table-wrapper td{white-space:nowrap!important}
+.table-wrapper td:first-child,.table-wrapper th:first-child{position:static!important;left:auto!important;z-index:auto!important;background:transparent!important}
+.table-wrapper td:first-child strong{white-space:nowrap!important}
+
+@media(max-width:760px){.atlas-nav{align-items:flex-start;flex-direction:column;padding:12px 14px}.atlas-links{width:100%;overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;padding-bottom:3px}.atlas-links a{flex:0 0 auto}.header{width:min(100% - 22px,1240px)!important;margin:14px auto 18px!important;border-radius:24px!important}.container{width:min(100% - 22px,1240px)!important}.atlas-scroll-hint{display:block}.table-wrapper,div[style*="overflow-x"]{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}table{min-width:760px!important}.card,.stat-card{padding:17px!important}.section{grid-template-columns:1fr!important}.header h1{font-size:clamp(2rem,12vw,3.3rem)!important}}
+
+</style></head>
+<body>
+<nav class="atlas-nav" aria-label="Atlas Nexus dashboard navigation"><a class="atlas-brand" href="index.html"><span>🔮</span><span>Atlas Nexus</span></a><div class="atlas-links"><a href="index.html">Home</a><a href="crypto_dashboard.html">Crypto</a><a class="active" href="commodities_dashboard.html">Commodities</a><a href="indices_dashboard.html">Indices</a><a href="forex_dashboard.html">Forex</a><a href="actions_dashboard.html">Stocks</a><a href="etf_dashboard.html">ETF</a><button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button></div></nav>
+<div class="header">
+<div class="title-emoji">🛢️</div>
+<h1>Atlas Nexus — Commodities</h1>
+<p>Real-time commodity futures tracking · Gold, Oil, Copper, Grains, Softs | 20260524-161430</p>
+</div>
+<div class="container">
+<div class="stats-grid">
+<div class="card"><div class="value" style="color:var(--accent)">14</div><div class="label">Commodities Tracked</div></div>
+<div class="card"><div class="value" style="color:var(--green)">5</div><div class="label">Up Today</div></div>
+<div class="card"><div class="value" style="color:var(--red)">9</div><div class="label">Down Today</div></div>
+<div class="card"><div class="value" style="color:var(--accent2)">-0.83%</div><div class="label">Avg Change</div></div>
+<div class="card"><div class="value" style="color:var(--accent)">0.023%</div><div class="label">Avg Indic. Spread</div></div>
+</div>
+<div class="sentiment-banner" style="background:#7f1d1d;border:1px solid #fca5a5;border-radius:14px;padding:24px;margin-bottom:20px;text-align:center">
+    <div style="font-size:1.8em;margin-bottom:6px">📉</div>
+    <div style="font-size:1.5em;font-weight:700;color:#fca5a5">SLIGHTLY BEARISH</div>
+    <div style="font-size:2.2em;font-weight:800;color:#fca5a5;margin:4px 0">32%</div>
+    <div style="color:var(--muted);font-size:.9em">confidence</div>
+    <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;font-size:.85em">
+        <div><span style="color:var(--muted)">5/14 assets up</span><br><strong>36</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>-0.83</strong></div><div><span style="color:var(--muted)">6/14 bullish MA</span><br><strong>43</strong></div><div><span style="color:var(--muted)">7/14 elevated vol</span><br><strong>50</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>1.9</strong></div>
+    </div></div>
+
+<section class="momentum-scanner-v2 scanner hawkeye-scanner hawkeye-v4" aria-label="Hawkeye V4">
+  <style>
+    .hawkeye-scanner{margin:0 0 24px;padding:24px;border:1px solid var(--hawkeye-border,rgba(56,189,248,.25));border-radius:28px;position:relative;overflow:hidden;text-align:left;background:var(--hawkeye-bg,linear-gradient(135deg,rgba(241,245,249,.95),rgba(248,250,252,.9) 48%,rgba(254,243,199,.5)));box-shadow:var(--atlas-shadow,0 8px 40px rgba(0,0,0,.08)),inset 0 1px 0 rgba(255,255,255,.06);transition:background .4s ease}
+    .hawkeye-scanner:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,color-mix(in srgb,var(--atlas-accent,#0284c7) 18%,transparent),transparent 35%),radial-gradient(circle at 92% 14%,color-mix(in srgb,var(--atlas-amber,#d97706) 12%,transparent),transparent 28%);pointer-events:none}.hawkeye-scanner>*{position:relative}
+    .scanner-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}.scanner-head h2{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}.scanner-sub{margin:6px 0 0;color:var(--atlas-muted,var(--muted));font-size:.82rem;line-height:1.45}
+    .scanner-head .tier-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:.74em;color:var(--atlas-muted,var(--muted))}.scanner-head .tier-legend span{padding:3px 8px;border-radius:999px;border:1px solid var(--atlas-border);background:var(--atlas-panel-strong)}.scanner-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .signal-card{border:1px solid var(--atlas-border);border-radius:22px;padding:14px;background:var(--signal-card-bg,var(--atlas-panel-strong));box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}.signal-card h3{margin:0 0 12px;color:var(--atlas-text,var(--text));font-size:.98rem;font-weight:950;letter-spacing:-.025em}
+    .signal-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--atlas-border);border-radius:16px;background:var(--signal-row-bg,var(--atlas-panel));margin-top:9px}.signal-row:first-of-type{margin-top:0}.asset-name{display:inline;font-weight:900;color:var(--atlas-text,var(--text));line-height:1.15;margin-right:6px}
+    .asset-tag{display:inline-flex;vertical-align:middle;padding:2px 7px;border-radius:999px;background:color-mix(in srgb,var(--atlas-accent,#0284c7) 10%,transparent);border:1px solid color-mix(in srgb,var(--atlas-accent,#0284c7) 22%,transparent);color:var(--atlas-accent,#0284c7);font-size:.66rem;font-weight:900;text-transform:uppercase}.asset-meta{display:block;color:var(--atlas-muted,var(--muted));font-size:.74rem;margin-top:4px;line-height:1.35}
+    .asset-levels{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}.asset-levels span{padding:4px 7px;border-radius:999px;background:var(--atlas-panel-strong);border:1px solid var(--atlas-border);color:var(--atlas-muted)}
+    .score-pill{display:inline-flex;align-items:center;justify-content:center;min-width:58px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent;color:var(--atlas-text)}
+    
+.market-state{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:999px;border:1px solid rgba(148,163,184,.18);background:rgba(15,23,42,.56);font-size:.72rem;font-weight:950;text-transform:uppercase;letter-spacing:.035em;white-space:nowrap}
+.market-state:before{content:"";width:6px;height:6px;border-radius:999px;background:#94a3b8;box-shadow:0 0 12px rgba(148,163,184,.65)}
+.market-state-open{color:#bbf7d0;border-color:rgba(34,197,94,.24);background:rgba(34,197,94,.09)}
+.market-state-open:before{background:#22c55e;box-shadow:0 0 14px rgba(34,197,94,.9)}
+.market-state-pre-market{color:#fde68a;border-color:rgba(245,158,11,.26);background:rgba(245,158,11,.09)}
+.market-state-pre-market:before{background:#f59e0b;box-shadow:0 0 14px rgba(245,158,11,.85)}
+.market-state-closed{color:#fecaca;border-color:rgba(251,113,133,.26);background:rgba(251,113,133,.09)}
+.market-state-closed:before{background:#fb7185;box-shadow:0 0 14px rgba(251,113,133,.85)}
+
+    .tv-link{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:5px 10px;border-radius:999px;border:1px solid rgba(56,189,248,.32);background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(124,92,255,.12));color:#d9f3ff!important;text-decoration:none;font-size:.76rem;font-weight:950;white-space:nowrap;transition:all .16s;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.tv-link:hover{background:linear-gradient(135deg,rgba(56,189,248,.24),rgba(124,92,255,.20));border-color:rgba(56,189,248,.58);transform:translateY(-1px);box-shadow:0 8px 24px rgba(56,189,248,.12),inset 0 1px 0 rgba(255,255,255,.10)}
+    .score-hot{color:var(--atlas-green);background:color-mix(in srgb,var(--atlas-green) 13%,transparent);border-color:color-mix(in srgb,var(--atlas-green) 22%,transparent)}.score-risk{color:var(--atlas-red);background:color-mix(in srgb,var(--atlas-red) 12%,transparent);border-color:color-mix(in srgb,var(--atlas-red) 22%,transparent)}.score-warm{color:var(--atlas-amber);background:color-mix(in srgb,var(--atlas-amber) 14%,transparent);border-color:color-mix(in srgb,var(--atlas-amber) 22%,transparent)}.score-muted{color:var(--atlas-muted);background:var(--atlas-panel-strong);border-color:var(--atlas-border)}.momentum-empty{padding:16px;border:1px dashed var(--atlas-border);border-radius:18px;color:var(--atlas-muted,var(--muted));background:var(--atlas-panel-strong)}
+    @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}}@media(max-width:520px){.hawkeye-scanner{padding:16px;border-radius:22px}.signal-row{display:block}.signal-row>div:last-child{text-align:left!important;margin-top:10px}}
+  </style>
+  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension. Market state: <span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span></p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ 0 · 🦅 0 · 👁️ 2</span></div></div>
+  <div class="scanner-board hawk-board"><div class="signal-card"><h3>📈 Bullish pressure (2)</h3><div class="signal-row hawk-row">
+<div>
+<span class="asset-name">Natural Gas</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">commodities · uptrend · bullish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $3.02/USD/MMBtu</span>
+<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
+<span style="color:#c4b5fd">nROC5 +0.22</span>
+<span style="color:#fbbf24">RSI 60</span>
+<span style="color:#fca5a5">Ext 1.0 ATR</span>
+<span style="color:#93c5fd">Range pct 45</span>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ANG1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:NG1! on TradingView">Chart ↗</a>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">62/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +45 · NG=F</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+</div>
+</div><div class="signal-row hawk-row">
+<div>
+<span class="asset-name">Wheat</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">commodities · uptrend · bullish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $646.25/USD/bushel</span>
+<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
+<span style="color:#c4b5fd">nROC5 +0.25</span>
+<span style="color:#fbbf24">RSI 55</span>
+<span style="color:#fca5a5">Ext 0.5 ATR</span>
+<span style="color:#93c5fd">Range pct 92</span>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZW1%21" target="_blank" rel="noopener noreferrer" title="Open CBOT:ZW1! on TradingView">Chart ↗</a>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">62/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +42 · ZW=F</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+</div>
+</div></div><div class="signal-card"><h3>📉 Bearish pressure (0)</h3><div class="momentum-empty">No active bearish pressure</div></div></div>
+</section>
+
+<section class="unusual-activity">
+<style>
+.unusual-activity{position:relative;overflow:hidden;margin:0 0 24px;padding:20px;border:1px solid var(--unusual-border,rgba(245,158,11,.26));border-radius:26px;background:var(--unusual-bg,linear-gradient(135deg,rgba(245,158,11,.08),rgba(255,255,255,.9) 52%,rgba(239,68,68,.04)));box-shadow:var(--atlas-shadow,0 8px 40px rgba(0,0,0,.08)),inset 0 1px 0 rgba(255,255,255,.06);transition:background .4s ease}
+.unusual-activity:before{content:"";position:absolute;right:-80px;top:-95px;width:230px;height:230px;border-radius:999px;background:radial-gradient(circle,var(--atlas-amber,rgba(245,158,11,.20)),transparent 62%);pointer-events:none}
+.unusual-activity>*{position:relative}
+.unusual-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+.unusual-head h2{margin:0!important;color:var(--atlas-text,var(--text))!important;font-size:1.08rem!important;font-weight:950!important;letter-spacing:-.035em!important}
+.unusual-head p{margin:6px 0 0;color:var(--atlas-muted,var(--muted));font-size:.83rem;line-height:1.45}
+.unusual-count{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border-radius:14px;border:1px solid var(--atlas-amber,rgba(245,158,11,.28));background:color-mix(in srgb,var(--atlas-amber,#d97706) 14%,transparent);color:var(--atlas-amber,#d97706);font-weight:950}
+.unusual-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.unusual-card{display:flex;flex-direction:column;gap:10px;padding:13px;border:1px solid var(--atlas-border);border-radius:18px;background:var(--unusual-card-bg,var(--atlas-panel-strong))}
+.unusual-main strong{display:block;color:var(--atlas-text,var(--text));font-weight:950;line-height:1.15}
+.unusual-main small{display:block;margin-top:4px;color:var(--atlas-muted,var(--muted));font-size:.72rem;line-height:1.35}
+.unusual-flags{display:flex;gap:6px;flex-wrap:wrap}
+.unusual-flags span{padding:4px 7px;border-radius:999px;background:color-mix(in srgb,var(--atlas-amber,#d97706) 14%,transparent);border:1px solid color-mix(in srgb,var(--atlas-amber,#d97706) 24%,transparent);color:var(--atlas-amber,#d97706);font-size:.70rem;font-weight:850;white-space:nowrap}
+@media(max-width:560px){.unusual-head{display:block}.unusual-count{margin-top:10px}}
+</style>
+<div class="unusual-head"><div><h2>🚨 Unusual market pressure</h2><p>Extension, volatility or RSI readings that deserve manual chart inspection.</p></div><div class="unusual-count">5</div></div>
+<div class="unusual-grid"><div class='unusual-card'>
+  <div class='unusual-main'><strong>Copper</strong><small>HG=F · uptrend · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 96</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>Corn</strong><small>ZC=F · uptrend · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 96</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>Wheat</strong><small>ZW=F · uptrend · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 92</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>Coffee</strong><small>KC=F · shock · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>Extension 3.7 ATR</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>Live Cattle</strong><small>LE=F · mixed · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 100</span></div>
+</div></div>
+</section>
+<h2 style="color:var(--accent);margin-bottom:12px">📊 Commodity Leaderboard</h2>
+<p style="color:var(--muted);font-size:.86em;margin:-4px 0 12px">Spread = minimum indicative futures spread based on 1 tick; live bid/ask is not exposed by the Yahoo chart feed.</p>
+<div class="table-wrapper"><div style="overflow-x:auto">
+<table><thead><tr>
+<th>Commodity</th><th>Category</th><th>Price</th><th>Change</th><th>Spread</th><th>MA(5)</th><th>MA(20)</th><th>Trend</th><th>Volatility</th><th>Vol Ratio</th>
+</tr></thead><tbody><tr>
+            <td><strong>Gold</strong> <small style="color:var(--muted)">GC=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3AGC1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:GC1! on TradingView">Chart ↗</a></td>
+            <td>Precious Metals</td>
+            <td class="price">4523.20 oz</td>
+            <td style="color:#ef4444">▼ 0.37%</td>
+            <td><strong>0.1 (0.002%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>4530.62</td><td>4610.76</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>0.9%</td>
+            <td style="color:#f59e0b">18.6x</td>
+        </tr><tr>
+            <td><strong>Silver</strong> <small style="color:var(--muted)">SI=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3ASI1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:SI1! on TradingView">Chart ↗</a></td>
+            <td>Precious Metals</td>
+            <td class="price">76.20 oz</td>
+            <td style="color:#ef4444">▼ 0.28%</td>
+            <td><strong>0.005 (0.007%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>76.07</td><td>77.71</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>2.8%</td>
+            <td style="color:#f59e0b">8.2x</td>
+        </tr><tr>
+            <td><strong>Platinum</strong> <small style="color:var(--muted)">PL=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=PL%3DF" target="_blank" rel="noopener noreferrer" title="Open PL=F on TradingView">Chart ↗</a></td>
+            <td>Precious Metals</td>
+            <td class="price">1939.70 oz</td>
+            <td style="color:#ef4444">▼ 0.79%</td>
+            <td><strong>0.1 (0.005%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>1949.30</td><td>2002.99</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>2.1%</td>
+            <td style="color:#f59e0b">18.6x</td>
+        </tr><tr>
+            <td><strong>Palladium</strong> <small style="color:var(--muted)">PA=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=PA%3DF" target="_blank" rel="noopener noreferrer" title="Open PA=F on TradingView">Chart ↗</a></td>
+            <td>Precious Metals</td>
+            <td class="price">1360.30 oz</td>
+            <td style="color:#ef4444">▼ 1.67%</td>
+            <td><strong>0.5 (0.037%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>1379.10</td><td>1464.99</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>2.1%</td>
+            <td style="color:#f59e0b">19.9x</td>
+        </tr><tr>
+            <td><strong>Crude Oil WTI</strong> <small style="color:var(--muted)">CL=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ACL1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:CL1! on TradingView">Chart ↗</a></td>
+            <td>Energy</td>
+            <td class="price">96.60 barrel</td>
+            <td style="color:#22c55e">▲ 0.26%</td>
+            <td><strong>0.01 (0.010%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>101.53</td><td>100.98</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>3.0%</td>
+            <td style="color:#64748b">0.9x</td>
+        </tr><tr>
+            <td><strong>Brent Crude</strong> <small style="color:var(--muted)">BZ=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ABRN1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:BRN1! on TradingView">Chart ↗</a></td>
+            <td>Energy</td>
+            <td class="price">100.21 barrel</td>
+            <td style="color:#ef4444">▼ 2.31%</td>
+            <td><strong>0.01 (0.010%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>106.24</td><td>107.52</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>3.3%</td>
+            <td style="color:#64748b">0.8x</td>
+        </tr><tr>
+            <td><strong>Natural Gas</strong> <small style="color:var(--muted)">NG=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ANG1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:NG1! on TradingView">Chart ↗</a></td>
+            <td>Energy</td>
+            <td class="price">3.02 MMBtu</td>
+            <td style="color:#22c55e">▲ 0.10%</td>
+            <td><strong>0.001 (0.033%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>3.04</td><td>2.84</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>2.0%</td>
+            <td style="color:#64748b">1.1x</td>
+        </tr><tr>
+            <td><strong>Copper</strong> <small style="color:var(--muted)">HG=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3AHG1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:HG1! on TradingView">Chart ↗</a></td>
+            <td>Industrial Metals</td>
+            <td class="price">6.38 lb</td>
+            <td style="color:#22c55e">▲ 1.95%</td>
+            <td><strong>0.0005 (0.008%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>6.27</td><td>6.18</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>1.6%</td>
+            <td style="color:#f59e0b">9.6x</td>
+        </tr><tr>
+            <td><strong>Corn</strong> <small style="color:var(--muted)">ZC=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZC1%21" target="_blank" rel="noopener noreferrer" title="Open CBOT:ZC1! on TradingView">Chart ↗</a></td>
+            <td>Agriculture</td>
+            <td class="price">463.25 bushel</td>
+            <td style="color:#22c55e">▲ 0.22%</td>
+            <td><strong>0.25 (0.054%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>468.70</td><td>463.59</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>1.2%</td>
+            <td style="color:#64748b">1.3x</td>
+        </tr><tr>
+            <td><strong>Wheat</strong> <small style="color:var(--muted)">ZW=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZW1%21" target="_blank" rel="noopener noreferrer" title="Open CBOT:ZW1! on TradingView">Chart ↗</a></td>
+            <td>Agriculture</td>
+            <td class="price">646.25 bushel</td>
+            <td style="color:#ef4444">▼ 0.19%</td>
+            <td><strong>0.25 (0.039%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>657.20</td><td>637.16</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>1.9%</td>
+            <td style="color:#64748b">1.5x</td>
+        </tr><tr>
+            <td><strong>Soybeans</strong> <small style="color:var(--muted)">ZS=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZS1%21" target="_blank" rel="noopener noreferrer" title="Open CBOT:ZS1! on TradingView">Chart ↗</a></td>
+            <td>Agriculture</td>
+            <td class="price">1196.50 bushel</td>
+            <td style="color:#22c55e">▲ 0.19%</td>
+            <td><strong>0.25 (0.021%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>1202.60</td><td>1192.44</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>0.9%</td>
+            <td style="color:#64748b">1.1x</td>
+        </tr><tr>
+            <td><strong>Coffee</strong> <small style="color:var(--muted)">KC=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=ICEUS%3AKC1%21" target="_blank" rel="noopener noreferrer" title="Open ICEUS:KC1! on TradingView">Chart ↗</a></td>
+            <td>Softs</td>
+            <td class="price">264.00 lb</td>
+            <td style="color:#ef4444">▼ 3.44%</td>
+            <td><strong>0.05 (0.019%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>270.41</td><td>291.38</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>1.6%</td>
+            <td style="color:#f59e0b">2.5x</td>
+        </tr><tr>
+            <td><strong>Sugar</strong> <small style="color:var(--muted)">SB=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=ICEUS%3ASB1%21" target="_blank" rel="noopener noreferrer" title="Open ICEUS:SB1! on TradingView">Chart ↗</a></td>
+            <td>Softs</td>
+            <td class="price">14.68 lb</td>
+            <td style="color:#ef4444">▼ 1.48%</td>
+            <td><strong>0.01 (0.068%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>14.81</td><td>14.80</td>
+            <td><span style="color:#94a3b8;font-weight:600">NEUTRAL</span></td>
+            <td>1.7%</td>
+            <td style="color:#64748b">0.6x</td>
+        </tr><tr>
+            <td><strong>Live Cattle</strong> <small style="color:var(--muted)">LE=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=LE%3DF" target="_blank" rel="noopener noreferrer" title="Open LE=F on TradingView">Chart ↗</a></td>
+            <td>Livestock</td>
+            <td class="price">239.60 lb</td>
+            <td style="color:#ef4444">▼ 3.83%</td>
+            <td><strong>0.025 (0.010%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>249.99</td><td>251.73</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>1.0%</td>
+            <td style="color:#64748b">1.2x</td>
+        </tr></tbody></table>
+</div></div>
+
+<section class="unusual-activity">
+<style>
+.unusual-activity{position:relative;overflow:hidden;margin:0 0 24px;padding:20px;border:1px solid var(--unusual-border,rgba(245,158,11,.26));border-radius:26px;background:var(--unusual-bg,linear-gradient(135deg,rgba(245,158,11,.08),rgba(255,255,255,.9) 52%,rgba(239,68,68,.04)));box-shadow:var(--atlas-shadow,0 8px 40px rgba(0,0,0,.08)),inset 0 1px 0 rgba(255,255,255,.06);transition:background .4s ease}
+.unusual-activity:before{content:"";position:absolute;right:-80px;top:-95px;width:230px;height:230px;border-radius:999px;background:radial-gradient(circle,var(--atlas-amber,rgba(245,158,11,.20)),transparent 62%);pointer-events:none}
+.unusual-activity>*{position:relative}
+.unusual-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+.unusual-head h2{margin:0!important;color:var(--atlas-text,var(--text))!important;font-size:1.08rem!important;font-weight:950!important;letter-spacing:-.035em!important}
+.unusual-head p{margin:6px 0 0;color:var(--atlas-muted,var(--muted));font-size:.83rem;line-height:1.45}
+.unusual-count{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border-radius:14px;border:1px solid var(--atlas-amber,rgba(245,158,11,.28));background:color-mix(in srgb,var(--atlas-amber,#d97706) 14%,transparent);color:var(--atlas-amber,#d97706);font-weight:950}
+.unusual-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.unusual-card{display:flex;flex-direction:column;gap:10px;padding:13px;border:1px solid var(--atlas-border);border-radius:18px;background:var(--unusual-card-bg,var(--atlas-panel-strong))}
+.unusual-main strong{display:block;color:var(--atlas-text,var(--text));font-weight:950;line-height:1.15}
+.unusual-main small{display:block;margin-top:4px;color:var(--atlas-muted,var(--muted));font-size:.72rem;line-height:1.35}
+.unusual-flags{display:flex;gap:6px;flex-wrap:wrap}
+.unusual-flags span{padding:4px 7px;border-radius:999px;background:color-mix(in srgb,var(--atlas-amber,#d97706) 14%,transparent);border:1px solid color-mix(in srgb,var(--atlas-amber,#d97706) 24%,transparent);color:var(--atlas-amber,#d97706);font-size:.70rem;font-weight:850;white-space:nowrap}
+@media(max-width:560px){.unusual-head{display:block}.unusual-count{margin-top:10px}}
+</style>
+<div class="unusual-head"><div><h2>🚨 Unusual market pressure</h2><p>Extension, volatility or RSI readings that deserve manual chart inspection.</p></div><div class="unusual-count">5</div></div>
+<div class="unusual-grid"><div class='unusual-card'>
+  <div class='unusual-main'><strong>Copper</strong><small>HG=F · uptrend · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 96</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>Corn</strong><small>ZC=F · uptrend · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 96</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>Wheat</strong><small>ZW=F · uptrend · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 92</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>Coffee</strong><small>KC=F · shock · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>Extension 3.7 ATR</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>Live Cattle</strong><small>LE=F · mixed · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 100</span></div>
+</div></div>
+</section>
+
+<div class="footer"><p>🛢️ Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260524-161430</p></div>
+</div><script>
+// Dual theme toggle with localStorage
+(function(){var h=document.documentElement;var b=document.getElementById('themeToggle');var s=localStorage.getItem('atlas-theme')||'light';h.setAttribute('data-theme',s);b.addEventListener('click',function(){var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('atlas-theme',n)})})();
+</script>
+</body></html>
