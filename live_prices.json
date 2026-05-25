@@ -36,9 +36,9 @@
     "prev_close": 8086.0
   },
   "^N225": {
-    "price": 65300.75,
-    "change": 1961.6800000000003,
-    "change_pct": 3.1,
+    "price": 65167.49,
+    "change": 1828.4199999999983,
+    "change_pct": 2.89,
     "prev_close": 63339.07
   },
   "GC=F": {
@@ -120,16 +120,16 @@
     "prev_close": 76.62
   },
   "BTC-USD": {
-    "price": 77033.4,
-    "change": 64.36999999999534,
-    "change_pct": 0.08,
+    "price": 77278.5,
+    "change": 309.47000000000116,
+    "change_pct": 0.4,
     "prev_close": 76969.03
   },
   "ETH-USD": {
-    "price": 2099.46,
-    "change": 1.911200000000008,
-    "change_pct": 0.09,
+    "price": 2102.5,
+    "change": 4.951199999999972,
+    "change_pct": 0.24,
     "prev_close": 2097.5488
   },
-  "_updated": "2026-05-25T01:52:01.150279"
+  "_updated": "2026-05-25T06:13:11.194588"
 }
