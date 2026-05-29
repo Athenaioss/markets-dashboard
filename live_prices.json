@@ -95,6 +95,12 @@
     "change_pct": -1.23,
     "prev_close": 274.0
   },
+  "SPY": {
+    "price": 756.48,
+    "change": 1.8799999999999955,
+    "change_pct": 0.25,
+    "prev_close": 754.6
+  },
   "QQQ": {
     "price": 738.31,
     "change": 2.7099999999999227,
@@ -114,16 +120,16 @@
     "prev_close": 81.01
   },
   "BTC-USD": {
-    "price": 73338.0,
-    "change": -187.74000000000524,
-    "change_pct": -0.26,
+    "price": 73297.02,
+    "change": -228.72000000000116,
+    "change_pct": -0.31,
     "prev_close": 73525.74
   },
   "ETH-USD": {
-    "price": 2007.14,
-    "change": 0.16600000000016735,
-    "change_pct": 0.01,
+    "price": 2006.96,
+    "change": -0.013999999999896318,
+    "change_pct": -0.0,
     "prev_close": 2006.974
   },
-  "_updated": "2026-05-29T21:59:22.272984"
+  "_updated": "2026-05-29T23:17:56.391504"
 }
