@@ -179,158 +179,24 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header">
 <div class="title-emoji">💰</div>
 <h1>Atlas Nexus - ETF Tracker</h1>
-<p>24 ETFs across 6 categories · Equity, Sectors, Bonds, International, Commodities & Thematic | 20260531-092922</p>
+<p>24 ETFs across 6 categories · Equity, Sectors, Bonds, International, Commodities & Thematic | 20260531-111742</p>
 </div>
 <div class="container">
 <div class="stats-grid">
-<div class="card"><div class="value" style="color:var(--accent)">24</div><div class="label">ETFs Tracked</div></div>
-<div class="card"><div class="value" style="color:var(--green)">16</div><div class="label">Up Today</div></div>
-<div class="card"><div class="value" style="color:var(--red)">8</div><div class="label">Down Today</div></div>
-<div class="card"><div class="value" style="color:var(--accent2)">0.09%</div><div class="label">Avg Change</div></div>
+<div class="card"><div class="value" style="color:var(--accent)">1</div><div class="label">ETFs Tracked</div></div>
+<div class="card"><div class="value" style="color:var(--green)">0</div><div class="label">Up Today</div></div>
+<div class="card"><div class="value" style="color:var(--red)">1</div><div class="label">Down Today</div></div>
+<div class="card"><div class="value" style="color:var(--accent2)">-0.93%</div><div class="label">Avg Change</div></div>
 </div>
-<div class="sentiment-banner" style="background:#78350f;border:1px solid #f59e0b;border-radius:14px;padding:24px;margin-bottom:20px;text-align:center">
-    <div style="font-size:1.8em;margin-bottom:6px">⚖️</div>
-    <div style="font-size:1.5em;font-weight:700;color:#f59e0b">NEUTRAL</div>
-    <div style="font-size:1.6em;font-weight:800;color:#f59e0b;margin:4px 0">25%</div>
+<div class="sentiment-banner" style="background:#7f1d1d;border:1px solid #fca5a5;border-radius:14px;padding:24px;margin-bottom:20px;text-align:center">
+    <div style="font-size:1.8em;margin-bottom:6px">📉</div>
+    <div style="font-size:1.5em;font-weight:700;color:#fca5a5">SLIGHTLY BEARISH</div>
+    <div style="font-size:1.6em;font-weight:800;color:#fca5a5;margin:4px 0">25%</div>
     <div style="color:var(--muted);font-size:.9em">confidence</div>
     <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;font-size:.85em">
-    <div><span style="color:var(--muted)">16/24 assets up</span><br><strong>67</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>0.09</strong></div><div><span style="color:var(--muted)">13/24 bullish MA</span><br><strong>54</strong></div><div><span style="color:var(--muted)">0/24 elevated vol</span><br><strong>0</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>0.9</strong></div>
+    <div><span style="color:var(--muted)">0/1 assets up</span><br><strong>0</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>-0.93</strong></div><div><span style="color:var(--muted)">1/1 bullish MA</span><br><strong>100</strong></div><div><span style="color:var(--muted)">0/1 elevated vol</span><br><strong>0</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>0.7</strong></div>
     </div></div>
 
-<section class="momentum-scanner-v2 scanner hawkeye-scanner hawkeye-v4" aria-label="Hawkeye V4">
-  <style>
-    .hawkeye-scanner{margin:0 0 24px;padding:24px;border:1px solid var(--hawkeye-border,rgba(56,189,248,.25));border-radius:28px;position:relative;overflow:hidden;text-align:left;background:var(--hawkeye-bg,linear-gradient(135deg,rgba(241,245,249,.95),rgba(248,250,252,.9) 48%,rgba(254,243,199,.5)));box-shadow:var(--atlas-shadow,0 8px 40px rgba(0,0,0,.08)),inset 0 1px 0 rgba(255,255,255,.06);transition:background .4s ease}
-    .hawkeye-scanner:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,color-mix(in srgb,var(--atlas-accent,#0284c7) 18%,transparent),transparent 35%),radial-gradient(circle at 92% 14%,color-mix(in srgb,var(--atlas-amber,#d97706) 12%,transparent),transparent 28%);pointer-events:none}.hawkeye-scanner>*{position:relative}
-    .scanner-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}.scanner-head h2{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}.scanner-sub{margin:6px 0 0;color:var(--atlas-muted,var(--muted));font-size:.82rem;line-height:1.45}
-    .scanner-head .tier-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:.74em;color:var(--atlas-muted,var(--muted))}.scanner-head .tier-legend span{padding:3px 8px;border-radius:999px;border:1px solid var(--atlas-border);background:var(--atlas-panel-strong)}.scanner-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-    .signal-card{border:1px solid var(--atlas-border);border-radius:22px;padding:14px;background:var(--signal-card-bg,var(--atlas-panel-strong));box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}.signal-card h3{margin:0 0 12px;color:var(--atlas-text,var(--text));font-size:.98rem;font-weight:950;letter-spacing:-.025em}
-    .signal-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--atlas-border);border-radius:16px;background:var(--signal-row-bg,var(--atlas-panel));margin-top:9px}.signal-row:first-of-type{margin-top:0}.asset-name{display:inline;font-weight:900;color:var(--atlas-text,var(--text));line-height:1.15;margin-right:6px}
-    .asset-tag{display:inline-flex;vertical-align:middle;padding:2px 7px;border-radius:999px;background:color-mix(in srgb,var(--atlas-accent,#0284c7) 10%,transparent);border:1px solid color-mix(in srgb,var(--atlas-accent,#0284c7) 22%,transparent);color:var(--atlas-accent,#0284c7);font-size:.66rem;font-weight:900;text-transform:uppercase}.asset-meta{display:block;color:var(--atlas-muted,var(--muted));font-size:.74rem;margin-top:4px;line-height:1.35}
-    .asset-levels{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}.asset-levels span{padding:4px 7px;border-radius:999px;background:var(--atlas-panel-strong);border:1px solid var(--atlas-border);color:var(--atlas-muted)}
-    .score-pill{display:inline-flex;align-items:center;justify-content:center;min-width:58px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent;color:var(--atlas-text)}
-    
-.market-state{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:999px;border:1px solid rgba(148,163,184,.18);background:rgba(15,23,42,.56);font-size:.72rem;font-weight:950;text-transform:uppercase;letter-spacing:.035em;white-space:nowrap}
-.market-state:before{content:"";width:6px;height:6px;border-radius:999px;background:#94a3b8;box-shadow:0 0 12px rgba(148,163,184,.65)}
-.market-state-open{color:#bbf7d0;border-color:rgba(34,197,94,.24);background:rgba(34,197,94,.09)}
-.market-state-open:before{background:#22c55e;box-shadow:0 0 14px rgba(34,197,94,.9)}
-.market-state-pre-market{color:#fde68a;border-color:rgba(245,158,11,.26);background:rgba(245,158,11,.09)}
-.market-state-pre-market:before{background:#f59e0b;box-shadow:0 0 14px rgba(245,158,11,.85)}
-.market-state-closed{color:#fecaca;border-color:rgba(251,113,133,.26);background:rgba(251,113,133,.09)}
-.market-state-closed:before{background:#fb7185;box-shadow:0 0 14px rgba(251,113,133,.85)}
-
-    .tv-link{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:5px 10px;border-radius:999px;border:1px solid rgba(56,189,248,.32);background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(124,92,255,.12));color:#d9f3ff!important;text-decoration:none;font-size:.76rem;font-weight:950;white-space:nowrap;transition:all .16s;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
-.tv-link:hover{background:linear-gradient(135deg,rgba(56,189,248,.24),rgba(124,92,255,.20));border-color:rgba(56,189,248,.58);transform:translateY(-1px);box-shadow:0 8px 24px rgba(56,189,248,.12),inset 0 1px 0 rgba(255,255,255,.10)}
-    .score-hot{color:var(--atlas-green);background:color-mix(in srgb,var(--atlas-green) 13%,transparent);border-color:color-mix(in srgb,var(--atlas-green) 22%,transparent)}.score-risk{color:var(--atlas-red);background:color-mix(in srgb,var(--atlas-red) 12%,transparent);border-color:color-mix(in srgb,var(--atlas-red) 22%,transparent)}.score-warm{color:var(--atlas-amber);background:color-mix(in srgb,var(--atlas-amber) 14%,transparent);border-color:color-mix(in srgb,var(--atlas-amber) 22%,transparent)}.score-muted{color:var(--atlas-muted);background:var(--atlas-panel-strong);border-color:var(--atlas-border)}.momentum-empty{padding:16px;border:1px dashed var(--atlas-border);border-radius:18px;color:var(--atlas-muted,var(--muted));background:var(--atlas-panel-strong)}
-    @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}}@media(max-width:520px){.hawkeye-scanner{padding:16px;border-radius:22px}.signal-row{display:block}.signal-row>div:last-child{text-align:left!important;margin-top:10px}}
-  </style>
-  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension. Market state: <span class="market-state market-state-closed" data-market="etf" data-market-state>Closed · listed markets</span></p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ 0 · 🦅 0 · 👁️ 6</span></div></div>
-  <div class="scanner-board hawk-board"><div class="signal-card"><h3>📈 Bullish pressure (4)</h3><div class="signal-row hawk-row">
-<div>
-<span class="asset-name">ARK Innovation</span>
-<span class="asset-tag">Bullish pressure</span>
-<span class="asset-meta">etf · uptrend · breakout pressure · extension warning</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">Reference price $81.95</span>
-<span class="market-state market-state-closed" data-market="etf" data-market-state>Closed · listed markets</span>
-<span style="color:#c4b5fd">nROC5 +1.10</span>
-<span style="color:#fbbf24">RSI 59</span>
-<span style="color:#fca5a5">Ext 1.9 ATR</span>
-<span style="color:#93c5fd">Vol 1.3×</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AARKK" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:ARKK on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-warm">69/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +49 · ARKK</div>
-<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
-</div>
-</div><div class="signal-row hawk-row">
-<div>
-<span class="asset-name">iShares MSCI EAFE</span>
-<span class="asset-tag">Bullish pressure</span>
-<span class="asset-meta">etf · uptrend · bullish continuation</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">Reference price $104.80</span>
-<span class="market-state market-state-closed" data-market="etf" data-market-state>Closed · listed markets</span>
-<span style="color:#c4b5fd">nROC5 +0.24</span>
-<span style="color:#fbbf24">RSI 54</span>
-<span style="color:#fca5a5">Ext 1.2 ATR</span>
-<span style="color:#93c5fd">Vol 1.2×</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EFA" target="_blank" rel="noopener noreferrer" title="Open EFA on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-warm">65/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +38 · EFA</div>
-<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
-</div>
-</div><div class="signal-row hawk-row">
-<div>
-<span class="asset-name">iShares MSCI EM</span>
-<span class="asset-tag">Bullish pressure</span>
-<span class="asset-meta">etf · uptrend · breakout pressure · extension warning</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">Reference price $68.60</span>
-<span class="market-state market-state-closed" data-market="etf" data-market-state>Closed · listed markets</span>
-<span style="color:#c4b5fd">nROC5 +0.83</span>
-<span style="color:#fbbf24">RSI 53</span>
-<span style="color:#fca5a5">Ext 1.7 ATR</span>
-<span style="color:#93c5fd">Vol 1.1×</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EEM" target="_blank" rel="noopener noreferrer" title="Open EEM on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-warm">62/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +42 · EEM</div>
-<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
-</div>
-</div><div class="signal-row hawk-row">
-<div>
-<span class="asset-name">iShares Russell 2000</span>
-<span class="asset-tag">Bullish pressure</span>
-<span class="asset-meta">etf · uptrend · breakout pressure · extension warning</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">Reference price $290.43</span>
-<span class="market-state market-state-closed" data-market="etf" data-market-state>Closed · listed markets</span>
-<span style="color:#c4b5fd">nROC5 +0.74</span>
-<span style="color:#fbbf24">RSI 58</span>
-<span style="color:#fca5a5">Ext 1.6 ATR</span>
-<span style="color:#93c5fd">Vol 1.0×</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AMEX%3AIWM" target="_blank" rel="noopener noreferrer" title="Open AMEX:IWM on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-warm">61/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +47 · IWM</div>
-<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
-</div>
-</div></div><div class="signal-card"><h3>📉 Bearish pressure (1)</h3><div class="signal-row hawk-row">
-<div>
-<span class="asset-name">SPDR Gold</span>
-<span class="asset-tag">Bearish pressure</span>
-<span class="asset-meta">etf · downtrend · bearish continuation</span>
-<span class="asset-levels">
-<span style="color:#bae6fd">Reference price $417.12</span>
-<span class="market-state market-state-closed" data-market="etf" data-market-state>Closed · listed markets</span>
-<span style="color:#c4b5fd">nROC5 +0.01</span>
-<span style="color:#fbbf24">RSI 33</span>
-<span style="color:#fca5a5">Ext 0.4 ATR</span>
-<span style="color:#93c5fd">Vol 1.3×</span>
-<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AMEX%3AGLD" target="_blank" rel="noopener noreferrer" title="Open AMEX:GLD on TradingView">Chart ↗</a>
-
-</span>
-</div>
-<div style="text-align:right">
-<span class="score-pill score-warm">65/100</span>
-<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -38 · GLD</div>
-<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
-</div>
-</div></div></div>
-</section>
 
 <section class="unusual-activity">
 <style>
@@ -349,146 +215,19 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 .unusual-flags span{padding:4px 7px;border-radius:999px;background:color-mix(in srgb,var(--atlas-amber,#d97706) 14%,transparent);border:1px solid color-mix(in srgb,var(--atlas-amber,#d97706) 24%,transparent);color:var(--atlas-amber,#d97706);font-size:.70rem;font-weight:850;white-space:nowrap}
 @media(max-width:560px){.unusual-head{display:block}.unusual-count{margin-top:10px}}
 </style>
-<div class="unusual-head"><div><h2>🚨 Unusual market pressure</h2><p>Extension, volatility or RSI readings that deserve manual chart inspection.</p></div><div class="unusual-count">6</div></div>
+<div class="unusual-head"><div><h2>🚨 Unusual market pressure</h2><p>Extension, volatility or RSI readings that deserve manual chart inspection.</p></div><div class="unusual-count">1</div></div>
 <div class="unusual-grid"><div class='unusual-card'>
-  <div class='unusual-main'><strong>SPDR S&amp;P 500</strong><small>SPY · shock · Manual chart check required</small></div>
-  <div class='unusual-flags'><span>Extension 2.7 ATR</span></div>
-</div><div class='unusual-card'>
-  <div class='unusual-main'><strong>Invesco QQQ</strong><small>QQQ · shock · Manual chart check required</small></div>
-  <div class='unusual-flags'><span>Extension 3.0 ATR</span></div>
-</div><div class='unusual-card'>
-  <div class='unusual-main'><strong>Vanguard Total Market</strong><small>VTI · shock · Manual chart check required</small></div>
-  <div class='unusual-flags'><span>Extension 2.7 ATR</span></div>
-</div><div class='unusual-card'>
-  <div class='unusual-main'><strong>Vanguard S&amp;P 500</strong><small>VOO · shock · Manual chart check required</small></div>
-  <div class='unusual-flags'><span>Extension 2.8 ATR</span></div>
-</div><div class='unusual-card'>
-  <div class='unusual-main'><strong>Technology Select</strong><small>XLK · shock · Manual chart check required</small></div>
-  <div class='unusual-flags'><span>Extension 3.5 ATR</span><span>ATR pct 94</span></div>
-</div><div class='unusual-card'>
   <div class='unusual-main'><strong>Health Care Select</strong><small>XLV · mixed · Manual chart check required</small></div>
   <div class='unusual-flags'><span>ATR pct 92</span></div>
 </div></div>
 </section>
 <h2 style="color:var(--accent);margin-bottom:12px">📦 Category Breakdown</h2>
-<div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"><div class="card" style="border-left:3px solid #f59e0b"><div class="value" style="color:#f59e0b">+0.1%</div><div class="label">Bonds (5/5)</div></div><div class="card" style="border-left:3px solid #ef4444"><div class="value" style="color:#ef4444">-0.1%</div><div class="label">Commodity (1/3)</div></div><div class="card" style="border-left:3px solid #a78bfa"><div class="value" style="color:#a78bfa">+0.1%</div><div class="label">International (2/3)</div></div><div class="card" style="border-left:3px solid #22c55e"><div class="value" style="color:#22c55e">-0.1%</div><div class="label">Sector (2/6)</div></div><div class="card" style="border-left:3px solid #ec4899"><div class="value" style="color:#ec4899">+1.2%</div><div class="label">Thematic (1/1)</div></div><div class="card" style="border-left:3px solid #38bdf8"><div class="value" style="color:#38bdf8">+0.2%</div><div class="label">US Equity (5/6)</div></div></div>
+<div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"><div class="card" style="border-left:3px solid #22c55e"><div class="value" style="color:#22c55e">-0.9%</div><div class="label">Sector (0/1)</div></div></div>
 <h2 style="color:var(--accent);margin:24px 0 12px">📋 ETF Leaderboard</h2>
 <div class="table-wrapper"><div style="overflow-x:auto">
 <table><thead><tr>
 <th>ETF</th><th>Category</th><th>Price</th><th>Change</th><th>Trend</th><th>Volatility</th><th>52W Range</th>
 </tr></thead><tbody><tr>
-            <td><strong>Vanguard Total Bond</strong> <small style="color:var(--muted)">BND</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=BND" target="_blank" rel="noopener noreferrer" title="Open BND on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Bonds</span></td>
-            <td class="price">$73.46</td>
-            <td style="color:#22c55e">▲ 0.05%</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.2%</td>
-            <td><small style="color:var(--muted)">$75.23 / $72.19</small></td>
-        </tr><tr>
-            <td><strong>iShares 20+ Year Tr.</strong> <small style="color:var(--muted)">TLT</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3ATLT" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:TLT on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Bonds</span></td>
-            <td class="price">$85.76</td>
-            <td style="color:#22c55e">▲ 0.02%</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.5%</td>
-            <td><small style="color:var(--muted)">$92.19 / $82.77</small></td>
-        </tr><tr>
-            <td><strong>iShares Core US Agg</strong> <small style="color:var(--muted)">AGG</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AGG" target="_blank" rel="noopener noreferrer" title="Open AGG on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Bonds</span></td>
-            <td class="price">$99.06</td>
-            <td style="color:#22c55e">▲ 0.06%</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.2%</td>
-            <td><small style="color:var(--muted)">$101.46 / $97.23</small></td>
-        </tr><tr>
-            <td><strong>iShares High Yield</strong> <small style="color:var(--muted)">HYG</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=HYG" target="_blank" rel="noopener noreferrer" title="Open HYG on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Bonds</span></td>
-            <td class="price">$80.31</td>
-            <td style="color:#22c55e">▲ 0.10%</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.2%</td>
-            <td><small style="color:var(--muted)">$81.36 / $78.57</small></td>
-        </tr><tr>
-            <td><strong>iShares Inv. Grade</strong> <small style="color:var(--muted)">LQD</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=LQD" target="_blank" rel="noopener noreferrer" title="Open LQD on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Bonds</span></td>
-            <td class="price">$109.36</td>
-            <td style="color:#22c55e">▲ 0.09%</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.3%</td>
-            <td><small style="color:var(--muted)">$112.93 / $106.69</small></td>
-        </tr><tr>
-            <td><strong>SPDR Gold</strong> <small style="color:var(--muted)">GLD</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AMEX%3AGLD" target="_blank" rel="noopener noreferrer" title="Open AMEX:GLD on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Commodity</span></td>
-            <td class="price">$417.12</td>
-            <td style="color:#22c55e">▲ 1.05%</td>
-            <td><span style="color:#ef4444">BEARISH</span></td>
-            <td>0.9%</td>
-            <td><small style="color:var(--muted)">$509.70 / $299.89</small></td>
-        </tr><tr>
-            <td><strong>US Oil Fund</strong> <small style="color:var(--muted)">USO</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=USO" target="_blank" rel="noopener noreferrer" title="Open USO on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Commodity</span></td>
-            <td class="price">$129.09</td>
-            <td style="color:#ef4444">▼ 1.29%</td>
-            <td><span style="color:#ef4444">BEARISH</span></td>
-            <td>2.5%</td>
-            <td><small style="color:var(--muted)">$154.08 / $65.99</small></td>
-        </tr><tr>
-            <td><strong>iShares Silver</strong> <small style="color:var(--muted)">SLV</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AMEX%3ASLV" target="_blank" rel="noopener noreferrer" title="Open AMEX:SLV on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Commodity</span></td>
-            <td class="price">$68.33</td>
-            <td style="color:#ef4444">▼ 0.04%</td>
-            <td><span style="color:#ef4444">BEARISH</span></td>
-            <td>2.8%</td>
-            <td><small style="color:var(--muted)">$109.83 / $30.72</small></td>
-        </tr><tr>
-            <td><strong>Vanguard FTSE Dev.</strong> <small style="color:var(--muted)">VEA</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=VEA" target="_blank" rel="noopener noreferrer" title="Open VEA on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">International</span></td>
-            <td class="price">$71.77</td>
-            <td style="color:#22c55e">▲ 0.15%</td>
-            <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>1.0%</td>
-            <td><small style="color:var(--muted)">$72.23 / $54.63</small></td>
-        </tr><tr>
-            <td><strong>iShares MSCI EAFE</strong> <small style="color:var(--muted)">EFA</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EFA" target="_blank" rel="noopener noreferrer" title="Open EFA on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">International</span></td>
-            <td class="price">$104.80</td>
-            <td style="color:#22c55e">▲ 0.11%</td>
-            <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>0.9%</td>
-            <td><small style="color:var(--muted)">$105.94 / $85.68</small></td>
-        </tr><tr>
-            <td><strong>iShares MSCI EM</strong> <small style="color:var(--muted)">EEM</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=EEM" target="_blank" rel="noopener noreferrer" title="Open EEM on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">International</span></td>
-            <td class="price">$68.60</td>
-            <td style="color:#ef4444">▼ 0.01%</td>
-            <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>1.3%</td>
-            <td><small style="color:var(--muted)">$69.11 / $45.52</small></td>
-        </tr><tr>
-            <td><strong>Consumer Disc.</strong> <small style="color:var(--muted)">XLY</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=XLY" target="_blank" rel="noopener noreferrer" title="Open XLY on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Sector</span></td>
-            <td class="price">$120.87</td>
-            <td style="color:#ef4444">▼ 0.97%</td>
-            <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>0.8%</td>
-            <td><small style="color:var(--muted)">$125.01 / $103.86</small></td>
-        </tr><tr>
-            <td><strong>Energy Select</strong> <small style="color:var(--muted)">XLE</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AMEX%3AXLE" target="_blank" rel="noopener noreferrer" title="Open AMEX:XLE on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Sector</span></td>
-            <td class="price">$56.29</td>
-            <td style="color:#ef4444">▼ 1.16%</td>
-            <td><span style="color:#ef4444">BEARISH</span></td>
-            <td>1.4%</td>
-            <td><small style="color:var(--muted)">$63.46 / $40.83</small></td>
-        </tr><tr>
-            <td><strong>Financial Select</strong> <small style="color:var(--muted)">XLF</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AMEX%3AXLF" target="_blank" rel="noopener noreferrer" title="Open AMEX:XLF on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Sector</span></td>
-            <td class="price">$51.58</td>
-            <td style="color:#22c55e">▲ 0.60%</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.6%</td>
-            <td><small style="color:var(--muted)">$56.52 / $47.67</small></td>
-        </tr><tr>
             <td><strong>Health Care Select</strong> <small style="color:var(--muted)">XLV</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AMEX%3AXLV" target="_blank" rel="noopener noreferrer" title="Open AMEX:XLV on TradingView">Chart ↗</a></td>
             <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Sector</span></td>
             <td class="price">$149.47</td>
@@ -496,82 +235,10 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td><span style="color:#22c55e">BULLISH</span></td>
             <td>0.7%</td>
             <td><small style="color:var(--muted)">$160.59 / $127.96</small></td>
-        </tr><tr>
-            <td><strong>Industrial Select</strong> <small style="color:var(--muted)">XLI</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=XLI" target="_blank" rel="noopener noreferrer" title="Open XLI on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Sector</span></td>
-            <td class="price">$173.13</td>
-            <td style="color:#ef4444">▼ 0.39%</td>
-            <td><span style="color:#94a3b8">NEUTRAL</span></td>
-            <td>0.9%</td>
-            <td><small style="color:var(--muted)">$179.31 / $140.84</small></td>
-        </tr><tr>
-            <td><strong>Technology Select</strong> <small style="color:var(--muted)">XLK</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AMEX%3AXLK" target="_blank" rel="noopener noreferrer" title="Open AMEX:XLK on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Sector</span></td>
-            <td class="price">$191.02</td>
-            <td style="color:#22c55e">▲ 2.23%</td>
-            <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>1.5%</td>
-            <td><small style="color:var(--muted)">$191.63 / $115.01</small></td>
-        </tr><tr>
-            <td><strong>ARK Innovation</strong> <small style="color:var(--muted)">ARKK</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AARKK" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:ARKK on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">Thematic</span></td>
-            <td class="price">$81.95</td>
-            <td style="color:#22c55e">▲ 1.16%</td>
-            <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>1.6%</td>
-            <td><small style="color:var(--muted)">$92.65 / $55.64</small></td>
-        </tr><tr>
-            <td><strong>Invesco QQQ</strong> <small style="color:var(--muted)">QQQ</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AQQQ" target="_blank" rel="noopener noreferrer" title="Open NASDAQ:QQQ on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">US Equity</span></td>
-            <td class="price">$738.31</td>
-            <td style="color:#22c55e">▲ 0.37%</td>
-            <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>0.9%</td>
-            <td><small style="color:var(--muted)">$741.63 / $515.97</small></td>
-        </tr><tr>
-            <td><strong>SPDR Dow Jones</strong> <small style="color:var(--muted)">DIA</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AMEX%3ADIA" target="_blank" rel="noopener noreferrer" title="Open AMEX:DIA on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">US Equity</span></td>
-            <td class="price">$510.78</td>
-            <td style="color:#22c55e">▲ 0.74%</td>
-            <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>0.6%</td>
-            <td><small style="color:var(--muted)">$511.31 / $419.08</small></td>
-        </tr><tr>
-            <td><strong>SPDR S&P 500</strong> <small style="color:var(--muted)">SPY</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AMEX%3ASPY" target="_blank" rel="noopener noreferrer" title="Open AMEX:SPY on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">US Equity</span></td>
-            <td class="price">$756.48</td>
-            <td style="color:#22c55e">▲ 0.25%</td>
-            <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>0.5%</td>
-            <td><small style="color:var(--muted)">$758.08 / $585.06</small></td>
-        </tr><tr>
-            <td><strong>Vanguard S&P 500</strong> <small style="color:var(--muted)">VOO</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=VOO" target="_blank" rel="noopener noreferrer" title="Open VOO on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">US Equity</span></td>
-            <td class="price">$695.49</td>
-            <td style="color:#22c55e">▲ 0.23%</td>
-            <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>0.5%</td>
-            <td><small style="color:var(--muted)">$697.00 / $537.80</small></td>
-        </tr><tr>
-            <td><strong>Vanguard Total Market</strong> <small style="color:var(--muted)">VTI</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=VTI" target="_blank" rel="noopener noreferrer" title="Open VTI on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">US Equity</span></td>
-            <td class="price">$372.54</td>
-            <td style="color:#22c55e">▲ 0.24%</td>
-            <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>0.6%</td>
-            <td><small style="color:var(--muted)">$373.13 / $287.58</small></td>
-        </tr><tr>
-            <td><strong>iShares Russell 2000</strong> <small style="color:var(--muted)">IWM</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=AMEX%3AIWM" target="_blank" rel="noopener noreferrer" title="Open AMEX:IWM on TradingView">Chart ↗</a></td>
-            <td><span style="background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:.78em">US Equity</span></td>
-            <td class="price">$290.43</td>
-            <td style="color:#ef4444">▼ 0.55%</td>
-            <td><span style="color:#22c55e">BULLISH</span></td>
-            <td>1.0%</td>
-            <td><small style="color:var(--muted)">$292.74 / $202.67</small></td>
         </tr></tbody></table></div></div>
 
 <div class="footer">
-<p>💰 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260531-092922</p>
+<p>💰 Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260531-111742</p>
 </div>
 </div><script>
 // Dual theme toggle with localStorage
