@@ -183,26 +183,168 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
 <div class="header">
 <div class="title-emoji">🛢️</div>
 <h1>Atlas Nexus — Commodities</h1>
-<p>Real-time commodity futures tracking · Gold, Oil, Copper, Grains, Softs | 20260531-111715</p>
+<p>Real-time commodity futures tracking · Gold, Oil, Copper, Grains, Softs | 20260531-125646</p>
 </div>
 <div class="container">
 <div class="stats-grid">
-<div class="card"><div class="value" style="color:var(--accent)">1</div><div class="label">Commodities Tracked</div></div>
-<div class="card"><div class="value" style="color:var(--green)">1</div><div class="label">Up Today</div></div>
-<div class="card"><div class="value" style="color:var(--red)">0</div><div class="label">Down Today</div></div>
-<div class="card"><div class="value" style="color:var(--accent2)">2.08%</div><div class="label">Avg Change</div></div>
-<div class="card"><div class="value" style="color:var(--accent)">0.002%</div><div class="label">Avg Indic. Spread</div></div>
+<div class="card"><div class="value" style="color:var(--accent)">13</div><div class="label">Commodities Tracked</div></div>
+<div class="card"><div class="value" style="color:var(--green)">6</div><div class="label">Up Today</div></div>
+<div class="card"><div class="value" style="color:var(--red)">7</div><div class="label">Down Today</div></div>
+<div class="card"><div class="value" style="color:var(--accent2)">-0.72%</div><div class="label">Avg Change</div></div>
+<div class="card"><div class="value" style="color:var(--accent)">0.024%</div><div class="label">Avg Indic. Spread</div></div>
 </div>
-<div class="sentiment-banner" style="background:#14532d;border:1px solid #22c55e;border-radius:14px;padding:24px;margin-bottom:20px;text-align:center">
-    <div style="font-size:1.8em;margin-bottom:6px">🚀</div>
-    <div style="font-size:1.5em;font-weight:700;color:#22c55e">BULLISH</div>
-    <div style="font-size:2.2em;font-weight:800;color:#22c55e;margin:4px 0">35%</div>
+<div class="sentiment-banner" style="background:#7f1d1d;border:1px solid #fca5a5;border-radius:14px;padding:24px;margin-bottom:20px;text-align:center">
+    <div style="font-size:1.8em;margin-bottom:6px">📉</div>
+    <div style="font-size:1.5em;font-weight:700;color:#fca5a5">SLIGHTLY BEARISH</div>
+    <div style="font-size:2.2em;font-weight:800;color:#fca5a5;margin:4px 0">25%</div>
     <div style="color:var(--muted);font-size:.9em">confidence</div>
     <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;font-size:.85em">
-        <div><span style="color:var(--muted)">1/1 assets up</span><br><strong>100</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>2.08</strong></div><div><span style="color:var(--muted)">0/1 bullish MA</span><br><strong>0</strong></div><div><span style="color:var(--muted)">1/1 elevated vol</span><br><strong>100</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>0.9</strong></div>
+        <div><span style="color:var(--muted)">6/13 assets up</span><br><strong>46</strong></div><div><span style="color:var(--muted)">Avg change</span><br><strong>-0.72</strong></div><div><span style="color:var(--muted)">2/13 bullish MA</span><br><strong>15</strong></div><div><span style="color:var(--muted)">7/13 elevated vol</span><br><strong>54</strong></div><div><span style="color:var(--muted)">Avg volatility %</span><br><strong>1.8</strong></div>
     </div></div>
 
+<section class="momentum-scanner-v2 scanner hawkeye-scanner hawkeye-v4" aria-label="Hawkeye V4">
+  <style>
+    .hawkeye-scanner{margin:0 0 24px;padding:24px;border:1px solid var(--hawkeye-border,rgba(56,189,248,.25));border-radius:28px;position:relative;overflow:hidden;text-align:left;background:var(--hawkeye-bg,linear-gradient(135deg,rgba(241,245,249,.95),rgba(248,250,252,.9) 48%,rgba(254,243,199,.5)));box-shadow:var(--atlas-shadow,0 8px 40px rgba(0,0,0,.08)),inset 0 1px 0 rgba(255,255,255,.06);transition:background .4s ease}
+    .hawkeye-scanner:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 16% 0%,color-mix(in srgb,var(--atlas-accent,#0284c7) 18%,transparent),transparent 35%),radial-gradient(circle at 92% 14%,color-mix(in srgb,var(--atlas-amber,#d97706) 12%,transparent),transparent 28%);pointer-events:none}.hawkeye-scanner>*{position:relative}
+    .scanner-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}.scanner-head h2{margin:0;color:var(--atlas-text,var(--text));font-size:1.18rem;font-weight:950;letter-spacing:-.04em}.scanner-sub{margin:6px 0 0;color:var(--atlas-muted,var(--muted));font-size:.82rem;line-height:1.45}
+    .scanner-head .tier-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:.74em;color:var(--atlas-muted,var(--muted))}.scanner-head .tier-legend span{padding:3px 8px;border-radius:999px;border:1px solid var(--atlas-border);background:var(--atlas-panel-strong)}.scanner-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .signal-card{border:1px solid var(--atlas-border);border-radius:22px;padding:14px;background:var(--signal-card-bg,var(--atlas-panel-strong));box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}.signal-card h3{margin:0 0 12px;color:var(--atlas-text,var(--text));font-size:.98rem;font-weight:950;letter-spacing:-.025em}
+    .signal-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--atlas-border);border-radius:16px;background:var(--signal-row-bg,var(--atlas-panel));margin-top:9px}.signal-row:first-of-type{margin-top:0}.asset-name{display:inline;font-weight:900;color:var(--atlas-text,var(--text));line-height:1.15;margin-right:6px}
+    .asset-tag{display:inline-flex;vertical-align:middle;padding:2px 7px;border-radius:999px;background:color-mix(in srgb,var(--atlas-accent,#0284c7) 10%,transparent);border:1px solid color-mix(in srgb,var(--atlas-accent,#0284c7) 22%,transparent);color:var(--atlas-accent,#0284c7);font-size:.66rem;font-weight:900;text-transform:uppercase}.asset-meta{display:block;color:var(--atlas-muted,var(--muted));font-size:.74rem;margin-top:4px;line-height:1.35}
+    .asset-levels{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;font-size:.72rem;font-weight:850}.asset-levels span{padding:4px 7px;border-radius:999px;background:var(--atlas-panel-strong);border:1px solid var(--atlas-border);color:var(--atlas-muted)}
+    .score-pill{display:inline-flex;align-items:center;justify-content:center;min-width:58px;padding:7px 9px;border-radius:999px;font-weight:950;font-size:.86rem;border:1px solid transparent;color:var(--atlas-text)}
+    
+.market-state{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:999px;border:1px solid rgba(148,163,184,.18);background:rgba(15,23,42,.56);font-size:.72rem;font-weight:950;text-transform:uppercase;letter-spacing:.035em;white-space:nowrap}
+.market-state:before{content:"";width:6px;height:6px;border-radius:999px;background:#94a3b8;box-shadow:0 0 12px rgba(148,163,184,.65)}
+.market-state-open{color:#bbf7d0;border-color:rgba(34,197,94,.24);background:rgba(34,197,94,.09)}
+.market-state-open:before{background:#22c55e;box-shadow:0 0 14px rgba(34,197,94,.9)}
+.market-state-pre-market{color:#fde68a;border-color:rgba(245,158,11,.26);background:rgba(245,158,11,.09)}
+.market-state-pre-market:before{background:#f59e0b;box-shadow:0 0 14px rgba(245,158,11,.85)}
+.market-state-closed{color:#fecaca;border-color:rgba(251,113,133,.26);background:rgba(251,113,133,.09)}
+.market-state-closed:before{background:#fb7185;box-shadow:0 0 14px rgba(251,113,133,.85)}
 
+    .tv-link{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:5px 10px;border-radius:999px;border:1px solid rgba(56,189,248,.32);background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(124,92,255,.12));color:#d9f3ff!important;text-decoration:none;font-size:.76rem;font-weight:950;white-space:nowrap;transition:all .16s;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.tv-link:hover{background:linear-gradient(135deg,rgba(56,189,248,.24),rgba(124,92,255,.20));border-color:rgba(56,189,248,.58);transform:translateY(-1px);box-shadow:0 8px 24px rgba(56,189,248,.12),inset 0 1px 0 rgba(255,255,255,.10)}
+    .score-hot{color:var(--atlas-green);background:color-mix(in srgb,var(--atlas-green) 13%,transparent);border-color:color-mix(in srgb,var(--atlas-green) 22%,transparent)}.score-risk{color:var(--atlas-red);background:color-mix(in srgb,var(--atlas-red) 12%,transparent);border-color:color-mix(in srgb,var(--atlas-red) 22%,transparent)}.score-warm{color:var(--atlas-amber);background:color-mix(in srgb,var(--atlas-amber) 14%,transparent);border-color:color-mix(in srgb,var(--atlas-amber) 22%,transparent)}.score-muted{color:var(--atlas-muted);background:var(--atlas-panel-strong);border-color:var(--atlas-border)}.momentum-empty{padding:16px;border:1px dashed var(--atlas-border);border-radius:18px;color:var(--atlas-muted,var(--muted));background:var(--atlas-panel-strong)}
+    @media(max-width:860px){.scanner-head{display:block}.scanner-board{grid-template-columns:1fr}}@media(max-width:520px){.hawkeye-scanner{padding:16px;border-radius:22px}.signal-row{display:block}.signal-row>div:last-child{text-align:left!important;margin-top:10px}}
+  </style>
+  <div class="scanner-head"><div><h2>🦅 Hawkeye V4 — Market Pressure Radar</h2><p class="scanner-sub">Pressure, regime, normalized momentum and extension. Market state: <span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span></p></div><div class="tier-legend"><span>0-39 Weak</span><span>40-59 Watch</span><span>60-74 Active pressure</span><span>75-89 Strong pressure</span><span>90+ Extreme pressure</span><span>⚡ 0 · 🦅 0 · 👁️ 4</span></div></div>
+  <div class="scanner-board hawk-board"><div class="signal-card"><h3>📈 Bullish pressure (1)</h3><div class="signal-row hawk-row">
+<div>
+<span class="asset-name">Copper</span>
+<span class="asset-tag">Bullish pressure</span>
+<span class="asset-meta">commodities · uptrend · bullish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $6.39/USD/lb</span>
+<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
+<span style="color:#c4b5fd">nROC5 +0.43</span>
+<span style="color:#fbbf24">RSI 55</span>
+<span style="color:#fca5a5">Ext 0.9 ATR</span>
+<span style="color:#93c5fd">Range pct 61</span>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3AHG1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:HG1! on TradingView">Chart ↗</a>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">70/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net +46 · HG=F</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+</div>
+</div></div><div class="signal-card"><h3>📉 Bearish pressure (3)</h3><div class="signal-row hawk-row">
+<div>
+<span class="asset-name">Palladium</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">commodities · downtrend · bearish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $1,381.90/USD/oz</span>
+<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
+<span style="color:#c4b5fd">nROC5 -0.02</span>
+<span style="color:#fbbf24">RSI 37</span>
+<span style="color:#fca5a5">Ext 1.4 ATR</span>
+<span style="color:#93c5fd">Range pct 47</span>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=PA%3DF" target="_blank" rel="noopener noreferrer" title="Open PA=F on TradingView">Chart ↗</a>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">67/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -43 · PA=F</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+</div>
+</div><div class="signal-row hawk-row">
+<div>
+<span class="asset-name">Silver</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">commodities · mixed · mixed / no edge</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $75.88/USD/oz</span>
+<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
+<span style="color:#c4b5fd">nROC5 -0.07</span>
+<span style="color:#fbbf24">RSI 42</span>
+<span style="color:#fca5a5">Ext 0.4 ATR</span>
+<span style="color:#93c5fd">Range pct 51</span>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3ASI1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:SI1! on TradingView">Chart ↗</a>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">64/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -42 · SI=F</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+</div>
+</div><div class="signal-row hawk-row">
+<div>
+<span class="asset-name">Sugar</span>
+<span class="asset-tag">Bearish pressure</span>
+<span class="asset-meta">commodities · downtrend · bearish continuation</span>
+<span class="asset-levels">
+<span style="color:#bae6fd">Reference price $14.07/USD/lb</span>
+<span class="market-state market-state-closed" data-market="commodities" data-market-state>Closed · futures/CFD</span>
+<span style="color:#c4b5fd">nROC5 -0.88</span>
+<span style="color:#fbbf24">RSI 40</span>
+<span style="color:#fca5a5">Ext 1.2 ATR</span>
+<span style="color:#93c5fd">Range pct 29</span>
+<a class="tv-link" href="https://www.tradingview.com/chart/?symbol=ICEUS%3ASB1%21" target="_blank" rel="noopener noreferrer" title="Open ICEUS:SB1! on TradingView">Chart ↗</a>
+
+</span>
+</div>
+<div style="text-align:right">
+<span class="score-pill score-warm">64/100</span>
+<div style="font-size:.72em;color:var(--muted);margin-top:3px">Net -43 · SB=F</div>
+<div style="font-size:.7em;color:#f59e0b;margin-top:2px">👁️ Active pressure</div>
+</div>
+</div></div></div>
+</section>
+
+<section class="unusual-activity">
+<style>
+.unusual-activity{position:relative;overflow:hidden;margin:0 0 24px;padding:20px;border:1px solid var(--unusual-border,rgba(245,158,11,.26));border-radius:26px;background:var(--unusual-bg,linear-gradient(135deg,rgba(245,158,11,.08),rgba(255,255,255,.9) 52%,rgba(239,68,68,.04)));box-shadow:var(--atlas-shadow,0 8px 40px rgba(0,0,0,.08)),inset 0 1px 0 rgba(255,255,255,.06);transition:background .4s ease}
+.unusual-activity:before{content:"";position:absolute;right:-80px;top:-95px;width:230px;height:230px;border-radius:999px;background:radial-gradient(circle,var(--atlas-amber,rgba(245,158,11,.20)),transparent 62%);pointer-events:none}
+.unusual-activity>*{position:relative}
+.unusual-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+.unusual-head h2{margin:0!important;color:var(--atlas-text,var(--text))!important;font-size:1.08rem!important;font-weight:950!important;letter-spacing:-.035em!important}
+.unusual-head p{margin:6px 0 0;color:var(--atlas-muted,var(--muted));font-size:.83rem;line-height:1.45}
+.unusual-count{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border-radius:14px;border:1px solid var(--atlas-amber,rgba(245,158,11,.28));background:color-mix(in srgb,var(--atlas-amber,#d97706) 14%,transparent);color:var(--atlas-amber,#d97706);font-weight:950}
+.unusual-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.unusual-card{display:flex;flex-direction:column;gap:10px;padding:13px;border:1px solid var(--atlas-border);border-radius:18px;background:var(--unusual-card-bg,var(--atlas-panel-strong))}
+.unusual-main strong{display:block;color:var(--atlas-text,var(--text));font-weight:950;line-height:1.15}
+.unusual-main small{display:block;margin-top:4px;color:var(--atlas-muted,var(--muted));font-size:.72rem;line-height:1.35}
+.unusual-flags{display:flex;gap:6px;flex-wrap:wrap}
+.unusual-flags span{padding:4px 7px;border-radius:999px;background:color-mix(in srgb,var(--atlas-amber,#d97706) 14%,transparent);border:1px solid color-mix(in srgb,var(--atlas-amber,#d97706) 24%,transparent);color:var(--atlas-amber,#d97706);font-size:.70rem;font-weight:850;white-space:nowrap}
+@media(max-width:560px){.unusual-head{display:block}.unusual-count{margin-top:10px}}
+</style>
+<div class="unusual-head"><div><h2>🚨 Unusual market pressure</h2><p>Extension, volatility or RSI readings that deserve manual chart inspection.</p></div><div class="unusual-count">3</div></div>
+<div class="unusual-grid"><div class='unusual-card'>
+  <div class='unusual-main'><strong>Corn</strong><small>ZC=F · shock · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 94</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>Wheat</strong><small>ZW=F · shock · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 94</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>Live Cattle</strong><small>LE=F · mixed · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 100</span></div>
+</div></div>
+</section>
 <h2 style="color:var(--accent);margin-bottom:12px">📊 Commodity Leaderboard</h2>
 <p style="color:var(--muted);font-size:.86em;margin:-4px 0 12px">Spread = minimum indicative futures spread based on 1 tick; live bid/ask is not exposed by the Yahoo chart feed.</p>
 <div class="table-wrapper"><div style="overflow-x:auto">
@@ -218,11 +360,160 @@ h2{color:var(--atlas-text)!important;font-size:1.18rem!important;letter-spacing:
             <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
             <td>0.9%</td>
             <td style="color:#f59e0b">10.9x</td>
+        </tr><tr>
+            <td><strong>Silver</strong> <small style="color:var(--muted)">SI=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3ASI1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:SI1! on TradingView">Chart ↗</a></td>
+            <td>Precious Metals</td>
+            <td class="price">75.88 oz</td>
+            <td style="color:#22c55e">▲ 0.30%</td>
+            <td><strong>0.005 (0.007%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>75.66</td><td>78.15</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>2.6%</td>
+            <td style="color:#f59e0b">17.5x</td>
+        </tr><tr>
+            <td><strong>Platinum</strong> <small style="color:var(--muted)">PL=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=PL%3DF" target="_blank" rel="noopener noreferrer" title="Open PL=F on TradingView">Chart ↗</a></td>
+            <td>Precious Metals</td>
+            <td class="price">1929.50 oz</td>
+            <td style="color:#22c55e">▲ 0.41%</td>
+            <td><strong>0.1 (0.005%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>1928.72</td><td>1998.80</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>1.6%</td>
+            <td style="color:#f59e0b">19.2x</td>
+        </tr><tr>
+            <td><strong>Palladium</strong> <small style="color:var(--muted)">PA=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=PA%3DF" target="_blank" rel="noopener noreferrer" title="Open PA=F on TradingView">Chart ↗</a></td>
+            <td>Precious Metals</td>
+            <td class="price">1381.90 oz</td>
+            <td style="color:#22c55e">▲ 0.31%</td>
+            <td><strong>0.5 (0.036%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>1379.78</td><td>1445.58</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>2.0%</td>
+            <td style="color:#f59e0b">11.9x</td>
+        </tr><tr>
+            <td><strong>Crude Oil WTI</strong> <small style="color:var(--muted)">CL=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ACL1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:CL1! on TradingView">Chart ↗</a></td>
+            <td>Energy</td>
+            <td class="price">87.36 barrel</td>
+            <td style="color:#ef4444">▼ 1.73%</td>
+            <td><strong>0.01 (0.011%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>91.09</td><td>98.51</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>2.9%</td>
+            <td style="color:#64748b">0.9x</td>
+        </tr><tr>
+            <td><strong>Brent Crude</strong> <small style="color:var(--muted)">BZ=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ABRN1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:BRN1! on TradingView">Chart ↗</a></td>
+            <td>Energy</td>
+            <td class="price">91.12 barrel</td>
+            <td style="color:#ef4444">▼ 2.76%</td>
+            <td><strong>0.01 (0.011%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>96.45</td><td>104.05</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>3.1%</td>
+            <td style="color:#64748b">1.0x</td>
+        </tr><tr>
+            <td><strong>Natural Gas</strong> <small style="color:var(--muted)">NG=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=NYMEX%3ANG1%21" target="_blank" rel="noopener noreferrer" title="Open NYMEX:NG1! on TradingView">Chart ↗</a></td>
+            <td>Energy</td>
+            <td class="price">3.29 MMBtu</td>
+            <td style="color:#22c55e">▲ 0.15%</td>
+            <td><strong>0.001 (0.030%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>3.08</td><td>2.94</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>2.4%</td>
+            <td style="color:#64748b">1.1x</td>
+        </tr><tr>
+            <td><strong>Copper</strong> <small style="color:var(--muted)">HG=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=COMEX%3AHG1%21" target="_blank" rel="noopener noreferrer" title="Open COMEX:HG1! on TradingView">Chart ↗</a></td>
+            <td>Industrial Metals</td>
+            <td class="price">6.39 lb</td>
+            <td style="color:#ef4444">▼ 0.11%</td>
+            <td><strong>0.0005 (0.008%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>6.36</td><td>6.27</td>
+            <td><span style="color:#22c55e;font-weight:600">BULLISH</span></td>
+            <td>1.6%</td>
+            <td style="color:#f59e0b">11.6x</td>
+        </tr><tr>
+            <td><strong>Corn</strong> <small style="color:var(--muted)">ZC=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZC1%21" target="_blank" rel="noopener noreferrer" title="Open CBOT:ZC1! on TradingView">Chart ↗</a></td>
+            <td>Agriculture</td>
+            <td class="price">446.75 bushel</td>
+            <td style="color:#ef4444">▼ 1.97%</td>
+            <td><strong>0.25 (0.056%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>455.15</td><td>461.35</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>1.4%</td>
+            <td style="color:#64748b">1.7x</td>
+        </tr><tr>
+            <td><strong>Wheat</strong> <small style="color:var(--muted)">ZW=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZW1%21" target="_blank" rel="noopener noreferrer" title="Open CBOT:ZW1! on TradingView">Chart ↗</a></td>
+            <td>Agriculture</td>
+            <td class="price">610.50 bushel</td>
+            <td style="color:#ef4444">▼ 2.16%</td>
+            <td><strong>0.25 (0.041%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>627.75</td><td>634.96</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>1.7%</td>
+            <td style="color:#64748b">1.6x</td>
+        </tr><tr>
+            <td><strong>Soybeans</strong> <small style="color:var(--muted)">ZS=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=CBOT%3AZS1%21" target="_blank" rel="noopener noreferrer" title="Open CBOT:ZS1! on TradingView">Chart ↗</a></td>
+            <td>Agriculture</td>
+            <td class="price">1186.75 bushel</td>
+            <td style="color:#ef4444">▼ 0.65%</td>
+            <td><strong>0.25 (0.021%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>1189.80</td><td>1194.34</td>
+            <td><span style="color:#94a3b8;font-weight:600">NEUTRAL</span></td>
+            <td>0.9%</td>
+            <td style="color:#64748b">1.5x</td>
+        </tr><tr>
+            <td><strong>Sugar</strong> <small style="color:var(--muted)">SB=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=ICEUS%3ASB1%21" target="_blank" rel="noopener noreferrer" title="Open ICEUS:SB1! on TradingView">Chart ↗</a></td>
+            <td>Softs</td>
+            <td class="price">14.07 lb</td>
+            <td style="color:#22c55e">▲ 1.01%</td>
+            <td><strong>0.01 (0.071%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>14.28</td><td>14.77</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>1.7%</td>
+            <td style="color:#64748b">1.0x</td>
+        </tr><tr>
+            <td><strong>Live Cattle</strong> <small style="color:var(--muted)">LE=F</small><br><a class="tv-link" href="https://www.tradingview.com/chart/?symbol=LE%3DF" target="_blank" rel="noopener noreferrer" title="Open LE=F on TradingView">Chart ↗</a></td>
+            <td>Livestock</td>
+            <td class="price">239.05 lb</td>
+            <td style="color:#ef4444">▼ 4.28%</td>
+            <td><strong>0.025 (0.010%)</strong><br><small style="color:var(--muted)">indic. min</small></td>
+            <td>247.55</td><td>250.72</td>
+            <td><span style="color:#ef4444;font-weight:600">BEARISH</span></td>
+            <td>0.9%</td>
+            <td style="color:#64748b">0.7x</td>
         </tr></tbody></table>
 </div></div>
 
+<section class="unusual-activity">
+<style>
+.unusual-activity{position:relative;overflow:hidden;margin:0 0 24px;padding:20px;border:1px solid var(--unusual-border,rgba(245,158,11,.26));border-radius:26px;background:var(--unusual-bg,linear-gradient(135deg,rgba(245,158,11,.08),rgba(255,255,255,.9) 52%,rgba(239,68,68,.04)));box-shadow:var(--atlas-shadow,0 8px 40px rgba(0,0,0,.08)),inset 0 1px 0 rgba(255,255,255,.06);transition:background .4s ease}
+.unusual-activity:before{content:"";position:absolute;right:-80px;top:-95px;width:230px;height:230px;border-radius:999px;background:radial-gradient(circle,var(--atlas-amber,rgba(245,158,11,.20)),transparent 62%);pointer-events:none}
+.unusual-activity>*{position:relative}
+.unusual-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+.unusual-head h2{margin:0!important;color:var(--atlas-text,var(--text))!important;font-size:1.08rem!important;font-weight:950!important;letter-spacing:-.035em!important}
+.unusual-head p{margin:6px 0 0;color:var(--atlas-muted,var(--muted));font-size:.83rem;line-height:1.45}
+.unusual-count{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border-radius:14px;border:1px solid var(--atlas-amber,rgba(245,158,11,.28));background:color-mix(in srgb,var(--atlas-amber,#d97706) 14%,transparent);color:var(--atlas-amber,#d97706);font-weight:950}
+.unusual-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.unusual-card{display:flex;flex-direction:column;gap:10px;padding:13px;border:1px solid var(--atlas-border);border-radius:18px;background:var(--unusual-card-bg,var(--atlas-panel-strong))}
+.unusual-main strong{display:block;color:var(--atlas-text,var(--text));font-weight:950;line-height:1.15}
+.unusual-main small{display:block;margin-top:4px;color:var(--atlas-muted,var(--muted));font-size:.72rem;line-height:1.35}
+.unusual-flags{display:flex;gap:6px;flex-wrap:wrap}
+.unusual-flags span{padding:4px 7px;border-radius:999px;background:color-mix(in srgb,var(--atlas-amber,#d97706) 14%,transparent);border:1px solid color-mix(in srgb,var(--atlas-amber,#d97706) 24%,transparent);color:var(--atlas-amber,#d97706);font-size:.70rem;font-weight:850;white-space:nowrap}
+@media(max-width:560px){.unusual-head{display:block}.unusual-count{margin-top:10px}}
+</style>
+<div class="unusual-head"><div><h2>🚨 Unusual market pressure</h2><p>Extension, volatility or RSI readings that deserve manual chart inspection.</p></div><div class="unusual-count">3</div></div>
+<div class="unusual-grid"><div class='unusual-card'>
+  <div class='unusual-main'><strong>Corn</strong><small>ZC=F · shock · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 94</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>Wheat</strong><small>ZW=F · shock · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 94</span></div>
+</div><div class='unusual-card'>
+  <div class='unusual-main'><strong>Live Cattle</strong><small>LE=F · mixed · Manual chart check required</small></div>
+  <div class='unusual-flags'><span>ATR pct 100</span></div>
+</div></div>
+</section>
 
-<div class="footer"><p>🛢️ Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260531-111715</p></div>
+<div class="footer"><p>🛢️ Built by <strong>Atlas Nexus</strong> · Data: Yahoo Finance · Generated: 20260531-125646</p></div>
 </div><script>
 // Dual theme toggle with localStorage
 (function(){var h=document.documentElement;var b=document.getElementById('themeToggle');var s=localStorage.getItem('atlas-theme')||'light';h.setAttribute('data-theme',s);b.addEventListener('click',function(){var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('atlas-theme',n)})})();
